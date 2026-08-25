@@ -1,0 +1,522 @@
+<title>Отвоёванный вторник</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Unbounded:wght@600;700&display=swap">
+
+<style>
+:root{
+  --ground:#EDEEE9; --surface:#F8F9F5; --surface-2:#E3E7DE;
+  --ink:#16232B; --ink-soft:#3B4A4C; --muted:#6B7770;
+  --line:#D5D9CE; --line-strong:#B7BFB1;
+  --accent:#0E6B62; --accent-soft:#D6E5E1; --accent-ink:#0A4F49;
+  --signal:#8A5C12; --signal-soft:#EFE4CD;
+  --shadow:0 1px 2px rgba(22,35,43,.05), 0 8px 24px -16px rgba(22,35,43,.28);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0F1512; --surface:#161E1A; --surface-2:#1E2823;
+    --ink:#E7EAE3; --ink-soft:#C1CAC2; --muted:#8B978E;
+    --line:#26302A; --line-strong:#38453D;
+    --accent:#57B9A8; --accent-soft:#16302B; --accent-ink:#8FD6C8;
+    --signal:#D3A159; --signal-soft:#2E2512;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0F1512; --surface:#161E1A; --surface-2:#1E2823;
+  --ink:#E7EAE3; --ink-soft:#C1CAC2; --muted:#8B978E;
+  --line:#26302A; --line-strong:#38453D;
+  --accent:#57B9A8; --accent-soft:#16302B; --accent-ink:#8FD6C8;
+  --signal:#D3A159; --signal-soft:#2E2512;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:'Golos Text','Helvetica Neue',Arial,sans-serif;
+  font-size:17px; line-height:1.62; -webkit-font-smoothing:antialiased;
+}
+.page{max-width:1180px; margin:0 auto; padding:0 24px 96px}
+@media (max-width:640px){ body{font-size:16px} .page{padding:0 16px 64px} }
+
+/* ---------- shared type ---------- */
+h1,h2,h3{text-wrap:balance; margin:0}
+.eyebrow{
+  font-family:'JetBrains Mono',ui-monospace,monospace;
+  font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--muted); font-weight:500;
+}
+.prose{max-width:68ch}
+.prose p{margin:0 0 1.05em}
+.prose p:last-child{margin-bottom:0}
+strong{font-weight:700; color:var(--ink)}
+em{font-style:normal; color:var(--accent-ink); font-weight:600}
+
+/* ---------- masthead ---------- */
+.masthead{padding:64px 0 44px; border-bottom:2px solid var(--ink)}
+.wordmark{
+  font-family:'Unbounded','Golos Text',sans-serif; font-weight:700;
+  font-size:13px; letter-spacing:.28em; color:var(--accent-ink);
+  display:flex; align-items:center; gap:14px;
+}
+.wordmark::after{content:''; flex:1; height:1px; background:var(--line-strong); max-width:220px}
+h1{
+  font-family:'Unbounded','Golos Text',sans-serif; font-weight:700;
+  font-size:clamp(34px,6.2vw,64px); line-height:1.02; letter-spacing:-.02em;
+  margin:26px 0 0; max-width:15ch;
+}
+.thesis{
+  margin:22px 0 0; max-width:60ch; font-size:clamp(18px,2.1vw,21px);
+  line-height:1.5; color:var(--ink-soft);
+}
+.thesis b{color:var(--ink); font-weight:700}
+.meta{
+  margin-top:30px; display:flex; flex-wrap:wrap; gap:8px 28px;
+  font-family:'JetBrains Mono',ui-monospace,monospace; font-size:11.5px;
+  letter-spacing:.06em; color:var(--muted);
+}
+
+/* ---------- section frame ---------- */
+section{padding:56px 0 0; scroll-margin-top:20px}
+.shead{display:flex; align-items:baseline; gap:16px; margin-bottom:24px; flex-wrap:wrap}
+.snum{
+  font-family:'JetBrains Mono',ui-monospace,monospace; font-size:12px; font-weight:700;
+  color:var(--accent); letter-spacing:.08em; padding-top:6px;
+}
+h2{font-size:clamp(23px,3.2vw,31px); font-weight:800; letter-spacing:-.015em; line-height:1.15}
+h3{font-size:17.5px; font-weight:700; letter-spacing:-.005em}
+
+/* ---------- stat row ---------- */
+.stats{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:1px; background:var(--line); border:1px solid var(--line); margin-top:34px;
+}
+.stat{background:var(--surface); padding:22px 20px}
+.stat .n{
+  font-family:'Unbounded','Golos Text',sans-serif; font-weight:600;
+  font-size:clamp(28px,4.4vw,40px); line-height:1; letter-spacing:-.02em;
+  color:var(--signal); font-variant-numeric:tabular-nums;
+}
+.stat .l{margin-top:12px; font-size:14.5px; line-height:1.45; color:var(--ink-soft)}
+.stat .src{
+  margin-top:10px; font-family:'JetBrains Mono',ui-monospace,monospace;
+  font-size:10.5px; letter-spacing:.05em; color:var(--muted);
+}
+
+/* ---------- competitor map ---------- */
+.map{display:flex; flex-direction:column; gap:0; margin-top:8px}
+.tier{
+  border:1px solid var(--line-strong); background:var(--surface);
+  padding:22px 24px; display:grid; grid-template-columns:132px 1fr; gap:24px;
+}
+.tier + .tier{border-top:none}
+@media (max-width:720px){ .tier{grid-template-columns:1fr; gap:14px} }
+.tier-label{display:flex; flex-direction:column; gap:6px}
+.tier-tag{
+  font-family:'JetBrains Mono',ui-monospace,monospace; font-size:11px;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:500;
+}
+.tier-price{
+  font-family:'JetBrains Mono',ui-monospace,monospace; font-size:12px;
+  color:var(--signal); font-variant-numeric:tabular-nums; font-weight:500;
+}
+.tier h3{margin-bottom:8px}
+.tier p{margin:0 0 8px; font-size:15.5px; line-height:1.55; color:var(--ink-soft); max-width:74ch}
+.tier p:last-child{margin-bottom:0}
+.tier .verdict{
+  margin-top:12px; padding-top:12px; border-top:1px dashed var(--line-strong);
+  font-size:14.5px; color:var(--ink);
+}
+.tier .verdict b{color:var(--accent-ink)}
+
+.gap{
+  border:2px solid var(--accent); background:var(--accent-soft);
+  padding:26px 24px; display:grid; grid-template-columns:132px 1fr; gap:24px;
+  position:relative; margin:0;
+}
+@media (max-width:720px){ .gap{grid-template-columns:1fr; gap:14px} }
+.gap .tier-tag{color:var(--accent-ink); font-weight:700}
+.gap h3{font-size:20px; color:var(--ink); margin-bottom:10px}
+.gap p{margin:0 0 10px; font-size:15.5px; line-height:1.55; color:var(--ink-soft); max-width:74ch}
+.gap p:last-child{margin-bottom:0}
+
+/* ---------- position card ---------- */
+.pull{
+  margin:0 0 26px; padding:30px 32px; background:var(--ink); color:var(--ground);
+  border-radius:2px;
+}
+.pull .q{
+  font-family:'Unbounded','Golos Text',sans-serif; font-weight:600;
+  font-size:clamp(19px,3vw,27px); line-height:1.25; letter-spacing:-.015em; margin:0;
+}
+.pull .c{margin:14px 0 0; font-size:14.5px; color:var(--line-strong); letter-spacing:.02em}
+
+/* ---------- generic list blocks ---------- */
+.blocks{display:grid; gap:1px; background:var(--line); border:1px solid var(--line); margin-top:8px}
+.block{background:var(--surface); padding:20px 22px}
+.block-head{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:8px}
+.badge{
+  font-family:'JetBrains Mono',ui-monospace,monospace; font-size:10.5px; font-weight:500;
+  letter-spacing:.1em; text-transform:uppercase; padding:3px 8px;
+  background:var(--surface-2); color:var(--ink-soft); white-space:nowrap;
+}
+.badge.core{background:var(--accent); color:var(--surface)}
+:root[data-theme="dark"] .badge.core{color:#0F1512}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .badge.core{color:#0F1512} }
+.block p{margin:0 0 8px; font-size:15.5px; line-height:1.55; color:var(--ink-soft); max-width:74ch}
+.block p:last-child{margin-bottom:0}
+.example{
+  margin-top:10px; padding:11px 14px; background:var(--surface-2);
+  font-size:14.5px; line-height:1.5; color:var(--ink); border-left:3px solid var(--signal);
+}
+.example span{
+  display:block; font-family:'JetBrains Mono',ui-monospace,monospace; font-size:10px;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:5px;
+}
+
+/* ---------- funnel ---------- */
+.funnel{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; margin:8px 0 26px}
+.step{background:var(--surface); border:1px solid var(--line); padding:16px 18px; position:relative}
+.step .k{
+  font-family:'JetBrains Mono',ui-monospace,monospace; font-size:10.5px;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--accent); font-weight:700;
+}
+.step .t{margin-top:8px; font-weight:700; font-size:16px}
+.step .d{margin-top:6px; font-size:14px; line-height:1.45; color:var(--muted)}
+
+/* ---------- table ---------- */
+.tablewrap{overflow-x:auto; margin-top:8px; border:1px solid var(--line)}
+table{border-collapse:collapse; width:100%; min-width:900px; background:var(--surface)}
+th,td{text-align:left; vertical-align:top; padding:14px 16px; border-bottom:1px solid var(--line)}
+thead th{
+  background:var(--surface-2); font-family:'JetBrains Mono',ui-monospace,monospace;
+  font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft);
+  font-weight:700; position:sticky; top:0;
+}
+tbody tr:last-child td{border-bottom:none}
+td{font-size:14.5px; line-height:1.5; color:var(--ink-soft)}
+.wk{
+  font-family:'JetBrains Mono',ui-monospace,monospace; font-weight:700; font-size:12px;
+  color:var(--accent); white-space:nowrap;
+}
+.wk small{display:block; font-family:'Golos Text',sans-serif; font-weight:700; font-size:13.5px;
+  color:var(--ink); letter-spacing:0; margin-top:7px; text-transform:none; white-space:normal; line-height:1.35}
+td ul{margin:0; padding-left:16px}
+td li{margin-bottom:6px}
+td li:last-child{margin-bottom:0}
+.fn{color:var(--signal); font-weight:600}
+
+/* ---------- two column ---------- */
+.two{display:grid; grid-template-columns:1fr 1fr; gap:26px; margin-top:8px}
+@media (max-width:760px){ .two{grid-template-columns:1fr; gap:18px} }
+.panel{background:var(--surface); border:1px solid var(--line); padding:22px 24px}
+.panel h3{margin-bottom:14px}
+.panel ol,.panel ul{margin:0; padding-left:19px}
+.panel li{margin-bottom:10px; font-size:15px; line-height:1.5; color:var(--ink-soft)}
+.panel li:last-child{margin-bottom:0}
+.panel li b{color:var(--ink)}
+.panel.warn{border-color:var(--signal); background:var(--signal-soft)}
+.panel.warn li{color:var(--ink)}
+
+/* ---------- metrics ---------- */
+.metrics{display:grid; gap:1px; background:var(--line); border:1px solid var(--line); margin-top:8px}
+.metric{background:var(--surface); padding:16px 20px; display:grid; grid-template-columns:1fr auto; gap:20px; align-items:baseline}
+.metric .name{font-size:15.5px; color:var(--ink)}
+.metric .name small{display:block; color:var(--muted); font-size:13.5px; margin-top:3px}
+.metric .target{
+  font-family:'JetBrains Mono',ui-monospace,monospace; font-weight:700; font-size:14px;
+  color:var(--signal); font-variant-numeric:tabular-nums; white-space:nowrap;
+}
+.metric.off .name,.metric.off .target{color:var(--muted); text-decoration:line-through; text-decoration-thickness:1px}
+.metric.off .name small{text-decoration:none}
+
+/* ---------- sources ---------- */
+.sources{margin-top:56px; padding-top:26px; border-top:1px solid var(--line)}
+.sources ul{margin:14px 0 0; padding:0; list-style:none; display:grid; gap:7px}
+.sources li{font-size:13.5px; line-height:1.45}
+.sources a{color:var(--accent-ink); text-decoration:none; border-bottom:1px solid var(--line-strong)}
+.sources a:hover,.sources a:focus-visible{border-bottom-color:var(--accent)}
+.sources .note{margin-top:16px; font-size:13px; color:var(--muted); max-width:70ch}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+@media (prefers-reduced-motion:reduce){ *{animation:none!important; transition:none!important} }
+</style>
+
+<div class="page">
+
+<header class="masthead">
+  <div class="wordmark">ЛЮМЕН</div>
+  <h1>Ниша инструментов занята. Ниша «моя рутина» — пуста.</h1>
+  <p class="thesis">Ощущение «всё уже придумали» — правда, но не про твой рынок. Про соседний. <b>44% людей, которые не пользуются ИИ, называют главной причиной «нет подходящих задач»</b> — то есть они не видят задачу в собственной работе. Этот вопрос не закрыт никем.</p>
+  <div class="meta">
+    <span>Конкурентный анализ + контент-план</span>
+    <span>Telegram · Instagram Reels</span>
+    <span>Горизонт 6 недель</span>
+    <span>Август 2026</span>
+  </div>
+</header>
+
+<section id="diagnoz">
+  <div class="shead"><span class="snum">01</span><h2>Почему посты получаются скучными</h2></div>
+  <div class="prose">
+    <p>Дело не в том, как ты пишешь. Дело в жанре. Посты написаны в жанре <em>«полезный контент про нейросети»</em> — а в этом жанре ты соревнуешься с сотней каналов, у которых больше времени, людей и бюджета на ровно то же самое. Проигрыш заложен в выборе жанра, а не в качестве текста.</p>
+    <p>У этого жанра есть ещё одна проблема: материал в нём общий. Новая модель, свежая подборка сервисов, готовый промпт — это доступно всем одновременно, поэтому все и пишут одно и то же. Писать такое скучно ровно потому, что ты ничего не решаешь — ты пересказываешь.</p>
+    <p>Смена жанра решает обе проблемы сразу. Если единица контента — не инструмент, а <b>задача из твоей рабочей недели</b>, материал становится непубличным: ни у кого нет твоего вторника. Конкуренция исчезает не потому, что ты их обошла, а потому что вы больше не на одном поле.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="n">44%</div><div class="l">не пользуются ИИ, потому что «нет подходящих задач». Не «не умею» — <b>не вижу</b>.</div><div class="src">Применение россиянами нейросетей, 2026</div></div>
+    <div class="stat"><div class="n">36%</div><div class="l">второй барьер — не знают, что технология вообще умеет.</div><div class="src">Там же</div></div>
+    <div class="stat"><div class="n">48%</div><div class="l">компаний используют ИИ только для поиска информации. Даже «внедрившие» — на минимуме.</div><div class="src">Опрос HR-служб, июнь 2026</div></div>
+    <div class="stat"><div class="n">1 из 13</div><div class="l">компаний ввела полный или частичный запрет на ИИ. Чаще — госкомпании, банки, медицина.</div><div class="src">CNews, июль 2026</div></div>
+  </div>
+</section>
+
+<section id="karta">
+  <div class="shead"><span class="snum">02</span><h2>Карта конкурентов: три тира и дыра между ними</h2></div>
+  <div class="prose" style="margin-bottom:26px">
+    <p>Я разложила рынок по тому, <b>кому продают</b> и <b>за сколько</b> — а не по тому, кто громче. В этой раскладке видно, что «занято» и «пусто» лежат в разных местах.</p>
+  </div>
+
+  <div class="map">
+    <div class="tier">
+      <div class="tier-label"><span class="tier-tag">Тир 1</span><span class="tier-price">20–100 000 ₽</span></div>
+      <div>
+        <h3>Крупные онлайн-школы</h3>
+        <p>Нетология, Яндекс Практикум, Skillbox, Eduson, Zerocoder, BELHARD. Продают курсы и потоки. Контент — SEO-статьи, вебинары, лендинги, платный трафик. Уже ушли в вертикали: «Нейросети для бухгалтера», «для HR», «для юристов».</p>
+        <p><b>Сильны:</b> бюджет, продакшн, узнаваемость, дипломы.</p>
+        <p><b>Слабы:</b> программа рассчитана на всех сразу. Внутри — библиотека готовых промптов, а не разбор конкретной работы конкретного человека. Плюс сам жанр перегрет обещаниями «PRO за две недели» и «от 100 000 ₽ без опыта» — доверие к нему подорвано, и это работает на тебя.</p>
+        <div class="verdict"><b>Не пересекаешься:</b> они продают программу и диплом. Ты продаёшь час, после которого во вторник освободилось сорок минут.</div>
+      </div>
+    </div>
+
+    <div class="tier">
+      <div class="tier-label"><span class="tier-tag">Тир 2</span><span class="tier-price">реклама, не заявки</span></div>
+      <div>
+        <h3>Телеграм-каналы про нейросети</h3>
+        <p>Десятки взаимозаменяемых каналов: новости моделей, подборки сервисов, готовые промпты, мемы, «10 нейросетей для отчётов». Монетизация — реклама и охват.</p>
+        <p><b>Сильны:</b> скорость, объём, дешевизна производства.</p>
+        <p><b>Слабы:</b> каталог инструментов не равен изменению в работе. Человек узнал про сервис, закрыл приложение, ничего не поменял. Каналы неотличимы друг от друга — а аудитория 2026 года уже наелась однотипного ИИ-потока: время в соцсетях растёт, вовлечение падает, ИИ-контент опознаётся и раздражает.</p>
+        <div class="verdict"><b>Не пересекаешься:</b> это медиамодель. Их охваты тебе не нужны — тебе нужны восемь человек в неделю, готовых заплатить за разбор.</div>
+      </div>
+    </div>
+
+    <div class="gap">
+      <div class="tier-label"><span class="tier-tag">Дыра</span><span class="tier-price">здесь Люмен</span></div>
+      <div>
+        <h3>Конкретный менеджер за конкретным столом</h3>
+        <p>Инструменты объяснили. Корпорациям — внедрили. А человеку, у которого пятнадцать повторяющихся задач в неделю, никто не показал, <b>какие из них вообще можно отдать</b>. Именно об это спотыкаются 44% рынка, и ни один тир этот вопрос не берёт: школам невыгодно продавать час вместо курса, каналам нечего продать, интеграторам он слишком мелкий.</p>
+        <p>Продукт, который закрывает дыру, у тебя уже есть — разовый разбор. Осталось перестать делать контент тира 2 и начать делать контент этой дыры.</p>
+      </div>
+    </div>
+
+    <div class="tier">
+      <div class="tier-label"><span class="tier-tag">Тир 3</span><span class="tier-price">5–30 000 ₽/час</span></div>
+      <div>
+        <h3>B2B-интеграторы ИИ</h3>
+        <p>Агентства и консультанты по внедрению. Консультация 5–30 000 ₽ за час, стратегия внедрения 50–200 000 ₽, агент под ключ 300 000 – 1 500 000 ₽.</p>
+        <p><b>Сильны:</b> чек, кейсы с посчитанным ROI, доступ к первым лицам.</p>
+        <p><b>Слабы:</b> их клиент — собственник и директор. Цикл сделки — месяцы. До рядового менеджера они не спускаются и не будут: экономика не сходится.</p>
+        <div class="verdict"><b>Не пересекаешься — но это твой потолок роста.</b> Когда наберёшь 15–20 разборов, у тебя будет то, чего у них нет: статистика по реальной рутине живых сотрудников. С ней можно заходить к их клиентам сверху.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pozicija">
+  <div class="shead"><span class="snum">03</span><h2>Позиционирование</h2></div>
+  <div class="pull">
+    <p class="q">«Я не эксперт по нейросетям. Я менеджер, который отвоевал себе вторник».</p>
+    <p class="c">Одна строка в шапке канала. Всё остальное — следствие.</p>
+  </div>
+  <div class="prose">
+    <p>Это не приём и не легенда — это буквально твоя ситуация, и в ней три отдельных преимущества.</p>
+    <p><b>Первое: доверие.</b> Рынок перекормлен экспертами, которые учат зарабатывать на нейросетях, но сами ничем, кроме нейросетей, не занимались. Практик, у которого есть основная работа и она не про ИИ, — редкий и убедительный тип. Ты не продаёшь мечту, ты показываешь свой рабочий стол.</p>
+    <p><b>Второе: материал.</b> Контент перестаёт быть придумыванием и становится документированием. Это принципиально другая нагрузка — и это лечит то самое выгорание. Не «что бы придумать на среду», а «какую задачу я делала в понедельник».</p>
+    <p><b>Третье: отсутствие лица в кадре превращается в формат.</b> Не показывать себя — это не ограничение, а логика жанра: контент про экран, а не про личность. Скринкаст рабочего экрана — то, чего почти нет у школ (у них студийная картинка) и нет у каналов (у них текст и скриншоты).</p>
+  </div>
+</section>
+
+<section id="rubriki">
+  <div class="shead"><span class="snum">04</span><h2>Пять рубрик, из которых собирается всё</h2></div>
+  <div class="prose" style="margin-bottom:24px"><p>Больше пяти вести невозможно, меньше — однообразно. Ядро — первая; остальные её обслуживают.</p></div>
+  <div class="blocks">
+
+    <div class="block">
+      <div class="block-head"><h3>«40 минут → 4»</h3><span class="badge core">ядро · 2 раза в неделю</span></div>
+      <p>Хронометраж одной реальной задачи. Структура жёсткая: как было и сколько занимало → что именно отдала ИИ → сколько занимает теперь → что осталось делать руками. Всегда с конкретной цифрой времени, всегда с одной задачей.</p>
+      <div class="example"><span>Пример темы</span>Коммерческое предложение клиенту: было 40 минут, стало 4. Показываю по шагам, включая то, что всё равно проверяю глазами.</div>
+    </div>
+
+    <div class="block">
+      <div class="block-head"><h3>«Где он врёт»</h3><span class="badge">1 раз в неделю</span></div>
+      <p>Провал недели: что ИИ сделал неправильно, как ты это поймала, какое правило из этого выросло. Снимает главное возражение аудитории («он выдумывает, ему нельзя доверять») и одновременно отстраивает тебя от инфобизнеса, который показывает только успехи. Самый недооценённый формат в нише — почти никто так не делает.</p>
+      <div class="example"><span>Пример темы</span>Он придумал сумму в таблице, и она выглядела правдоподобно. Я чуть не отправила это клиенту. Теперь проверяю так.</div>
+    </div>
+
+    <div class="block">
+      <div class="block-head"><h3>«Экран менеджера»</h3><span class="badge core">Reels · 2 раза в неделю</span></div>
+      <p>20–40 секунд записи экрана, одно действие, без лица. Первые две секунды — готовый результат, дальше как он получился. Титры обязательны: половина смотрит без звука. Не обзор, не «пять способов» — одно действие.</p>
+      <div class="example"><span>Пример темы</span>«Вот письмо, которое я больше не пишу руками» — и дальше 25 секунд, как оно собирается.</div>
+    </div>
+
+    <div class="block">
+      <div class="block-head"><h3>«А так можно?»</h3><span class="badge">1 раз в две недели</span></div>
+      <p>Запреты, персональные данные, коммерческая тайна, что делать, если в компании ИИ нельзя. Каждая тринадцатая компания ввела запрет, ещё часть сотрудников пользуется тайком — у этих людей острая боль и ноль контента под них. Тир 1 туда не идёт (им неудобно), тир 2 не умеет.</p>
+      <div class="example"><span>Пример темы</span>У нас в компании ИИ запрещён. Три задачи, которые всё равно можно закрыть, ничего никуда не загружая.</div>
+    </div>
+
+    <div class="block">
+      <div class="block-head"><h3>«Разбор подписчика»</h3><span class="badge">1 раз в неделю, с 3-й недели</span></div>
+      <p>Человек присылает свою рутину — ты разбираешь публично. Это витрина продукта в чистом виде: аудитория видит ровно то, что покупает, ещё до покупки. Здесь же берутся кейсы и отзывы. Дополнительный эффект — тебе больше не нужно каждую неделю иметь свою интересную задачу.</p>
+      <div class="example"><span>Пример темы</span>Разбираю неделю менеджера по закупкам: 15 задач, из них 4 можно отдать сегодня. Показываю какие и почему остальные — нет.</div>
+    </div>
+
+  </div>
+</section>
+
+<section id="voronka">
+  <div class="shead"><span class="snum">05</span><h2>Воронка на заявки</h2></div>
+  <div class="prose" style="margin-bottom:22px">
+    <p>При чеке до 20 000 ₽ решение принимается быстро, но нужен поток. Значит, задача контента — не «прогреть за три месяца», а <b>дать человеку обнаружить у себя задачу</b> и тут же предложить её разобрать.</p>
+  </div>
+  <div class="funnel">
+    <div class="step"><div class="k">Шаг 1</div><div class="t">Reels</div><div class="d">Холодный охват. «Экран менеджера» и хронометражи. Цель — досмотр и переход в канал.</div></div>
+    <div class="step"><div class="k">Шаг 2</div><div class="t">Telegram</div><div class="d">Прогрев на рубриках. Здесь человек убеждается, что ты практик, а не продавец курсов.</div></div>
+    <div class="step"><div class="k">Шаг 3</div><div class="t">Карта рутины</div><div class="d">Лид-магнит по кодовому слову в комментариях. Бот выдаёт таблицу-диагностику.</div></div>
+    <div class="step"><div class="k">Шаг 4</div><div class="t">Разбор</div><div class="d">На третий день бот зовёт на консультацию. Тёплые приходят раньше, сами.</div></div>
+  </div>
+  <div class="two">
+    <div class="panel">
+      <h3>Лид-магнит «Карта рутины»</h3>
+      <p style="margin:0 0 12px; font-size:15px; line-height:1.5; color:var(--ink-soft)">Не «100 промптов» — это раздают все, и это не работает. Таблица на одну страницу:</p>
+      <ol>
+        <li>Выпиши <b>15 задач</b>, которые повторяются у тебя каждую неделю.</li>
+        <li>Отметь каждую по трём признакам: <b>повторяется дословно</b> / <b>есть готовый образец результата</b> / <b>ошибка не критична</b>.</li>
+        <li>Задачи с тремя галочками — твои кандидаты. Обычно их три-четыре.</li>
+      </ol>
+      <p style="margin:14px 0 0; font-size:15px; line-height:1.5; color:var(--ink)">Он снимает барьер тех самых 44%: человек <b>своими руками</b> обнаруживает, что подходящие задачи у него есть. Следующий вопрос у него возникает сам — «а помогите это сделать». Это и есть твоя консультация.</p>
+    </div>
+    <div class="panel">
+      <h3>Механика и правила</h3>
+      <ul>
+        <li><b>Кодовое слово в комментариях</b>, а не ссылка в шапке. Комментарий поднимает пост в выдаче Telegram и делает первое микро-действие — дальше человеку легче.</li>
+        <li><b>Один призыв на пост.</b> Не три. В рубрике «Разбор подписчика» призыв всегда один и тот же — так он запоминается.</li>
+        <li><b>Окно записи, а не постоянный приём.</b> Открывай запись на 5-й неделе и закрывай на 6-й: при быстром решении дедлайн работает сильнее прогрева.</li>
+        <li><b>Reels ведёт в канал, канал — в бот, бот — в личку.</b> Не пытайся продавать прямо из Reels: там холодная аудитория и другой темп.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="plan">
+  <div class="shead"><span class="snum">06</span><h2>Контент-план на шесть недель</h2></div>
+  <div class="prose" style="margin-bottom:22px"><p>Каждая неделя — одна тема. Внутри недели: 2 Reels, 3 поста, одно действие воронки. Темы конкретные, их можно брать и снимать.</p></div>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th style="width:150px">Неделя</th><th style="width:31%">Reels · 2</th><th style="width:38%">Посты · 3</th><th>Воронка</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="wk">01<small>Сколько стоит твоя рутина</small></td>
+        <td><ul><li>«40 минут на одно письмо клиенту. Каждый день» — экран, таймер</li><li>«6 задач × 5 дней. Посчитай, сколько это часов в месяц»</li></ul></td>
+        <td><ul><li><b>Манифест:</b> «Я не эксперт по нейросетям. Я менеджер, который отвоевал себе вторник»</li><li><b>40→4:</b> коммерческое предложение — было 40 минут, стало 4</li><li><b>Где он врёт:</b> первое, что он мне испортил, и почему я всё равно продолжила</li></ul></td>
+        <td><span class="fn">Подготовка.</span> Переписать шапку и закреп канала под новое позиционирование. Анонсировать «Карту рутины» на следующую неделю.</td>
+      </tr>
+      <tr>
+        <td class="wk">02<small>Задача, а не инструмент</small></td>
+        <td><ul><li>«Не спрашивай, какая нейросеть лучше. Спроси, какая твоя задача повторяется»</li><li>«Три признака задачи, которую можно отдать» — экран, таблица</li></ul></td>
+        <td><ul><li>Почему подборки «10 нейросетей для работы» ничего не меняют в твоей работе</li><li><b>40→4:</b> сводка по 14 поставщикам — два часа превратились в пятнадцать минут</li><li><b>Карта рутины:</b> выпиши 15 задач своей недели — с выдачей файла</li></ul></td>
+        <td><span class="fn">Запуск лид-магнита.</span> Кодовое слово в комментариях, бот, автоприглашение на третий день.</td>
+      </tr>
+      <tr>
+        <td class="wk">03<small>Где он врёт</small></td>
+        <td><ul><li>«Он придумал цифру. Я чуть не отправила это клиенту»</li><li>«Как за 10 секунд проверить, не выдумал ли он»</li></ul></td>
+        <td><ul><li><b>Где он врёт:</b> три типа ошибок, которые он делает всегда</li><li>Что я не отдаю ИИ никогда — и почему это не про недоверие</li><li>Правило одного образца: без примера он всегда пишет мимо</li></ul></td>
+        <td><span class="fn">Первые разборы.</span> Написать вручную тем, кто скачал карту на прошлой неделе. Первые платные — отсюда.</td>
+      </tr>
+      <tr>
+        <td class="wk">04<small>А так можно?</small></td>
+        <td><ul><li>«У нас в компании ИИ нельзя. Что делать»</li><li>«Что нельзя вставлять в чат никогда» — экран, список</li></ul></td>
+        <td><ul><li>Каждая 13-я компания запретила ИИ. Разбираю, что при этом реально можно</li><li>Персданные и коммерческая тайна: три правила, чтобы не влететь</li><li><b>40→4:</b> задача, которая решается вообще без загрузки данных</li></ul></td>
+        <td><span class="fn">Новый сегмент.</span> Отдельное приглашение на разбор для тех, «кому нельзя» — у них нет альтернатив вообще.</td>
+      </tr>
+      <tr>
+        <td class="wk">05<small>Разборы</small></td>
+        <td><ul><li>«Разбираю рутину подписчика: менеджер по закупкам» — до и после на экране</li><li>«Самая частая задача, которую мне присылают»</li></ul></td>
+        <td><ul><li><b>Разбор подписчика:</b> полный кейс с цифрами</li><li><b>Разбор подписчика:</b> второй кейс, другая профессия</li><li>Что я вижу в девяти разборах из десяти</li></ul></td>
+        <td><span class="fn">Окно записи открыто.</span> Ограниченное число мест, дедлайн — конец следующей недели.</td>
+      </tr>
+      <tr>
+        <td class="wk">06<small>Результаты</small></td>
+        <td><ul><li>«Что изменилось у человека через две недели после разбора»</li><li>«Три задачи, которые освобождают больше всего времени»</li></ul></td>
+        <td><ul><li>Кейс с цифрами до и после, с именем и профессией</li><li><b>Где он врёт:</b> чего разбор не даёт — честно, до покупки</li><li>Прямое предложение: что входит, сколько стоит, до какого числа</li></ul></td>
+        <td><span class="fn">Закрытие окна.</span> Оставшихся — в лист ожидания. Он станет стартовой базой следующего цикла.</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="rezhim">
+  <div class="shead"><span class="snum">07</span><h2>Режим производства: 90 минут в неделю</h2></div>
+  <div class="two">
+    <div class="panel">
+      <h3>Одна сессия = неделя контента</h3>
+      <ol>
+        <li><b>15 мин.</b> Выбрать одну реальную задачу этой недели. Не искать интересную — взять ту, что была.</li>
+        <li><b>20 мин.</b> Записать экран, как ты её делаешь. Один дубль, без монтажа и без сценария.</li>
+        <li><b>40 мин.</b> Из одного материала собрать три единицы: нарезка на Reels, пост-расшифровка, короткая заметка про то, где он ошибся.</li>
+        <li><b>15 мин.</b> Поставить в отложенный постинг и закрыть ноутбук.</li>
+      </ol>
+      <p style="margin:16px 0 0; font-size:15px; line-height:1.5; color:var(--ink)">Если на неделе не было подходящей задачи — <b>не выдумывай</b>. Ставь разбор подписчика: материал приходит извне, и неделя закрывается без тебя.</p>
+    </div>
+    <div class="panel warn">
+      <h3>Чего не делать, чтобы не скатиться обратно</h3>
+      <ul>
+        <li>Не публиковать новости моделей и обновлений. Это поле тира 2, там ты проиграешь по скорости.</li>
+        <li>Не делать подборок «10 нейросетей для…». Это ровно тот контент, от которого тебе скучно писать, а аудитории — читать.</li>
+        <li>Не выпускать пост, в котором нет конкретной задачи и конкретного времени.</li>
+        <li>Не показывать только успехи. Провалы в этой нише конвертируют лучше — они и есть доказательство, что ты правда работаешь, а не продаёшь.</li>
+        <li>Не ставить больше одного призыва в пост.</li>
+        <li>Не генерировать посты целиком. Аудитория опознаёт машинный текст и реагирует на него хуже — а у тебя весь капитал построен на том, что за экраном живой человек.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="metriki">
+  <div class="shead"><span class="snum">08</span><h2>Что считать</h2></div>
+  <div class="prose" style="margin-bottom:20px"><p>При чеке до 20 000 ₽ охваты почти ничего не говорят. Считать имеет смысл четыре вещи, и три из них — про действие.</p></div>
+  <div class="metrics">
+    <div class="metric"><div class="name">Заявок в неделю<small>Кодовое слово + личные сообщения</small></div><div class="target">8–12 к 6-й неделе</div></div>
+    <div class="metric"><div class="name">Конверсия «скачал карту → заявка»<small>Главный индикатор, что лид-магнит попал в боль</small></div><div class="target">5–10%</div></div>
+    <div class="metric"><div class="name">Досмотр Reels до конца<small>Не просмотры. Ниже порога — формат не работает, менять первые две секунды</small></div><div class="target">выше 30%</div></div>
+    <div class="metric"><div class="name">Дошли до разбора после заявки<small>Если проседает — проблема в цене или в описании, не в контенте</small></div><div class="target">выше 50%</div></div>
+    <div class="metric off"><div class="name">Лайки, охваты постов, число подписчиков<small>Смотреть можно, принимать решения — нельзя</small></div><div class="target">не считать</div></div>
+  </div>
+</section>
+
+<section class="sources" id="istochniki">
+  <div class="eyebrow">Источники</div>
+  <ul>
+    <li><a href="https://ict.moscow/projects/ai/research/primenenie-rossiianami-neirosetei-v-2026-godu/">Применение россиянами нейросетей в 2026 году — ICT.Moscow</a></li>
+    <li><a href="https://www.cnews.ru/news/line/2026-07-02_3_ofisnyh_sotrudnikov_skryvayut">3% офисных сотрудников скрывают, что используют ИИ — CNews, июль 2026</a></li>
+    <li><a href="https://ria.ru/20260220/ii-2075898358.html">Более четверти россиян активно используют нейросети в работе — РИА Новости, февраль 2026</a></li>
+    <li><a href="https://vc.ru/id6033428/3019371-neyroslop-kak-ii-kontent-vyzyvaet-ustalost">Нейрослоп: почему ИИ-контент начинает раздражать аудиторию — vc.ru</a></li>
+    <li><a href="https://www.sostav.ru/blogs/282080/74074">AI-контент в 2026: почему «реальность» снова выигрывает — Sostav</a></li>
+    <li><a href="https://leadmachine.ru/strategy-rubric/trendy-marketinga-2026/">Тренды интернет-маркетинга 2026: нейросети, экономия, усталость — LeadMachine</a></li>
+    <li><a href="https://flysk.ru/blog/skolko-stoit-vnedrenie-ii-2026">Сколько стоит внедрение ИИ в 2026 году: цены и расходы — Рецепты Роста</a></li>
+    <li><a href="https://habr.com/ru/articles/1067438/">Сколько стоит внедрение ИИ в 2026 году — Хабр</a></li>
+    <li><a href="https://practicum.yandex.ru/ai-for-work/">Курс «Нейросети для работы» — Яндекс Практикум</a></li>
+    <li><a href="https://netology.ru/programs/ai-manager">Курс «Нейросети для бизнеса» — Нетология</a></li>
+    <li><a href="https://skillbox.ru/course/nejroseti-dlya-biznesa/">Курс «Нейросети для бизнеса» — Skillbox</a></li>
+    <li><a href="https://eduson.academy/ai-for-accountants">Нейросети для бухгалтера — Eduson Academy</a></li>
+    <li><a href="https://www.cossa.ru/mystudy/346722/">Обучение нейросетям и AI: ТОП-18 курсов для руководителей, маркетинга, дизайна и HR — Cossa</a></li>
+    <li><a href="https://www.sostav.ru/blogs/292748/101299">Обучение работе с нейросетями в 2026: ТОП-12 курсов — Sostav</a></li>
+    <li><a href="https://kod.ru/bariery-vnedrieniya-ai-v-malom-i-srednem-biznese">Барьеры внедрения ИИ в малом и среднем бизнесе: 86 глубинных интервью — Код</a></li>
+    <li><a href="https://kedu.ru/press-center/dlya-uchebnykh-tsentrov/voronka-dlya-kursov-v-telegram/">Воронка продаж для курсов в Telegram — Kedu</a></li>
+    <li><a href="https://postium.ru/algoritmy-instagram-2025/">Как работают алгоритмы Instagram и рекомендации Reels в 2026 — Postium</a></li>
+  </ul>
+  <p class="note">Часть источников недоступна напрямую из рабочей среды — цифры взяты из поисковых сводок по этим публикациям. Перед тем как выносить конкретный процент в пост, лучше открыть первоисточник и сверить формулировку.</p>
+</section>
+
+</div>
