@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Карта рутины — Люмен</title>
+<meta name="description" content="Диагностика рабочей недели за десять минут: какие из твоих задач можно отдать ИИ уже сегодня, а какие пока рано. Без регистрации.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="Карта рутины">
+<meta property="og:description" content="Диагностика рабочей недели за десять минут: какие из твоих задач можно отдать ИИ уже сегодня, а какие пока рано. Без регистрации.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://afkostareva-lab.github.io/Start/">
+<meta property="og:image" content="https://afkostareva-lab.github.io/Start/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Unbounded:wght@600;700&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ctext y=%2226%22 font-size=%2226%22%3E%F0%9F%97%BA%EF%B8%8F%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+<style>
+:root{
+  --ground:#EDEEE9; --surface:#F8F9F5; --surface-2:#E3E7DE; --surface-3:#DCE1D7;
+  --ink:#16232B; --ink-soft:#3B4A4C; --muted:#6B7770;
+  --line:#D5D9CE; --line-strong:#B7BFB1;
+  --accent:#0E6B62; --accent-soft:#D6E5E1; --accent-ink:#0A4F49; --on-accent:#F8F9F5;
+  --signal:#8A5C12; --signal-soft:#EFE4CD;
+  --warn:#8A3A12; --warn-soft:#F0DDD1;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0F1512; --surface:#161E1A; --surface-2:#1E2823; --surface-3:#26312B;
+    --ink:#E7EAE3; --ink-soft:#C1CAC2; --muted:#8B978E;
+    --line:#26302A; --line-strong:#38453D;
+    --accent:#57B9A8; --accent-soft:#16302B; --accent-ink:#8FD6C8; --on-accent:#0F1512;
+    --signal:#D3A159; --signal-soft:#2E2512;
+    --warn:#D98A5E; --warn-soft:#31200F;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0F1512; --surface:#161E1A; --surface-2:#1E2823; --surface-3:#26312B;
+  --ink:#E7EAE3; --ink-soft:#C1CAC2; --muted:#8B978E;
+  --line:#26302A; --line-strong:#38453D;
+  --accent:#57B9A8; --accent-soft:#16302B; --accent-ink:#8FD6C8; --on-accent:#0F1512;
+  --signal:#D3A159; --signal-soft:#2E2512;
+  --warn:#D98A5E; --warn-soft:#31200F;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:'Golos Text','Helvetica Neue',Arial,sans-serif;
+  font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
+  padding-bottom:92px;
+}
+.wrap{max-width:1040px; margin:0 auto; padding:0 20px}
+@media (max-width:640px){ .wrap{padding:0 14px} }
+
+.eyebrow{font-family:'JetBrains Mono',ui-monospace,monospace; font-size:11px;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--muted); font-weight:500}
+h1,h2,h3{margin:0; text-wrap:balance}
+
+/* header */
+header{padding:44px 0 30px; border-bottom:2px solid var(--ink)}
+.wordmark{font-family:'Unbounded','Golos Text',sans-serif; font-weight:700; font-size:12px;
+  letter-spacing:.28em; color:var(--accent-ink); display:flex; align-items:center; gap:13px}
+.wordmark::after{content:''; flex:1; height:1px; background:var(--line-strong); max-width:180px}
+h1{font-family:'Unbounded','Golos Text',sans-serif; font-weight:700;
+  font-size:clamp(30px,5.4vw,48px); line-height:1.05; letter-spacing:-.02em; margin:20px 0 0}
+.lede{margin:16px 0 0; max-width:62ch; font-size:clamp(16px,1.9vw,18px); color:var(--ink-soft)}
+.lede b{color:var(--ink)}
+
+/* how */
+.how{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:1px;
+  background:var(--line); border:1px solid var(--line); margin:28px 0 0}
+.how div{background:var(--surface); padding:16px 18px}
+.how .k{font-family:'JetBrains Mono',ui-monospace,monospace; font-size:10.5px;
+  letter-spacing:.13em; text-transform:uppercase; color:var(--accent); font-weight:700}
+.how p{margin:8px 0 0; font-size:14.5px; line-height:1.5; color:var(--ink-soft)}
+.how b{color:var(--ink)}
+
+section{padding:40px 0 0}
+.shead{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:6px}
+h2{font-size:clamp(21px,2.9vw,27px); font-weight:800; letter-spacing:-.015em}
+.sub{margin:0 0 20px; font-size:15px; color:var(--muted); max-width:66ch}
+
+/* sheet */
+.sheet{border:1px solid var(--line-strong); background:var(--surface)}
+.colhead{display:grid; grid-template-columns:26px minmax(0,1fr) 74px 74px 108px 108px 118px;
+  gap:10px; padding:11px 14px; background:var(--surface-2); border-bottom:1px solid var(--line-strong);
+  font-family:'JetBrains Mono',ui-monospace,monospace; font-size:9.5px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--ink-soft); font-weight:700; align-items:end; line-height:1.3}
+.row{display:grid; grid-template-columns:26px minmax(0,1fr) 74px 74px 108px 108px 118px;
+  gap:10px; padding:9px 14px; border-bottom:1px solid var(--line); align-items:center}
+.row:last-child{border-bottom:none}
+.row.filled{background:var(--surface)}
+.row.hit{background:var(--accent-soft)}
+.rn{font-family:'JetBrains Mono',ui-monospace,monospace; font-size:12px; color:var(--muted);
+  font-variant-numeric:tabular-nums}
+input[type=text],input[type=number]{
+  width:100%; font-family:inherit; font-size:15px; color:var(--ink); background:transparent;
+  border:none; border-bottom:1px solid var(--line-strong); padding:7px 2px; border-radius:0;
+}
+input[type=number]{font-family:'JetBrains Mono',ui-monospace,monospace; font-size:14px;
+  font-variant-numeric:tabular-nums; text-align:center}
+input::placeholder{color:var(--muted); opacity:.7}
+input:focus{outline:none; border-bottom:2px solid var(--accent); padding-bottom:6px}
+input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{
+  -webkit-appearance:none; margin:0}
+input[type=number]{-moz-appearance:textfield}
+
+.chk{position:relative; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; min-height:38px}
+.chk input{position:absolute; inset:0; width:100%; height:100%; margin:0; opacity:0; cursor:pointer}
+.box{width:24px; height:24px; border:1.5px solid var(--line-strong); background:var(--surface);
+  display:grid; place-items:center; flex:none; pointer-events:none;
+  transition:background .12s, border-color .12s}
+.chk input:checked + .box{background:var(--accent); border-color:var(--accent)}
+.box svg{width:14px; height:14px; opacity:0; stroke:var(--on-accent); stroke-width:3;
+  fill:none; stroke-linecap:round; stroke-linejoin:round}
+.chk input:checked + .box svg{opacity:1}
+.chk input:focus-visible + .box{outline:2px solid var(--accent); outline-offset:2px}
+.chk-lab{display:none; pointer-events:none}
+
+@media (max-width:860px){
+  .colhead{display:none}
+  .row{grid-template-columns:1fr; gap:0; padding:16px 14px; border-bottom:8px solid var(--ground)}
+  .rn{font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; margin-bottom:2px}
+  .rn::after{content:' задача'}
+  .m-nums{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px}
+  .m-nums label{display:block; font-family:'JetBrains Mono',ui-monospace,monospace;
+    font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:2px}
+  .chk{justify-content:flex-start; gap:11px; margin-top:9px; min-height:42px}
+  .chk-lab{display:block; font-size:14.5px; color:var(--ink-soft); line-height:1.35}
+  .row.hit .chk-lab{color:var(--ink)}
+}
+@media (min-width:861px){ .m-nums{display:contents} .m-nums label{display:none} }
+
+.sheetfoot{display:flex; flex-wrap:wrap; gap:12px; align-items:center;
+  justify-content:space-between; margin-top:14px}
+button{font-family:inherit; font-size:14.5px; font-weight:600; cursor:pointer; border-radius:0;
+  padding:11px 18px; transition:background .12s, color .12s}
+.btn{background:var(--surface); color:var(--accent-ink); border:1.5px solid var(--accent)}
+.btn:hover{background:var(--accent); color:var(--on-accent)}
+.btn-quiet{background:transparent; color:var(--muted); border:1px solid var(--line-strong)}
+.btn-quiet:hover{color:var(--ink); border-color:var(--line-strong)}
+button:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+
+.nudge{margin:16px 0 0; padding:14px 16px; background:var(--signal-soft);
+  border-left:3px solid var(--signal); font-size:14.5px; line-height:1.5; color:var(--ink); max-width:74ch}
+
+
+/* примеры */
+.exwrap{border:1px solid var(--line-strong); background:var(--surface); margin-top:8px}
+.ex{border-bottom:1px solid var(--line)}
+.ex:last-child{border-bottom:none}
+.ex summary{padding:13px 16px; cursor:pointer; display:flex; align-items:center; gap:12px;
+  flex-wrap:wrap; list-style:none; font-size:15.5px; font-weight:600; color:var(--ink)}
+.ex summary::-webkit-details-marker{display:none}
+.ex summary::before{content:'+'; font-family:'JetBrains Mono',ui-monospace,monospace;
+  font-size:15px; font-weight:700; color:var(--accent); width:14px; flex:none; line-height:1}
+.ex[open] summary::before{content:'−'}
+.ex summary:hover{background:var(--surface-2)}
+.ex summary:focus-visible{outline:2px solid var(--accent); outline-offset:-2px}
+.ex-g{margin-left:auto; font-family:'JetBrains Mono',ui-monospace,monospace; font-size:10px;
+  letter-spacing:.09em; text-transform:uppercase; padding:4px 9px; white-space:nowrap; font-weight:500}
+.ex-g.g1{background:var(--accent); color:var(--on-accent)}
+.ex-g.g2{background:var(--surface-3); color:var(--ink-soft)}
+.ex-g.g3{background:var(--signal-soft); color:var(--signal)}
+@media (max-width:600px){ .ex-g{margin-left:26px} }
+.ex-body{padding:2px 16px 18px 42px; display:grid; gap:16px}
+@media (max-width:600px){ .ex-body{padding-left:16px} }
+.ex-k{display:block; font-family:'JetBrains Mono',ui-monospace,monospace; font-size:9.5px;
+  letter-spacing:.11em; text-transform:uppercase; color:var(--muted); font-weight:700; margin-bottom:8px}
+.ex-steps{margin:0; padding-left:19px; display:grid; gap:6px}
+.ex-steps li{font-size:15px; line-height:1.5; color:var(--ink-soft)}
+.ex-steps li::marker{color:var(--accent); font-weight:700}
+.promptbox{position:relative; border:1px solid var(--line-strong); background:var(--surface-2)}
+.promptbox pre{margin:0; padding:15px 16px 46px; font-family:'JetBrains Mono',ui-monospace,monospace;
+  font-size:13px; line-height:1.62; color:var(--ink); white-space:pre-wrap; word-break:break-word;
+  max-height:none}
+button.copy{position:absolute; right:10px; bottom:10px; padding:7px 13px; font-size:12.5px;
+  font-weight:600; background:var(--surface); color:var(--accent-ink); border:1.5px solid var(--accent)}
+button.copy:hover{background:var(--accent); color:var(--on-accent)}
+button.copy.done{background:var(--accent); color:var(--on-accent); border-color:var(--accent)}
+.ex-keep{margin:0; font-size:14.5px; line-height:1.5; color:var(--muted)}
+.ex-keep b{color:var(--ink-soft)}
+.exlead{margin:0 0 18px; max-width:70ch; font-size:15.5px; line-height:1.55; color:var(--ink-soft)}
+.exlead b{color:var(--ink)}
+
+/* results */
+.empty{padding:28px 20px; border:1px dashed var(--line-strong); color:var(--muted);
+  font-size:15px; text-align:left}
+.groups{display:grid; gap:14px}
+.group{border:1px solid var(--line-strong); background:var(--surface)}
+.group.g1{border-color:var(--accent); border-width:2px}
+.ghead{padding:15px 18px; display:flex; gap:14px; align-items:baseline;
+  flex-wrap:wrap; border-bottom:1px solid var(--line)}
+.group.g1 .ghead{background:var(--accent-soft); border-bottom-color:var(--accent)}
+.gtitle{font-size:17.5px; font-weight:700; letter-spacing:-.005em}
+.gcount{font-family:'JetBrains Mono',ui-monospace,monospace; font-size:11.5px; font-weight:700;
+  letter-spacing:.08em; color:var(--muted); font-variant-numeric:tabular-nums}
+.gwhy{padding:14px 18px 4px; font-size:14.5px; line-height:1.55; color:var(--ink-soft); max-width:76ch}
+.gwhy b{color:var(--ink)}
+.gitems{list-style:none; margin:0; padding:6px 18px 16px; display:grid; gap:7px}
+.gitems li{display:flex; gap:12px; align-items:baseline; font-size:15.5px;
+  padding-bottom:7px; border-bottom:1px solid var(--line)}
+.gitems li:last-child{border-bottom:none; padding-bottom:0}
+.gitems .h{margin-left:auto; font-family:'JetBrains Mono',ui-monospace,monospace; font-size:12.5px;
+  color:var(--signal); font-variant-numeric:tabular-nums; white-space:nowrap; font-weight:500}
+
+.verdict{border:2px solid var(--ink); background:var(--ink); color:var(--ground); padding:26px 28px; margin-bottom:20px}
+.verdict .big{font-family:'Unbounded','Golos Text',sans-serif; font-weight:600;
+  font-size:clamp(26px,5vw,42px); line-height:1.05; letter-spacing:-.02em; font-variant-numeric:tabular-nums}
+.verdict .cap{margin-top:12px; font-size:15px; line-height:1.5; color:var(--line-strong); max-width:60ch}
+.verdict .cap b{color:var(--ground)}
+
+/* sticky bar */
+.bar{position:fixed; left:0; right:0; bottom:0; background:var(--surface);
+  border-top:2px solid var(--ink); z-index:20}
+.barin{max-width:1040px; margin:0 auto; padding:11px 20px; display:flex; gap:18px 26px;
+  align-items:center; flex-wrap:wrap}
+.tick{display:flex; flex-direction:column; gap:1px}
+.tick .v{font-family:'JetBrains Mono',ui-monospace,monospace; font-weight:700; font-size:17px;
+  color:var(--ink); font-variant-numeric:tabular-nums; line-height:1.15}
+.tick .v.acc{color:var(--accent-ink)}
+.tick .k{font-family:'JetBrains Mono',ui-monospace,monospace; font-size:9.5px;
+  letter-spacing:.11em; text-transform:uppercase; color:var(--muted)}
+.bar .btn{margin-left:auto; padding:10px 16px; font-size:14px}
+@media (max-width:640px){ .barin{padding:9px 14px; gap:14px} .tick .v{font-size:15px} .bar .btn{width:100%; margin-left:0} }
+
+/* cta */
+.cta{margin-top:44px; border:2px solid var(--accent); background:var(--accent-soft); padding:28px}
+.cta h2{margin-bottom:12px}
+.cta p{margin:0 0 12px; font-size:15.5px; line-height:1.6; color:var(--ink-soft); max-width:70ch}
+.cta p:last-child{margin-bottom:0}
+.cta .word{font-family:'JetBrains Mono',ui-monospace,monospace; font-weight:700;
+  background:var(--ink); color:var(--ground); padding:3px 9px; letter-spacing:.08em; white-space:nowrap}
+footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--line);
+  font-size:13px; color:var(--muted)}
+
+@media print{
+  body{padding-bottom:0; background:#fff}
+  .bar,.sheetfoot,.nudge{display:none}
+  .row{break-inside:avoid}
+}
+@media (prefers-reduced-motion:reduce){ *{animation:none!important; transition:none!important} }
+</style>
+
+<div class="wrap">
+
+<header>
+  <div class="wordmark">ЛЮМЕН</div>
+  <h1>Карта рутины</h1>
+  <p class="lede">Главная причина, по которой люди не используют ИИ в работе, — <b>не «не умею», а «у меня нет подходящих задач»</b>. Почти всегда это неправда: задачи есть, их просто не видно изнутри собственной недели. Эта таблица делает их видимыми за десять минут.</p>
+  <div class="how">
+    <div><div class="k">Шаг 1</div><p>Выпиши задачи, которые <b>повторяются каждую неделю</b>. Не проекты — именно повторяющиеся действия.</p></div>
+    <div><div class="k">Шаг 2</div><p>Для каждой поставь <b>сколько минут</b> она занимает и <b>сколько раз в неделю</b> ты её делаешь.</p></div>
+    <div><div class="k">Шаг 3</div><p>Отметь три признака. Третий — <b>не про важность задачи</b>, а про то, увидишь ли ты ошибку перед тем, как результат уйдёт дальше.</p></div>
+  </div>
+</header>
+
+
+
+<section id="primery">
+  <div class="shead"><h2>Что вообще значит «отдать задачу»</h2></div>
+  <p class="exlead">Десять задач из разных профессий — раскрой любую и увидишь, что конкретно печатать в чат. Запросы можно копировать как есть, подставив своё. Устроены они все одинаково, и это главное, чему стоит научиться: <b>сначала образец, потом факты, потом прямой запрет додумывать.</b> Без первого получается вода, без третьего — выдуманные цифры.</p>
+  <div class="exwrap">
+    <details class="ex">
+      <summary><span>Письма клиентам по статусу заказа</span><span class="ex-g g1">отдавай сегодня</span></summary>
+      <div class="ex-body">
+        <div class="ex-block"><span class="ex-k">Что делать</span><ol class="ex-steps"><li>Один раз собери пять своих прошлых писем на похожую тему — это образец тона.</li><li>Вставь запрос ниже, подставив свои письма. Сохрани его: дальше меняешь только факты.</li><li>Проверь цифры и даты, отправь.</li></ol></div>
+        <div class="ex-block">
+          <span class="ex-k">Готовый запрос — скопируй и подставь своё</span>
+          <div class="promptbox">
+            <pre id="pr0">Ниже пять моих писем клиентам. Изучи, как я пишу: длину, тон, как здороваюсь и прощаюсь, как подаю плохие новости.
+
+[вставить письма]
+
+Теперь напиши письмо тем же тоном. Факты: заказ №1234, задержка пять дней, причина — таможенное оформление. Предложи клиенту два варианта: ждать целиком или забрать готовую часть сейчас. Не извиняйся дважды. Закончи вопросом.</pre>
+            <button class="copy" type="button" data-for="pr0">Копировать</button>
+          </div>
+        </div>
+        <p class="ex-keep"><b>Себе оставляешь:</b> Проверить факты и отправить.</p>
+      </div>
+    </details>
+    <details class="ex">
+      <summary><span>Недельная сводка руководителю</span><span class="ex-g g1">отдавай сегодня</span></summary>
+      <div class="ex-body">
+        <div class="ex-block"><span class="ex-k">Что делать</span><ol class="ex-steps"><li>Выгрузи данные за неделю как есть — таблицей, списком, хоть скриншотом.</li><li>Приложи прошлую сводку как образец структуры.</li><li>Расставь акценты сама: что здесь важно, а что шум.</li></ol></div>
+        <div class="ex-block">
+          <span class="ex-k">Готовый запрос — скопируй и подставь своё</span>
+          <div class="promptbox">
+            <pre id="pr1">Вот моя сводка за прошлую неделю — используй её структуру и стиль как образец:
+
+[вставить сводку]
+
+Вот данные за эту неделю:
+
+[вставить данные]
+
+Собери сводку в том же формате. Числа бери только из данных: ничего не считай сам и не додумывай. Если для раздела данных нет — напиши «нет данных», а не пропускай раздел.</pre>
+            <button class="copy" type="button" data-for="pr1">Копировать</button>
+          </div>
+        </div>
+        <p class="ex-keep"><b>Себе оставляешь:</b> Решить, что вынести наверх.</p>
+      </div>
+    </details>
+    <details class="ex">
+      <summary><span>Разбор откликов на вакансию</span><span class="ex-g g1">отдавай сегодня</span></summary>
+      <div class="ex-body">
+        <div class="ex-block"><span class="ex-k">Что делать</span><ol class="ex-steps"><li>Сформулируй три-четыре критерия одной строкой — только измеримые.</li><li>Вставь отклики пачкой, пронумерованными.</li><li>Решение по каждому кандидату принимаешь сама.</li></ol></div>
+        <div class="ex-block">
+          <span class="ex-k">Готовый запрос — скопируй и подставь своё</span>
+          <div class="promptbox">
+            <pre id="pr2">Критерии: опыт в закупках от двух лет, английский от B1, готовность работать из офиса в Москве.
+
+Ниже отклики, каждый под своим номером:
+
+[вставить отклики]
+
+Разбей их на три группы: подходит, под вопросом, не подходит. Для каждого — одна строка почему, со ссылкой на конкретный критерий. Личные качества не оценивай, только соответствие критериям.</pre>
+            <button class="copy" type="button" data-for="pr2">Копировать</button>
+          </div>
+        </div>
+        <p class="ex-keep"><b>Себе оставляешь:</b> Выбор кандидатов. ИИ сортирует, а не отбирает.</p>
+      </div>
+    </details>
+    <details class="ex">
+      <summary><span>Отчёт по расходам за месяц</span><span class="ex-g g3">только проверяемая часть</span></summary>
+      <div class="ex-body">
+        <div class="ex-block"><span class="ex-k">Что делать</span><ol class="ex-steps"><li>Числа не отдавай вообще. Отдай структуру и формулировки.</li><li>Проси заготовку, а не расчёт.</li><li>Числа подставляешь сама, в своей таблице.</li></ol></div>
+        <div class="ex-block">
+          <span class="ex-k">Готовый запрос — скопируй и подставь своё</span>
+          <div class="promptbox">
+            <pre id="pr3">Вот структура моего отчёта по расходам: [перечислить разделы].
+Вот комментарии, которые я обычно пишу к отклонениям: [два-три примера].
+
+Собери шаблон отчёта на этот месяц: разделы в том же порядке, пустые поля под числа и заготовки комментариев для трёх случаев — отклонение вверх, отклонение вниз, без изменений.
+
+Никаких числовых значений не подставляй и не выдумывай, оставь пропуски.</pre>
+            <button class="copy" type="button" data-for="pr3">Копировать</button>
+          </div>
+        </div>
+        <p class="ex-keep"><b>Себе оставляешь:</b> Все числа до единого.</p>
+      </div>
+    </details>
+    <details class="ex">
+      <summary><span>Техническое задание подрядчику</span><span class="ex-g g2">нужен образец</span></summary>
+      <div class="ex-body">
+        <div class="ex-block"><span class="ex-k">Что делать</span><ol class="ex-steps"><li>Нет удачного прошлого ТЗ — напиши одно руками и сохрани. Это разовая работа.</li><li>Дальше каждый раз используешь запрос ниже.</li><li>Сроки, бюджет и приёмку заполняешь сама.</li></ol></div>
+        <div class="ex-block">
+          <span class="ex-k">Готовый запрос — скопируй и подставь своё</span>
+          <div class="promptbox">
+            <pre id="pr4">Вот моё ТЗ, по которому подрядчик всё сделал правильно с первого раза. Разбери его структуру:
+
+[вставить ТЗ]
+
+Теперь по той же структуре собери ТЗ для новой задачи. Задача своими словами:
+
+[описать задачу]
+
+Поля «сроки», «бюджет» и «критерии приёмки» оставь пустыми. В конце дай список вопросов, которые подрядчик задаст, если в задаче чего-то не хватает.</pre>
+            <button class="copy" type="button" data-for="pr4">Копировать</button>
+          </div>
+        </div>
+        <p class="ex-keep"><b>Себе оставляешь:</b> Сроки, бюджет, критерии приёмки.</p>
+      </div>
+    </details>
+    <details class="ex">
+      <summary><span>Протокол планёрки и задачи по итогам</span><span class="ex-g g1">отдавай сегодня</span></summary>
+      <div class="ex-body">
+        <div class="ex-block"><span class="ex-k">Что делать</span><ol class="ex-steps"><li>Включи запись на телефоне или пиши заметки как обычно.</li><li>Расшифровку целиком отдай в чат вместе с запросом ниже.</li><li>Проверь, что никого не забыли, и разошли.</li></ol></div>
+        <div class="ex-block">
+          <span class="ex-k">Готовый запрос — скопируй и подставь своё</span>
+          <div class="promptbox">
+            <pre id="pr5">Вот расшифровка планёрки:
+
+[вставить текст]
+
+Сделай протокол из трёх частей:
+1. Решения — что решили, по одной строке на решение.
+2. Задачи — что, кто, к какому сроку, если срок называли.
+3. Вопросы без ответа — что обсуждали, но не решили.
+
+Ничего не додумывай. Если ответственный не назван — пиши «не назначен», если срока нет — «срок не назван».</pre>
+            <button class="copy" type="button" data-for="pr5">Копировать</button>
+          </div>
+        </div>
+        <p class="ex-keep"><b>Себе оставляешь:</b> Проверить полноту и разослать.</p>
+      </div>
+    </details>
+    <details class="ex">
+      <summary><span>Типовые вопросы клиентов в чате</span><span class="ex-g g1">отдавай сегодня</span></summary>
+      <div class="ex-body">
+        <div class="ex-block"><span class="ex-k">Что делать</span><ol class="ex-steps"><li>Собери двадцать своих прошлых ответов — чем разнообразнее, тем лучше.</li><li>Вставь запрос ниже один раз и сохрани как шаблон.</li><li>Всё про цены и сроки дописываешь руками.</li></ol></div>
+        <div class="ex-block">
+          <span class="ex-k">Готовый запрос — скопируй и подставь своё</span>
+          <div class="promptbox">
+            <pre id="pr6">Ниже двадцать моих ответов клиентам. Изучи тон и уровень подробности:
+
+[вставить ответы]
+
+Дальше отвечай на новые вопросы так же. Жёсткое правило: если в вопросе есть цена, срок или обязательство — не отвечай, а напиши «нужен ответ менеджера». На всё остальное отвечай сам.
+
+Первый вопрос: [вопрос клиента]</pre>
+            <button class="copy" type="button" data-for="pr6">Копировать</button>
+          </div>
+        </div>
+        <p class="ex-keep"><b>Себе оставляешь:</b> Всё, где есть цена, срок или обязательство.</p>
+      </div>
+    </details>
+    <details class="ex">
+      <summary><span>Сверка договора с вашим шаблоном</span><span class="ex-g g3">только проверяемая часть</span></summary>
+      <div class="ex-body">
+        <div class="ex-block"><span class="ex-k">Что делать</span><ol class="ex-steps"><li>Оба текста целиком в чат.</li><li>Проси список различий, а не оценку.</li><li>Существенность расхождений оцениваешь сама.</li></ol></div>
+        <div class="ex-block">
+          <span class="ex-k">Готовый запрос — скопируй и подставь своё</span>
+          <div class="promptbox">
+            <pre id="pr7">Первый текст — наш стандартный шаблон договора:
+
+[вставить шаблон]
+
+Второй — версия, которую прислал контрагент:
+
+[вставить версию]
+
+Найди все различия и выпиши таблицей: пункт, было, стало, тип изменения (добавлено, удалено, переформулировано).
+
+Не оценивай, выгодно это нам или нет, — только фиксируй. Изменения в нумерации и опечатки вынеси отдельным списком в конец.</pre>
+            <button class="copy" type="button" data-for="pr7">Копировать</button>
+          </div>
+        </div>
+        <p class="ex-keep"><b>Себе оставляешь:</b> Вывод, что из этого существенно.</p>
+      </div>
+    </details>
+    <details class="ex">
+      <summary><span>Коммерческое предложение по запросу</span><span class="ex-g g2">нужен образец</span></summary>
+      <div class="ex-body">
+        <div class="ex-block"><span class="ex-k">Что делать</span><ol class="ex-steps"><li>Сохрани одно своё КП, после которого клиент согласился.</li><li>Дальше каждый раз запрос ниже.</li><li>Ставки и условия проставляешь руками, всегда.</li></ol></div>
+        <div class="ex-block">
+          <span class="ex-k">Готовый запрос — скопируй и подставь своё</span>
+          <div class="promptbox">
+            <pre id="pr8">Вот КП, после которого клиент согласился. Это образец структуры и тона:
+
+[вставить КП]
+
+Новый запрос клиента:
+
+[вставить запрос]
+
+Собери КП по той же структуре. Все цены, ставки и сроки оставь как [___] — подставлю сама. Если в запросе клиента не хватает данных для расчёта, перечисли в конце, что нужно уточнить.</pre>
+            <button class="copy" type="button" data-for="pr8">Копировать</button>
+          </div>
+        </div>
+        <p class="ex-keep"><b>Себе оставляешь:</b> Ставки, условия, сроки.</p>
+      </div>
+    </details>
+    <details class="ex">
+      <summary><span>Справка по клиенту перед встречей</span><span class="ex-g g1">отдавай сегодня</span></summary>
+      <div class="ex-body">
+        <div class="ex-block"><span class="ex-k">Что делать</span><ol class="ex-steps"><li>Скопируй переписку за год и список заказов.</li><li>Вставь запрос ниже.</li><li>Что предложить на встрече — решаешь сама.</li></ol></div>
+        <div class="ex-block">
+          <span class="ex-k">Готовый запрос — скопируй и подставь своё</span>
+          <div class="promptbox">
+            <pre id="pr9">Вот переписка с клиентом за год и список его заказов:
+
+[вставить материалы]
+
+Сделай справку на одну страницу к встрече: чем занимается компания, что заказывали и как часто, о чём договаривались в прошлый раз, какие были шероховатости и чем закончились, какие темы клиент поднимал сам.
+
+Только факты из материалов. Если чего-то в них нет — так и напиши, не достраивай.</pre>
+            <button class="copy" type="button" data-for="pr9">Копировать</button>
+          </div>
+        </div>
+        <p class="ex-keep"><b>Себе оставляешь:</b> Что предложить.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+
+<section>
+  <div class="shead"><h2>Твоя неделя</h2></div>
+  <p class="sub">Пиши как есть, без формулировок «оптимизация процессов». «Отвечаю на письма по статусу заказа» — то что нужно.</p>
+
+  <div class="sheet">
+    <div class="colhead">
+      <div>№</div>
+      <div>Задача</div>
+      <div>Мин.</div>
+      <div>Раз/нед</div>
+      <div>Повторяется дословно</div>
+      <div>Есть готовый образец</div>
+      <div>Ошибку видно до отправки</div>
+    </div>
+    <div id="rows"></div>
+  </div>
+
+  <div class="sheetfoot">
+    <button class="btn" id="add" type="button">+ Добавить задачу</button>
+    <button class="btn-quiet" id="reset" type="button">Очистить всё</button>
+  </div>
+
+  <p class="nudge"><b>Не останавливайся на восьмой строке.</b> Первыми вспоминаются крупные и интересные задачи — а лучшие кандидаты почти всегда мелкие и скучные, те, что кажутся «да там на пять минут». Пять минут четыре раза в день — это два с половиной часа в неделю.</p>
+</section>
+
+<section id="res">
+  <div class="shead"><h2>Что с этим делать</h2></div>
+  <div id="out"></div>
+</section>
+
+<div class="cta">
+  <h2>Дальше</h2>
+  <p>Если в первой группе оказалась хотя бы одна задача — её можно закрыть на этой неделе. Если групп две и больше или непонятно, с какой стороны заходить, напиши боту <a href="https://t.me/Lumen_karta_rutiny_bot" style="color:var(--accent-ink); font-weight:600">@Lumen_karta_rutiny_bot</a> слово <span class="word">РАЗБОР</span>.</p>
+  <p>На разборе мы берём твой список, выбираем три задачи с самой быстрой отдачей и настраиваем их до рабочего состояния — не «изучаем нейросети», а доводим до того, что в следующий понедельник эти задачи занимают у тебя другое время.</p>
+</div>
+
+<footer>Люмен · Карта рутины · Оценка экономии — 70% времени по задачам первой группы. Считай её ориентиром, а не обещанием.</footer>
+
+</div>
+
+<div class="bar"><div class="barin">
+  <div class="tick"><span class="v" id="t-tasks">0</span><span class="k">задач</span></div>
+  <div class="tick"><span class="v acc" id="t-cand">0</span><span class="k">кандидатов</span></div>
+  <div class="tick"><span class="v" id="t-hours">0 ч</span><span class="k">в месяц можно вернуть</span></div>
+  <button class="btn" id="show" type="button">Показать разбор</button>
+</div></div>
+
+<script>
+(function(){
+  var KEY='lumen-karta-rutiny-v1', MIN=10, MAX=25;
+  var HINTS=[
+    ['отвечаю на письма по статусу заказа', 15, 12],
+    ['собираю недельную сводку для руководителя', 60, 1],
+    ['пишу текст вакансии и разбираю отклики', 90, 2],
+    ['свожу отчёт по расходам за месяц', 120, 1],
+    ['составляю ТЗ подрядчику', 45, 2],
+    ['веду протокол планёрки и рассылаю задачи', 30, 2],
+    ['отвечаю на типовые вопросы клиентов в чате', 10, 20],
+    ['сверяю договор с нашим шаблоном', 40, 3],
+    ['готовлю коммерческое предложение по запросу', 40, 5],
+    ['заполняю карточки товара', 12, 15],
+    ['перевожу переписку с поставщиком', 20, 6],
+    ['собираю подборку для рассылки', 50, 1],
+    ['расписываю задачу для смежного отдела', 15, 8],
+    ['готовлю справку по клиенту перед встречей', 35, 3],
+    ['разбираю входящие заявки по категориям', 8, 25]
+  ];
+
+  var rowsEl=document.getElementById('rows'), outEl=document.getElementById('out');
+  var data=load();
+  if(!data.length){ for(var i=0;i<MIN;i++) data.push(blank()); }
+
+  function blank(){ return {t:'',m:'',n:'',c1:false,c2:false,c3:false}; }
+  function load(){
+    try{ var raw=localStorage.getItem(KEY); if(!raw) return [];
+      var p=JSON.parse(raw); return Array.isArray(p)?p:[]; }catch(e){ return []; }
+  }
+  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(data)); }catch(e){} }
+
+  var CHECK='<svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="4 13 9 18 20 6"></polyline></svg>';
+  function chk(i,key,label){
+    return '<label class="chk"><input type="checkbox" data-i="'+i+'" data-k="'+key+'"'+
+      (data[i][key]?' checked':'')+' aria-label="'+label+'"><span class="box">'+CHECK+
+      '</span><span class="chk-lab">'+label+'</span></label>';
+  }
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  function render(){
+    var html='';
+    for(var i=0;i<data.length;i++){
+      var d=data[i], hits=score(d), on=d.t.trim()!=='';
+      html+='<div class="row'+(on?' filled':'')+(on&&hits===3?' hit':'')+'">'+
+        '<div class="rn">'+(i+1)+'</div>'+
+        '<div><input type="text" data-i="'+i+'" data-k="t" value="'+esc(d.t)+
+          '" placeholder="Например: '+HINTS[i%HINTS.length][0]+'" aria-label="Задача '+(i+1)+'"></div>'+
+        '<div class="m-nums">'+
+          '<div><label for="m'+i+'">Минут</label><input id="m'+i+'" type="number" min="1" max="600" data-i="'+i+
+            '" data-k="m" value="'+esc(d.m)+'" placeholder="'+HINTS[i%HINTS.length][1]+'" aria-label="Минут на задачу '+(i+1)+'"></div>'+
+          '<div><label for="n'+i+'">Раз в неделю</label><input id="n'+i+'" type="number" min="1" max="100" data-i="'+i+
+            '" data-k="n" value="'+esc(d.n)+'" placeholder="'+HINTS[i%HINTS.length][2]+'" aria-label="Раз в неделю, задача '+(i+1)+'"></div>'+
+        '</div>'+
+        chk(i,'c1','Повторяется дословно')+
+        chk(i,'c2','Есть готовый образец')+
+        chk(i,'c3','Ошибку видно до отправки')+
+      '</div>';
+    }
+    rowsEl.innerHTML=html;
+    tick();
+  }
+
+  function plural(n,one,few,many){
+    var a=Math.abs(n)%100, b=a%10;
+    if(a>10&&a<20) return many;
+    if(b===1) return one;
+    if(b>=2&&b<=4) return few;
+    return many;
+  }
+  function num(x){
+    var v = x>=10 ? Math.round(x) : Math.round(x*10)/10;
+    return String(v).replace('.',',');
+  }
+  function score(d){ return (d.c1?1:0)+(d.c2?1:0)+(d.c3?1:0); }
+  function hoursMonth(d){
+    var m=parseFloat(d.m)||0, n=parseFloat(d.n)||0;
+    return m*n*4.33/60;
+  }
+  function filled(){ return data.filter(function(d){ return d.t.trim()!==''; }); }
+  function bucket(d){
+    var s=score(d);
+    if(s===3) return 'now';
+    if(s===2){
+      if(!d.c2) return 'sample';
+      if(!d.c3) return 'verify';
+      return 'once';
+    }
+    return 'hold';
+  }
+
+  function tick(){
+    var f=filled();
+    var cand=f.filter(function(d){ return bucket(d)==='now'; });
+    var h=cand.reduce(function(a,d){ return a+hoursMonth(d); },0)*0.7;
+    document.getElementById('t-tasks').textContent=f.length;
+    document.getElementById('t-cand').textContent=cand.length;
+    document.getElementById('t-hours').textContent=num(h)+' ч';
+  }
+
+  var GROUPS=[
+    {k:'now', cls:'g1', title:'Отдавай сегодня',
+     why:'Все три признака совпали. Задача повторяется, у тебя есть эталон правильного результата, и ты видишь итог целиком перед тем, как он уйдёт дальше, — то есть любую ошибку поймаешь сама. <b>Начни с одной, самой частой.</b> Не пытайся закрыть все три за вечер: одна задача, доведённая до рабочего состояния, полезнее трёх настроенных наполовину.'},
+    {k:'sample', cls:'', title:'Сначала сделай образец',
+     why:'Задача подходит, но у неё нет эталона — а без образца ИИ каждый раз попадает мимо, и ты тратишь больше времени на правку, чем сэкономила. <b>Сделай один результат руками, максимально так, как надо, и сохрани его.</b> После этого задача переезжает в первую группу.'},
+    {k:'verify', cls:'', title:'Отдавай только проверяемую часть',
+     why:'Здесь результат уходит дальше так, что ошибку сразу не видно: цифра попадает в отчёт, дата — в договор, сумма — в счёт. Дело не в том, что задача менее важная, а в том, что <b>ошибку тут не поймать глазами за пять секунд</b> — а если проверять всё равно построчно, проверка займёт столько же, сколько сделать самой. Поэтому целиком такую задачу не отдавай. Но почти всегда внутри есть кусок, результат которого видно сразу: структура документа, черновик формулировки, список позиций, которые нужно сверить. Его и отдавай — числа, сроки и обязательства оставляй себе.'},
+    {k:'once', cls:'', title:'Разово — да, настраивать — нет',
+     why:'Задача не повторяется дословно, поэтому вкладываться в её настройку невыгодно. <b>Помочь себе в моменте можно, но в план автоматизации она не идёт.</b> Если таких задач много — это отдельный сигнал: возможно, у тебя не рутина, а постоянный поток разного, и работать надо не с задачами, а с шаблоном.'},
+    {k:'hold', cls:'', title:'Пока не трогай',
+     why:'Совпал один признак или ни одного. Такие задачи забирают больше сил, чем отдают, — они станут понятнее позже, когда появится опыт на простых. <b>Вернись к этому списку через месяц</b>, часть из них к тому моменту переедет выше сама.'}
+  ];
+
+  function draw(){
+    var f=filled();
+    if(!f.length){
+      outEl.innerHTML='<div class="empty">Заполни хотя бы одну строку — и здесь появится разбор с конкретным решением по каждой задаче.</div>';
+      return;
+    }
+    var cand=f.filter(function(d){ return bucket(d)==='now'; });
+    var h=cand.reduce(function(a,d){ return a+hoursMonth(d); },0)*0.7;
+    var hTxt=num(h);
+    var extra=f.filter(function(d){ var b=bucket(d); return b==='sample'||b==='verify'; })
+      .reduce(function(a,d){ return a+hoursMonth(d)*0.45; },0);
+
+    var head='<div class="verdict"><div class="big">'+
+      (cand.length? hTxt+' ч в месяц' : 'Пока ноль кандидатов')+'</div><p class="cap">';
+    if(cand.length){
+      head+='Столько времени '+plural(cand.length,'возвращает','возвращают','возвращают')+' '+
+        cand.length+' задач'+plural(cand.length,'а','и','')+' из первой группы';
+      var days=Math.round(h/8);
+      if(days>=1) head+=' — это <b>'+days+' '+plural(days,'полный рабочий день','полных рабочих дня','полных рабочих дней')+'</b>';
+      head+='.';
+      if(extra>=1) head+=' Ещё около '+num(extra)+' ч доступно после подготовки — во второй и третьей группах.';
+    } else {
+      head+='Ни одна задача не набрала все три признака. Чаще всего это значит одно из двух: <b>либо не хватает образцов результата</b> — и тогда смотри вторую группу, это лечится за один вечер, — <b>либо задачи описаны слишком крупно</b>. Попробуй разбить «веду клиентов» на конкретные действия: письмо о статусе, сверка, напоминание об оплате.';
+    }
+    head+='</p></div>';
+
+    var body='<div class="groups">';
+    GROUPS.forEach(function(g){
+      var items=f.filter(function(d){ return bucket(d)===g.k; });
+      if(!items.length) return;
+      body+='<div class="group '+g.cls+'"><div class="ghead"><span class="gtitle">'+g.title+
+        '</span><span class="gcount">'+items.length+' '+plural(items.length,'задача','задачи','задач')+'</span></div>'+
+        '<p class="gwhy">'+g.why+'</p><ul class="gitems">';
+      items.sort(function(a,b){ return hoursMonth(b)-hoursMonth(a); }).forEach(function(d){
+        var hm=hoursMonth(d);
+        body+='<li><span>'+esc(d.t)+'</span>'+
+          (hm>0?'<span class="h">занимает '+num(hm)+' ч/мес</span>':'')+'</li>';
+      });
+      body+='</ul></div>';
+    });
+    body+='</div>';
+    outEl.innerHTML=head+body;
+  }
+
+  rowsEl.addEventListener('input',function(e){
+    var el=e.target, i=el.getAttribute('data-i'), k=el.getAttribute('data-k');
+    if(i===null||!k) return;
+    data[i][k]=el.value; save(); tick();
+    var row=el.closest('.row');
+    if(row){ row.classList.toggle('filled', data[i].t.trim()!==''); }
+  });
+  rowsEl.addEventListener('change',function(e){
+    var el=e.target, i=el.getAttribute('data-i'), k=el.getAttribute('data-k');
+    if(i===null||!k||el.type!=='checkbox') return;
+    data[i][k]=el.checked; save(); tick();
+    var row=el.closest('.row');
+    if(row){ row.classList.toggle('hit', data[i].t.trim()!=='' && score(data[i])===3); }
+  });
+
+  document.getElementById('add').addEventListener('click',function(){
+    if(data.length>=MAX) return;
+    data.push(blank()); save(); render();
+    var inputs=rowsEl.querySelectorAll('input[data-k="t"]');
+    if(inputs.length) inputs[inputs.length-1].focus();
+  });
+  document.getElementById('reset').addEventListener('click',function(){
+    if(!confirm('Очистить все строки? Отменить будет нельзя.')) return;
+    data=[]; for(var i=0;i<MIN;i++) data.push(blank());
+    save(); render(); outEl.innerHTML='';
+    draw();
+  });
+  document.getElementById('show').addEventListener('click',function(){
+    draw();
+    document.getElementById('res').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+
+  document.addEventListener('click',function(e){
+    var btn=e.target.closest('button.copy'); if(!btn) return;
+    var el=document.getElementById(btn.getAttribute('data-for')); if(!el) return;
+    var text=el.textContent, done=function(){
+      btn.classList.add('done'); btn.textContent='Скопировано';
+      setTimeout(function(){ btn.classList.remove('done'); btn.textContent='Копировать'; },1800);
+    };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done,function(){ select(el); });
+    } else { select(el); }
+    function select(node){
+      try{
+        var r=document.createRange(); r.selectNodeContents(node);
+        var sel=window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+        btn.textContent='Выдели и скопируй';
+        setTimeout(function(){ btn.textContent='Копировать'; },2500);
+      }catch(err){}
+    }
+  });
+
+  render();
+  draw();
+})();
+</script>
+
+</body>
+</html>

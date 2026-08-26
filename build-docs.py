@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Собирает docs/index.html — автономную версию карты для публичного хостинга.
+"""Собирает автономную версию карты для публичного хостинга.
+
+Кладёт её и в docs/index.html, и в index.html в корне — чтобы GitHub Pages
+работал при любом выборе папки в настройках (root или /docs).
 
 Артефакт на claude.ai рендерится внутри готовой обёртки, поэтому сам файл
 karta-rutiny.html не содержит <!doctype>, <html>, <head> и <body>.
@@ -10,7 +13,8 @@ import re
 from pathlib import Path
 
 SRC = Path(__file__).parent / "karta-rutiny.html"
-OUT = Path(__file__).parent / "docs" / "index.html"
+OUTS = [Path(__file__).parent / "docs" / "index.html",
+        Path(__file__).parent / "index.html"]
 
 TITLE = "Карта рутины — Люмен"
 DESC = ("Диагностика рабочей недели за десять минут: какие из твоих задач "
@@ -44,7 +48,8 @@ head = "\n".join([
     '%3Ctext y=%2226%22 font-size=%2226%22%3E%F0%9F%97%BA%EF%B8%8F%3C/text%3E%3C/svg%3E">',
 ])
 
-OUT.write_text(
-    f"<!doctype html>\n<html lang=\"ru\">\n<head>\n{head}\n</head>\n<body>\n{body}\n</body>\n</html>\n",
-    encoding="utf-8")
-print(f"docs/index.html: {OUT.stat().st_size} bytes")
+PAGE = f"<!doctype html>\n<html lang=\"ru\">\n<head>\n{head}\n</head>\n<body>\n{body}\n</body>\n</html>\n"
+for out in OUTS:
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(PAGE, encoding="utf-8")
+    print(f"{out.relative_to(Path(__file__).parent)}: {out.stat().st_size} bytes")
