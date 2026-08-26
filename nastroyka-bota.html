@@ -127,6 +127,30 @@ button.copy{position:absolute; right:9px; bottom:9px; padding:6px 12px; font-siz
 button.copy:hover,button.copy.done{background:var(--accent); color:var(--on-accent)}
 button:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
 
+
+.answer{border:2px solid var(--accent); background:var(--accent-soft); padding:17px 19px; margin:16px 0}
+.ans-name{font-family:'Unbounded','Golos Text',sans-serif; font-weight:700; font-size:clamp(26px,4.6vw,38px);
+  line-height:1.05; letter-spacing:-.02em; color:var(--ink); margin:6px 0 12px}
+.answer p{margin:12px 0 0; font-size:14.5px; line-height:1.5; color:var(--ink-soft); max-width:70ch}
+.promptbox.slim pre{padding:13px 15px 13px; font-size:15px}
+.promptbox.slim{display:flex; align-items:center; justify-content:space-between; gap:12px; background:var(--surface)}
+.promptbox.slim button.copy{position:static; margin:0 9px 0 0; flex:none}
+details.alt{margin-top:16px; border:1px solid var(--line-strong); background:var(--surface-2)}
+details.alt summary{padding:12px 15px; cursor:pointer; font-size:14.5px; font-weight:600; color:var(--ink-soft);
+  list-style:none; display:flex; gap:10px; align-items:center}
+details.alt summary::-webkit-details-marker{display:none}
+details.alt summary::before{content:'+'; font-family:'JetBrains Mono',monospace; font-weight:700; color:var(--accent)}
+details.alt[open] summary::before{content:'−'}
+details.alt summary:focus-visible{outline:2px solid var(--accent); outline-offset:-2px}
+.alt-body{padding:0 15px 14px 15px}
+.alt-body p{margin:0 0 10px; font-size:14.5px; line-height:1.5; color:var(--ink-soft); max-width:72ch}
+.alt-body p:last-child{margin-bottom:0}
+
+.shortcut{margin-top:22px; border:1px solid var(--signal); background:var(--signal-soft); padding:18px 20px}
+.shortcut h3{font-size:17.5px; font-weight:700; margin-bottom:10px; color:var(--ink)}
+.shortcut p{margin:0 0 10px; font-size:15px; line-height:1.55; color:var(--ink); max-width:72ch}
+.shortcut p:last-child{margin-bottom:0}
+
 .trouble{margin-top:40px}
 .trouble h2{font-size:clamp(21px,2.9vw,26px); font-weight:800; letter-spacing:-.015em; margin-bottom:14px}
 .tr{border:1px solid var(--line); background:var(--surface); padding:15px 17px; margin-bottom:1px}
@@ -161,6 +185,12 @@ footer{margin-top:36px; padding-top:20px; border-top:1px solid var(--line); font
   </div>
 </header>
 
+<div class="shortcut">
+  <h3>Если сил на бота сейчас нет — можно вообще без него</h3>
+  <p>Бот нужен, когда людей много. Первые две недели их будет мало, и всё это спокойно делается руками: в посте пишешь «напиши мне в личку слово КАРТА», человек пишет <b>тебе</b>, ты отвечаешь и кидаешь файл. Пять минут в день на десять человек.</p>
+  <p>Так даже полезнее: ты увидишь, что люди на самом деле спрашивают, и соберёшь бота уже под реальные вопросы, а не под догадки. <b>Запуск канала бот не блокирует.</b> Вернись к этой странице, когда надоест отвечать вручную — это и будет правильный момент.</p>
+</div>
+
   <section class="step" id="st0">
     <label class="st-head">
       <input type="checkbox" data-step="0"><span class="st-box"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="4 13 9 18 20 6"></polyline></svg></span>
@@ -188,22 +218,29 @@ footer{margin-top:36px; padding-top:20px; border-top:1px solid var(--line); font
     </label>
     <div class="st-body">
     <p>Бот от BotFather — пустая оболочка: имя и ключ, внутри ничего. Отвечать за него будет сервис-конструктор. Ты собираешь в нём цепочку мышкой, он работает круглосуточно в своём облаке — твой компьютер при этом может быть выключен.</p>
-    <div class="pick">
-      <div class="opt best">
-        <div class="opt-h"><span class="opt-n">PuzzleBot</span><span class="tag-ok">начни с него</span></div>
-        <p>Российский конструктор под Телеграм с бесплатным тарифом. Умеет всё, что нужно этой воронке: цепочки с задержками, кнопки, выдачу файлов, реакцию на ключевые слова. Адрес — puzzlebot.top.</p>
+    <div class="answer">
+      <span class="ex-k">Твой сервис</span>
+      <div class="ans-name">PuzzleBot</div>
+      <div class="promptbox slim">
+        <pre id="url">puzzlebot.top</pre>
+        <button class="copy" type="button" data-for="url">Копировать</button>
       </div>
-      <div class="opt">
-        <div class="opt-h"><span class="opt-n">BotHelp</span><span class="tag-pay">от ~1 300 ₽/мес</span></div>
-        <p>Редактор понятнее и приятнее, плюс умеет ловить кодовые слова в комментариях канала. Но бесплатно только 14 дней. Хороший вариант вторым шагом, когда воронка поедет и станет ясно, что она окупается.</p>
-      </div>
-      <div class="opt">
-        <div class="opt-n">Salebot, SendPulse</div>
-        <p>Тоже подойдут, у обоих есть бесплатные тарифы. Salebot мощнее и сложнее, SendPulse проще. Если у тебя уже есть аккаунт в одном из них — бери его, не заводи новый.</p>
-      </div>
+      <p>Российский конструктор под Телеграм, бесплатный тариф есть. Умеет всё, что нужно этой воронке: цепочки с задержками, кнопки, выдачу файлов, реакцию на ключевые слова.</p>
     </div>
-    <p class="warn-note">Тарифы у всех меняются часто. Проверь актуальные цифры на сайте перед регистрацией — если на бесплатном не хватает чего-то из списка выше, бери следующий по порядку.</p>
- </div>
+    <ol class="s">
+      <li>Открой <b>puzzlebot.top</b>.</li>
+      <li>Войди <b>через Телеграм</b> — отдельный пароль заводить не нужно.</li>
+      <li>Всё. Второй шаг сделан, переходи к третьему.</li>
+    </ol>
+    <details class="alt">
+      <summary>А если не подойдёт или уже есть аккаунт где-то ещё</summary>
+      <div class="alt-body">
+        <p><b>BotHelp</b> — редактор приятнее и умеет ловить кодовые слова в комментариях канала. Но бесплатно только 14 дней, дальше от ~1&nbsp;300 ₽/мес. Разумный второй шаг, когда воронка поедет и станет ясно, что она окупается.</p>
+        <p><b>Salebot</b> — мощнее и сложнее, бесплатный тариф есть. <b>SendPulse</b> — проще, тоже с бесплатным тарифом. Если аккаунт у тебя уже есть в одном из них, бери его и не заводи новый: дальнейшие шаги одинаковые везде, разъезжаются только названия кнопок.</p>
+        <p class="warn-note">Тарифы меняются часто, а я не могу открыть сайты сервисов из своей среды — цифры выше из свежих обзоров. Перед оплатой сверь на сайте.</p>
+      </div>
+    </details>
+  </div>
   </section>
   <section class="step" id="st2">
     <label class="st-head">
