@@ -1,0 +1,308 @@
+<title>Первая неделя Люмена</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Unbounded:wght@600;700&display=swap">
+<style>
+:root{
+  --ground:#EDEEE9; --surface:#F8F9F5; --surface-2:#E3E7DE; --surface-3:#DCE1D7;
+  --ink:#16232B; --ink-soft:#3B4A4C; --muted:#6B7770;
+  --line:#D5D9CE; --line-strong:#B7BFB1;
+  --accent:#0E6B62; --accent-soft:#D6E5E1; --accent-ink:#0A4F49; --on-accent:#F8F9F5;
+  --signal:#8A5C12; --signal-soft:#EFE4CD;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0F1512; --surface:#161E1A; --surface-2:#1E2823; --surface-3:#26312B;
+    --ink:#E7EAE3; --ink-soft:#C1CAC2; --muted:#8B978E;
+    --line:#26302A; --line-strong:#38453D;
+    --accent:#57B9A8; --accent-soft:#16302B; --accent-ink:#8FD6C8; --on-accent:#0F1512;
+    --signal:#D3A159; --signal-soft:#2E2512;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0F1512; --surface:#161E1A; --surface-2:#1E2823; --surface-3:#26312B;
+  --ink:#E7EAE3; --ink-soft:#C1CAC2; --muted:#8B978E;
+  --line:#26302A; --line-strong:#38453D;
+  --accent:#57B9A8; --accent-soft:#16302B; --accent-ink:#8FD6C8; --on-accent:#0F1512;
+  --signal:#D3A159; --signal-soft:#2E2512;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--ground); color:var(--ink);
+  font-family:'Golos Text','Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased; padding-bottom:60px}
+.wrap{max-width:900px; margin:0 auto; padding:0 20px}
+@media (max-width:640px){ .wrap{padding:0 14px} }
+h1,h2,h3{margin:0; text-wrap:balance}
+p{margin:0 0 12px}
+code{font-family:'JetBrains Mono',ui-monospace,monospace; font-size:.9em; background:var(--surface-2); padding:2px 6px}
+a{color:var(--accent-ink)}
+
+header{padding:44px 0 26px; border-bottom:2px solid var(--ink)}
+.wordmark{font-family:'Unbounded','Golos Text',sans-serif; font-weight:700; font-size:12px;
+  letter-spacing:.28em; color:var(--accent-ink); display:flex; align-items:center; gap:13px}
+.wordmark::after{content:''; flex:1; height:1px; background:var(--line-strong); max-width:170px}
+h1{font-family:'Unbounded','Golos Text',sans-serif; font-weight:700;
+  font-size:clamp(28px,5vw,44px); line-height:1.05; letter-spacing:-.02em; margin:20px 0 0}
+.lede{margin:16px 0 0; max-width:64ch; font-size:17px; color:var(--ink-soft)}
+.lede b{color:var(--ink)}
+
+.where{margin-top:24px; border:1px solid var(--line-strong); background:var(--surface); padding:17px 19px}
+.where p{margin:0 0 8px; font-size:14.5px; line-height:1.5; color:var(--ink-soft); max-width:72ch}
+.where p:last-child{margin-bottom:0}
+.ex-k{display:block; font-family:'JetBrains Mono',ui-monospace,monospace; font-size:9.5px;
+  letter-spacing:.11em; text-transform:uppercase; color:var(--muted); font-weight:700; margin-bottom:9px}
+
+section{padding:40px 0 0}
+h2{font-size:clamp(21px,2.9vw,27px); font-weight:800; letter-spacing:-.015em; margin-bottom:6px}
+.sub{margin:0 0 20px; font-size:15px; color:var(--muted); max-width:70ch}
+
+.week{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1px;
+  background:var(--line); border:1px solid var(--line); margin-bottom:8px}
+.wd{background:var(--surface); padding:14px 16px}
+.wd .d{font-family:'JetBrains Mono',ui-monospace,monospace; font-size:10.5px; letter-spacing:.11em;
+  text-transform:uppercase; color:var(--accent); font-weight:700}
+.wd p{margin:7px 0 0; font-size:14.5px; line-height:1.45; color:var(--ink-soft)}
+.wd b{color:var(--ink)}
+
+.post,.reel{margin-bottom:22px; border:1px solid var(--line-strong); background:var(--surface); padding:18px}
+.p-head{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:8px}
+.p-day{font-family:'JetBrains Mono',ui-monospace,monospace; font-size:10.5px; font-weight:700;
+  letter-spacing:.1em; text-transform:uppercase; background:var(--accent); color:var(--on-accent); padding:4px 9px}
+.p-t{font-size:18px; font-weight:700; letter-spacing:-.01em}
+.p-spec{margin-left:auto; font-family:'JetBrains Mono',ui-monospace,monospace; font-size:11px; color:var(--muted)}
+@media (max-width:600px){ .p-spec{margin-left:0} }
+.p-why{margin:0 0 12px; font-size:14.5px; line-height:1.5; color:var(--muted); max-width:74ch}
+
+.promptbox{position:relative; border:1px solid var(--line-strong); background:var(--surface-2)}
+.promptbox pre{margin:0; padding:16px 17px 48px; font-family:'Golos Text',sans-serif;
+  font-size:15px; line-height:1.6; color:var(--ink); white-space:pre-wrap; word-break:break-word}
+button{font-family:inherit; cursor:pointer; border-radius:0}
+button.copy{position:absolute; right:10px; bottom:10px; padding:7px 13px; font-size:12.5px; font-weight:600;
+  background:var(--surface); color:var(--accent-ink); border:1.5px solid var(--accent)}
+button.copy:hover,button.copy.done{background:var(--accent); color:var(--on-accent)}
+button:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+
+.frames{display:grid; gap:1px; background:var(--line); border:1px solid var(--line)}
+.frame{background:var(--surface-2); padding:12px 14px; display:grid; grid-template-columns:94px 1fr; gap:14px}
+@media (max-width:600px){ .frame{grid-template-columns:1fr; gap:4px} }
+.fr-t{font-family:'JetBrains Mono',ui-monospace,monospace; font-size:11.5px; color:var(--signal);
+  font-weight:600; font-variant-numeric:tabular-nums}
+.fr-what{margin:0; font-size:15px; line-height:1.45; color:var(--ink)}
+.fr-cap{margin:4px 0 0; font-size:14px; line-height:1.4; color:var(--accent-ink); font-weight:600}
+.r-note{margin:12px 0 0; font-size:14px; line-height:1.5; color:var(--muted); max-width:74ch}
+
+.how{border:2px solid var(--accent); background:var(--accent-soft); padding:20px 22px; margin-top:8px}
+.how ol{margin:0; padding-left:20px; display:grid; gap:10px}
+.how li{font-size:15.5px; line-height:1.55; color:var(--ink-soft)}
+.how li b{color:var(--ink)}
+.how li::marker{color:var(--accent-ink); font-weight:700}
+
+.note{margin-top:16px; padding:14px 16px; background:var(--signal-soft); border-left:3px solid var(--signal);
+  font-size:14.5px; line-height:1.55; color:var(--ink); max-width:76ch}
+footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--line); font-size:13.5px; color:var(--muted)}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="wordmark">ЛЮМЕН</div>
+  <h1>Первая неделя, готовая к публикации</h1>
+  <p class="lede">Три поста и два ролика — <b>не темы, а тексты</b>. Копируешь, подставляешь свои цифры там, где они не твои, публикуешь. Тема недели: сколько на самом деле стоит рутина.</p>
+  <div class="where">
+    <span class="ex-k">Где что лежит</span>
+    <p><b>Тут</b> — готовые тексты первой недели.</p>
+    <p><b>План на шесть недель</b> (темы и хуки для недель 2–6) — в стратегии, раздел 06, и в файле <code>kontent-plan.md</code>.</p>
+    <p><b>Ответы в директе</b> — раздел 0 в файле <code>bot-stsenarii.md</code>: что писать тому, кто откликнулся.</p>
+  </div>
+</header>
+
+<section>
+  <h2>Расписание недели</h2>
+  <p class="sub">Три выхода в Telegram, два ролика в Reels. Ролики дублируют посты, а не живут отдельно.</p>
+  <div class="week">
+    <div class="wd"><div class="d">Понедельник</div><p><b>Пост:</b> манифест. Знакомство, без ссылок.</p></div>
+    <div class="wd"><div class="d">Среда</div><p><b>Пост:</b> 40 минут → 4.<br><b>Reels:</b> сорок минут на письмо.</p></div>
+    <div class="wd"><div class="d">Пятница</div><p><b>Пост:</b> где он врёт + карта.<br><b>Reels:</b> посчитай часы.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>Посты</h2>
+  <p class="sub">Тексты под Telegram. Для Instagram разбей на абзацы покороче и вынеси ссылку в шапку — в подписи она некликабельна.</p>
+      <article class="post">
+        <div class="p-head">
+          <span class="p-day">Понедельник</span>
+          <span class="p-t">Манифест</span>
+        </div>
+        <p class="p-why">Задаёт жанр. Без ссылок и без призывов — тут мы только знакомимся.</p>
+        <div class="promptbox">
+          <pre id="post0">Я не эксперт по нейросетям.
+
+Я менеджер по продажам в логистике. Считаю ставки, пишу клиентам, собираю коммерческие, свожу реестры. Ровно та работа, которую видно в любом офисе: много повторяющегося, мало интересного.
+
+Полтора года назад я поймала себя на том, что сорок минут пишу письмо клиенту о задержке груза. Не потому что сложно. Потому что таких писем на неделе восемь, и каждое я начинаю с чистого листа.
+
+Сейчас это письмо занимает четыре минуты. И дело не в том, что я стала быстрее печатать.
+
+Здесь я буду показывать, что именно из своей работы отдала, как это выглядит по шагам и где оно ошибается — а ошибается регулярно. Без «нейросети изменят всё» и без курсов из тридцати уроков.
+
+Одна задача — один пост. Начну с той самой, сорокаминутной.</pre>
+          <button class="copy" type="button" data-for="post0">Копировать</button>
+        </div>
+      </article>
+      <article class="post">
+        <div class="p-head">
+          <span class="p-day">Среда</span>
+          <span class="p-t">40 минут → 4</span>
+        </div>
+        <p class="p-why">Рабочая лошадка. Всегда одна задача, всегда с цифрой времени.</p>
+        <div class="promptbox">
+          <pre id="post1">Письмо клиенту о задержке груза. Было сорок минут, стало четыре.
+
+**Как было.** Открываю пустое письмо. Надо сообщить, что контейнер застрял на таможне, объяснить почему, предложить варианты — и не получить в ответ «вы срываете нам производство». Пишу, стираю, переписываю. Сорок минут, половина из них уходит на первую фразу.
+
+**Что отдала.** Один раз собрала пять своих прошлых писем на похожие темы в один файл. Дальше запрос выглядит так:
+
+«Ниже пять моих писем клиентам. Изучи, как я пишу: длину, тон, как подаю плохие новости. [письма] Теперь напиши письмо тем же тоном. Факты: заказ такой-то, задержка пять дней, причина — таможенное оформление. Предложи два варианта: ждать целиком или забрать готовую часть сейчас. Не извиняйся дважды. Закончи вопросом».
+
+**Как стало.** Подставляю факты, читаю, правлю одно-два слова, отправляю. Четыре минуты.
+
+**Что осталось мне.** Проверить цифры и даты — их он путает. И решить, какие варианты вообще предлагать: это уже не про письмо, это про сделку.
+
+Ключевое здесь не запрос. Ключевое — те пять писем. Без образца он пишет вежливую пустоту, которую стыдно отправлять.</pre>
+          <button class="copy" type="button" data-for="post1">Копировать</button>
+        </div>
+      </article>
+      <article class="post">
+        <div class="p-head">
+          <span class="p-day">Пятница</span>
+          <span class="p-t">Где он врёт  ·  + ссылка на карту</span>
+        </div>
+        <p class="p-why">Провал недели. Он и приводит к карте — после честного рассказа об ошибке ей верят.</p>
+        <div class="promptbox">
+          <pre id="post2">Первое, что он мне испортил.
+
+Ставка для клиента. Я скинула таблицу с тарифами и попросила посчитать итог по маршруту. Он посчитал. Красиво, уверенно, с разбивкой по статьям.
+
+И приписал строку, которой в таблице не было. Просто добавил — потому что в таких расчётах обычно такая строка есть.
+
+Я заметила случайно, на сверке. Разница — четырнадцать тысяч.
+
+С тех пор правило: он не считает. Считаю я, он оформляет. Всё, где есть цифра, которая куда-то уйдёт — в счёт, в отчёт, в коммерческое, — он трогает только после того, как я посчитала сама.
+
+Это не значит «нельзя». Это значит, что задачи бывают двух видов: те, где ошибку видно до отправки, и те, где она всплывает через месяц у руководителя. Начинать надо с первых.
+
+Я собрала таблицу, которая раскладывает рабочую неделю ровно по этому признаку: что можно отдать уже сегодня, что — после подготовки, а что не трогать вообще. Плюс шестнадцать разобранных задач с готовыми запросами: офис и продажи, психологи, репетиторы. Заполняется за десять минут, ничего скачивать не надо.
+
+https://afkostareva-lab.github.io/Start/
+
+Заполните — напишите, что вышло. Интересно, что попадёт в первую группу.</pre>
+          <button class="copy" type="button" data-for="post2">Копировать</button>
+        </div>
+      </article>
+</section>
+
+<section>
+  <h2>Ролики</h2>
+  <p class="sub">Запись экрана, лица в кадре нет. Снимается одним дублем, монтаж — только обрезка.</p>
+      <article class="reel">
+        <div class="p-head">
+          <span class="p-day">Среда</span>
+          <span class="p-t">Сорок минут на одно письмо</span>
+          <span class="p-spec">30–35 сек · запись экрана · без лица</span>
+        </div>
+        <div class="frames">
+          <div class="frame">
+            <span class="fr-t">0:00–0:02</span>
+            <div><p class="fr-what">Готовое письмо на экране</p><p class="fr-cap">Титр: «Это письмо занимало у меня 40 минут»</p></div>
+          </div>
+          <div class="frame">
+            <span class="fr-t">0:02–0:08</span>
+            <div><p class="fr-what">Пустое поле, курсор печатает первую строку, стирает, печатает снова</p><p class="fr-cap">Титр: «Не потому что сложно. Потому что каждый раз с нуля»</p></div>
+          </div>
+          <div class="frame">
+            <span class="fr-t">0:08–0:18</span>
+            <div><p class="fr-what">Экран чата: вставляется файл с пятью письмами, затем текст запроса</p><p class="fr-cap">Титр: «Пять моих старых писем — как образец»</p></div>
+          </div>
+          <div class="frame">
+            <span class="fr-t">0:18–0:27</span>
+            <div><p class="fr-what">Появляется готовый текст, курсор правит пару слов</p><p class="fr-cap">Титр: «Четыре минуты»</p></div>
+          </div>
+          <div class="frame">
+            <span class="fr-t">0:27–0:33</span>
+            <div><p class="fr-what">Курсор наводится на цифры в письме</p><p class="fr-cap">Титр: «Проверяю только цифры — их он путает»</p></div>
+          </div>
+          <div class="frame">
+            <span class="fr-t">0:33–0:35</span>
+            <div><p class="fr-what">Тёмный экран</p><p class="fr-cap">Титр: «Разбор целиком — в канале»</p></div>
+          </div>
+        </div>
+        <p class="r-note">Звук: тишина и титры либо голос за кадром. Титры обязательны — половина смотрит без звука.</p>
+      </article>
+      <article class="reel">
+        <div class="p-head">
+          <span class="p-day">Пятница</span>
+          <span class="p-t">Посчитай, сколько это часов</span>
+          <span class="p-spec">30 сек · экран калькулятора · без лица</span>
+        </div>
+        <div class="frames">
+          <div class="frame">
+            <span class="fr-t">0:00–0:02</span>
+            <div><p class="fr-what">Пустой калькулятор</p><p class="fr-cap">Титр: «Посчитай одну вещь»</p></div>
+          </div>
+          <div class="frame">
+            <span class="fr-t">0:02–0:09</span>
+            <div><p class="fr-what">Набирается 15 × 4</p><p class="fr-cap">Титр: «Задача на 15 минут. Четыре раза в день»</p></div>
+          </div>
+          <div class="frame">
+            <span class="fr-t">0:09–0:16</span>
+            <div><p class="fr-what">× 5 = 300</p><p class="fr-cap">Титр: «Пять часов в неделю»</p></div>
+          </div>
+          <div class="frame">
+            <span class="fr-t">0:16–0:24</span>
+            <div><p class="fr-what">× 4 = 20</p><p class="fr-cap">Титр: «Двадцать часов в месяц. Два с половиной рабочих дня»</p></div>
+          </div>
+          <div class="frame">
+            <span class="fr-t">0:24–0:30</span>
+            <div><p class="fr-what">Экран замирает на числе</p><p class="fr-cap">Титр: «И это одна задача. У тебя их пятнадцать»</p></div>
+          </div>
+        </div>
+        <p class="r-note">В подписи под роликом — ссылка на карту и слово РАЗБОР для директа.</p>
+      </article>
+</section>
+
+<section>
+  <h2>Как пост приводит к карте</h2>
+  <p class="sub">Механика простая, но порядок в ней важен — если поменять местами, не работает.</p>
+  <div class="how">
+    <ol>
+      <li><b>Сначала провал, потом карта.</b> Ссылка стоит в пятничном посте, а не в понедельничном, потому что до неё нужно заслужить доверие. Человек, прочитавший честный рассказ про четырнадцать тысяч, верит таблице. Человек, которому таблицу дали сразу, — нет.</li>
+      <li><b>Карта — не подарок, а продолжение мысли.</b> В посте сказано: задачи бывают двух видов. Карта именно это и раскладывает. Не «держите полезный файл», а «вот инструмент к тому, о чём я только что рассказала».</li>
+      <li><b>Один призыв.</b> В пятничном посте только ссылка и одна фраза после неё. Никаких «подпишись, поставь реакцию, перешли другу».</li>
+      <li><b>Возврат разговора.</b> Последняя строка — «напишите, что вышло». Это то, ради чего мы пока обходимся без бота: человек отвечает тебе лично, и ты слышишь его настоящую проблему до всякого разбора.</li>
+      <li><b>Ответ в директе.</b> Кто написал — тому сообщение из раздела 0 в <code>bot-stsenarii.md</code>. Через два-три дня, если молчит, — напоминание. Кто ответил, что заполнил, — предложение разбора.</li>
+    </ol>
+  </div>
+  <p class="note"><b>Проверь два места перед публикацией.</b> Первое: в манифесте и в разборах фигурирует твоя настоящая работа. Отрасль названа, работодатель — нет; если даже упоминания логистики не хочется, замени на «в компании» — тексты от этого не рассыплются. Второе: суммы и сроки в примерах я взяла правдоподобные, но выдуманные. Подставь свои реальные, иначе первый же вопрос в комментариях будет неудобным.</p>
+</section>
+
+<footer>Люмен · Неделя 1 из 6 · Дальше — «Задача, а не инструмент»: ломаем привычку просить промпт вместо того, чтобы найти задачу.</footer>
+</div>
+
+<script>
+document.addEventListener('click',function(e){
+  var btn=e.target.closest('button.copy'); if(!btn) return;
+  var el=document.getElementById(btn.getAttribute('data-for')); if(!el) return;
+  var done=function(){ btn.classList.add('done'); btn.textContent='Скопировано';
+    setTimeout(function(){ btn.classList.remove('done'); btn.textContent='Копировать'; },1800); };
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(el.textContent).then(done,sel);
+  } else { sel(); }
+  function sel(){
+    try{ var r=document.createRange(); r.selectNodeContents(el);
+      var s=window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      btn.textContent='Выдели и скопируй';
+      setTimeout(function(){ btn.textContent='Копировать'; },2500);
+    }catch(err){}
+  }
+});
+</script>
