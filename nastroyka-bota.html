@@ -1,0 +1,486 @@
+<title>Сборка бота Люмена</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Unbounded:wght@600;700&display=swap">
+
+<style>
+:root{
+  --ground:#EDEEE9; --surface:#F8F9F5; --surface-2:#E3E7DE; --surface-3:#DCE1D7;
+  --ink:#16232B; --ink-soft:#3B4A4C; --muted:#6B7770;
+  --line:#D5D9CE; --line-strong:#B7BFB1;
+  --accent:#0E6B62; --accent-soft:#D6E5E1; --accent-ink:#0A4F49; --on-accent:#F8F9F5;
+  --signal:#8A5C12; --signal-soft:#EFE4CD;
+  --warn:#8A3A12; --warn-soft:#F3DFD3;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0F1512; --surface:#161E1A; --surface-2:#1E2823; --surface-3:#26312B;
+    --ink:#E7EAE3; --ink-soft:#C1CAC2; --muted:#8B978E;
+    --line:#26302A; --line-strong:#38453D;
+    --accent:#57B9A8; --accent-soft:#16302B; --accent-ink:#8FD6C8; --on-accent:#0F1512;
+    --signal:#D3A159; --signal-soft:#2E2512;
+    --warn:#DE9163; --warn-soft:#331F12;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0F1512; --surface:#161E1A; --surface-2:#1E2823; --surface-3:#26312B;
+  --ink:#E7EAE3; --ink-soft:#C1CAC2; --muted:#8B978E;
+  --line:#26302A; --line-strong:#38453D;
+  --accent:#57B9A8; --accent-soft:#16302B; --accent-ink:#8FD6C8; --on-accent:#0F1512;
+  --signal:#D3A159; --signal-soft:#2E2512;
+  --warn:#DE9163; --warn-soft:#331F12;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--ground); color:var(--ink); padding-bottom:76px;
+  font-family:'Golos Text','Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:860px; margin:0 auto; padding:0 20px}
+@media (max-width:640px){ .wrap{padding:0 14px} }
+h1,h2,h3{margin:0; text-wrap:balance}
+code{font-family:'JetBrains Mono',ui-monospace,monospace; font-size:.9em; background:var(--surface-2);
+  padding:2px 6px; color:var(--ink)}
+p{margin:0 0 12px}
+.st-body p:last-child{margin-bottom:0}
+
+header{padding:44px 0 26px; border-bottom:2px solid var(--ink)}
+.wordmark{font-family:'Unbounded','Golos Text',sans-serif; font-weight:700; font-size:12px;
+  letter-spacing:.28em; color:var(--accent-ink); display:flex; align-items:center; gap:13px}
+.wordmark::after{content:''; flex:1; height:1px; background:var(--line-strong); max-width:170px}
+h1{font-family:'Unbounded','Golos Text',sans-serif; font-weight:700;
+  font-size:clamp(28px,5vw,44px); line-height:1.05; letter-spacing:-.02em; margin:20px 0 0}
+.lede{margin:16px 0 0; max-width:62ch; font-size:17px; color:var(--ink-soft)}
+.lede b{color:var(--ink)}
+
+.model{margin-top:26px; border:1px solid var(--line-strong); background:var(--surface); padding:18px 20px}
+.model .ex-k{margin-bottom:10px}
+.chain{display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-size:14.5px}
+.chain span.b{padding:7px 12px; background:var(--surface-2); color:var(--ink); font-weight:600}
+.chain span.b.on{background:var(--accent); color:var(--on-accent)}
+.chain span.a{color:var(--muted); font-family:'JetBrains Mono',monospace}
+.model p{margin:12px 0 0; font-size:14.5px; color:var(--ink-soft); max-width:70ch}
+
+.ex-k{display:block; font-family:'JetBrains Mono',ui-monospace,monospace; font-size:9.5px;
+  letter-spacing:.11em; text-transform:uppercase; color:var(--muted); font-weight:700}
+
+.step{margin-top:16px; border:1px solid var(--line-strong); background:var(--surface)}
+.step.done{border-color:var(--line)}
+.step.done .st-t,.step.done .st-n{text-decoration:line-through; text-decoration-thickness:1px; color:var(--muted)}
+.step.done .st-body{opacity:.5}
+.st-head{display:flex; align-items:center; gap:13px; padding:15px 18px; cursor:pointer;
+  border-bottom:1px solid var(--line); flex-wrap:wrap; position:relative}
+.st-head input{position:absolute; opacity:0; width:0; height:0}
+.st-box{width:24px; height:24px; flex:none; border:1.5px solid var(--line-strong);
+  background:var(--surface); display:grid; place-items:center}
+.st-head input:checked + .st-box{background:var(--accent); border-color:var(--accent)}
+.st-box svg{width:14px; height:14px; opacity:0; stroke:var(--on-accent); stroke-width:3; fill:none;
+  stroke-linecap:round; stroke-linejoin:round}
+.st-head input:checked + .st-box svg{opacity:1}
+.st-head input:focus-visible + .st-box{outline:2px solid var(--accent); outline-offset:2px}
+.st-n{font-family:'JetBrains Mono',ui-monospace,monospace; font-size:10.5px; letter-spacing:.11em;
+  text-transform:uppercase; color:var(--accent); font-weight:700}
+.st-t{font-size:18px; font-weight:700; letter-spacing:-.01em}
+.st-time{margin-left:auto; font-family:'JetBrains Mono',ui-monospace,monospace; font-size:11px;
+  color:var(--muted); white-space:nowrap}
+@media (max-width:560px){ .st-time{margin-left:37px} .st-t{font-size:16.5px} }
+.st-body{padding:18px}
+.st-body > p, ol.s{font-size:15.5px; line-height:1.58; color:var(--ink-soft); max-width:72ch}
+ol.s{margin:0 0 12px; padding-left:20px; display:grid; gap:8px}
+ol.s li{font-size:15.5px; line-height:1.5; color:var(--ink-soft)}
+ol.s li::marker{color:var(--accent); font-weight:700}
+b{color:var(--ink)}
+
+.warn-note,.ok-note{margin:14px 0 0; padding:12px 15px; font-size:14.5px; line-height:1.5; color:var(--ink); max-width:74ch}
+.warn-note{background:var(--signal-soft); border-left:3px solid var(--signal)}
+.ok-note{background:var(--accent-soft); border-left:3px solid var(--accent)}
+
+.pick{display:grid; gap:10px; margin:14px 0}
+.opt{border:1px solid var(--line-strong); background:var(--surface-2); padding:15px 17px}
+.opt.best{border:2px solid var(--accent); background:var(--accent-soft)}
+.opt-h{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap}
+.opt-n{font-size:16.5px; font-weight:700; color:var(--ink)}
+.tag-ok,.tag-pay{font-family:'JetBrains Mono',ui-monospace,monospace; font-size:10px;
+  letter-spacing:.09em; text-transform:uppercase; padding:4px 9px; white-space:nowrap}
+.tag-ok{background:var(--accent); color:var(--on-accent)}
+.tag-pay{background:var(--signal-soft); color:var(--signal)}
+.opt p{margin:8px 0 0; font-size:14.5px; line-height:1.5; color:var(--ink-soft); max-width:72ch}
+
+.trigger{border:1px dashed var(--line-strong); background:var(--surface-2); padding:14px 16px; margin:14px 0 18px}
+.trigger p{margin:8px 0 0; font-size:14.5px; line-height:1.5; color:var(--ink-soft)}
+
+.msg{margin-bottom:18px; border-left:3px solid var(--accent); padding-left:15px}
+.msg-head{display:flex; align-items:baseline; gap:11px; flex-wrap:wrap; margin-bottom:9px}
+.msg-n{font-family:'JetBrains Mono',ui-monospace,monospace; font-size:11px; font-weight:700;
+  background:var(--accent); color:var(--on-accent); padding:3px 8px}
+.msg-t{font-size:16px; font-weight:700}
+.msg-d{margin-left:auto; font-family:'JetBrains Mono',ui-monospace,monospace; font-size:11px;
+  color:var(--signal); white-space:nowrap; font-weight:500}
+@media (max-width:560px){ .msg-d{margin-left:0} }
+.msg-h{margin:8px 0 0; font-size:14px; line-height:1.45; color:var(--muted)}
+.linkbox{margin-top:8px}
+
+.promptbox{position:relative; border:1px solid var(--line-strong); background:var(--surface-2)}
+.promptbox pre{margin:0; padding:14px 15px 44px; font-family:'JetBrains Mono',ui-monospace,monospace;
+  font-size:12.5px; line-height:1.65; color:var(--ink); white-space:pre-wrap; word-break:break-word}
+button{font-family:inherit; cursor:pointer; border-radius:0}
+button.copy{position:absolute; right:9px; bottom:9px; padding:6px 12px; font-size:12px; font-weight:600;
+  background:var(--surface); color:var(--accent-ink); border:1.5px solid var(--accent)}
+button.copy:hover,button.copy.done{background:var(--accent); color:var(--on-accent)}
+button:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+
+.trouble{margin-top:40px}
+.trouble h2{font-size:clamp(21px,2.9vw,26px); font-weight:800; letter-spacing:-.015em; margin-bottom:14px}
+.tr{border:1px solid var(--line); background:var(--surface); padding:15px 17px; margin-bottom:1px}
+.tr .q{font-weight:700; font-size:15.5px; margin-bottom:6px}
+.tr p{margin:0; font-size:14.5px; line-height:1.52; color:var(--ink-soft); max-width:74ch}
+
+footer{margin-top:36px; padding-top:20px; border-top:1px solid var(--line); font-size:13.5px; color:var(--muted)}
+
+.bar{position:fixed; left:0; right:0; bottom:0; background:var(--surface); border-top:2px solid var(--ink); z-index:20}
+.barin{max-width:860px; margin:0 auto; padding:11px 20px; display:flex; align-items:center; gap:16px}
+.prog{flex:1; height:8px; background:var(--surface-3); position:relative; overflow:hidden}
+.prog i{position:absolute; left:0; top:0; bottom:0; background:var(--accent); width:0; transition:width .25s}
+.pnum{font-family:'JetBrains Mono',ui-monospace,monospace; font-weight:700; font-size:14px;
+  color:var(--ink); font-variant-numeric:tabular-nums; white-space:nowrap}
+@media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+</style>
+
+<div class="wrap">
+
+<header>
+  <div class="wordmark">ЛЮМЕН</div>
+  <h1>Собираем бота за полтора часа</h1>
+  <p class="lede">Семь шагов по порядку. Отмечай сделанное — отметки сохраняются, можно закрыть и вернуться. <b>Программировать не нужно нигде</b>: всё собирается мышкой, тексты копируются кнопкой.</p>
+  <div class="model">
+    <span class="ex-k">Что вообще происходит</span>
+    <div class="chain">
+      <span class="b">BotFather</span><span class="a">→</span>
+      <span class="b">сервис-конструктор</span><span class="a">→</span>
+      <span class="b on">бот отвечает</span>
+    </div>
+    <p>BotFather выдаёт только имя и ключ — внутри пусто, поэтому бот и молчит. Отвечать за него будет сервис-конструктор: там ты собираешь цепочку, и она работает круглосуточно в его облаке. Твой компьютер при этом может быть выключен.</p>
+  </div>
+</header>
+
+  <section class="step" id="st0">
+    <label class="st-head">
+      <input type="checkbox" data-step="0"><span class="st-box"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="4 13 9 18 20 6"></polyline></svg></span>
+      <span class="st-n">Шаг 1</span>
+      <span class="st-t">Отозвать старый токен</span>
+      <span class="st-time">5 минут</span>
+    </label>
+    <div class="st-body">
+    <p>Токен засветился в переписке — значит, он больше не секретный. Это не авария, но чинить надо сразу: с этой строкой любой человек может читать сообщения твоих подписчиков и писать от имени бота.</p>
+    <ol class="s">
+      <li>Открой в Телеграме <b>@BotFather</b>.</li>
+      <li>Отправь команду <code>/revoke</code>.</li>
+      <li>Выбери в списке <b>@Lumen_karta_rutiny_bot</b>.</li>
+      <li>BotFather пришлёт новый токен — длинную строку с двоеточием. <b>Скопируй её и никуда не пересылай.</b> Она понадобится через два шага.</li>
+    </ol>
+    <p class="warn-note">Старый токен умирает мгновенно, новый работает сразу. Бот, имя и подписчики не теряются — меняется только ключ от двери.</p>
+ </div>
+  </section>
+  <section class="step" id="st1">
+    <label class="st-head">
+      <input type="checkbox" data-step="1"><span class="st-box"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="4 13 9 18 20 6"></polyline></svg></span>
+      <span class="st-n">Шаг 2</span>
+      <span class="st-t">Выбрать сервис</span>
+      <span class="st-time">10 минут</span>
+    </label>
+    <div class="st-body">
+    <p>Бот от BotFather — пустая оболочка: имя и ключ, внутри ничего. Отвечать за него будет сервис-конструктор. Ты собираешь в нём цепочку мышкой, он работает круглосуточно в своём облаке — твой компьютер при этом может быть выключен.</p>
+    <div class="pick">
+      <div class="opt best">
+        <div class="opt-h"><span class="opt-n">PuzzleBot</span><span class="tag-ok">начни с него</span></div>
+        <p>Российский конструктор под Телеграм с бесплатным тарифом. Умеет всё, что нужно этой воронке: цепочки с задержками, кнопки, выдачу файлов, реакцию на ключевые слова. Адрес — puzzlebot.top.</p>
+      </div>
+      <div class="opt">
+        <div class="opt-h"><span class="opt-n">BotHelp</span><span class="tag-pay">от ~1 300 ₽/мес</span></div>
+        <p>Редактор понятнее и приятнее, плюс умеет ловить кодовые слова в комментариях канала. Но бесплатно только 14 дней. Хороший вариант вторым шагом, когда воронка поедет и станет ясно, что она окупается.</p>
+      </div>
+      <div class="opt">
+        <div class="opt-n">Salebot, SendPulse</div>
+        <p>Тоже подойдут, у обоих есть бесплатные тарифы. Salebot мощнее и сложнее, SendPulse проще. Если у тебя уже есть аккаунт в одном из них — бери его, не заводи новый.</p>
+      </div>
+    </div>
+    <p class="warn-note">Тарифы у всех меняются часто. Проверь актуальные цифры на сайте перед регистрацией — если на бесплатном не хватает чего-то из списка выше, бери следующий по порядку.</p>
+ </div>
+  </section>
+  <section class="step" id="st2">
+    <label class="st-head">
+      <input type="checkbox" data-step="2"><span class="st-box"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="4 13 9 18 20 6"></polyline></svg></span>
+      <span class="st-n">Шаг 3</span>
+      <span class="st-t">Подключить бота к сервису</span>
+      <span class="st-time">5 минут</span>
+    </label>
+    <div class="st-body">
+    <ol class="s">
+      <li>Зарегистрируйся в выбранном сервисе — обычно через тот же Телеграм, отдельный пароль не нужен.</li>
+      <li>Найди пункт вроде <b>«Добавить бота»</b>, <b>«Подключить канал»</b> или <b>«Мои боты»</b> — называется по-разному, смысл один.</li>
+      <li>Выбери Telegram и вставь <b>новый токен</b> из первого шага.</li>
+      <li>Сервис проверит связь и покажет имя бота. Увидела «@Lumen_karta_rutiny_bot» — связь есть.</li>
+    </ol>
+    <p>Теперь напиши боту <code>/start</code> со своего аккаунта. Он всё ещё промолчит — сценария внутри пока нет, это нормально. Но в сервисе ты должна появиться в списке подписчиков. Появилась — всё правильно.</p>
+ </div>
+  </section>
+  <section class="step" id="st3">
+    <label class="st-head">
+      <input type="checkbox" data-step="3"><span class="st-box"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="4 13 9 18 20 6"></polyline></svg></span>
+      <span class="st-n">Шаг 4</span>
+      <span class="st-t">Загрузить карту</span>
+      <span class="st-time">5 минут</span>
+    </label>
+    <div class="st-body">
+    <p>Боту нужно что-то отдавать. Отдаём два варианта — ссылку и файл, чтобы человеку было из чего выбрать.</p>
+    <ol class="s">
+      <li>Загрузи в сервис файл <b>karta-rutiny.xlsx</b> — обычно раздел «Файлы» или прямо в сообщении кнопкой «прикрепить».</li>
+      <li>Держи под рукой ссылку на интерактивную версию — она пойдёт кнопкой во втором сообщении.</li>
+    </ol>
+    <div class="linkbox">
+      <span class="ex-k">Ссылка на карту</span>
+      <div class="promptbox">
+        <pre id="lnk">https://afkostareva-lab.github.io/Start/</pre>
+        <button class="copy" type="button" data-for="lnk">Копировать</button>
+      </div>
+      <p class="msg-h">Заработает после того, как включишь GitHub Pages: репозиторий Start → Settings → Pages → Source «Deploy from a branch» → ветка claude/lumen-competitor-content-analysis-p96njp, папка /docs → Save. Пара минут — и адрес живой. Пока не включила, обходись файлом.</p>
+    </div>
+ </div>
+  </section>
+  <section class="step" id="st4">
+    <label class="st-head">
+      <input type="checkbox" data-step="4"><span class="st-box"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="4 13 9 18 20 6"></polyline></svg></span>
+      <span class="st-n">Шаг 5</span>
+      <span class="st-t">Собрать цепочку</span>
+      <span class="st-time">40 минут</span>
+    </label>
+    <div class="st-body">
+    <p>Основная работа. Создай новый сценарий (может называться «воронка», «бот», «цепочка») и добавь семь сообщений с задержками. Тексты ниже копируются кнопкой и вставляются как есть.</p>
+    <div class="trigger">
+      <span class="ex-k">Условие запуска — поставь его первым</span>
+      <p>Сценарий стартует, когда человек отправляет боту команду <code>/start</code> <b>или</b> слово <code>КАРТА</code> в любом регистре. В сервисе это поле «Триггер», «Условие входа» или «Ключевые слова».</p>
+    </div>
+      <div class="msg">
+        <div class="msg-head">
+          <span class="msg-n">1</span>
+          <span class="msg-t">Приветствие</span>
+          <span class="msg-d">сразу</span>
+        </div>
+        <div class="promptbox">
+          <pre id="m0">Привет. Сейчас пришлю карту.
+
+Коротко, зачем она. Самая частая причина, по которой люди не используют ИИ в работе, — не «не умею», а «у меня нет подходящих задач». Почти всегда это неправда: задачи есть, их просто не видно изнутри собственной недели.
+
+Карта делает их видимыми. Десять минут, пятнадцать строк — и на выходе список того, что можно отдать уже сегодня, и того, что пока рано.</pre>
+          <button class="copy" type="button" data-for="m0">Копировать</button>
+        </div>
+        <p class="msg-h">Триггер запуска: команда /start и слово КАРТА.</p>
+      </div>
+      <div class="msg">
+        <div class="msg-head">
+          <span class="msg-n">2</span>
+          <span class="msg-t">Выдача карты</span>
+          <span class="msg-d">через 3 секунды</span>
+        </div>
+        <div class="promptbox">
+          <pre id="m1">Вот карта, два варианта на выбор:
+
+👉 [Заполнить онлайн](https://afkostareva-lab.github.io/Start/) — считает сама, удобно с телефона
+📄 Файл ниже — если привычнее в таблице
+
+Заполняй не задним числом, а по своей реальной неделе. И не останавливайся на восьмой строке: первыми вспоминаются крупные задачи, а лучшие кандидаты почти всегда мелкие и скучные — те, про которые думаешь «да там на пять минут». Пять минут четыре раза в день — это два с половиной часа в неделю.
+
+Если непонятно, что вообще значит «отдать задачу», — в начале карты есть десять разобранных примеров с готовыми запросами. Их можно копировать как есть и пробовать прямо сегодня, ещё до того, как заполнишь таблицу.</pre>
+          <button class="copy" type="button" data-for="m1">Копировать</button>
+        </div>
+        <p class="msg-h">Прикрепи сюда файл karta-rutiny.xlsx и добавь кнопку-ссылку «Заполнить онлайн».</p>
+      </div>
+      <div class="msg">
+        <div class="msg-head">
+          <span class="msg-n">3</span>
+          <span class="msg-t">Проверка «получилось?»</span>
+          <span class="msg-d">через 20 минут</span>
+        </div>
+        <div class="promptbox">
+          <pre id="m2">Ну как, получилось?
+
+Если застряла на том, что писать в строках, — самая частая ошибка в следующем сообщении, оно придёт завтра. А если уже заполнила, глянь на первую группу: там задачи, которые можно закрыть на этой неделе.</pre>
+          <button class="copy" type="button" data-for="m2">Копировать</button>
+        </div>
+        <p class="msg-h">Добавь две кнопки: «Заполнила» и «Ещё не дошла». По первой — переход сразу к сообщению 5.</p>
+      </div>
+      <div class="msg">
+        <div class="msg-head">
+          <span class="msg-n">4</span>
+          <span class="msg-t">Типовая ошибка</span>
+          <span class="msg-d">через 1 день</span>
+        </div>
+        <div class="promptbox">
+          <pre id="m3">Обещанная ошибка. Девять человек из десяти пишут задачи слишком крупно: «веду клиентов», «занимаюсь отчётностью», «работаю с поставщиками».
+
+Под такую формулировку ничего не подберёшь — это не задача, а зона ответственности. Разбей её на конкретные действия: письмо о статусе заказа, сверка по остаткам, напоминание об оплате, сводка для руководителя. Вот они уже отдаются.
+
+Проверка простая: если задачу нельзя начать и закончить за один присест — она слишком крупная.</pre>
+          <button class="copy" type="button" data-for="m3">Копировать</button>
+        </div>
+        <p class="msg-h">Просто текст, без кнопок.</p>
+      </div>
+      <div class="msg">
+        <div class="msg-head">
+          <span class="msg-n">5</span>
+          <span class="msg-t">Приглашение на разбор</span>
+          <span class="msg-d">через 3 дня</span>
+        </div>
+        <div class="promptbox">
+          <pre id="m4">Смотри, что обычно происходит дальше.
+
+Карта показывает три-четыре задачи, которые можно отдать. Дальше человек открывает чат с нейросетью, пишет запрос, получает что-то среднее, поправляет, снова получает среднее — и через сорок минут закрывает вкладку с мыслью «быстрее самой сделать». Задача при этом была нормальная, не сложилось из-за деталей: не было образца, запрос описывал задачу вместо результата, проверять было нечего.
+
+Разбор — это как раз про детали. Берём твой список, выбираем три задачи с самой быстрой отдачей и доводим их до рабочего состояния. Не «изучаем нейросети» — делаем так, чтобы в следующий понедельник эти задачи занимали у тебя другое время.
+
+Если хочешь так — напиши слово РАЗБОР.</pre>
+          <button class="copy" type="button" data-for="m4">Копировать</button>
+        </div>
+        <p class="msg-h">Кнопка «РАЗБОР» — она ведёт на сообщение 7.</p>
+      </div>
+      <div class="msg">
+        <div class="msg-head">
+          <span class="msg-n">6</span>
+          <span class="msg-t">Последний заход</span>
+          <span class="msg-d">через 5 дней</span>
+        </div>
+        <div class="promptbox">
+          <pre id="m5">Последнее, дальше не пишу.
+
+Самое частое возражение, которое я слышу, — «у меня всё равно не получится, я не технарь». В разборе нет ничего технического: мы не пишем код и не настраиваем интеграции. Мы берём твою задачу, собираем к ней образец и запрос, проверяем на трёх реальных примерах — и всё.
+
+Если карта лежит заполненная и первая группа не пустая, час разбора её закроет. Слово прежнее — РАЗБОР.</pre>
+          <button class="copy" type="button" data-for="m5">Копировать</button>
+        </div>
+        <p class="msg-h">Та же кнопка «РАЗБОР». После этого сообщения цепочка заканчивается.</p>
+      </div>
+      <div class="msg">
+        <div class="msg-head">
+          <span class="msg-n">7</span>
+          <span class="msg-t">Ответ на слово РАЗБОР</span>
+          <span class="msg-d">по слову РАЗБОР</span>
+        </div>
+        <div class="promptbox">
+          <pre id="m6">Отлично. Три вопроса, чтобы прийти на созвон подготовленной, а не тратить время на выяснение.
+
+1. Кем работаешь и в какой сфере?
+2. Сколько задач попало в первую группу и какая из них самая частая?
+3. Когда удобнее — на этой неделе или на следующей?
+
+Ответь одним сообщением, дальше напишу лично.</pre>
+          <button class="copy" type="button" data-for="m6">Копировать</button>
+        </div>
+        <p class="msg-h">Отдельный сценарий по ключевому слову. В конце — уведомление тебе.</p>
+      </div>
+
+    <p class="warn-note">Не пытайся собрать всё за один присест до последней кнопки. Сделай сначала первые два сообщения, проверь, что карта приходит, — и только потом достраивай остальное. Так ошибка находится сразу, а не в конце.</p>
+ </div>
+  </section>
+  <section class="step" id="st5">
+    <label class="st-head">
+      <input type="checkbox" data-step="5"><span class="st-box"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="4 13 9 18 20 6"></polyline></svg></span>
+      <span class="st-n">Шаг 6</span>
+      <span class="st-t">Настроить уведомления себе</span>
+      <span class="st-time">5 минут</span>
+    </label>
+    <div class="st-body">
+    <p>Заявка бесполезна, если ты о ней не узнала. После седьмого сообщения нужно уведомление.</p>
+    <ol class="s">
+      <li>Найди в сценарии действие вроде <b>«Уведомить администратора»</b>, <b>«Отправить себе»</b> или «Оповещение».</li>
+      <li>Поставь его сразу после седьмого сообщения.</li>
+      <li>В текст уведомления вставь имя пользователя и его ответ — в сервисах это подставляется переменными, обычно из выпадающего списка рядом с полем.</li>
+    </ol>
+    <p>Если такого действия нет, есть обходной путь: пусть бот пишет заявки в отдельный закрытый канал, а ты подпишись на него. Работает так же.</p>
+ </div>
+  </section>
+  <section class="step" id="st6">
+    <label class="st-head">
+      <input type="checkbox" data-step="6"><span class="st-box"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="4 13 9 18 20 6"></polyline></svg></span>
+      <span class="st-n">Шаг 7</span>
+      <span class="st-t">Проверить всё самой</span>
+      <span class="st-time">10 минут</span>
+    </label>
+    <div class="st-body">
+    <p>Обязательный шаг. Одна непроверенная цепочка стоит недели трафика.</p>
+    <ol class="s">
+      <li>Попроси сервис <b>сбросить твою подписку</b> (или удали себя из подписчиков) — иначе цепочка не начнётся заново.</li>
+      <li>Напиши боту слово <code>КАРТА</code>. Должны прийти первое и второе сообщения.</li>
+      <li>Проверь, что <b>файл открывается</b>, а <b>кнопка ведёт на карту</b>.</li>
+      <li>Нажми «Заполнила» — должно прилететь пятое сообщение, а не третье.</li>
+      <li>Напиши <code>РАЗБОР</code> — должно прийти седьмое и уведомление тебе.</li>
+      <li>Задержки на день и три проверять целиком не надо: временно поставь их в одну минуту, убедись, что приходят, и верни обратно.</li>
+    </ol>
+    <p class="ok-note">Всё прошло — воронка готова. Можно ставить кодовое слово в посты.</p>
+ </div>
+  </section>
+
+<section class="trouble">
+  <h2>Если что-то не работает</h2>
+  <div class="tr"><div class="q">Написала боту — тишина</div><p>Почти всегда одно из двух: токен вставлен старый (после <code>/revoke</code> он мёртв) или сценарий сохранён, но не включён — у сценариев обычно есть переключатель «включено / пауза», по умолчанию выключенный. Проверь оба.</p></div>
+  <div class="tr"><div class="q">Первый раз пришло, второй — нет</div><p>Так и должно быть: цепочка отрабатывает один раз на человека. Чтобы проверить заново, сбрось свою подписку в сервисе или удали себя из списка подписчиков.</p></div>
+  <div class="tr"><div class="q">Слово КАРТА не срабатывает</div><p>Проверь, что триггер ловит слово в любом регистре и с учётом того, что человек может дописать что-то рядом. Обычно в поле условия есть выбор «точное совпадение» или «содержит» — нужно «содержит».</p></div>
+  <div class="tr"><div class="q">Файл не открывается у подписчика</div><p>Телеграм иногда показывает xlsx как «неподдерживаемый формат» — это про предпросмотр, а не про скачивание. Всё равно продублируй ссылкой на онлайн-версию: на телефоне ей пользуются чаще.</p></div>
+  <div class="tr"><div class="q">Кнопка «Заполнила» ведёт не туда</div><p>Значит, переход настроен на следующее сообщение, а не на пятое. В конструкторе у кнопки есть отдельное поле «переход» или «следующий шаг» — там нужно явно выбрать пятое сообщение.</p></div>
+  <div class="tr"><div class="q">Совсем застряла</div><p>У всех сервисов есть поддержка прямо в Телеграме, и отвечают они быстро. Опиши, что делаешь и на каком шаге встала, — это их работа. Не сиди над этим час.</p></div>
+</section>
+
+<footer>Люмен · Порядок шагов важнее скорости. Дошла до пятого шага и устала — останови, отметки сохранятся.</footer>
+
+</div>
+
+<div class="bar"><div class="barin">
+  <span class="pnum" id="pn">0 из 7</span>
+  <div class="prog"><i id="pi"></i></div>
+</div></div>
+
+<script>
+(function(){
+  var KEY='lumen-bot-setup-v1';
+  var boxes=[].slice.call(document.querySelectorAll('input[data-step]'));
+  var state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+
+  function paint(){
+    var n=0;
+    boxes.forEach(function(b){
+      var i=b.getAttribute('data-step'), on=!!state[i];
+      b.checked=on;
+      b.closest('.step').classList.toggle('done',on);
+      if(on) n++;
+    });
+    document.getElementById('pn').textContent=n+' из '+boxes.length;
+    document.getElementById('pi').style.width=(n/boxes.length*100)+'%';
+  }
+  boxes.forEach(function(b){
+    b.addEventListener('change',function(){
+      state[b.getAttribute('data-step')]=b.checked;
+      try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){}
+      paint();
+    });
+  });
+  paint();
+
+  document.addEventListener('click',function(e){
+    var btn=e.target.closest('button.copy'); if(!btn) return;
+    var el=document.getElementById(btn.getAttribute('data-for')); if(!el) return;
+    var done=function(){
+      btn.classList.add('done'); btn.textContent='Скопировано';
+      setTimeout(function(){ btn.classList.remove('done'); btn.textContent='Копировать'; },1800);
+    };
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(el.textContent).then(done,sel);
+    } else { sel(); }
+    function sel(){
+      try{
+        var r=document.createRange(); r.selectNodeContents(el);
+        var s=window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        btn.textContent='Выдели и скопируй';
+        setTimeout(function(){ btn.textContent='Копировать'; },2500);
+      }catch(err){}
+    }
+  });
+})();
+</script>
