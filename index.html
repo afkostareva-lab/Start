@@ -151,6 +151,14 @@ button:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
 
 
 /* примеры */
+
+.profs{display:flex; gap:8px; flex-wrap:wrap; margin:0 0 12px}
+.pf{padding:8px 15px; font-size:14px; font-weight:600; background:var(--surface);
+  color:var(--ink-soft); border:1.5px solid var(--line-strong)}
+.pf:hover{border-color:var(--accent); color:var(--accent-ink)}
+.pf.on{background:var(--accent); color:var(--on-accent); border-color:var(--accent)}
+.pf:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+.ex.hide{display:none}
 .exwrap{border:1px solid var(--line-strong); background:var(--surface); margin-top:8px}
 .ex{border-bottom:1px solid var(--line)}
 .ex:last-child{border-bottom:none}
@@ -264,9 +272,15 @@ footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--line);
 
 <section id="primery">
   <div class="shead"><h2>Что вообще значит «отдать задачу»</h2></div>
-  <p class="exlead">Десять задач из разных профессий — раскрой любую и увидишь, что конкретно печатать в чат. Запросы можно копировать как есть, подставив своё. Устроены они все одинаково, и это главное, чему стоит научиться: <b>сначала образец, потом факты, потом прямой запрет додумывать.</b> Без первого получается вода, без третьего — выдуманные цифры.</p>
+  <p class="exlead">Шестнадцать задач из разных профессий — выбери свою и раскрой, чтобы увидеть, что конкретно печатать в чат. Запросы можно копировать как есть, подставив своё. Устроены они все одинаково, и это главное, чему стоит научиться: <b>сначала образец, потом факты, потом прямой запрет додумывать.</b> Без первого получается вода, без третьего — выдуманные цифры.</p>
+  <div class="profs" role="group" aria-label="Фильтр по профессии">
+    <button type="button" class="pf on" data-prof="all">Все</button>
+    <button type="button" class="pf" data-prof="office">Офис и продажи</button>
+    <button type="button" class="pf" data-prof="psy">Психологи</button>
+    <button type="button" class="pf" data-prof="tutor">Репетиторы</button>
+  </div>
   <div class="exwrap">
-    <details class="ex">
+    <details class="ex" data-prof="office">
       <summary><span>Письма клиентам по статусу заказа</span><span class="ex-g g1">отдавай сегодня</span></summary>
       <div class="ex-body">
         <div class="ex-block"><span class="ex-k">Что делать</span><ol class="ex-steps"><li>Один раз собери пять своих прошлых писем на похожую тему — это образец тона.</li><li>Вставь запрос ниже, подставив свои письма. Сохрани его: дальше меняешь только факты.</li><li>Проверь цифры и даты, отправь.</li></ol></div>
@@ -284,7 +298,7 @@ footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--line);
         <p class="ex-keep"><b>Себе оставляешь:</b> Проверить факты и отправить.</p>
       </div>
     </details>
-    <details class="ex">
+    <details class="ex" data-prof="office">
       <summary><span>Недельная сводка руководителю</span><span class="ex-g g1">отдавай сегодня</span></summary>
       <div class="ex-body">
         <div class="ex-block"><span class="ex-k">Что делать</span><ol class="ex-steps"><li>Выгрузи данные за неделю как есть — таблицей, списком, хоть скриншотом.</li><li>Приложи прошлую сводку как образец структуры.</li><li>Расставь акценты сама: что здесь важно, а что шум.</li></ol></div>
@@ -306,7 +320,7 @@ footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--line);
         <p class="ex-keep"><b>Себе оставляешь:</b> Решить, что вынести наверх.</p>
       </div>
     </details>
-    <details class="ex">
+    <details class="ex" data-prof="office">
       <summary><span>Разбор откликов на вакансию</span><span class="ex-g g1">отдавай сегодня</span></summary>
       <div class="ex-body">
         <div class="ex-block"><span class="ex-k">Что делать</span><ol class="ex-steps"><li>Сформулируй три-четыре критерия одной строкой — только измеримые.</li><li>Вставь отклики пачкой, пронумерованными.</li><li>Решение по каждому кандидату принимаешь сама.</li></ol></div>
@@ -326,7 +340,7 @@ footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--line);
         <p class="ex-keep"><b>Себе оставляешь:</b> Выбор кандидатов. ИИ сортирует, а не отбирает.</p>
       </div>
     </details>
-    <details class="ex">
+    <details class="ex" data-prof="office">
       <summary><span>Отчёт по расходам за месяц</span><span class="ex-g g3">только проверяемая часть</span></summary>
       <div class="ex-body">
         <div class="ex-block"><span class="ex-k">Что делать</span><ol class="ex-steps"><li>Числа не отдавай вообще. Отдай структуру и формулировки.</li><li>Проси заготовку, а не расчёт.</li><li>Числа подставляешь сама, в своей таблице.</li></ol></div>
@@ -345,7 +359,7 @@ footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--line);
         <p class="ex-keep"><b>Себе оставляешь:</b> Все числа до единого.</p>
       </div>
     </details>
-    <details class="ex">
+    <details class="ex" data-prof="office">
       <summary><span>Техническое задание подрядчику</span><span class="ex-g g2">нужен образец</span></summary>
       <div class="ex-body">
         <div class="ex-block"><span class="ex-k">Что делать</span><ol class="ex-steps"><li>Нет удачного прошлого ТЗ — напиши одно руками и сохрани. Это разовая работа.</li><li>Дальше каждый раз используешь запрос ниже.</li><li>Сроки, бюджет и приёмку заполняешь сама.</li></ol></div>
@@ -367,7 +381,7 @@ footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--line);
         <p class="ex-keep"><b>Себе оставляешь:</b> Сроки, бюджет, критерии приёмки.</p>
       </div>
     </details>
-    <details class="ex">
+    <details class="ex" data-prof="office">
       <summary><span>Протокол планёрки и задачи по итогам</span><span class="ex-g g1">отдавай сегодня</span></summary>
       <div class="ex-body">
         <div class="ex-block"><span class="ex-k">Что делать</span><ol class="ex-steps"><li>Включи запись на телефоне или пиши заметки как обычно.</li><li>Расшифровку целиком отдай в чат вместе с запросом ниже.</li><li>Проверь, что никого не забыли, и разошли.</li></ol></div>
@@ -390,7 +404,7 @@ footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--line);
         <p class="ex-keep"><b>Себе оставляешь:</b> Проверить полноту и разослать.</p>
       </div>
     </details>
-    <details class="ex">
+    <details class="ex" data-prof="office">
       <summary><span>Типовые вопросы клиентов в чате</span><span class="ex-g g1">отдавай сегодня</span></summary>
       <div class="ex-body">
         <div class="ex-block"><span class="ex-k">Что делать</span><ol class="ex-steps"><li>Собери двадцать своих прошлых ответов — чем разнообразнее, тем лучше.</li><li>Вставь запрос ниже один раз и сохрани как шаблон.</li><li>Всё про цены и сроки дописываешь руками.</li></ol></div>
@@ -410,7 +424,7 @@ footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--line);
         <p class="ex-keep"><b>Себе оставляешь:</b> Всё, где есть цена, срок или обязательство.</p>
       </div>
     </details>
-    <details class="ex">
+    <details class="ex" data-prof="office">
       <summary><span>Сверка договора с вашим шаблоном</span><span class="ex-g g3">только проверяемая часть</span></summary>
       <div class="ex-body">
         <div class="ex-block"><span class="ex-k">Что делать</span><ol class="ex-steps"><li>Оба текста целиком в чат.</li><li>Проси список различий, а не оценку.</li><li>Существенность расхождений оцениваешь сама.</li></ol></div>
@@ -434,7 +448,7 @@ footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--line);
         <p class="ex-keep"><b>Себе оставляешь:</b> Вывод, что из этого существенно.</p>
       </div>
     </details>
-    <details class="ex">
+    <details class="ex" data-prof="office">
       <summary><span>Коммерческое предложение по запросу</span><span class="ex-g g2">нужен образец</span></summary>
       <div class="ex-body">
         <div class="ex-block"><span class="ex-k">Что делать</span><ol class="ex-steps"><li>Сохрани одно своё КП, после которого клиент согласился.</li><li>Дальше каждый раз запрос ниже.</li><li>Ставки и условия проставляешь руками, всегда.</li></ol></div>
@@ -456,7 +470,7 @@ footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--line);
         <p class="ex-keep"><b>Себе оставляешь:</b> Ставки, условия, сроки.</p>
       </div>
     </details>
-    <details class="ex">
+    <details class="ex" data-prof="office">
       <summary><span>Справка по клиенту перед встречей</span><span class="ex-g g1">отдавай сегодня</span></summary>
       <div class="ex-body">
         <div class="ex-block"><span class="ex-k">Что делать</span><ol class="ex-steps"><li>Скопируй переписку за год и список заказов.</li><li>Вставь запрос ниже.</li><li>Что предложить на встрече — решаешь сама.</li></ol></div>
@@ -474,6 +488,128 @@ footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--line);
           </div>
         </div>
         <p class="ex-keep"><b>Себе оставляешь:</b> Что предложить.</p>
+      </div>
+    </details>
+    <details class="ex" data-prof="psy">
+      <summary><span>Заметки после сессии</span><span class="ex-g g3">только проверяемая часть</span></summary>
+      <div class="ex-body">
+        <div class="ex-block"><span class="ex-k">Что делать</span><ol class="ex-steps"><li>Обезличь текст до того, как что-то куда-то вставишь: клиент — «К.», без города, профессии, названий компаний и узнаваемых деталей.</li><li>Отдавай структурирование, а не интерпретацию.</li><li>Готовый текст перечитай и допиши то, что не стала отдавать.</li></ol></div>
+        <div class="ex-block">
+          <span class="ex-k">Готовый запрос — скопируй и подставь своё</span>
+          <div class="promptbox">
+            <pre id="pn0">Вот моя заметка после сессии. Она обезличена: клиент обозначен как «К.», узнаваемые детали убраны.
+
+[вставить заметку]
+
+Приведи её к моей обычной структуре: запрос, что происходило в сессии, гипотезы, план на следующую.
+
+Ничего не интерпретируй сверх написанного, не добавляй диагнозов и не делай выводов, которых в тексте нет. Если чего-то для раздела не хватает — так и напиши.</pre>
+            <button class="copy" type="button" data-for="pn0">Копировать</button>
+          </div>
+        </div>
+        <p class="ex-keep"><b>Себе оставляешь:</b> Всё, по чему человека можно узнать, и любые клинические выводы.</p>
+      </div>
+    </details>
+    <details class="ex" data-prof="psy">
+      <summary><span>Ответы на первые обращения</span><span class="ex-g g1">отдавай сегодня</span></summary>
+      <div class="ex-body">
+        <div class="ex-block"><span class="ex-k">Что делать</span><ol class="ex-steps"><li>Собери пятнадцать своих прошлых ответов на «здравствуйте, а вы работаете с…».</li><li>Вставь запрос ниже, сохрани как шаблон.</li><li>Решение, брать ли человека в работу, принимаешь сама.</li></ol></div>
+        <div class="ex-block">
+          <span class="ex-k">Готовый запрос — скопируй и подставь своё</span>
+          <div class="promptbox">
+            <pre id="pn1">Ниже пятнадцать моих ответов на первые обращения. Изучи тон: тёплый, но без обещаний результата.
+
+[вставить ответы]
+
+Отвечай так же на новые обращения. Жёсткие правила: не обещай результат и сроки терапии, не ставь и не предполагай диагнозов, на вопрос о стоимости отвечай моей формулировкой из образцов.
+
+Первое обращение: [текст обращения]</pre>
+            <button class="copy" type="button" data-for="pn1">Копировать</button>
+          </div>
+        </div>
+        <p class="ex-keep"><b>Себе оставляешь:</b> Решение, твой ли это клиент.</p>
+      </div>
+    </details>
+    <details class="ex" data-prof="psy">
+      <summary><span>Материалы клиенту между сессиями</span><span class="ex-g g2">нужен образец</span></summary>
+      <div class="ex-body">
+        <div class="ex-block"><span class="ex-k">Что делать</span><ol class="ex-steps"><li>Возьми одну свою удачную раздатку — по ней видно стиль и уровень подробности.</li><li>Дальше каждый раз запрос ниже.</li><li>Проверь, подходит ли это конкретному человеку.</li></ol></div>
+        <div class="ex-block">
+          <span class="ex-k">Готовый запрос — скопируй и подставь своё</span>
+          <div class="promptbox">
+            <pre id="pn2">Вот раздатка, которую я обычно даю клиентам. По ней видно мой стиль и уровень подробности:
+
+[вставить образец]
+
+Сделай такую же на тему [тема] для взрослого человека без психологического образования.
+
+Без терминов, которые не объяснены тут же. Без обещаний, что станет легче. В конце — три вопроса для самонаблюдения между сессиями.</pre>
+            <button class="copy" type="button" data-for="pn2">Копировать</button>
+          </div>
+        </div>
+        <p class="ex-keep"><b>Себе оставляешь:</b> Решение, кому это давать, а кому рано.</p>
+      </div>
+    </details>
+    <details class="ex" data-prof="tutor">
+      <summary><span>Домашние задания под уровень ученика</span><span class="ex-g g1">отдавай сегодня</span></summary>
+      <div class="ex-body">
+        <div class="ex-block"><span class="ex-k">Что делать</span><ol class="ex-steps"><li>Возьми задание, которое хорошо зашло ученикам этого уровня, — это эталон сложности.</li><li>Проси ответы отдельным блоком, чтобы ученику отдать только условия.</li><li>Перерешай каждый ответ сама.</li></ol></div>
+        <div class="ex-block">
+          <span class="ex-k">Готовый запрос — скопируй и подставь своё</span>
+          <div class="promptbox">
+            <pre id="pn3">Вот задание, которое я обычно даю ученикам этого уровня:
+
+[вставить задание]
+
+Сделай ещё пять такой же сложности на тему [тема]. Уровень строго как в образце — не усложняй.
+
+Ответы вынеси отдельным блоком в конце, чтобы я могла отдать ученику только условия.</pre>
+            <button class="copy" type="button" data-for="pn3">Копировать</button>
+          </div>
+        </div>
+        <p class="ex-keep"><b>Себе оставляешь:</b> Проверку решений. В вычислениях он ошибается чаще, чем кажется, — перерешай всё.</p>
+      </div>
+    </details>
+    <details class="ex" data-prof="tutor">
+      <summary><span>Отчёт родителям о прогрессе</span><span class="ex-g g1">отдавай сегодня</span></summary>
+      <div class="ex-body">
+        <div class="ex-block"><span class="ex-k">Что делать</span><ol class="ex-steps"><li>Собери два прошлых отчёта как образец структуры и тона.</li><li>Приложи свои заметки по ученику за месяц.</li><li>Оценки и прогнозы ставишь сама.</li></ol></div>
+        <div class="ex-block">
+          <span class="ex-k">Готовый запрос — скопируй и подставь своё</span>
+          <div class="promptbox">
+            <pre id="pn4">Вот мои прошлые отчёты родителям — по ним видно структуру и тон:
+
+[вставить отчёты]
+
+Вот мои заметки по ученику за месяц:
+
+[вставить заметки]
+
+Собери отчёт в том же формате. Только факты из заметок, ничего не додумывай. Не обещай результата к экзамену и не давай прогнозов по баллам.</pre>
+            <button class="copy" type="button" data-for="pn4">Копировать</button>
+          </div>
+        </div>
+        <p class="ex-keep"><b>Себе оставляешь:</b> Оценки, прогнозы и всё, что звучит как обещание.</p>
+      </div>
+    </details>
+    <details class="ex" data-prof="tutor">
+      <summary><span>План занятия на новую тему</span><span class="ex-g g2">нужен образец</span></summary>
+      <div class="ex-body">
+        <div class="ex-block"><span class="ex-k">Что делать</span><ol class="ex-steps"><li>Сохрани один свой план, по которому занятие прошло удачно.</li><li>Дальше запрос ниже под каждую новую тему.</li><li>Конкретные упражнения подбираешь под ученика.</li></ol></div>
+        <div class="ex-block">
+          <span class="ex-k">Готовый запрос — скопируй и подставь своё</span>
+          <div class="promptbox">
+            <pre id="pn5">Вот мой план занятия, по которому всё прошло удачно:
+
+[вставить план]
+
+Сделай по той же структуре план на тему [тема] для ученика [класс или уровень]. Раздели на блоки с таймингом, как в образце.
+
+Упражнения бери типовые — я заменю на свои там, где не подойдёт. В конце добавь список типичных ошибок по этой теме, чтобы я знала, где притормозить.</pre>
+            <button class="copy" type="button" data-for="pn5">Копировать</button>
+          </div>
+        </div>
+        <p class="ex-keep"><b>Себе оставляешь:</b> Подбор упражнений под конкретного ученика.</p>
       </div>
     </details>
   </div>
@@ -512,7 +648,7 @@ footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--line);
 
 <div class="cta">
   <h2>Дальше</h2>
-  <p>Если в первой группе оказалась хотя бы одна задача — её можно закрыть на этой неделе. Если групп две и больше или непонятно, с какой стороны заходить, напиши боту <a href="https://t.me/Lumen_karta_rutiny_bot" style="color:var(--accent-ink); font-weight:600">@Lumen_karta_rutiny_bot</a> слово <span class="word">РАЗБОР</span>.</p>
+  <p>Если в первой группе оказалась хотя бы одна задача — её можно закрыть на этой неделе. Если групп две и больше или непонятно, с какой стороны заходить, напиши мне слово <span class="word">РАЗБОР</span> — туда же, откуда взяла эту карту.</p>
   <p>На разборе мы берём твой список, выбираем три задачи с самой быстрой отдачей и настраиваем их до рабочего состояния — не «изучаем нейросети», а доводим до того, что в следующий понедельник эти задачи занимают у тебя другое время.</p>
 </div>
 
@@ -533,20 +669,27 @@ footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--line);
   var HINTS=[
     ['отвечаю на письма по статусу заказа', 15, 12],
     ['собираю недельную сводку для руководителя', 60, 1],
-    ['пишу текст вакансии и разбираю отклики', 90, 2],
+    ['пишу заметки после сессии с клиентом', 20, 18],
+    ['составляю домашние задания под уровень ученика', 25, 10],
     ['свожу отчёт по расходам за месяц', 120, 1],
-    ['составляю ТЗ подрядчику', 45, 2],
-    ['веду протокол планёрки и рассылаю задачи', 30, 2],
-    ['отвечаю на типовые вопросы клиентов в чате', 10, 20],
+    ['отвечаю на первые обращения «а сколько стоит»', 8, 15],
+    ['пишу текст вакансии и разбираю отклики', 90, 2],
+    ['готовлю отчёт родителям о прогрессе', 30, 4],
     ['сверяю договор с нашим шаблоном', 40, 3],
     ['готовлю коммерческое предложение по запросу', 40, 5],
+    ['составляю план занятия на новую тему', 35, 6],
+    ['веду протокол планёрки и рассылаю задачи', 30, 2],
+    ['готовлю раздатку клиенту между сессиями', 40, 3],
+    ['составляю ТЗ подрядчику', 45, 2],
+    ['напоминаю о занятии и переношу время', 5, 20],
+    ['отвечаю на типовые вопросы клиентов в чате', 10, 20],
     ['заполняю карточки товара', 12, 15],
     ['перевожу переписку с поставщиком', 20, 6],
-    ['собираю подборку для рассылки', 50, 1],
-    ['расписываю задачу для смежного отдела', 15, 8],
+    ['выставляю счета и слежу за оплатами', 12, 8],
     ['готовлю справку по клиенту перед встречей', 35, 3],
     ['разбираю входящие заявки по категориям', 8, 25]
   ];
+
 
   var rowsEl=document.getElementById('rows'), outEl=document.getElementById('out');
   var data=load();
@@ -735,6 +878,19 @@ footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--line);
         setTimeout(function(){ btn.textContent='Копировать'; },2500);
       }catch(err){}
     }
+  });
+
+  var profs=[].slice.call(document.querySelectorAll('.pf'));
+  profs.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var want=btn.getAttribute('data-prof');
+      profs.forEach(function(b){ b.classList.toggle('on', b===btn); });
+      [].forEach.call(document.querySelectorAll('details.ex'),function(d){
+        var on = (want==='all') || d.getAttribute('data-prof')===want;
+        d.classList.toggle('hide',!on);
+        if(!on) d.open=false;
+      });
+    });
   });
 
   render();
