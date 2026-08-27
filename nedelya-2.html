@@ -1,0 +1,272 @@
+<title>Вторая неделя Люмена</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Unbounded:wght@600;700&display=swap">
+<style>
+:root{
+  --ground:#EDEEE9; --surface:#F8F9F5; --surface-2:#E3E7DE; --surface-3:#DCE1D7;
+  --ink:#16232B; --ink-soft:#3B4A4C; --muted:#6B7770;
+  --line:#D5D9CE; --line-strong:#B7BFB1;
+  --accent:#0E6B62; --accent-soft:#D6E5E1; --accent-ink:#0A4F49; --on-accent:#F8F9F5;
+  --signal:#8A5C12; --signal-soft:#EFE4CD;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0F1512; --surface:#161E1A; --surface-2:#1E2823; --surface-3:#26312B;
+    --ink:#E7EAE3; --ink-soft:#C1CAC2; --muted:#8B978E;
+    --line:#26302A; --line-strong:#38453D;
+    --accent:#57B9A8; --accent-soft:#16302B; --accent-ink:#8FD6C8; --on-accent:#0F1512;
+    --signal:#D3A159; --signal-soft:#2E2512;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0F1512; --surface:#161E1A; --surface-2:#1E2823; --surface-3:#26312B;
+  --ink:#E7EAE3; --ink-soft:#C1CAC2; --muted:#8B978E;
+  --line:#26302A; --line-strong:#38453D;
+  --accent:#57B9A8; --accent-soft:#16302B; --accent-ink:#8FD6C8; --on-accent:#0F1512;
+  --signal:#D3A159; --signal-soft:#2E2512;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--ground); color:var(--ink);
+  font-family:'Golos Text','Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased; padding-bottom:60px}
+.wrap{max-width:900px; margin:0 auto; padding:0 20px}
+@media (max-width:640px){ .wrap{padding:0 14px} }
+h1,h2,h3{margin:0; text-wrap:balance}
+p{margin:0 0 12px}
+code{font-family:'JetBrains Mono',ui-monospace,monospace; font-size:.9em; background:var(--surface-2); padding:2px 6px}
+a{color:var(--accent-ink)}
+
+header{padding:44px 0 26px; border-bottom:2px solid var(--ink)}
+.wordmark{font-family:'Unbounded','Golos Text',sans-serif; font-weight:700; font-size:12px;
+  letter-spacing:.28em; color:var(--accent-ink); display:flex; align-items:center; gap:13px}
+.wordmark::after{content:''; flex:1; height:1px; background:var(--line-strong); max-width:170px}
+h1{font-family:'Unbounded','Golos Text',sans-serif; font-weight:700;
+  font-size:clamp(28px,5vw,44px); line-height:1.05; letter-spacing:-.02em; margin:20px 0 0}
+.lede{margin:16px 0 0; max-width:64ch; font-size:17px; color:var(--ink-soft)}
+.lede b{color:var(--ink)}
+
+
+.pos{margin-top:22px; border:2px solid var(--accent); background:var(--accent-soft); padding:20px 22px}
+.pos-q{font-family:'Unbounded','Golos Text',sans-serif; font-weight:600;
+  font-size:clamp(17px,2.5vw,22px); line-height:1.3; letter-spacing:-.015em; color:var(--ink); margin:0 0 14px}
+.pos p{font-size:15px; line-height:1.55; color:var(--ink-soft); max-width:74ch}
+.pos p:last-child{margin-bottom:0}
+.where{margin-top:24px; border:1px solid var(--line-strong); background:var(--surface); padding:17px 19px}
+.where p{margin:0 0 8px; font-size:14.5px; line-height:1.5; color:var(--ink-soft); max-width:72ch}
+.where p:last-child{margin-bottom:0}
+.ex-k{display:block; font-family:'JetBrains Mono',ui-monospace,monospace; font-size:9.5px;
+  letter-spacing:.11em; text-transform:uppercase; color:var(--muted); font-weight:700; margin-bottom:9px}
+
+section{padding:40px 0 0}
+h2{font-size:clamp(21px,2.9vw,27px); font-weight:800; letter-spacing:-.015em; margin-bottom:6px}
+.sub{margin:0 0 20px; font-size:15px; color:var(--muted); max-width:70ch}
+
+.week{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1px;
+  background:var(--line); border:1px solid var(--line); margin-bottom:8px}
+.wd{background:var(--surface); padding:14px 16px}
+.wd .d{font-family:'JetBrains Mono',ui-monospace,monospace; font-size:10.5px; letter-spacing:.11em;
+  text-transform:uppercase; color:var(--accent); font-weight:700}
+.wd p{margin:7px 0 0; font-size:14.5px; line-height:1.45; color:var(--ink-soft)}
+.wd b{color:var(--ink)}
+
+.post,.reel{margin-bottom:22px; border:1px solid var(--line-strong); background:var(--surface); padding:18px}
+.p-head{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:8px}
+.p-day{font-family:'JetBrains Mono',ui-monospace,monospace; font-size:10.5px; font-weight:700;
+  letter-spacing:.1em; text-transform:uppercase; background:var(--accent); color:var(--on-accent); padding:4px 9px}
+.p-t{font-size:18px; font-weight:700; letter-spacing:-.01em}
+.p-spec{margin-left:auto; font-family:'JetBrains Mono',ui-monospace,monospace; font-size:11px; color:var(--muted)}
+@media (max-width:600px){ .p-spec{margin-left:0} }
+.p-why{margin:0 0 12px; font-size:14.5px; line-height:1.5; color:var(--muted); max-width:74ch}
+
+.promptbox{position:relative; border:1px solid var(--line-strong); background:var(--surface-2)}
+.promptbox pre{margin:0; padding:16px 17px 48px; font-family:'Golos Text',sans-serif;
+  font-size:15px; line-height:1.6; color:var(--ink); white-space:pre-wrap; word-break:break-word}
+button{font-family:inherit; cursor:pointer; border-radius:0}
+button.copy{position:absolute; right:10px; bottom:10px; padding:7px 13px; font-size:12.5px; font-weight:600;
+  background:var(--surface); color:var(--accent-ink); border:1.5px solid var(--accent)}
+button.copy:hover,button.copy.done{background:var(--accent); color:var(--on-accent)}
+button:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+
+.frames{display:grid; gap:1px; background:var(--line); border:1px solid var(--line)}
+.frame{background:var(--surface-2); padding:12px 14px; display:grid; grid-template-columns:94px 1fr; gap:14px}
+@media (max-width:600px){ .frame{grid-template-columns:1fr; gap:4px} }
+.fr-t{font-family:'JetBrains Mono',ui-monospace,monospace; font-size:11.5px; color:var(--signal);
+  font-weight:600; font-variant-numeric:tabular-nums}
+.fr-what{margin:0; font-size:15px; line-height:1.45; color:var(--ink)}
+.fr-cap{margin:4px 0 0; font-size:14px; line-height:1.4; color:var(--accent-ink); font-weight:600}
+.r-note{margin:12px 0 0; font-size:14px; line-height:1.5; color:var(--muted); max-width:74ch}
+
+.how{border:2px solid var(--accent); background:var(--accent-soft); padding:20px 22px; margin-top:8px}
+.how ol{margin:0; padding-left:20px; display:grid; gap:10px}
+.how li{font-size:15.5px; line-height:1.55; color:var(--ink-soft)}
+.how li b{color:var(--ink)}
+.how li::marker{color:var(--accent-ink); font-weight:700}
+
+.note{margin-top:16px; padding:14px 16px; background:var(--signal-soft); border-left:3px solid var(--signal);
+  font-size:14.5px; line-height:1.55; color:var(--ink); max-width:76ch}
+footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--line); font-size:13.5px; color:var(--muted)}
+</style>
+<div class="wrap">
+<header>
+  <div class="wordmark">ЛЮМЕН · НЕДЕЛЯ 2</div>
+  <h1>Что все делают молча</h1>
+  <p class="lede">Три поста готовым текстом. Роликов на этой неделе нет — только Telegram. Тема выбрана не по плану, а по тому, что <b>реально задевает аудиторию и при этом никем не занято</b>.</p>
+  <div class="pos">
+    <span class="ex-k">Почему эта тема, а не «задача, а не инструмент»</span>
+    <p class="pos-q">Самое горячее в нише сейчас — не инструменты, а то, что происходит вокруг них на работе.</p>
+    <p><b>41%</b> сотрудников не сообщают руководству, что пользуются нейросетями. Ещё <b>3%</b> скрывают целенаправленно. Больше половины скрывающих — люди 18–31 года: не те, кто боится технологий, а те, кто освоил их первыми. Причина, которую называют чаще других, — страх, что «узнают, как легко даётся результат, и сократят за ненадобностью».</p>
+    <p>Это задевает каждого, кто работает в офисе, — и об этом не пишет никто: вся ниша занята инструментами. Тема даёт то, чего не дают подборки промптов, — <b>повод ответить в комментариях</b>. Поэтому понедельничный пост заканчивается вопросом, а не советом.</p>
+    <p>Практическая польза при этом никуда не девается: среда — упражнение на две минуты, пятница — готовый рейтинг задач. Тема недели горячая, содержание сухое.</p>
+  </div>
+</header>
+
+<section>
+  <h2>Расписание</h2>
+  <p class="sub">Три выхода в Telegram. Ссылка на карту — только в пятницу, как и на первой неделе.</p>
+  <div class="week">
+    <div class="wd"><div class="d">Понедельник</div><p><b>41% молчат.</b> Данные, разбор и вопрос в конце.</p></div>
+    <div class="wd"><div class="d">Среда</div><p><b>Папка «Отправленные».</b> Упражнение на две минуты.</p></div>
+    <div class="wd"><div class="d">Пятница</div><p><b>Что уходит, а что остаётся.</b> Рейтинг задач + карта.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>Посты</h2>
+  <p class="sub">Тексты под Telegram. Для Instagram разбей на абзацы покороче и вынеси ссылку в шапку.</p>
+      <article class="post">
+        <div class="p-head">
+          <span class="p-day">Понедельник</span>
+          <span class="p-t">41% молчат</span>
+        </div>
+        <p class="p-why">Самая горячая тема ниши и при этом никем не занятая: все учат инструментам, никто не говорит о том, что происходит вокруг них на работе. Пост заканчивается вопросом — он и соберёт комментарии.</p>
+        <div class="promptbox">
+          <pre id="post0">Сорок один процент сотрудников не сообщают руководству, что пользуются нейросетями. Ещё три процента скрывают это целенаправленно.
+
+Среди тех, кто скрывает, больше половины — люди от восемнадцати до тридцати одного года. То есть скрывают не те, кто боится технологий, а те, кто освоил их первыми.
+
+Причина, которую называют чаще других: когда руководство поймёт, как легко теперь даётся результат, сократят за ненадобностью.
+
+Получается замкнутый круг. Человек начал делать работу быстрее — и именно поэтому не может об этом сказать.
+
+**Что с этим делать.** Ни скрывать, ни признаваться. Поменять единицу разговора.
+
+«Я использую нейросеть» звучит как признание. Собеседник слышит: работу делает не он.
+
+«Подготовка отчёта занимала три часа, теперь сорок минут» звучит как результат. Собеседник слышит: освободилось время, и его можно потратить на что-то ещё.
+
+Разница не в честности — сказано и там и там одно и то же. Разница в том, что вынесено вперёд. Во втором случае инструмент вообще не главный герой: главный герой — освободившееся время. О нём и разговор.
+
+Практический вывод. Прежде чем говорить с руководителем про ИИ, посчитайте, сколько времени освободилось на конкретной задаче. Без цифры разговор превращается в спор о технологиях, где у вас нет позиции. С цифрой — в разговор о работе, где позиция есть.
+
+А у вас на работе знают?</pre>
+          <button class="copy" type="button" data-for="post0">Копировать</button>
+        </div>
+      </article>
+      <article class="post">
+        <div class="p-head">
+          <span class="p-day">Среда</span>
+          <span class="p-t">Откройте папку «Отправленные»</span>
+        </div>
+        <p class="p-why">Практика, которую можно сделать за две минуты прямо во время чтения. Отвечает на вопрос «с чего начать» так, как на него никто не отвечает.</p>
+        <div class="promptbox">
+          <pre id="post1">«С чего начать» — самый частый вопрос. Обычно на него отвечают списком сервисов, и это неверный ответ: начинать надо не с инструмента.
+
+Три вопроса, которые задают чаще всего, и все три ведут в тупик.
+
+**«Какая нейросеть лучше?»** Лучше для чего? Без задачи у вопроса нет ответа.
+
+**«Дайте хороший промпт».** Чужой запрос под чужую задачу даёт чужой результат.
+
+**«С чего начать?»** С задачи. Но с какой именно — человек обычно и не знает.
+
+Работающий вопрос один: **какая из моих задач повторяется дословно?**
+
+И вот способ ответить на него за две минуты, ничего не вспоминая.
+
+**Откройте папку «Отправленные» за последнюю неделю.** Пролистайте сверху вниз и отметьте всё, что писали не в первый раз: письма одного типа, одинаковые по структуре ответы, сводки, согласования, напоминания об оплате.
+
+Это и есть список задач. Не придуманный, а фактический — вы его уже составили своими руками, просто по одному письму за раз.
+
+Дальше по каждому пункту один вопрос: есть ли образец, как должно выглядеть правильно? Если да — задачу можно отдавать сегодня. Если нет — сделать один образец руками, и тогда можно.
+
+Для ориентира: компании, прошедшие этот путь, сокращают время на подготовку документов на 50–70%, а количество правок падает примерно на треть — черновик приходит уже структурированным.
+
+Самое неприятное в этом упражнении обычно вот что: самая частая задача оказывается не той, о которой думали.</pre>
+          <button class="copy" type="button" data-for="post1">Копировать</button>
+        </div>
+      </article>
+      <article class="post">
+        <div class="p-head">
+          <span class="p-day">Пятница</span>
+          <span class="p-t">Что уходит, а что остаётся  ·  + карта</span>
+        </div>
+        <p class="p-why">Готовый рейтинг вместо абстракций. Заканчивается формулировкой, которую легко запомнить и пересказать, — и оттуда прямой переход в карту.</p>
+        <div class="promptbox">
+          <pre id="post2">Задачи, которые в офисах отдают нейросетям чаще всего. Порядок не случайный: сверху те, что уходят легче.
+
+**1. Письма и деловая переписка.** Повторяются, образцов полно в отправленных, ошибку видно перед отправкой. Идеальный кандидат.
+
+**2. Протоколы встреч и задачи по итогам.** Расшифровка есть, структура всегда одна, проверяется чтением.
+
+**3. Отчёты и сводки из готовых данных.** Уходят хорошо при одном условии: данные считаете вы, нейросеть только оформляет.
+
+**4. Коммерческие предложения.** Нужен один удачный образец. Цены и условия подставляются руками, всегда.
+
+**5. Внутренние инструкции и регламенты.** Скучно, повторяемо, никто не любит — идеально.
+
+**6. Презентации.** Уходят структура и текст. Смысл и акценты остаются человеку.
+
+Теперь то, чего в списке нет, и почему.
+
+**Согласования и решения.** Нейросеть не знает, кто у вас с кем не разговаривает и почему прошлый вариант завернули. Контекста нет — результат бесполезен.
+
+**Всё, где ошибка обнаружится не сразу.** Расчёты, сверки, цифры, которые уйдут в отчёт. Не потому что нейросеть не умеет считать — умеет, — а потому что проверка займёт столько же, сколько сама работа.
+
+**Разговоры с людьми.** Письмо, за которым стоит конфликт, пишется руками. Разница всегда видна.
+
+Закономерность простая: **уходит то, у чего есть форма. Остаётся то, у чего есть контекст.**
+
+Разложить свою неделю по этому признаку — что из ваших задач в верхнем списке, а что в нижнем — можно за десять минут:
+
+https://afkostareva-lab.github.io/Start/
+
+Внутри шестнадцать разобранных задач с готовыми запросами: офис, психологи, репетиторы.</pre>
+          <button class="copy" type="button" data-for="post2">Копировать</button>
+        </div>
+      </article>
+</section>
+
+<section>
+  <h2>Что сделать помимо публикации</h2>
+  <div class="how">
+    <ol>
+      <li><b>К понедельничному посту прикрепи опрос.</b> Telegram умеет это встроенно: «На работе знают, что вы пользуетесь ИИ?» — варианты «знают и нормально», «знают и косо смотрят», «не знают», «у нас нельзя». Опрос даст вовлечение без единого лишнего слова и покажет, какой сегмент у тебя в канале.</li>
+      <li><b>Ответь на каждый комментарий под первым постом.</b> Тема личная, люди будут рассказывать свои случаи — это лучший материал для будущих разборов и самый быстрый способ найти первых клиентов.</li>
+      <li><b>В среду сделай упражнение сама</b> и посчитай, сколько задач нашлось у тебя. Если в четверг напишешь одной строкой «у меня получилось одиннадцать, самая частая — не та, о которой думала», это соберёт больше, чем любой отдельный пост.</li>
+      <li><b>Цифры в пятничном рейтинге проверь на себе.</b> Порядок задач взят из отраслевых данных, но твой личный порядок может отличаться — если отличается, так и напиши, это честнее и интереснее.</li>
+    </ol>
+  </div>
+  <p class="note"><b>Одно предупреждение.</b> Цифры 41% и 3% — из свежих исследований, они настоящие, ссылку на источник можно дать в комментариях, если спросят. А вот «три часа стали сорока минутами» в первом посте — пример. Подставь свою реальную задачу и своё время, иначе на первый же уточняющий вопрос ответить будет нечем.</p>
+</section>
+
+<footer>Люмен · Неделя 2 из 6 · Дальше — «Где нейросеть врёт»: три типа ошибок, правило одного образца и что не отдавать никогда.</footer>
+</div>
+<script>
+document.addEventListener('click',function(e){
+  var btn=e.target.closest('button.copy'); if(!btn) return;
+  var el=document.getElementById(btn.getAttribute('data-for')); if(!el) return;
+  var done=function(){ btn.classList.add('done'); btn.textContent='Скопировано';
+    setTimeout(function(){ btn.classList.remove('done'); btn.textContent='Копировать'; },1800); };
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(el.textContent).then(done,sel);
+  } else { sel(); }
+  function sel(){
+    try{ var r=document.createRange(); r.selectNodeContents(el);
+      var s=window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      btn.textContent='Выдели и скопируй';
+      setTimeout(function(){ btn.textContent='Копировать'; },2500);
+    }catch(err){}
+  }
+});
+</script>
