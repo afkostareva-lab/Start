@@ -53,3 +53,18 @@ for out in OUTS:
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(PAGE, encoding="utf-8")
     print(f"{out.relative_to(Path(__file__).parent)}: {out.stat().st_size} bytes")
+
+# Ассеты (слайды, QR) лежат в корне; зеркалим их в docs/, чтобы GitHub Pages
+# отдавал их независимо от того, какая папка выбрана источником — root или /docs.
+import shutil
+for folder in ("karusel", "qr"):
+    src = Path(__file__).parent / folder
+    if not src.is_dir():
+        continue
+    dst = Path(__file__).parent / "docs" / folder
+    dst.mkdir(parents=True, exist_ok=True)
+    n = 0
+    for f in src.iterdir():
+        if f.is_file():
+            shutil.copy2(f, dst / f.name); n += 1
+    print(f"docs/{folder}: {n} файлов")

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Карусели Люмена — неделя 2</title>
+<meta name="description" content="Двадцать два слайда трёх каруселей, готовые к публикации.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Unbounded:wght@600;700&display=swap">
+<style>
+:root{
+  --ground:#EDEEE9; --surface:#F8F9F5; --surface-2:#E3E7DE;
+  --ink:#16232B; --ink-soft:#3B4A4C; --muted:#6B7770;
+  --line:#D5D9CE; --line-strong:#B7BFB1;
+  --accent:#0E6B62; --accent-soft:#D6E5E1; --accent-ink:#0A4F49; --on-accent:#F8F9F5;
+  --signal:#8A5C12; --signal-soft:#EFE4CD;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0F1512; --surface:#161E1A; --surface-2:#1E2823;
+    --ink:#E7EAE3; --ink-soft:#C1CAC2; --muted:#8B978E;
+    --line:#26302A; --line-strong:#38453D;
+    --accent:#57B9A8; --accent-soft:#16302B; --accent-ink:#8FD6C8; --on-accent:#0F1512;
+    --signal:#D3A159; --signal-soft:#2E2512;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0F1512; --surface:#161E1A; --surface-2:#1E2823;
+  --ink:#E7EAE3; --ink-soft:#C1CAC2; --muted:#8B978E;
+  --line:#26302A; --line-strong:#38453D;
+  --accent:#57B9A8; --accent-soft:#16302B; --accent-ink:#8FD6C8; --on-accent:#0F1512;
+  --signal:#D3A159; --signal-soft:#2E2512;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--ground); color:var(--ink); padding-bottom:56px;
+  font-family:'Golos Text','Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px; margin:0 auto; padding:0 20px}
+@media (max-width:640px){ .wrap{padding:0 14px} }
+h1,h2{margin:0; text-wrap:balance}
+header{padding:40px 0 24px; border-bottom:2px solid var(--ink)}
+.wordmark{font-family:'Unbounded','Golos Text',sans-serif; font-weight:700; font-size:12px;
+  letter-spacing:.28em; color:var(--accent-ink); display:flex; align-items:center; gap:13px}
+.wordmark::after{content:''; flex:1; height:1px; background:var(--line-strong); max-width:170px}
+h1{font-family:'Unbounded','Golos Text',sans-serif; font-weight:700;
+  font-size:clamp(26px,4.6vw,40px); line-height:1.05; letter-spacing:-.02em; margin:18px 0 0}
+.lede{margin:14px 0 0; max-width:60ch; font-size:16.5px; color:var(--ink-soft)}
+.lede b{color:var(--ink)}
+.how{margin:18px 0 0; padding:14px 16px; background:var(--signal-soft); border-left:3px solid var(--signal);
+  font-size:14.5px; line-height:1.55; color:var(--ink); max-width:74ch}
+section{padding:34px 0 0}
+.ghead{display:flex; align-items:baseline; gap:13px; flex-wrap:wrap; margin-bottom:16px}
+.day{font-family:'JetBrains Mono',ui-monospace,monospace; font-size:10.5px; font-weight:700;
+  letter-spacing:.1em; text-transform:uppercase; background:var(--accent); color:var(--on-accent); padding:4px 9px}
+h2{font-size:20px; font-weight:700; letter-spacing:-.01em}
+.cnt{margin-left:auto; font-family:'JetBrains Mono',ui-monospace,monospace; font-size:11px; color:var(--muted)}
+@media (max-width:560px){ .cnt{margin-left:0} }
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:14px}
+figure{margin:0}
+figure a{display:block; text-decoration:none; border:1px solid var(--line-strong); background:var(--surface)}
+figure a:hover,figure a:focus-visible{border-color:var(--accent); outline:none}
+figure a:focus-visible{box-shadow:0 0 0 2px var(--accent)}
+img{display:block; width:100%; height:auto}
+figcaption{font-family:'JetBrains Mono',ui-monospace,monospace; font-size:11px; color:var(--muted);
+  padding:8px 10px; border-top:1px solid var(--line); font-variant-numeric:tabular-nums}
+footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); font-size:13.5px; color:var(--muted)}
+footer a{color:var(--accent-ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="wordmark">ЛЮМЕН · НЕДЕЛЯ 2</div>
+  <h1>Карусели, готовые к публикации</h1>
+  <p class="lede">Двадцать два слайда, 1080×1350. Порядок в каждой карусели — сверху вниз, слева направо.</p>
+  <p class="how"><b>Как сохранить.</b> С телефона: долгое нажатие на картинку → «Сохранить фото». С компьютера: клик по слайду скачает файл. Тексты слайдов и подписи к постам — <a href="https://claude.ai/code/artifact/8e0f42c7-e3a0-432f-9903-67a79e773342">на странице второй недели</a>.</p>
+</header>
+<section>
+  <div class="ghead">
+    <span class="day">Понедельник</span>
+    <h2>Пять фраз, которые чинят ответ</h2>
+    <span class="cnt">7 слайдов</span>
+  </div>
+  <div class="grid"><figure><a href="frazy-01.png" download><img src="frazy-01.png" alt="Слайд 1 из 7" loading="lazy"><figcaption>1 / 7</figcaption></a></figure><figure><a href="frazy-02.png" download><img src="frazy-02.png" alt="Слайд 2 из 7" loading="lazy"><figcaption>2 / 7</figcaption></a></figure><figure><a href="frazy-03.png" download><img src="frazy-03.png" alt="Слайд 3 из 7" loading="lazy"><figcaption>3 / 7</figcaption></a></figure><figure><a href="frazy-04.png" download><img src="frazy-04.png" alt="Слайд 4 из 7" loading="lazy"><figcaption>4 / 7</figcaption></a></figure><figure><a href="frazy-05.png" download><img src="frazy-05.png" alt="Слайд 5 из 7" loading="lazy"><figcaption>5 / 7</figcaption></a></figure><figure><a href="frazy-06.png" download><img src="frazy-06.png" alt="Слайд 6 из 7" loading="lazy"><figcaption>6 / 7</figcaption></a></figure><figure><a href="frazy-07.png" download><img src="frazy-07.png" alt="Слайд 7 из 7" loading="lazy"><figcaption>7 / 7</figcaption></a></figure></div>
+</section>
+<section>
+  <div class="ghead">
+    <span class="day">Среда</span>
+    <h2>«Ты опытный маркетолог» не работает</h2>
+    <span class="cnt">7 слайдов</span>
+  </div>
+  <div class="grid"><figure><a href="rol-01.png" download><img src="rol-01.png" alt="Слайд 1 из 7" loading="lazy"><figcaption>1 / 7</figcaption></a></figure><figure><a href="rol-02.png" download><img src="rol-02.png" alt="Слайд 2 из 7" loading="lazy"><figcaption>2 / 7</figcaption></a></figure><figure><a href="rol-03.png" download><img src="rol-03.png" alt="Слайд 3 из 7" loading="lazy"><figcaption>3 / 7</figcaption></a></figure><figure><a href="rol-04.png" download><img src="rol-04.png" alt="Слайд 4 из 7" loading="lazy"><figcaption>4 / 7</figcaption></a></figure><figure><a href="rol-05.png" download><img src="rol-05.png" alt="Слайд 5 из 7" loading="lazy"><figcaption>5 / 7</figcaption></a></figure><figure><a href="rol-06.png" download><img src="rol-06.png" alt="Слайд 6 из 7" loading="lazy"><figcaption>6 / 7</figcaption></a></figure><figure><a href="rol-07.png" download><img src="rol-07.png" alt="Слайд 7 из 7" loading="lazy"><figcaption>7 / 7</figcaption></a></figure></div>
+</section>
+<section>
+  <div class="ghead">
+    <span class="day">Пятница</span>
+    <h2>Ответ не тот. Что делать</h2>
+    <span class="cnt">8 слайдов</span>
+  </div>
+  <div class="grid"><figure><a href="nettot-01.png" download><img src="nettot-01.png" alt="Слайд 1 из 8" loading="lazy"><figcaption>1 / 8</figcaption></a></figure><figure><a href="nettot-02.png" download><img src="nettot-02.png" alt="Слайд 2 из 8" loading="lazy"><figcaption>2 / 8</figcaption></a></figure><figure><a href="nettot-03.png" download><img src="nettot-03.png" alt="Слайд 3 из 8" loading="lazy"><figcaption>3 / 8</figcaption></a></figure><figure><a href="nettot-04.png" download><img src="nettot-04.png" alt="Слайд 4 из 8" loading="lazy"><figcaption>4 / 8</figcaption></a></figure><figure><a href="nettot-05.png" download><img src="nettot-05.png" alt="Слайд 5 из 8" loading="lazy"><figcaption>5 / 8</figcaption></a></figure><figure><a href="nettot-06.png" download><img src="nettot-06.png" alt="Слайд 6 из 8" loading="lazy"><figcaption>6 / 8</figcaption></a></figure><figure><a href="nettot-07.png" download><img src="nettot-07.png" alt="Слайд 7 из 8" loading="lazy"><figcaption>7 / 8</figcaption></a></figure><figure><a href="nettot-08.png" download><img src="nettot-08.png" alt="Слайд 8 из 8" loading="lazy"><figcaption>8 / 8</figcaption></a></figure></div>
+</section>
+<footer>Люмен · Карта рутины — <a href="../">afkostareva-lab.github.io/Start</a></footer>
+</div>
+</body>
+</html>
