@@ -20,5 +20,7 @@ SHOTS:   0–7 intro clip, hook title on the wall above her head (frame 0 = thum
          time-lapse run to 34.3, 34.35 trophy + push-in · 35.4 scroll to stats · 39.3 screen closes onto the outro.
          39.3–45 outro clip, captions, 42.0 end card «Тренажёр — по ссылке в профиле».
 SAFE:    words between y 168 and 1330; captions and end card x 60–920 (clear of the right action rail).
+INTRO:   restyled to the daughter's CapCut look: Montserrat Bold («Study» face) + Lora SemiBold Italic («English makes me
+         nervous» face), red #C52E2A on a pink sticker outline #F7CBE2 (text-shadow ring 0.24em), tilted −4…−9°.
 BANNED:  dark void, glow, gradients as decoration, everything fading up, three cards in a row, docked logo, click rings,
          bouncing UI, captions under the right rail.

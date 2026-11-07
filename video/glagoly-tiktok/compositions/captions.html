@@ -1,6 +1,32 @@
 <template id="captions-template">
   <style>
     @font-face {
+      font-family: "MontserratSticker";
+      src: url("assets/fonts/Montserrat-Bold-latin.woff2") format("woff2");
+      font-weight: 700;
+      unicode-range: U+0000-00FF, U+2000-206F;
+    }
+    @font-face {
+      font-family: "MontserratSticker";
+      src: url("assets/fonts/Montserrat-Bold-cyrillic.woff2") format("woff2");
+      font-weight: 700;
+      unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+    }
+    @font-face {
+      font-family: "LoraSticker";
+      src: url("assets/fonts/Lora-SemiBoldItalic-latin.woff2") format("woff2");
+      font-weight: 600;
+      font-style: italic;
+      unicode-range: U+0000-00FF, U+2000-206F;
+    }
+    @font-face {
+      font-family: "LoraSticker";
+      src: url("assets/fonts/Lora-SemiBoldItalic-cyrillic.woff2") format("woff2");
+      font-weight: 600;
+      font-style: italic;
+      unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+    }
+    @font-face {
       font-family: "InterUI";
       src: url("assets/fonts/Inter-var-latin.woff2") format("woff2");
       font-weight: 100 900;
@@ -15,6 +41,9 @@
     #root {
       position: absolute;
       inset: 0;
+      --red: #c52e2a;
+      --sticker: #f7cbe2;
+      --sticker-ring: 0.240em 0.000em 0 var(--sticker), 0.237em 0.038em 0 var(--sticker), 0.228em 0.074em 0 var(--sticker), 0.214em 0.109em 0 var(--sticker), 0.194em 0.141em 0 var(--sticker), 0.170em 0.170em 0 var(--sticker), 0.141em 0.194em 0 var(--sticker), 0.109em 0.214em 0 var(--sticker), 0.074em 0.228em 0 var(--sticker), 0.038em 0.237em 0 var(--sticker), 0.000em 0.240em 0 var(--sticker), -0.038em 0.237em 0 var(--sticker), -0.074em 0.228em 0 var(--sticker), -0.109em 0.214em 0 var(--sticker), -0.141em 0.194em 0 var(--sticker), -0.170em 0.170em 0 var(--sticker), -0.194em 0.141em 0 var(--sticker), -0.214em 0.109em 0 var(--sticker), -0.228em 0.074em 0 var(--sticker), -0.237em 0.038em 0 var(--sticker), -0.240em 0.000em 0 var(--sticker), -0.237em -0.038em 0 var(--sticker), -0.228em -0.074em 0 var(--sticker), -0.214em -0.109em 0 var(--sticker), -0.194em -0.141em 0 var(--sticker), -0.170em -0.170em 0 var(--sticker), -0.141em -0.194em 0 var(--sticker), -0.109em -0.214em 0 var(--sticker), -0.074em -0.228em 0 var(--sticker), -0.038em -0.237em 0 var(--sticker), -0.000em -0.240em 0 var(--sticker), 0.038em -0.237em 0 var(--sticker), 0.074em -0.228em 0 var(--sticker), 0.109em -0.214em 0 var(--sticker), 0.141em -0.194em 0 var(--sticker), 0.170em -0.170em 0 var(--sticker), 0.194em -0.141em 0 var(--sticker), 0.214em -0.109em 0 var(--sticker), 0.228em -0.074em 0 var(--sticker), 0.237em -0.038em 0 var(--sticker), 0.170em 0.000em 0 var(--sticker), 0.166em 0.038em 0 var(--sticker), 0.153em 0.074em 0 var(--sticker), 0.133em 0.106em 0 var(--sticker), 0.106em 0.133em 0 var(--sticker), 0.074em 0.153em 0 var(--sticker), 0.038em 0.166em 0 var(--sticker), 0.000em 0.170em 0 var(--sticker), -0.038em 0.166em 0 var(--sticker), -0.074em 0.153em 0 var(--sticker), -0.106em 0.133em 0 var(--sticker), -0.133em 0.106em 0 var(--sticker), -0.153em 0.074em 0 var(--sticker), -0.166em 0.038em 0 var(--sticker), -0.170em 0.000em 0 var(--sticker), -0.166em -0.038em 0 var(--sticker), -0.153em -0.074em 0 var(--sticker), -0.133em -0.106em 0 var(--sticker), -0.106em -0.133em 0 var(--sticker), -0.074em -0.153em 0 var(--sticker), -0.038em -0.166em 0 var(--sticker), -0.000em -0.170em 0 var(--sticker), 0.038em -0.166em 0 var(--sticker), 0.074em -0.153em 0 var(--sticker), 0.106em -0.133em 0 var(--sticker), 0.133em -0.106em 0 var(--sticker), 0.153em -0.074em 0 var(--sticker), 0.166em -0.038em 0 var(--sticker), 0.090em 0.000em 0 var(--sticker), 0.081em 0.039em 0 var(--sticker), 0.056em 0.070em 0 var(--sticker), 0.020em 0.088em 0 var(--sticker), -0.020em 0.088em 0 var(--sticker), -0.056em 0.070em 0 var(--sticker), -0.081em 0.039em 0 var(--sticker), -0.090em 0.000em 0 var(--sticker), -0.081em -0.039em 0 var(--sticker), -0.056em -0.070em 0 var(--sticker), -0.020em -0.088em 0 var(--sticker), 0.020em -0.088em 0 var(--sticker), 0.056em -0.070em 0 var(--sticker), 0.081em -0.039em 0 var(--sticker), 0 0 0.05em var(--sticker);
     }
     /* left 60 + 860 wide: clear of the app's right-hand action rail */
     .cap {
@@ -25,13 +54,43 @@
       opacity: 0;
       overflow: visible;
     }
+    /* intro: her CapCut look (red Lora italic on a pink sticker outline) */
     .cap-in {
-      top: 1180px;
+      top: 1170px;
     }
+    .cap-in span {
+      display: inline-block;
+      max-width: 860px;
+      padding: 0 0.2em;
+      font: italic 600 76px/1.12 "LoraSticker", serif;
+      color: var(--red);
+      text-shadow: var(--sticker-ring);
+    }
+    .cap-in.tilt span {
+      transform: rotate(-4deg);
+    }
+    .cap-study {
+      top: 1030px;
+    }
+    .cap-study .st-big {
+      display: block;
+      font: 700 168px/1 "MontserratSticker", sans-serif;
+      letter-spacing: -0.01em;
+      text-shadow: var(--sticker-ring);
+      transform: rotate(-5deg);
+    }
+    .cap-study .st-line {
+      display: block;
+      margin-top: 34px;
+      font-size: 76px;
+      white-space: nowrap;
+      transform: rotate(-9deg);
+    }
+    /* outro: plain boxed captions */
     .cap-out {
       top: 968px;
     }
-    .cap span {
+    .cap-out span {
       display: inline-block;
       padding: 10px 24px 14px;
       border-radius: 16px;
@@ -43,13 +102,12 @@
     }
   </style>
   <div id="root" data-composition-id="captions" data-width="1080" data-height="1920">
-    <div class="cap cap-in" id="c1"><span>Hi guys!</span></div>
-    <div class="cap cap-in" id="c2"><span>Study English</span></div>
-    <div class="cap cap-in" id="c3"><span>makes me nervous…</span></div>
+    <div class="cap cap-in tilt" id="c1"><span>Hi guys!</span></div>
+    <div class="cap cap-in cap-study" id="c2" data-layout-allow-overflow><span class="st-big">Study</span><span class="st-line">English makes me nervous</span></div>
     <div class="cap cap-in" id="c4"><span>…или как выучить</span></div>
     <div class="cap cap-in" id="c5"><span>таблицу неправильных глаголов</span></div>
-    <div class="cap cap-in" id="c6"><span>без напряга</span></div>
-    <div class="cap cap-in" id="c7"><span>Погнали, покажу!</span></div>
+    <div class="cap cap-in tilt" id="c6"><span>без напряга</span></div>
+    <div class="cap cap-in tilt" id="c7"><span>Погнали, покажу!</span></div>
 
     <div class="cap cap-out" id="o1"><span>Ну что,</span></div>
     <div class="cap cap-out" id="o2"><span>теперь легче учить</span></div>
@@ -61,7 +119,7 @@
   <script>
     // Timings from whisper word times and the clips' own pauses (silencedetect), in video seconds.
     const GROUPS = [
-      ["c1", 0.2, 0.9], ["c2", 1.05, 1.65], ["c3", 1.65, 2.5], ["c4", 2.55, 3.75],
+      ["c1", 0.2, 0.9], ["c2", 1.05, 2.5], ["c4", 2.55, 3.75],
       ["c5", 3.75, 5.2], ["c6", 5.2, 5.9], ["c7", 6.05, 6.7],
       ["o1", 39.8, 40.55], ["o2", 40.7, 41.6], ["o3", 41.6, 42.6], ["o4", 42.8, 43.2], ["o4b", 43.2, 43.85], ["o5", 43.95, 44.85],
     ];
@@ -72,6 +130,8 @@
       tl.to(g, { opacity: 0, duration: 0.08, ease: "power2.in" }, b - 0.08);
       tl.set(g, { opacity: 0, visibility: "hidden" }, b);
     }
+    // «Study» lands first, the italic line follows a beat later, as she says it
+    tl.fromTo("#c2 .st-line", { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "power2.out" }, 1.62);
     window.__timelines["captions"] = tl;
   </script>
 </template>
