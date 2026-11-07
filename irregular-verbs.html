@@ -4,29 +4,35 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Неправильные глаголы</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
 <style>
+/* Палитра: Petal Rouge #E27396 · Pink Mist #EB9AB2 · Petal Frost #EFCFE3 · Beige #ECF2D8 · Light Blue #B3DEE2 */
 :root{
-  --bg:#f6f4ef; --card:#ffffff; --ink:#1f2328; --muted:#6b7280; --line:#e5e1d8;
-  --accent:#4f46e5; --accent-ink:#fff; --ok:#15803d; --ok-bg:#dcfce7; --bad:#b91c1c; --bad-bg:#fee2e2;
-  --warn:#b45309; --chip:#eef0ff;
-  --AAA:#0ea5e9; --ABB:#16a34a; --ABA:#d97706; --ABC:#db2777;
+  --bg:#ECF2D8; --card:#fffdf8; --ink:#4a2a38; --muted:#8a6a78; --line:#EFCFE3;
+  --accent:#E27396; --accent-ink:#fff; --ok:#2f8f99; --ok-bg:#B3DEE2; --bad:#c94f77; --bad-bg:#EFCFE3;
+  --warn:#EB9AB2; --chip:#EFCFE3;
+  --AAA:#4fa9b1; --ABB:#E27396; --ABA:#93a85a; --ABC:#a46bb0;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#15161a; --card:#1f2127; --ink:#ecedf0; --muted:#9aa0aa; --line:#2f323a;
-    --accent:#818cf8; --accent-ink:#11121a; --ok:#4ade80; --ok-bg:#14361f; --bad:#f87171; --bad-bg:#3d1717;
-    --warn:#fbbf24; --chip:#262a3a;
+    --bg:#251a21; --card:#33242e; --ink:#f7e9f0; --muted:#c9a9b8; --line:#4a3542;
+    --accent:#EB9AB2; --accent-ink:#2a1820; --ok:#B3DEE2; --ok-bg:#1f3d41; --bad:#EB9AB2; --bad-bg:#4d2333;
+    --warn:#E27396; --chip:#4a3542;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#15161a; --card:#1f2127; --ink:#ecedf0; --muted:#9aa0aa; --line:#2f323a;
-  --accent:#818cf8; --accent-ink:#11121a; --ok:#4ade80; --ok-bg:#14361f; --bad:#f87171; --bad-bg:#3d1717;
-  --warn:#fbbf24; --chip:#262a3a;
+  --bg:#251a21; --card:#33242e; --ink:#f7e9f0; --muted:#c9a9b8; --line:#4a3542;
+  --accent:#EB9AB2; --accent-ink:#2a1820; --ok:#B3DEE2; --ok-bg:#1f3d41; --bad:#EB9AB2; --bad-bg:#4d2333;
+  --warn:#E27396; --chip:#4a3542;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 .wrap{max-width:760px;margin:0 auto;padding:16px}
-h1{font-size:22px;margin:4px 0 12px}
+h1,.q-ru,.forms,.big{font-family:"Abril Fatface",Georgia,serif;font-weight:400;letter-spacing:.01em}
+h1{font-size:30px;margin:4px 0 12px;color:var(--accent)}
+.btn.ok,.btn.bad{color:var(--accent-ink)}
+.bar>i{background:linear-gradient(90deg,#B3DEE2,#EB9AB2,#E27396)!important}
 button{font:inherit;cursor:pointer}
 .stats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
 .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 12px;font-size:14px}
@@ -43,8 +49,8 @@ select,input[type=search]{font:inherit;padding:8px 10px;border-radius:10px;borde
 .small{font-size:13px}
 .btn{border:0;border-radius:12px;padding:12px 18px;background:var(--accent);color:var(--accent-ink);font-weight:600}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
-.btn.ok{background:var(--ok);color:#fff}
-.btn.bad{background:var(--bad);color:#fff}
+.btn.ok{background:var(--ok);color:var(--accent-ink)}
+.btn.bad{background:var(--bad);color:var(--accent-ink)}
 .speak{border:1px solid var(--line);background:var(--card);border-radius:99px;width:36px;height:36px;font-size:16px;line-height:1;color:var(--ink)}
 .badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;padding:2px 7px;border-radius:99px;color:#fff;vertical-align:middle}
 .b-AAA{background:var(--AAA)}.b-ABB{background:var(--ABB)}.b-ABA{background:var(--ABA)}.b-ABC{background:var(--ABC)}
@@ -59,7 +65,7 @@ td.f{font-weight:600}
 .hid.shown::after{content:""}
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--line)}
 .dot.s1,.dot.s2{background:var(--warn)}
-.dot.s3{background:#84cc16}
+.dot.s3{background:var(--AAA)}
 .dot.s4,.dot.s5{background:var(--ok)}
 .tblwrap{overflow-x:auto}
 /* quiz */
@@ -484,8 +490,8 @@ function renderType(){
     if(done){afterAnswer(v,ok);return renderType()}
     if(inputs.some(i=>!i.value.trim())){const e=inputs.find(i=>!i.value.trim());e.focus();$('#qc').classList.remove('shake');void $('#qc').offsetWidth;$('#qc').classList.add('shake');return}
     done=true;
-    ok=inputs.every(i=>{const g=correct(i.value,v[i.dataset.k]);i.classList.add(g?'good':'wrong');i.readOnly=true;
-      $('#x_'+i.dataset.k).textContent=g?'✓':show(v[i.dataset.k]);return g});
+    ok=inputs.map(i=>{const g=correct(i.value,v[i.dataset.k]);i.classList.add(g?'good':'wrong');i.readOnly=true;
+      $('#x_'+i.dataset.k).textContent=g?'✓':show(v[i.dataset.k]);return g}).every(Boolean);
     sayAll(v);
     $('#go').textContent= ok?'Дальше →':'Понятно, дальше →';
     $('#go').className='btn '+(ok?'ok':'bad');
