@@ -1,0 +1,435 @@
+<template id="demo-template">
+  <style>
+@font-face{font-family:"InterUI";src:url("assets/fonts/Inter-var-latin.woff2") format("woff2");font-weight:100 900;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2190-2199,U+2212,U+2215}
+@font-face{font-family:"InterUI";src:url("assets/fonts/Inter-var-cyrillic.woff2") format("woff2");font-weight:100 900;unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:"Abril Fatface";src:url("assets/fonts/AbrilFatface-Regular-latin.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"PT Serif";src:url("assets/fonts/PTSerif-Regular-cyrillic.woff2") format("woff2");font-weight:400;unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1}
+@font-face{font-family:"PT Serif";src:url("assets/fonts/PTSerif-Bold-cyrillic.woff2") format("woff2");font-weight:700;unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1}
+@font-face{font-family:"FlagEmoji";src:local("Noto Color Emoji"),local("NotoColorEmoji"),local("Apple Color Emoji");unicode-range:U+1F1E6-1F1FF}
+@font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-Black-latin.woff2") format("woff2");font-weight:900}
+@font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-Black-cyrillic.woff2") format("woff2");font-weight:900;unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+
+#root{position:absolute;inset:0;overflow:hidden;
+  --bg:#ECF2D8; --card:#fffdf8; --ink:#4a2a38; --muted:#8a6a78; --line:#EFCFE3;
+  --accent:#E27396; --accent-ink:#fff; --ok:#2f8f99; --ok-bg:#B3DEE2; --bad:#c94f77; --bad-bg:#EFCFE3;
+  --warn:#EB9AB2; --chip:#EFCFE3; --AAA:#4fa9b1; --ABB:#E27396; --ABA:#93a85a; --ABC:#a46bb0;}
+#root *{box-sizing:border-box}
+
+/* the phone screen: 390 x 693.3 CSS px, zoomed to 1080 x 1920 */
+.cam{position:absolute;left:0;top:0;width:1080px;height:1920px;transform-origin:0 0}
+.screen{position:absolute;left:0;top:0;width:390px;height:693.34px;zoom:2.76923;background:var(--bg);overflow:hidden;border-radius:0}
+.statusbar{position:absolute;left:0;top:0;width:390px;height:54px;z-index:5;background:var(--bg);
+  display:flex;align-items:center;justify-content:space-between;padding:6px 30px 0 46px;color:#1b1b1b;
+  font:600 17px/1 "InterUI",sans-serif;letter-spacing:-.01em}
+.statusbar .ico{display:flex;gap:6px;align-items:center}
+.viewport{position:absolute;left:0;top:54px;width:390px;height:639.34px;overflow:hidden}
+.page{position:absolute;left:0;top:0;width:390px;background:var(--bg);color:var(--ink);
+  font:16px/1.45 "InterUI",system-ui,sans-serif}
+.safari{position:absolute;left:0;bottom:0;width:390px;height:82px;z-index:5;background:rgba(246,247,240,.96);
+  border-top:1px solid rgba(0,0,0,.08);padding:8px 14px 0}
+.safari .url{height:44px;border-radius:12px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.12);
+  display:flex;align-items:center;justify-content:center;gap:6px;font:500 16px/1 "InterUI",sans-serif;color:#1b1b1b}
+.safari .home{position:absolute;left:50%;bottom:8px;width:134px;margin-left:-67px;height:5px;border-radius:3px;background:#1b1b1b}
+
+/* trainer CSS (light theme), transitions removed so the timeline owns every change */
+.wrap{max-width:760px;margin:0 auto;padding:16px}
+h1,.q-ru,.forms,.big{font-family:"Abril Fatface","PT Serif","FlagEmoji",Georgia,serif;font-weight:400;letter-spacing:.01em}
+h1{font-size:30px;margin:4px 0 12px;color:var(--accent);line-height:1.2;white-space:nowrap}
+button{font:inherit;cursor:pointer}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 12px;font-size:14px}
+.stat b{font-size:16px}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:6px 0 14px}
+.bar>i{display:block;height:100%;width:19.5%;background:linear-gradient(90deg,#B3DEE2,#EB9AB2,#E27396)}
+.tabs{overflow:hidden;padding-bottom:4px;margin:0 -16px 10px;padding-left:16px}
+.tabs-in{display:flex;gap:6px;width:max-content}
+.tab{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:8px 14px;white-space:nowrap}
+#tab-table{background:var(--accent);color:#fff;border-color:var(--accent)}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.sel{font:inherit;padding:8px 30px 8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);position:relative;white-space:nowrap}
+.sel::after{content:"";position:absolute;right:11px;top:50%;width:7px;height:7px;margin-top:-6px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(45deg)}
+.main{position:relative;height:980px}
+.panel{position:absolute;left:0;top:0;width:100%;opacity:0}
+#pn-table{opacity:1}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:12px}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.btn{border:0;border-radius:12px;padding:12px 18px;background:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.ok{background:var(--ok);color:var(--accent-ink)}
+.btn.bad{background:var(--bad);color:var(--accent-ink)}
+.speak{border:1px solid var(--line);background:var(--card);border-radius:99px;width:36px;height:36px;font-size:16px;line-height:1;color:var(--ink);padding:0}
+.badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;padding:2px 7px;border-radius:99px;color:#fff;vertical-align:middle}
+.b-AAA{background:var(--AAA)}.b-ABB{background:var(--ABB)}.b-ABA{background:var(--ABA)}.b-ABC{background:var(--ABC)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:7px 4px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+th{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+td.f{font-weight:600}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--line)}
+.dot.s1,.dot.s2{background:var(--warn)}.dot.s3{background:var(--AAA)}.dot.s4,.dot.s5{background:var(--ok)}
+.q-ru{font-size:22px;font-weight:700;text-align:center}
+.q-en{font-size:22px;text-align:center;margin-top:6px;display:flex;gap:10px;justify-content:center;align-items:center}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
+.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
+.inp{position:relative;width:100%;height:52px;font-size:20px;padding:10px 12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink);line-height:28px}
+.inp .tx{position:absolute;left:12px;top:10px;opacity:0;white-space:pre}
+.inp .caret{position:absolute;left:12px;top:12px;width:2px;height:24px;background:#3a77f2;opacity:0}
+.fix{font-size:14px;margin-top:4px;color:var(--ok);font-weight:600;min-height:20px;opacity:0}
+.progress{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:8px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+.opt{position:relative;border:2px solid var(--line);background:var(--bg);color:var(--ink);border-radius:14px;padding:16px 8px;font-size:20px;font-weight:600}
+.center{text-align:center}
+.big{font-size:44px;font-weight:800}
+.flip{perspective:1000px;margin-bottom:12px}
+.flip-in{position:relative;min-height:230px;transform-style:preserve-3d}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;text-align:center}
+.face.back{transform:rotateY(180deg)}
+.forms{font-size:26px;font-weight:700}
+.forms span{color:var(--muted);font-weight:400}
+.tip p{margin:6px 0}
+.grp{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.grp div{border:1px solid var(--line);border-radius:12px;padding:10px;font-size:14px;background:var(--card)}
+.btnrow{justify-content:space-between;margin-bottom:0}
+.btnslot{position:relative;display:inline-block}
+#ty-next{position:absolute;right:0;top:0;white-space:nowrap;opacity:0}
+.cardbtns{justify-content:center;opacity:0}
+.cq,.sq{position:absolute;left:20px;right:20px;top:20px;opacity:0}
+#ch0{opacity:1}
+#ch-card{position:relative;height:330px}
+#ch-card>p{position:absolute;left:0;right:0;bottom:14px;margin:0}
+#sp1-card{position:relative;height:300px}
+.sqwrap{position:relative}
+.sq{left:0;right:0;top:0}
+#sp0{opacity:1}
+#st-best{opacity:0}
+.touch{position:absolute;left:0;top:0;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;
+  background:rgba(74,42,56,.30);border:2px solid rgba(255,255,255,.9);z-index:20;opacity:0;pointer-events:none}
+
+.lbl{position:absolute;left:56px;top:206px;max-width:960px;padding:22px 34px 26px;border-radius:26px;
+  background:#4a2a38;color:#fffdf8;font:900 92px/1.02 "Playfair Display",Georgia,serif;letter-spacing:-.005em;opacity:0;z-index:30}
+.lbl em{font-style:normal;color:#EB9AB2}
+.lbl .w{display:inline-block}
+#lbl6{top:700px}
+</style>
+  <div id="root" data-composition-id="demo" data-width="1080" data-height="1920" data-layout-allow-overflow>
+
+<div class="cam" id="dm-cam" data-layout-ignore><div class="screen" id="dm-screen">
+  <div class="statusbar"><span>9:41</span><span class="ico"><svg width="18" height="12" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1" fill="#1b1b1b"/><rect x="5" y="5.5" width="3" height="6.5" rx="1" fill="#1b1b1b"/><rect x="10" y="3" width="3" height="9" rx="1" fill="#1b1b1b"/><rect x="15" y="0" width="3" height="12" rx="1" fill="#1b1b1b"/></svg><svg width="16" height="12" viewBox="0 0 16 12"><path d="M8 11.5 5.6 9a3.4 3.4 0 0 1 4.8 0L8 11.5Z" fill="#1b1b1b"/><path d="M3.3 6.7a6.6 6.6 0 0 1 9.4 0l-1.4 1.4a4.6 4.6 0 0 0-6.6 0L3.3 6.7Z" fill="#1b1b1b"/><path d="M1 4.4a9.9 9.9 0 0 1 14 0l-1.4 1.4a7.9 7.9 0 0 0-11.2 0L1 4.4Z" fill="#1b1b1b"/></svg><svg width="27" height="13" viewBox="0 0 27 13"><rect x=".5" y=".5" width="22" height="12" rx="3.5" fill="none" stroke="#1b1b1b" opacity=".4"/><rect x="2" y="2" width="16" height="9" rx="2" fill="#1b1b1b"/><rect x="24" y="4.5" width="2" height="4" rx="1" fill="#1b1b1b" opacity=".4"/></svg></span></div>
+  <div class="viewport"><div class="page" id="dm-page">
+<div class="wrap" id="pg-wrap">
+  <h1>Неправильные глаголы 🇬🇧</h1>
+  <div class="stats" id="pg-stats">
+    <div class="stat" id="st-learn">⭐ Выучено <b><span id="st-learn-n">23</span></b> из 118</div>
+    <div class="stat">🔥 Дней подряд <b><span id="st-streak">4</span></b></div>
+    <div class="stat">📅 Сегодня <b><span id="st-ok">0</span></b> / <span id="st-n">0</span></div>
+    <div class="stat" id="st-best">⚡ Рекорд <b>17</b></div>
+  </div>
+  <div class="bar"><i id="pg-bar"></i></div>
+  <div class="tabs" id="pg-tabs"><div class="tabs-in" id="pg-tabs-in">
+    <button class="tab" id="tab-table">📋 Таблица</button>
+    <button class="tab" id="tab-cards">🃏 Карточки</button>
+    <button class="tab" id="tab-type">⌨️ Напиши</button>
+    <button class="tab" id="tab-choice">✅ Выбери</button>
+    <button class="tab" id="tab-speed">⚡ На время</button>
+  </div></div>
+  <div class="row">
+    <div class="sel">Группа ABC: go – went – gone</div>
+    <div class="sel">Подсказка: инфинитив (go)</div>
+  </div>
+  <div class="main" id="pg-main">
+
+    <section class="panel" id="pn-table">
+      <div class="card tip">
+        <p><b>Как учить:</b> не подряд по алфавиту, а группами — так в голове складываются шаблоны.
+        Уроки уже собраны по группам и похожим окончаниям (bought, brought, caught, taught…).</p>
+        <div class="grp" id="pg-grp"><div id="grp-AAA"><span class="badge b-AAA">AAA</span> Все три одинаковые<br><span class="muted">cut – cut – cut</span></div><div id="grp-ABA"><span class="badge b-ABA">ABA</span> 1-я и 3-я совпадают<br><span class="muted">come – came – come</span></div><div id="grp-ABB"><span class="badge b-ABB">ABB</span> 2-я и 3-я совпадают<br><span class="muted">buy – bought – bought</span></div><div id="grp-ABC"><span class="badge b-ABC">ABC</span> Все три разные<br><span class="muted">go – went – gone</span></div></div>
+        <p class="small muted">Закрой формы кнопкой ниже и проверяй себя: нажми на ••• чтобы подсмотреть. Цвет точки — насколько глагол выучен.</p>
+      </div>
+      <div class="card">
+        <div class="tblwrap"><table>
+          <thead><tr><th></th><th>V1</th><th>V2 · Past</th><th>V3 · Participle</th><th>Перевод</th><th></th></tr></thead>
+          <tbody><tr><td><span class="dot s4"></span></td><td class="f">do</td><td class="f">did</td><td class="f">done</td><td>делать</td><td><button class="speak">🔊</button></td></tr><tr><td><span class="dot s2"></span></td><td class="f">go</td><td class="f">went</td><td class="f">gone</td><td>идти, ехать</td><td><button class="speak">🔊</button></td></tr><tr><td><span class="dot s1"></span></td><td class="f">ring</td><td class="f">rang</td><td class="f">rung</td><td>звонить</td><td><button class="speak">🔊</button></td></tr><tr><td><span class="dot s3"></span></td><td class="f">sing</td><td class="f">sang</td><td class="f">sung</td><td>петь</td><td><button class="speak">🔊</button></td></tr><tr><td><span class="dot s5"></span></td><td class="f">drink</td><td class="f">drank</td><td class="f">drunk</td><td>пить</td><td><button class="speak">🔊</button></td></tr><tr><td><span class="dot s0"></span></td><td class="f">sink</td><td class="f">sank</td><td class="f">sunk</td><td>тонуть</td><td><button class="speak">🔊</button></td></tr><tr><td><span class="dot s2"></span></td><td class="f">swim</td><td class="f">swam</td><td class="f">swum</td><td>плавать</td><td><button class="speak">🔊</button></td></tr><tr><td><span class="dot s0"></span></td><td class="f">forbid</td><td class="f">forbade</td><td class="f">forbidden</td><td>запрещать</td><td><button class="speak">🔊</button></td></tr><tr><td><span class="dot s1"></span></td><td class="f">hide</td><td class="f">hid</td><td class="f">hidden</td><td>прятать</td><td><button class="speak">🔊</button></td></tr></tbody>
+        </table></div>
+      </div>
+    </section>
+
+    <section class="panel" id="pn-type">
+      <div class="card" id="ty-card">
+        <div class="progress"><span>Осталось: 10</span><span>Верно с первого раза: 0</span></div>
+        <div class="q-ru">идти, ехать</div>
+        <div class="q-en">go <button class="speak">🔊</button></div>
+        <div class="fields">
+          <div class="field"><label>V2 · Past Simple</label>
+            <div class="inp" id="ty-v2"><span class="tx" id="ty-v2-1">g</span><span class="tx" id="ty-v2-2">go</span><span class="tx" id="ty-v2-3">goe</span><span class="tx" id="ty-v2-4">goed</span><i class="caret" id="ty-v2-c"></i></div>
+            <div class="fix" id="ty-v2-fix">went</div></div>
+          <div class="field"><label>V3 · Past Participle</label>
+            <div class="inp" id="ty-v3"><span class="tx" id="ty-v3-1">g</span><span class="tx" id="ty-v3-2">go</span><span class="tx" id="ty-v3-3">gon</span><span class="tx" id="ty-v3-4">gone</span><i class="caret" id="ty-v3-c"></i></div>
+            <div class="fix" id="ty-v3-fix">✓</div></div>
+        </div>
+        <div class="row btnrow">
+          <button class="btn ghost" id="ty-hint">Подсказка</button>
+          <span class="btnslot"><button class="btn" id="ty-go">Проверить</button><button class="btn bad" id="ty-next">Понятно, дальше →</button></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="pn-choice">
+      <div class="card" id="ch-card"><div class="cq" id="ch0"><div class="progress"><span>Осталось: 10</span><span>Верно с первого раза: 0</span></div><div class="q-ru">take</div><div class="center muted">брать</div><p class="center">Выбери <b>Past Participle (V3)</b></p><div class="opts"><button class="opt" id="ch0-o0"><span>took</span></button><button class="opt" id="ch0-o1"><span>taked</span></button><button class="opt" id="ch0-o2"><span>taken</span></button><button class="opt" id="ch0-o3"><span>take</span></button></div></div><div class="cq" id="ch1"><div class="progress"><span>Осталось: 10</span><span>Верно с первого раза: 0</span></div><div class="q-ru">draw</div><div class="center muted">рисовать</div><p class="center">Выбери <b>Past Simple (V2)</b></p><div class="opts"><button class="opt" id="ch1-o0"><span>drawn</span></button><button class="opt" id="ch1-o1"><span>drew</span></button><button class="opt" id="ch1-o2"><span>draw</span></button><button class="opt" id="ch1-o3"><span>drawed</span></button></div></div><div class="cq" id="ch2"><div class="progress"><span>Осталось: 10</span><span>Верно с первого раза: 0</span></div><div class="q-ru">eat</div><div class="center muted">есть, кушать</div><p class="center">Выбери <b>Past Simple (V2)</b></p><div class="opts"><button class="opt" id="ch2-o0"><span>eaten</span></button><button class="opt" id="ch2-o1"><span>eated</span></button><button class="opt" id="ch2-o2"><span>eat</span></button><button class="opt" id="ch2-o3"><span>ate</span></button></div></div><p class="small muted center">Можно нажимать цифры 1–4</p></div>
+    </section>
+
+    <section class="panel" id="pn-cards">
+      <div class="flip" id="cd-flip"><div class="flip-in" id="cd-flip-in">
+        <div class="face"><div class="q-ru">break</div><div class="muted">ломать</div><div class="muted small">Назови три формы вслух, потом нажми на карточку</div></div>
+        <div class="face back">
+          <div class="forms">break <span>–</span> broke <span>–</span> broken</div>
+          <div class="muted">ломать</div>
+          <div><span class="badge b-ABC">ABC</span> <span class="small muted">Все три разные</span></div>
+        </div>
+      </div></div>
+      <div class="row cardbtns" id="cd-btns">
+        <button class="btn bad">😕 Ещё учу</button>
+        <button class="speak" id="cd-speak">🔊</button>
+        <button class="btn ok">😎 Знаю</button>
+      </div>
+      <p class="center small muted">Просмотрено карточек: 0</p>
+    </section>
+
+    <section class="panel" id="pn-speed0">
+      <div class="card center" id="sp0-card">
+        <div class="big">⚡</div>
+        <p style="font-size:18px">60 секунд. Сколько форм успеешь угадать?</p>
+        <p class="muted">Рекорд: <b>12</b></p>
+        <button class="btn" id="sp-start">Старт!</button>
+      </div>
+    </section>
+
+    <section class="panel" id="pn-speed1">
+      <div class="card" id="sp1-card">
+        <div class="progress"><span>⏱ <span id="sp-timer">60</span> c</span><span>Очки: <b id="sp-score">0</b></span></div>
+        <div class="sqwrap"><div class="sq" id="sp0"><div class="q-ru">see</div><div class="center muted">видеть</div><p class="center">Выбери <b>Past Simple (V2)</b></p><div class="opts"><button class="opt" id="sp0-o0"><span>saw</span></button><button class="opt" id="sp0-o1"><span>seen</span></button><button class="opt" id="sp0-o2"><span>seed</span></button><button class="opt" id="sp0-o3"><span>see</span></button></div></div><div class="sq" id="sp1"><div class="q-ru">write</div><div class="center muted">писать</div><p class="center">Выбери <b>Past Participle (V3)</b></p><div class="opts"><button class="opt" id="sp1-o0"><span>wrote</span></button><button class="opt" id="sp1-o1"><span>write</span></button><button class="opt" id="sp1-o2"><span>written</span></button><button class="opt" id="sp1-o3"><span>writed</span></button></div></div><div class="sq" id="sp2"><div class="q-ru">fly</div><div class="center muted">летать</div><p class="center">Выбери <b>Past Participle (V3)</b></p><div class="opts"><button class="opt" id="sp2-o0"><span>flied</span></button><button class="opt" id="sp2-o1"><span>flown</span></button><button class="opt" id="sp2-o2"><span>flew</span></button><button class="opt" id="sp2-o3"><span>fly</span></button></div></div><div class="sq" id="sp3"><div class="q-ru">swim</div><div class="center muted">плавать</div><p class="center">Выбери <b>Past Simple (V2)</b></p><div class="opts"><button class="opt" id="sp3-o0"><span>swum</span></button><button class="opt" id="sp3-o1"><span>swim</span></button><button class="opt" id="sp3-o2"><span>swimmed</span></button><button class="opt" id="sp3-o3"><span>swam</span></button></div></div><div class="sq" id="sp4"><div class="q-ru">speak</div><div class="center muted">говорить</div><p class="center">Выбери <b>Past Participle (V3)</b></p><div class="opts"><button class="opt" id="sp4-o0"><span>spoke</span></button><button class="opt" id="sp4-o1"><span>spoken</span></button><button class="opt" id="sp4-o2"><span>speaked</span></button><button class="opt" id="sp4-o3"><span>speak</span></button></div></div><div class="sq" id="sp5"><div class="q-ru">choose</div><div class="center muted">выбирать</div><p class="center">Выбери <b>Past Simple (V2)</b></p><div class="opts"><button class="opt" id="sp5-o0"><span>chose</span></button><button class="opt" id="sp5-o1"><span>chosen</span></button><button class="opt" id="sp5-o2"><span>choosed</span></button><button class="opt" id="sp5-o3"><span>choose</span></button></div></div><div class="sq" id="sp6"><div class="q-ru">give</div><div class="center muted">давать</div><p class="center">Выбери <b>Past Participle (V3)</b></p><div class="opts"><button class="opt" id="sp6-o0"><span>gave</span></button><button class="opt" id="sp6-o1"><span>give</span></button><button class="opt" id="sp6-o2"><span>given</span></button><button class="opt" id="sp6-o3"><span>gived</span></button></div></div><div class="sq" id="sp7"><div class="q-ru">know</div><div class="center muted">знать</div><p class="center">Выбери <b>Past Simple (V2)</b></p><div class="opts"><button class="opt" id="sp7-o0"><span>known</span></button><button class="opt" id="sp7-o1"><span>knew</span></button><button class="opt" id="sp7-o2"><span>knowed</span></button><button class="opt" id="sp7-o3"><span>know</span></button></div></div><div class="sq" id="sp8"><div class="q-ru">drive</div><div class="center muted">водить машину</div><p class="center">Выбери <b>Past Participle (V3)</b></p><div class="opts"><button class="opt" id="sp8-o0"><span>drove</span></button><button class="opt" id="sp8-o1"><span>drived</span></button><button class="opt" id="sp8-o2"><span>drive</span></button><button class="opt" id="sp8-o3"><span>driven</span></button></div></div></div>
+      </div>
+    </section>
+
+    <section class="panel" id="pn-speed2">
+      <div class="card center" id="sp2-card">
+        <div class="big">🏆</div>
+        <p style="font-size:20px">Очки: <b>17</b>, ошибок: 2</p>
+        <p>Новый рекорд!</p>
+        <button class="btn">Ещё раз</button>
+      </div>
+    </section>
+
+  </div>
+</div><div class="touch" id="dm-touch"></div></div></div>
+  <div class="safari"><div class="url"><svg width="11" height="14" viewBox="0 0 11 14"><rect x="0" y="6" width="11" height="8" rx="2" fill="#1b1b1b"/><path d="M2.5 6V4a3 3 0 0 1 6 0v2" fill="none" stroke="#1b1b1b" stroke-width="1.6"/></svg>afkostareva-lab.github.io</div><div class="home"></div></div>
+</div></div>
+<div class="lbl" id="lbl1" data-layout-allow-overlap data-layout-allow-occlusion>4 группы<br><em>вместо алфавита</em></div><div class="lbl" id="lbl2" data-layout-allow-overlap data-layout-allow-occlusion><span class="w">goed?</span> <span class="w">Нет</span> <span class="w">—</span> <span class="w"><em>went</em></span></div><div class="lbl" id="lbl3" data-layout-allow-overlap data-layout-allow-occlusion>Среди вариантов<br><em>есть ловушки</em></div><div class="lbl" id="lbl4" data-layout-allow-overlap data-layout-allow-occlusion>Слушай,<br><em>как звучит</em></div><div class="lbl" id="lbl5" data-layout-allow-overlap data-layout-allow-occlusion><span class="w"><em>60</em></span> <span class="w"><em>секунд</em></span><br><span class="w">на</span> <span class="w">скорость</span></div><div class="lbl" id="lbl6" data-layout-allow-overlap data-layout-allow-occlusion>Весь прогресс<br><em>на виду</em></div>
+
+    <audio id="sfx0" class="clip" src="assets/audio/whoosh-short.mp3" data-start="0.031" data-duration="0.57" data-volume="0.45" data-track-index="10"></audio>
+    <audio id="sfx1" class="clip" src="assets/audio/click-soft.mp3" data-start="5.460" data-duration="0.37" data-volume="0.55" data-track-index="11"></audio>
+    <audio id="sfx2" class="clip" src="assets/audio/click-soft.mp3" data-start="6.410" data-duration="0.37" data-volume="0.55" data-track-index="12"></audio>
+    <audio id="sfx3" class="clip" src="assets/audio/key-press.mp3" data-start="6.607" data-duration="0.43" data-volume="0.9" data-track-index="10"></audio>
+    <audio id="sfx4" class="clip" src="assets/audio/key-press.mp3" data-start="6.787" data-duration="0.43" data-volume="0.9" data-track-index="11"></audio>
+    <audio id="sfx5" class="clip" src="assets/audio/key-press.mp3" data-start="6.967" data-duration="0.43" data-volume="0.9" data-track-index="12"></audio>
+    <audio id="sfx6" class="clip" src="assets/audio/key-press.mp3" data-start="7.147" data-duration="0.43" data-volume="0.9" data-track-index="10"></audio>
+    <audio id="sfx7" class="clip" src="assets/audio/click-soft.mp3" data-start="7.510" data-duration="0.37" data-volume="0.55" data-track-index="11"></audio>
+    <audio id="sfx8" class="clip" src="assets/audio/key-press.mp3" data-start="7.707" data-duration="0.43" data-volume="0.9" data-track-index="12"></audio>
+    <audio id="sfx9" class="clip" src="assets/audio/key-press.mp3" data-start="7.887" data-duration="0.43" data-volume="0.9" data-track-index="10"></audio>
+    <audio id="sfx10" class="clip" src="assets/audio/key-press.mp3" data-start="8.067" data-duration="0.43" data-volume="0.9" data-track-index="11"></audio>
+    <audio id="sfx11" class="clip" src="assets/audio/key-press.mp3" data-start="8.247" data-duration="0.43" data-volume="0.9" data-track-index="12"></audio>
+    <audio id="sfx12" class="clip" src="assets/audio/click-soft.mp3" data-start="8.810" data-duration="0.37" data-volume="0.55" data-track-index="10"></audio>
+    <audio id="sfx13" class="clip" src="assets/audio/pop.mp3" data-start="8.813" data-duration="0.72" data-volume="0.45" data-track-index="11"></audio>
+    <audio id="sfx14" class="clip" src="assets/audio/click-soft.mp3" data-start="13.110" data-duration="0.37" data-volume="0.55" data-track-index="12"></audio>
+    <audio id="sfx15" class="clip" src="assets/audio/click-soft.mp3" data-start="14.960" data-duration="0.37" data-volume="0.55" data-track-index="10"></audio>
+    <audio id="sfx16" class="clip" src="assets/audio/click-soft.mp3" data-start="16.360" data-duration="0.37" data-volume="0.55" data-track-index="11"></audio>
+    <audio id="sfx17" class="clip" src="assets/audio/click-soft.mp3" data-start="18.160" data-duration="0.37" data-volume="0.55" data-track-index="12"></audio>
+    <audio id="sfx18" class="clip" src="assets/audio/click-soft.mp3" data-start="19.360" data-duration="0.37" data-volume="0.55" data-track-index="10"></audio>
+    <audio id="sfx19" class="clip" src="assets/audio/click-soft.mp3" data-start="22.710" data-duration="0.37" data-volume="0.55" data-track-index="11"></audio>
+    <audio id="sfx20" class="clip" src="assets/audio/click-soft.mp3" data-start="23.810" data-duration="0.37" data-volume="0.55" data-track-index="12"></audio>
+    <audio id="sfx21" class="clip" src="assets/audio/click-soft.mp3" data-start="24.115" data-duration="0.37" data-volume="0.55" data-track-index="10"></audio>
+    <audio id="sfx22" class="clip" src="assets/audio/click-soft.mp3" data-start="24.526" data-duration="0.37" data-volume="0.55" data-track-index="11"></audio>
+    <audio id="sfx23" class="clip" src="assets/audio/click-soft.mp3" data-start="24.937" data-duration="0.37" data-volume="0.55" data-track-index="12"></audio>
+    <audio id="sfx24" class="clip" src="assets/audio/click-soft.mp3" data-start="25.349" data-duration="0.37" data-volume="0.55" data-track-index="10"></audio>
+    <audio id="sfx25" class="clip" src="assets/audio/click-soft.mp3" data-start="25.760" data-duration="0.37" data-volume="0.55" data-track-index="11"></audio>
+    <audio id="sfx26" class="clip" src="assets/audio/click-soft.mp3" data-start="26.171" data-duration="0.37" data-volume="0.55" data-track-index="12"></audio>
+    <audio id="sfx27" class="clip" src="assets/audio/click-soft.mp3" data-start="26.582" data-duration="0.37" data-volume="0.55" data-track-index="10"></audio>
+    <audio id="sfx28" class="clip" src="assets/audio/click-soft.mp3" data-start="26.993" data-duration="0.37" data-volume="0.55" data-track-index="11"></audio>
+    <audio id="sfx29" class="clip" src="assets/audio/click-soft.mp3" data-start="27.404" data-duration="0.37" data-volume="0.55" data-track-index="12"></audio>
+    <audio id="sfx30" class="clip" src="assets/audio/sparkle.mp3" data-start="27.656" data-duration="1.8" data-volume="0.35" data-track-index="10"></audio>
+    <audio id="sfx31" class="clip" src="assets/audio/whoosh.mp3" data-start="32.971" data-duration="0.57" data-volume="0.45" data-track-index="11"></audio>
+  </div>
+  <script>
+    const POS = {"pg-wrap": {"x": 0, "y": 0, "w": 390, "h": 1333.2}, "pg-stats": {"x": 16, "y": 68, "w": 358, "h": 81.3}, "st-learn": {"x": 16, "y": 68, "w": 174.4, "h": 36.6}, "st-learn-n": {"x": 114.2, "y": 76.5, "w": 20.4, "h": 19.5}, "st-streak": {"x": 327.1, "y": 76.5, "w": 10.8, "h": 19.5}, "st-ok": {"x": 111.5, "y": 121.1, "w": 10.8, "h": 19.5}, "st-n": {"x": 135.2, "y": 123, "w": 8.8, "h": 17}, "st-best": {"x": 164.8, "y": 112.6, "w": 117, "h": 36.6}, "pg-bar": {"x": 16, "y": 159.3, "w": 69.8, "h": 8}, "pg-tabs": {"x": 0, "y": 181.3, "w": 390, "h": 44.6}, "pg-tabs-in": {"x": 16, "y": 181.3, "w": 629.5, "h": 40.6}, "tab-table": {"x": 16, "y": 181.3, "w": 118.7, "h": 40.6}, "tab-cards": {"x": 140.7, "y": 181.3, "w": 127.7, "h": 40.6}, "tab-type": {"x": 274.4, "y": 181.3, "w": 116.3, "h": 40.6}, "tab-choice": {"x": 396.7, "y": 181.3, "w": 114.2, "h": 40.6}, "tab-speed": {"x": 516.9, "y": 181.3, "w": 128.6, "h": 40.6}, "pg-main": {"x": 16, "y": 337.2, "w": 358, "h": 980}, "pn-table": {"x": 16, "y": 337.2, "w": 358, "h": 1033.2}, "pg-grp": {"x": 36.7, "y": 489.9, "w": 316.6, "h": 215.3}, "grp-AAA": {"x": 36.7, "y": 489.9, "w": 154.3, "h": 103.6}, "grp-ABA": {"x": 199, "y": 489.9, "w": 154.3, "h": 103.6}, "grp-ABB": {"x": 36.7, "y": 601.5, "w": 154.3, "h": 103.6}, "grp-ABC": {"x": 199, "y": 601.5, "w": 154.3, "h": 103.6}, "pn-type": {"x": 16, "y": 337.2, "w": 358, "h": 336.5}, "ty-card": {"x": 16, "y": 337.2, "w": 358, "h": 324.5}, "ty-v2": {"x": 36.7, "y": 498, "w": 153.3, "h": 52}, "ty-v2-1": {"x": 50.5, "y": 509.8, "w": 12.3, "h": 28}, "ty-v2-2": {"x": 50.5, "y": 509.8, "w": 24.3, "h": 28}, "ty-v2-3": {"x": 50.5, "y": 509.8, "w": 35.9, "h": 28}, "ty-v2-4": {"x": 50.5, "y": 509.8, "w": 48.2, "h": 28}, "ty-v2-c": {"x": 50.5, "y": 511.8, "w": 2, "h": 24}, "ty-v2-fix": {"x": 36.7, "y": 554, "w": 153.3, "h": 20.3}, "ty-v3": {"x": 200, "y": 498, "w": 153.3, "h": 52}, "ty-v3-1": {"x": 213.8, "y": 509.8, "w": 12.3, "h": 28}, "ty-v3-2": {"x": 213.8, "y": 509.8, "w": 24.3, "h": 28}, "ty-v3-3": {"x": 213.8, "y": 509.8, "w": 36.1, "h": 28}, "ty-v3-4": {"x": 213.8, "y": 509.8, "w": 47.7, "h": 28}, "ty-v3-c": {"x": 213.8, "y": 511.8, "w": 2, "h": 24}, "ty-v3-fix": {"x": 200, "y": 554, "w": 153.3, "h": 20.3}, "ty-hint": {"x": 36.7, "y": 592.3, "w": 123.7, "h": 48.6}, "ty-go": {"x": 229.9, "y": 593, "w": 123.4, "h": 47.2}, "ty-next": {"x": 159.6, "y": 593, "w": 193.7, "h": 47.2}, "pn-choice": {"x": 16, "y": 337.2, "w": 358, "h": 342}, "ch-card": {"x": 16, "y": 337.2, "w": 358, "h": 330}, "ch0": {"x": 36.7, "y": 357.9, "w": 316.6, "h": 278.3}, "ch0-o0": {"x": 36.7, "y": 497, "w": 153.3, "h": 64.6}, "ch0-o1": {"x": 200, "y": 497, "w": 153.3, "h": 64.6}, "ch0-o2": {"x": 36.7, "y": 571.6, "w": 153.3, "h": 64.6}, "ch0-o3": {"x": 200, "y": 571.6, "w": 153.3, "h": 64.6}, "ch1": {"x": 36.7, "y": 357.9, "w": 316.6, "h": 278.3}, "ch1-o0": {"x": 36.7, "y": 497, "w": 153.3, "h": 64.6}, "ch1-o1": {"x": 200, "y": 497, "w": 153.3, "h": 64.6}, "ch1-o2": {"x": 36.7, "y": 571.6, "w": 153.3, "h": 64.6}, "ch1-o3": {"x": 200, "y": 571.6, "w": 153.3, "h": 64.6}, "ch2": {"x": 36.7, "y": 357.9, "w": 316.6, "h": 278.3}, "ch2-o0": {"x": 36.7, "y": 497, "w": 153.3, "h": 64.6}, "ch2-o1": {"x": 200, "y": 497, "w": 153.3, "h": 64.6}, "ch2-o2": {"x": 36.7, "y": 571.6, "w": 153.3, "h": 64.6}, "ch2-o3": {"x": 200, "y": 571.6, "w": 153.3, "h": 64.6}, "pn-cards": {"x": 16, "y": 337.2, "w": 358, "h": 334}, "cd-flip": {"x": 16, "y": 337.2, "w": 358, "h": 230}, "cd-flip-in": {"x": 16, "y": 337.2, "w": 358, "h": 230}, "cd-btns": {"x": 16, "y": 579.2, "w": 358, "h": 47.2}, "cd-speak": {"x": 188, "y": 584.7, "w": 36, "h": 36}, "pn-speed0": {"x": 16, "y": 337.2, "w": 358, "h": 291.8}, "sp0-card": {"x": 16, "y": 337.2, "w": 358, "h": 279.8}, "sp-start": {"x": 151.1, "y": 549.1, "w": 87.8, "h": 47.2}, "pn-speed1": {"x": 16, "y": 337.2, "w": 358, "h": 312}, "sp1-card": {"x": 16, "y": 337.2, "w": 358, "h": 300}, "sp-timer": {"x": 50.5, "y": 359.3, "w": 16.3, "h": 15.9}, "sp-score": {"x": 344.5, "y": 359.3, "w": 8.8, "h": 15.9}, "sp0": {"x": 36.7, "y": 384.7, "w": 316.6, "h": 251.5}, "sp0-o0": {"x": 36.7, "y": 497, "w": 153.3, "h": 64.6}, "sp0-o1": {"x": 200, "y": 497, "w": 153.3, "h": 64.6}, "sp0-o2": {"x": 36.7, "y": 571.6, "w": 153.3, "h": 64.6}, "sp0-o3": {"x": 200, "y": 571.6, "w": 153.3, "h": 64.6}, "sp1": {"x": 36.7, "y": 384.7, "w": 316.6, "h": 251.5}, "sp1-o0": {"x": 36.7, "y": 497, "w": 153.3, "h": 64.6}, "sp1-o1": {"x": 200, "y": 497, "w": 153.3, "h": 64.6}, "sp1-o2": {"x": 36.7, "y": 571.6, "w": 153.3, "h": 64.6}, "sp1-o3": {"x": 200, "y": 571.6, "w": 153.3, "h": 64.6}, "sp2": {"x": 36.7, "y": 384.7, "w": 316.6, "h": 251.5}, "sp2-o0": {"x": 36.7, "y": 497, "w": 153.3, "h": 64.6}, "sp2-o1": {"x": 200, "y": 497, "w": 153.3, "h": 64.6}, "sp2-o2": {"x": 36.7, "y": 571.6, "w": 153.3, "h": 64.6}, "sp2-o3": {"x": 200, "y": 571.6, "w": 153.3, "h": 64.6}, "sp3": {"x": 36.7, "y": 384.7, "w": 316.6, "h": 251.5}, "sp3-o0": {"x": 36.7, "y": 497, "w": 153.3, "h": 64.6}, "sp3-o1": {"x": 200, "y": 497, "w": 153.3, "h": 64.6}, "sp3-o2": {"x": 36.7, "y": 571.6, "w": 153.3, "h": 64.6}, "sp3-o3": {"x": 200, "y": 571.6, "w": 153.3, "h": 64.6}, "sp4": {"x": 36.7, "y": 384.7, "w": 316.6, "h": 251.5}, "sp4-o0": {"x": 36.7, "y": 497, "w": 153.3, "h": 64.6}, "sp4-o1": {"x": 200, "y": 497, "w": 153.3, "h": 64.6}, "sp4-o2": {"x": 36.7, "y": 571.6, "w": 153.3, "h": 64.6}, "sp4-o3": {"x": 200, "y": 571.6, "w": 153.3, "h": 64.6}, "sp5": {"x": 36.7, "y": 384.7, "w": 316.6, "h": 251.5}, "sp5-o0": {"x": 36.7, "y": 497, "w": 153.3, "h": 64.6}, "sp5-o1": {"x": 200, "y": 497, "w": 153.3, "h": 64.6}, "sp5-o2": {"x": 36.7, "y": 571.6, "w": 153.3, "h": 64.6}, "sp5-o3": {"x": 200, "y": 571.6, "w": 153.3, "h": 64.6}, "sp6": {"x": 36.7, "y": 384.7, "w": 316.6, "h": 251.5}, "sp6-o0": {"x": 36.7, "y": 497, "w": 153.3, "h": 64.6}, "sp6-o1": {"x": 200, "y": 497, "w": 153.3, "h": 64.6}, "sp6-o2": {"x": 36.7, "y": 571.6, "w": 153.3, "h": 64.6}, "sp6-o3": {"x": 200, "y": 571.6, "w": 153.3, "h": 64.6}, "sp7": {"x": 36.7, "y": 384.7, "w": 316.6, "h": 251.5}, "sp7-o0": {"x": 36.7, "y": 497, "w": 153.3, "h": 64.6}, "sp7-o1": {"x": 200, "y": 497, "w": 153.3, "h": 64.6}, "sp7-o2": {"x": 36.7, "y": 571.6, "w": 153.3, "h": 64.6}, "sp7-o3": {"x": 200, "y": 571.6, "w": 153.3, "h": 64.6}, "sp8": {"x": 36.7, "y": 384.7, "w": 316.6, "h": 251.5}, "sp8-o0": {"x": 36.7, "y": 497, "w": 153.3, "h": 64.6}, "sp8-o1": {"x": 200, "y": 497, "w": 153.3, "h": 64.6}, "sp8-o2": {"x": 36.7, "y": 571.6, "w": 153.3, "h": 64.6}, "sp8-o3": {"x": 200, "y": 571.6, "w": 153.3, "h": 64.6}, "pn-speed2": {"x": 16, "y": 337.2, "w": 358, "h": 272.6}, "sp2-card": {"x": 16, "y": 337.2, "w": 358, "h": 260.6}, "dm-touch": {"x": -22, "y": -22, "w": 44, "h": 44}, "_k": 2.769190705128205};
+    // ---- one paused timeline drives the whole screen recording (times in seconds, scene-local)
+    const tl = gsap.timeline({ paused: true });
+    const K = 1080 / 390;                 // page CSS px -> frame px
+    const el = (id) => document.getElementById(id);
+    const C = (id) => ({ x: POS[id].x + POS[id].w / 2, y: POS[id].y + POS[id].h / 2 });
+
+    const COL = { line: "#EFCFE3", accent: "#E27396", ok: "#2f8f99", okBg: "#B3DEE2", bad: "#c94f77", badBg: "#EFCFE3",
+                  card: "#fffdf8", ink: "#4a2a38", bg: "#ECF2D8" };
+    const S_TOP = 0, S_TABS = 135, S_CARD = 231, S_GROUPS = 354;
+
+    // initial state (set at 0 so every seek starts clean)
+    tl.set("#dm-page", { y: 0 }, 0);
+    tl.set("#dm-cam", { x: 0, y: 0, scale: 1 }, 0);
+    tl.set("#pg-tabs-in", { x: 0 }, 0);
+    tl.set("#dm-touch", { opacity: 0, scale: 1 }, 0);
+
+    // ---- helpers
+    function scroll(t, s, dur, ease) { tl.to("#dm-page", { y: -s, duration: dur, ease: ease || "power2.inOut" }, t); }
+    function cam(t, z, fx, fy, FX, FY, s, dur, ease) {
+      // put page point (fx,fy) at frame point (FX,FY) at zoom z, given page scroll s
+      const sx = fx * K, sy = (54 + fy - s) * K;
+      let x = FX - z * sx, y = FY - z * sy;
+      x = Math.min(0, Math.max(1080 - 1080 * z, x)); y = Math.min(0, Math.max(1920 - 1920 * z, y));
+      tl.to("#dm-cam", { x, y, scale: z, duration: dur, ease: ease || "power2.inOut" }, t);
+    }
+    function camReset(t, dur) { tl.to("#dm-cam", { x: 0, y: 0, scale: 1, duration: dur, ease: "power2.inOut" }, t); }
+    function tap(t, p) {
+      tl.set("#dm-touch", { x: p.x, y: p.y }, t - 0.1);
+      tl.fromTo("#dm-touch", { opacity: 0, scale: 0.75 }, { opacity: 1, scale: 1, duration: 0.07, ease: "power2.out", immediateRender: false }, t - 0.07);
+      tl.to("#dm-touch", { opacity: 0, duration: 0.16, ease: "power1.in" }, t + 0.12);
+    }
+    function swipe(t, from, to, tabsTo, dur) {
+      tl.set("#dm-touch", { x: from.x, y: from.y }, t - 0.08);
+      tl.fromTo("#dm-touch", { opacity: 0 }, { opacity: 1, duration: 0.06, immediateRender: false }, t - 0.06);
+      tl.to("#dm-touch", { x: to.x, y: to.y, duration: dur * 0.7, ease: "power1.inOut" }, t);
+      tl.to("#dm-touch", { opacity: 0, duration: 0.12 }, t + dur * 0.7);
+      tl.to("#pg-tabs-in", { x: tabsTo, duration: dur, ease: "power3.out" }, t);
+    }
+    function tabOn(t, on, off) {
+      tl.set("#" + on, { backgroundColor: COL.accent, color: "#fff", borderColor: COL.accent }, t);
+      tl.set("#" + off, { backgroundColor: COL.card, color: COL.ink, borderColor: COL.line }, t);
+    }
+    function panel(t, show, hide) { tl.set("#" + hide, { opacity: 0 }, t); tl.set("#" + show, { opacity: 1 }, t); }
+    function label(id, tIn, tOut, mode) {
+      const box = "#" + id;
+      if (mode === "words") {
+        tl.set(box, { opacity: 1, filter: "blur(0px)" }, tIn);
+        tl.fromTo(box + " .w", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.13, stagger: 0.09, ease: "power2.out" }, tIn);
+      } else if (mode === "wipe") {
+        tl.fromTo(box, { opacity: 1, clipPath: "inset(0% 100% 0% 0% round 26px)" }, { clipPath: "inset(0% 0% 0% 0% round 26px)", duration: 0.32, ease: "expo.out" }, tIn);
+      } else {
+        tl.fromTo(box, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power2.out" }, tIn);
+      }
+      tl.to(box, { opacity: 0, filter: "blur(6px)", duration: 0.18, ease: "power2.in" }, tOut);
+    }
+    function good(t, id) { tl.set("#" + id, { borderColor: COL.ok, backgroundColor: COL.okBg }, t); }
+
+    // ---- 0. app opens over the intro (0.0 - 0.5)
+    tl.fromTo("#dm-cam", { y: 520, scale: 0.8, x: 108 }, { y: 0, scale: 1, x: 0, duration: 0.5, ease: "power3.out", immediateRender: true }, 0);
+    tl.fromTo("#dm-screen", { borderRadius: 18 }, { borderRadius: 0, duration: 0.5, ease: "power3.out" }, 0);
+
+    // ---- B1. the four groups (0.5 - 4.8)
+    scroll(0.6, S_GROUPS, 0.9);
+    label("lbl1", 1.25, 4.6);
+    tl.to("#grp-ABC", { borderColor: COL.accent, backgroundColor: "#fbe3ec", duration: 0.25, ease: "power2.out" }, 2.6);
+    tl.fromTo("#grp-ABC", { boxShadow: "0 0 0 0px rgba(226,115,150,0)" }, { boxShadow: "0 0 0 1.5px rgba(226,115,150,1)", duration: 0.25, ease: "power2.out" }, 2.6);
+
+    // ---- B2. «Напиши»: goed -> went (4.8 - 12.0)
+    scroll(4.8, S_TABS, 0.55);
+    tap(5.5, { x: 330, y: C("tab-type").y });
+    tabOn(5.5, "tab-type", "tab-table"); panel(5.5, "pn-type", "pn-table");
+    scroll(5.75, S_CARD, 0.55);
+    // focus V2, type goed
+    tap(6.45, C("ty-v2"));
+    tl.set("#ty-v2", { borderColor: COL.accent }, 6.45); tl.set("#ty-v2-c", { opacity: 1, x: 0 }, 6.45);
+    const typeAt = (field, t0) => {
+      for (let i = 1; i <= 4; i++) {
+        const t = t0 + (i - 1) * 0.18;
+        if (i > 1) tl.set(`#ty-${field}-${i - 1}`, { opacity: 0 }, t);
+        tl.set(`#ty-${field}-${i}`, { opacity: 1 }, t);
+        tl.set(`#ty-${field}-c`, { x: POS[`ty-${field}-${i}`].w }, t);
+      }
+    };
+    typeAt("v2", 6.65);
+    tap(7.55, C("ty-v3"));
+    tl.set("#ty-v2", { borderColor: COL.line }, 7.55); tl.set("#ty-v2-c", { opacity: 0 }, 7.55);
+    tl.set("#ty-v3", { borderColor: COL.accent }, 7.55); tl.set("#ty-v3-c", { opacity: 1, x: 0 }, 7.55);
+    typeAt("v3", 7.75);
+    tap(8.85, C("ty-go"));
+    tl.set("#ty-v3-c", { opacity: 0 }, 8.9);
+    tl.set("#ty-v2", { borderColor: COL.bad, backgroundColor: COL.badBg }, 8.9);
+    tl.set("#ty-v3", { borderColor: COL.ok, backgroundColor: COL.okBg }, 8.9);
+    tl.set(["#ty-v2-fix", "#ty-v3-fix"], { opacity: 1 }, 8.9);
+    tl.set("#ty-go", { opacity: 0 }, 8.9); tl.set("#ty-next", { opacity: 1 }, 8.9); tl.set("#ty-hint", { opacity: 0 }, 8.9);
+    tl.set(["#st-ok", "#st-n"], { textContent: (i) => ["0", "1"][i] }, 8.9);
+    tl.set("#st-streak", { textContent: "5" }, 8.9);
+    cam(9.2, 1.22, 195, 536, 540, 830, S_CARD, 0.7);
+    label("lbl2", 9.55, 11.85, "words");
+    camReset(12.0, 0.55);
+
+    // ---- B3. «Выбери» (12.0 - 17.0)
+    scroll(12.0, S_TABS, 0.55);
+    swipe(12.55, { x: 300, y: 201 }, { x: 110, y: 201 }, -272, 0.4);
+    tap(13.15, { x: POS["tab-choice"].x - 272 + POS["tab-choice"].w / 2, y: C("tab-choice").y });
+    tabOn(13.15, "tab-choice", "tab-type"); panel(13.15, "pn-choice", "pn-type");
+    scroll(13.35, S_CARD, 0.55);
+    label("lbl3", 13.85, 16.85, "wipe");
+    tap(15.0, C("ch0-o2")); good(15.0, "ch0-o2");
+    tl.set(["#st-ok", "#st-n"], { textContent: (i) => ["1", "2"][i] }, 15.0);
+    panel(15.6, "ch1", "ch0");
+    tap(16.4, C("ch1-o1")); good(16.4, "ch1-o1");
+    tl.set(["#st-ok", "#st-n"], { textContent: (i) => ["2", "3"][i] }, 16.4);
+    panel(17.0, "ch2", "ch1");
+
+    // ---- B4. карточки (17.0 - 21.7)
+    scroll(17.15, S_TABS, 0.5);
+    swipe(17.65, { x: 110, y: 201 }, { x: 300, y: 201 }, 0, 0.4);
+    tap(18.2, C("tab-cards"));
+    tabOn(18.2, "tab-cards", "tab-choice"); panel(18.2, "pn-cards", "pn-choice");
+    scroll(18.4, S_CARD, 0.55);
+    label("lbl4", 19.0, 21.5);
+    tap(19.4, C("cd-flip"));
+    tl.fromTo("#cd-flip-in", { rotationY: 0 }, { rotationY: 180, duration: 0.5, ease: "power1.inOut" }, 19.4);
+    tl.set("#cd-btns", { opacity: 1 }, 19.42);
+    tl.set("#cd-speak", { borderColor: COL.accent, backgroundColor: "#fbe3ec" }, 19.5);
+    tl.set("#cd-speak", { borderColor: COL.line, backgroundColor: COL.card }, 21.2);
+
+    // ---- B5. «На время» (21.7 - 28.6)
+    scroll(21.7, S_TABS, 0.5);
+    swipe(22.15, { x: 300, y: 201 }, { x: 110, y: 201 }, -272, 0.4);
+    tap(22.75, { x: POS["tab-speed"].x - 272 + POS["tab-speed"].w / 2, y: C("tab-speed").y });
+    tabOn(22.75, "tab-speed", "tab-cards"); panel(22.75, "pn-speed0", "pn-cards");
+    scroll(22.95, S_CARD, 0.5);
+    label("lbl5", 23.3, 28.45, "words");
+    tap(23.85, C("sp-start"));
+    panel(23.9, "pn-speed1", "pn-speed0");
+    const RUN0 = 23.9, RUN1 = 27.6, N = 9, STEP = (RUN1 - RUN0) / N;
+    const CORRECT = [0, 2, 1, 3, 1, 0, 2, 1, 3];
+    const SCORE = [2, 4, 6, 7, 9, 11, 13, 15, 17];
+    const timer = { v: 60 };
+    tl.fromTo(timer, { v: 60 }, { v: 1, duration: RUN1 - RUN0, ease: "none",
+      onUpdate: () => { el("sp-timer").textContent = Math.max(1, Math.round(timer.v)); } }, RUN0);
+    for (let i = 0; i < N; i++) {
+      const t = RUN0 + i * STEP;
+      if (i > 0) panel(t, "sp" + i, "sp" + (i - 1));
+      const tt = t + STEP * 0.62;
+      tap(tt, C(`sp${i}-o${CORRECT[i]}`)); good(tt, `sp${i}-o${CORRECT[i]}`);
+      tl.set("#sp-score", { textContent: String(SCORE[i]) }, tt);
+    }
+    panel(RUN1 + 0.05, "pn-speed2", "pn-speed1");
+    tl.set("#st-best", { opacity: 1 }, RUN1 + 0.05);
+    tl.set(["#st-ok", "#st-n"], { textContent: (i) => ["19", "22"][i] }, RUN1 + 0.05);
+    tl.set("#st-learn-n", { textContent: "24" }, RUN1 + 0.05);
+    tl.set("#pg-bar", { width: (24 / 118 * 100).toFixed(1) + "%" }, RUN1 + 0.05);
+    // the payoff: push in on the trophy card as the record lands
+    cam(RUN1 + 0.1, 1.3, 195, 467, 540, 960, S_CARD, 0.6, "power3.out");
+
+    // ---- B6. прогресс (28.6 - 32.6)
+    scroll(28.7, S_TOP, 0.8);
+    camReset(28.7, 0.8);
+    label("lbl6", 29.6, 32.35);
+    tl.to("#st-learn", { borderColor: COL.accent, duration: 0.2 }, 29.9);
+    tl.to("#st-best", { borderColor: COL.accent, duration: 0.2 }, 30.5);
+
+    // ---- close: the screen shrinks away onto the outro (32.6 - 33.2)
+    tl.to("#dm-screen", { borderRadius: 18, duration: 0.25, ease: "power2.in" }, 32.6);
+    tl.to("#dm-cam", { y: 1500, x: 140, scale: 0.74, duration: 0.55, ease: "power3.in" }, 32.6);
+    tl.to("#dm-cam", { opacity: 0, duration: 0.12 }, 33.05);
+
+    window.__timelines["demo"] = tl;
+
+  </script>
+</template>

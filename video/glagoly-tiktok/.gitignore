@@ -1,0 +1,5 @@
+# personal footage stays out of the public repo — put the two clips back into assets/video/ to re-render
+assets/video/
+renders/
+.hyperframes/
+node_modules/

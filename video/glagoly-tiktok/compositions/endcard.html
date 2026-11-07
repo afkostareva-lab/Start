@@ -1,0 +1,60 @@
+<template id="endcard-template">
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      src: url("assets/fonts/PlayfairDisplay-Black-latin.woff2") format("woff2");
+      font-weight: 900;
+    }
+    @font-face {
+      font-family: "Playfair Display";
+      src: url("assets/fonts/PlayfairDisplay-Black-cyrillic.woff2") format("woff2");
+      font-weight: 900;
+      unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+    }
+    @font-face {
+      font-family: "InterUI";
+      src: url("assets/fonts/Inter-var-latin.woff2") format("woff2");
+      font-weight: 100 900;
+      unicode-range: U+0000-00FF, U+2000-206F;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+    }
+    #ec-card {
+      position: absolute;
+      left: 60px;
+      top: 1104px;
+      width: 860px;
+      padding: 30px 40px 34px;
+      border-radius: 28px;
+      background: #fffdf8;
+      border: 3px solid #efcfe3;
+      box-shadow: 0 18px 40px rgba(74, 42, 56, 0.22);
+    }
+    #ec-cta {
+      font: 900 66px/1.04 "Playfair Display", Georgia, serif;
+      color: var(--color-ink, #4a2a38);
+    }
+    #ec-url {
+      margin-top: 16px;
+      font: 700 36px/1.2 "InterUI", sans-serif;
+      color: var(--color-accent, #e27396);
+    }
+  </style>
+  <div id="root" data-composition-id="endcard" data-width="1080" data-height="1920">
+    <div id="ec-wrap" class="clip" data-start="0" data-duration="3" data-track-index="0">
+      <div id="ec-card">
+        <div id="ec-cta" data-var-text="cta">Тренажёр — по ссылке в профиле</div>
+        <div id="ec-url" data-var-text="cta-url">afkostareva-lab.github.io/Start</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // the card is carried up into place, then the link types on under the line
+    tl.fromTo("#ec-card", { y: 260, opacity: 0, filter: "blur(10px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.55, ease: "expo.out" }, 0);
+    tl.fromTo("#ec-url", { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.5, ease: "power2.inOut" }, 0.45);
+    window.__timelines["endcard"] = tl;
+  </script>
+</template>

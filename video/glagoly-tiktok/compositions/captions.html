@@ -1,0 +1,77 @@
+<template id="captions-template">
+  <style>
+    @font-face {
+      font-family: "InterUI";
+      src: url("assets/fonts/Inter-var-latin.woff2") format("woff2");
+      font-weight: 100 900;
+      unicode-range: U+0000-00FF, U+2000-206F;
+    }
+    @font-face {
+      font-family: "InterUI";
+      src: url("assets/fonts/Inter-var-cyrillic.woff2") format("woff2");
+      font-weight: 100 900;
+      unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+    }
+    /* left 60 + 860 wide: clear of the app's right-hand action rail */
+    .cap {
+      position: absolute;
+      left: 60px;
+      width: 860px;
+      text-align: center;
+      opacity: 0;
+      overflow: visible;
+    }
+    .cap-in {
+      top: 1180px;
+    }
+    .cap-out {
+      top: 968px;
+    }
+    .cap span {
+      display: inline-block;
+      padding: 10px 24px 14px;
+      border-radius: 16px;
+      background: rgba(74, 42, 56, 0.92);
+      color: #fffdf8;
+      font: 800 58px/1.12 "InterUI", sans-serif;
+      letter-spacing: -0.01em;
+      max-width: 860px;
+    }
+  </style>
+  <div id="root" data-composition-id="captions" data-width="1080" data-height="1920">
+    <div class="cap cap-in" id="c1"><span>Hi guys!</span></div>
+    <div class="cap cap-in" id="c2"><span>Study English</span></div>
+    <div class="cap cap-in" id="c3"><span>makes me nervous…</span></div>
+    <div class="cap cap-in" id="c4"><span>…или как выучить</span></div>
+    <div class="cap cap-in" id="c5"><span>таблицу неправильных глаголов</span></div>
+    <div class="cap cap-in" id="c6"><span>без напряга</span></div>
+    <div class="cap cap-in" id="c7"><span>Погнали, покажу!</span></div>
+
+    <div class="cap cap-out" id="o1"><span>Ну что,</span></div>
+    <div class="cap cap-out" id="o2"><span>теперь легче учить</span></div>
+    <div class="cap cap-out" id="o3"><span>неправильные глаголы</span></div>
+    <div class="cap cap-out" id="o4"><span>Надеюсь,</span></div>
+    <div class="cap cap-out" id="o4b"><span>всем вам помогла</span></div>
+    <div class="cap cap-out" id="o5"><span>Всем пока!</span></div>
+  </div>
+  <script>
+    // Timings from whisper word times and the clips' own pauses (silencedetect), in video seconds.
+    const GROUPS = [
+      ["c1", 0.2, 0.9], ["c2", 1.05, 1.65], ["c3", 1.65, 2.5], ["c4", 2.55, 3.75],
+      ["c5", 3.75, 5.2], ["c6", 5.2, 5.9], ["c7", 6.05, 6.7],
+      ["o1", 39.8, 40.55], ["o2", 40.7, 41.6], ["o3", 41.6, 42.6], ["o4", 42.8, 43.2], ["o4b", 43.2, 43.85], ["o5", 43.95, 44.85],
+    ];
+    const tl = gsap.timeline({ paused: true });
+    for (const [id, a, b] of GROUPS) {
+      const g = "#" + id;
+      tl.fromTo(g, { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.1, ease: "power2.out" }, a);
+      tl.to(g, { opacity: 0, duration: 0.08, ease: "power2.in" }, b - 0.08);
+      tl.set(g, { opacity: 0, visibility: "hidden" }, b);
+    }
+    window.__timelines["captions"] = tl;
+  </script>
+</template>
