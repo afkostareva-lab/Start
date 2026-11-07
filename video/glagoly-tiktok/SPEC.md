@@ -18,7 +18,7 @@ SHOTS:   0–7 intro clip, hook title on the wall above her head (frame 0 = thum
          6.7–7.2 screen opens · 7.3 scroll to the 4 groups, ABC lights · 12.2 «Напиши», goed/gone typed, 15.55 check → went
          · 19.85 «Выбери», taken ✓, drew ✓ · 24.9 «Карточки», 26.1 flip break–broke–broken · 29.45 «На время», 30.55 start,
          time-lapse run to 34.3, 34.35 trophy + push-in · 35.4 scroll to stats · 39.3 screen closes onto the outro.
-         39.3–45 outro clip, captions, 42.0 end card «Тренажёр — по ссылке в профиле».
+         39.3–45 outro clip, captions, 42.0 end card «Ссылка на тренажёр — под видео».
 SAFE:    words between y 168 and 1330; captions and end card x 60–920 (clear of the right action rail).
 INTRO:   restyled to the daughter's CapCut look: Montserrat Bold («Study» face) + Lora SemiBold Italic («English makes me
          nervous» face), red #C52E2A on a pink sticker outline #F7CBE2 (text-shadow ring 0.24em), tilted −4…−9°.
