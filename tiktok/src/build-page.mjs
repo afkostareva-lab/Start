@@ -17,6 +17,8 @@ const toolById = Object.fromEntries(plan.tools.map(t => [t.id, t]));
 const posts = plan.weeks.flatMap(w => w.posts);
 const slideCount = id => fs.readdirSync(path.join(ROOT, 'img', id)).filter(f => f.endsWith('.png')).length;
 const pad = n => String(n).padStart(2, '0');
+const plural = (n, f) => f[n % 10 === 1 && n % 100 !== 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2];
+const need = t => (t.when.startsWith('к ') ? 'нужен ' : '') + t.when;
 
 const thumb = (group, i, full, alt, cls = '') =>
   `<button type="button" class="th ${cls}" data-g="${esc(group)}" data-i="${i}" data-full="${esc(full)}" aria-label="${esc(alt)}: открыть в полном размере">` +
@@ -32,14 +34,16 @@ function postHtml(p) {
     strip = `<div class="strip" role="group" aria-label="Картинки карусели">${Array.from({ length: n }, (_, i) =>
       thumb(p.id, i, `img/${p.carousel}/${pad(i + 1)}.png`, `Картинка ${i + 1} из ${n}`)).join('')}</div>`;
   }
-  const tool = p.tool ? `<a class="toollink" href="#tool-${p.tool}">Инструмент: ${esc(toolById[p.tool].name)}</a>` : '';
+  const tool = p.tool ? `<a class="toollink" href="#tool-${p.tool}">Файл: ${esc(toolById[p.tool].name)}</a>` : '';
   return `<article class="post" id="${p.id}">
   <div class="date"><span class="dow">${esc(p.dow)}</span><span class="dd">${dayOf(p.date)}</span><span class="mm">${monOf(p.date)}</span></div>
   <div class="body">
     <div class="meta"><span class="chip r-${p.rubric}">${esc(r.name)}</span><span class="fmt">${esc(p.format)}</span>${tool}</div>
     <div class="cols"><div class="txt">
       <h4>${esc(p.title)}</h4>
+      ${p.note ? `<p class="pnote">${esc(p.note)}</p>` : ''}
       <ul class="shots">${p.shots.map(s => `<li>${esc(s)}</li>`).join('')}</ul>
+      ${p.format.startsWith('карусель') && !p.carousel ? '<p class="pnote">Картинки для этой карусели пока не нарисованы.</p>' : ''}
     </div>${media}</div>
     ${strip}
     <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-${p.id}">${esc(p.caption)} <span class="tags">${esc(tags)}</span></span></div>
@@ -55,23 +59,23 @@ function weekHtml(w) {
     <div><h4>${esc(w.prep.title)}</h4><ul class="shots">${w.prep.todo.map(s => `<li>${esc(s)}</li>`).join('')}</ul></div></div>` : '';
   return `<section class="week" id="week-${w.n}">
   <header class="wh"><p class="eyebrow">Неделя ${w.n} · ${esc(w.dates)}</p><h3>${esc(w.theme)}</h3>
-    <p class="wtool">Инструмент недели: <a href="#tool-${t.id}">${esc(t.name)}</a>, нужен ${esc(t.when)}</p></header>
+    <p class="wtool">Файл недели: <a href="#tool-${t.id}">${esc(t.name)}</a>, ${esc(need(t))}</p></header>
   ${prep}${w.posts.map(postHtml).join('\n')}
 </section>`;
 }
 
 const rubricRows = Object.entries(plan.rubrics).map(([id, r]) =>
-  `<tr><td class="num">${esc(r.day)}</td><td><span class="chip r-${id}">${esc(r.name)}</span></td><td>${esc(r.format)}</td><td>${esc(r.job)}</td><td>${esc(r.goal)}</td></tr>`).join('');
+  `<tr><td class="num">${esc(r.day)}</td><td><span class="chip r-${id}">${esc(r.name)}</span></td><td>${esc(r.format)}</td><td>${esc(r.goal)}</td><td>${esc(r.proof)}</td></tr>`).join('');
 
 const toolHtml = t => {
   const vids = posts.filter(p => p.tool === t.id).map(p => `<li><a href="#${p.id}">${esc(p.dow)} ${dayOf(p.date)} ${monOf(p.date)}</a> · ${esc(p.title)}</li>`).join('');
   return `<article class="tool" id="tool-${t.id}">
   <h3>${esc(t.name)}</h3>
-  <p class="tmeta">Файл <code>${esc(t.file)}</code> · нужен ${esc(t.when)}</p>
+  <p class="tmeta">Файл <code>${esc(t.file)}</code> · ${esc(need(t))}</p>
   <p>${esc(t.does)} ${esc(t.viewer)}</p>
   <p class="lbl">Ролики с этим инструментом</p><ul class="vids">${vids}</ul>
   <p class="lbl">ТЗ для генерации</p>
-  <div class="prompt" id="prompt-${t.id}">${esc(plan.toolStyle)}<br><br>${esc(t.prompt)}</div>
+  <div class="prompt" id="prompt-${t.id}">${t.noStyle ? '' : esc(plan.toolStyle) + '<br><br>'}${esc(t.prompt)}</div>
   <button type="button" class="btn copy" data-copy="prompt-${t.id}">Скопировать ТЗ</button>
 </article>`;
 };
@@ -133,11 +137,11 @@ tr:last-child td{border-bottom:0}
 th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
 .chip{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 11px;border-radius:999px;white-space:nowrap}
-.r-zhiza{background:var(--zhiza-bg);color:var(--zhiza)}
-.r-sohrani{background:var(--sohrani-bg);color:var(--sohrani)}
+.r-zhiza,.r-tema{background:var(--zhiza-bg);color:var(--zhiza)}
+.r-sohrani,.r-zaberu{background:var(--sohrani-bg);color:var(--sohrani)}
 .r-sobirayus{background:var(--sobirayus-bg);color:var(--sobirayus)}
-.r-sama{background:var(--sama-bg);color:var(--sama)}
-.r-uchis{background:var(--uchis-bg);color:var(--uchis)}
+.r-sama,.r-imba{background:var(--sama-bg);color:var(--sama)}
+.r-uchis,.r-mama{background:var(--uchis-bg);color:var(--uchis)}
 .week{display:flex;flex-direction:column;gap:14px}
 .wh{display:flex;flex-direction:column;gap:6px;padding-top:6px}
 .wtool{color:var(--muted)}
@@ -151,6 +155,7 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
 .meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;font-size:14px}
 .fmt{color:var(--muted);font-weight:600}
 .toollink{font-weight:600}
+.pnote{font-size:14px;color:var(--muted);font-weight:600}
 .cols{display:flex;gap:16px;align-items:flex-start}
 .txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:8px}
 .shots{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:3px}
@@ -231,16 +236,16 @@ const BODY = `
   <header class="hero">
     <p class="eyebrow">Контент-план TikTok · ${esc(plan.period)}</p>
     <h1>${esc(plan.name)}</h1>
-    <p class="lead">Учёба, эстетика и жизнь школьницы в одном блоге. У каждой недели одна тема и один HTML-инструмент: его показывают в субботу и пользуются им в кадре в воскресенье.</p>
-    <p class="facts"><span><b>${posts.length}</b> публикаций</span><span><b>${plan.tools.length}</b> инструмента</span><span><b>${nCar}</b> готовые карусели</span><span><b>${nImg}</b> картинок</span></p>
+    <p class="lead">Учёба, эстетика и жизнь школьницы в одном блоге. Каждая неделя строится вокруг одной школьной боли и одного файла, который её снимает. Форматы взяты у роликов, которые уже набирали миллионы на маленьких аккаунтах.</p>
+    <p class="facts"><span><b>${posts.length}</b> публикаций</span><span><b>${plan.tools.length}</b> файла</span><span><b>${nImg}</b> ${plural(nImg, ['готовая картинка', 'готовые картинки', 'готовых картинок'])}</span></p>
     <nav class="nav" aria-label="Разделы">${plan.weeks.map(w => `<a href="#week-${w.n}">Неделя ${w.n}</a>`).join('')}<a href="#html">Что генерировать в HTML</a><a href="#cifry">Цифры</a><a href="#kartinki">Картинки</a></nav>
   </header>
 
   <section class="sec" id="ritm">
     <h2>Ритм недели</h2>
-    <p>Пять рубрик, у каждой свой день и своя задача. В будни снимать почти нечего: в четверг выходит готовая карусель, во вторник ролик на десять секунд.</p>
+    <p>У каждой рубрики свой день, своя цель в цифрах и ролик конкурента, на котором она основана. Проценты в целях взяты из этих же роликов. По воскресеньям рубрики чередуются.</p>
     <div class="scroll"><table>
-      <thead><tr><th>День</th><th>Рубрика</th><th>Формат</th><th>Зачем</th><th>Цель по ролику</th></tr></thead>
+      <thead><tr><th>День</th><th>Рубрика</th><th>Формат</th><th>Цель по ролику</th><th>На чём основано</th></tr></thead>
       <tbody>${rubricRows}</tbody></table></div>
   </section>
 
@@ -252,7 +257,7 @@ const BODY = `
 
   <section class="sec" id="html">
     <h2>Что генерировать в HTML</h2>
-    <p>Один инструмент в неделю. Каждый работает на телефоне, красиво выглядит в кадре и решает одну школьную задачу, поэтому его хочется забрать себе. ТЗ ниже можно вставлять в нейросеть целиком: в нём уже описаны цвета и общие требования.</p>
+    <p>Один файл в неделю, каждый под конкретную школьную боль: его хочется забрать, и он хорошо смотрится в записи экрана. ТЗ ниже можно вставлять в нейросеть целиком: в нём уже описаны цвета и общие требования.</p>
     <div class="tools">${plan.tools.map(toolHtml).join('\n')}</div>
     <h3>Очередь после 6 декабря</h3>
     <div class="scroll"><table>
@@ -265,20 +270,20 @@ const BODY = `
     <div class="two">
       <div class="box"><p class="lbl">Точка отсчёта, 10 ноября</p><p class="big">240–310</p><p>просмотров набирает обычный ролик.</p></div>
       <div class="box"><p class="lbl">Ориентиры на 6 декабря</p>
-        <ul><li>${posts.length} публикаций без пропусков</li><li>обычный ролик набирает 500 просмотров и больше</li><li>хотя бы один ролик набрал 3 000</li><li>100 подписчиков</li></ul>
-        <p class="note">Это ориентиры, а не обещание. По ним видно, туда ли движется блог.</p></div>
+        <ul><li>${posts.length} публикаций без пропусков</li><li>обычный ролик набирает 500 просмотров и больше</li><li>ролики с файлом сохраняют 5 % зрителей</li><li>хотя бы один ролик набрал 3 000</li><li>100 подписчиков</li></ul>
+        <p class="note">Вирусность нельзя назначить на дату. Можно делать больше попыток в форматах, которые уже залетали у других, и это план и делает.</p></div>
     </div>
     <div class="box"><p class="lbl">Разбор по воскресеньям, 10 минут</p>
       <ol><li>Выписать по каждому ролику недели просмотры, сохранения, комментарии и новых подписчиков.</li>
       <li>Рубрика два раза подряд не дотянула до своей цели: меняем первую фразу и подачу, тему оставляем.</li>
-      <li>Ролик набрал втрое больше обычного: на следующей неделе вместо «Школьной жизы» выходит его продолжение.</li></ol></div>
+      <li>Ролик набрал втрое больше обычного: в ближайший вторник выходит его «часть 2». У конкурента вторая часть собрала вчетверо больше первой.</li></ol></div>
   </section>
 
   <section class="sec" id="kartinki">
     <h2>Картинки</h2>
     <div class="two">
-      <div class="box"><p class="lbl">Карусели</p><p>Загружать по порядку номеров, начиная с 01. Размер 1080 на 1920. Текст стоит там, где его не закрывают кнопки и подпись TikTok.</p></div>
-      <div class="box"><p class="lbl">Обложки роликов</p><p>Вставить картинку первым кадром на треть секунды и при публикации выбрать этот кадр обложкой. Тогда сетка профиля выглядит единой.</p></div>
+      <div class="box"><p class="lbl">Карусель</p><p>Готова первая, с запросами для нейросети. Загружать по порядку номеров, начиная с 01. Размер 1080 на 1920. Остальные три рисуются по тому же шаблону, когда утверждены тексты.</p></div>
+      <div class="box"><p class="lbl">Обложки роликов с файлом</p><p>Вставить картинку первым кадром на треть секунды и при публикации выбрать этот кадр обложкой. Так серию «Имба для школы» видно в сетке профиля.</p></div>
     </div>
     <p>Все файлы лежат в папке <code>tiktok/img</code>. Тексты на картинках берутся из <code>tiktok/src/plan.json</code>: после правки запустите <code>node tiktok/src/render.mjs</code>, и картинки перерисуются.</p>
   </section>

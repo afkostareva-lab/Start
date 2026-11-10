@@ -146,6 +146,20 @@ h1{font-family:'Yeseva One',Georgia,serif;font-weight:400;text-wrap:balance}
 .nb{left:110px;top:1080px;width:400px;height:330px;border-radius:28px;background:#fffdf8;transform:rotate(-6deg);padding:44px 40px;box-shadow:0 20px 44px rgba(0,0,0,.22)}
 .nb u{display:block;height:16px;border-radius:8px;background:#EFCFE3;margin-bottom:28px}
 .nb u.h{width:58%;height:26px;border-radius:13px;background:#E27396;margin-bottom:36px}.nb u.s{width:66%}
+.plabel{font-size:28px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#8a6a78;margin-top:44px}
+.pr{margin-top:16px;background:var(--bg);border-radius:44px 44px 44px 10px;padding:38px 44px;font-size:46px;line-height:1.36;font-weight:500}
+.card h1.sm{font-size:88px;margin-top:44px}
+.list.c{gap:16px;margin-top:40px}
+.list.c div{font-size:40px;gap:22px}
+.list.c svg{width:46px;height:46px}
+.vf{display:flex;flex-direction:column;gap:14px;align-items:center;font-weight:700;font-size:44px}
+.vf b{font-family:'Yeseva One',Georgia,serif;font-size:76px;line-height:1}
+.vf span{background:var(--bg);border-radius:22px;padding:6px 30px}
+.fr{display:flex;align-items:center;gap:18px;font-family:'Yeseva One',Georgia,serif;font-size:70px;line-height:1.1}
+.fr i{display:flex;flex-direction:column;align-items:center;font-style:normal}
+.fr i b:first-child{border-bottom:7px solid #4a2a38;padding:0 12px}
+.wc{width:100%;text-align:center;border-radius:24px;padding:26px 0;background:var(--bg);font-weight:700;font-size:42px}
+.wc.b{background:var(--two);color:#fffdf8}
 .cup{left:600px;top:1170px;width:220px;height:220px;border-radius:50%;background:var(--acc)}
 .cup::before{content:"";position:absolute;inset:26px;border-radius:50%;background:#7a4a35}
 .cup::after{content:"";position:absolute;right:-64px;top:62px;width:90px;height:96px;border-radius:50%;border:22px solid var(--acc);z-index:-1}
@@ -184,12 +198,22 @@ function stepSlide(c, i) {
     ${sparkle(905, 140, 130, 'var(--two)', 8)}${sparkle(40, 1420, 84, 'var(--acc)', -12)}`);
 }
 
+function promptSlide(c, i) {
+  const s = c.items[i], n = c.items.length;
+  return page(c.theme, '', `${blobs}
+    <div class="card"><div class="row"><span class="pill">${esc(c.unit)} ${i + 1} из ${n}</span></div>
+      <h1 class="sm fit" data-h="200">${esc(s.title)}</h1>
+      <div class="plabel">напиши нейросети</div><div class="pr fit" data-h="520">${esc(s.prompt)}</div>
+      <div class="note">${esc(s.why)}</div>${dots(n, i)}</div>
+    ${sparkle(905, 140, 130, 'var(--two)', 8)}${sparkle(40, 1420, 84, 'var(--acc)', -12)}`);
+}
+
 function finalSlide(c) {
   const f = c.final;
   return page(c.theme, '', `${blobs}
     <div class="card fin"><div class="row"><span class="pill">коротко</span></div>
       <h1 class="fit" data-h="230">${esc(f.title)}</h1>
-      <div class="list">${f.list.map(t => `<div>${check('var(--acc)')}<span>${esc(t)}</span></div>`).join('')}</div>
+      <div class="list${f.list.length > 5 ? ' c' : ''}">${f.list.map(t => `<div>${check('var(--acc)')}<span>${esc(t)}</span></div>`).join('')}</div>
       <div class="cta">${bookmark('var(--acc-ink)')}<span>${esc(f.cta)}</span></div><div class="ask">${esc(f.ask)}</div></div>
     ${sparkle(905, 140, 130, 'var(--two)', 8)}${sparkle(40, 1420, 84, 'var(--acc)', -12)}`);
 }
@@ -219,16 +243,16 @@ function quizFinal(c) {
 }
 
 const TOOL_ART = {
-  timer: `<div class="phone"><div class="ring"><span>25:00</span></div><div class="btn"></div></div>`,
-  raspisanie: `<div class="phone"><div class="lbl">ПН</div><div class="bar a"></div><div class="bar"></div><div class="bar c"></div><div class="bar"></div><div class="bar a"></div></div>`,
-  pary: `<div class="phone"><div class="pairs"><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div></div>`,
+  glagoly: `<div class="phone"><div class="vf"><b>go</b><span>went</span><span>gone</span></div><div class="btn"></div></div>`,
+  drobi: `<div class="phone"><div class="fr"><i><b>1</b><b>2</b></i>+<i><b>1</b><b>3</b></i></div><div class="btn"></div></div>`,
+  slova: `<div class="phone"><div class="wc">apple</div><div class="wc b">яблоко</div><div class="btn"></div></div>`,
   ocenki: `<div class="phone"><div class="marks"><i>5</i><i class="m4">4</i><i>5</i><i class="m3">3</i></div><div class="avg">4,25</div><div class="need">ещё 4 пятёрки</div></div>`,
 };
 
 function videoCover(post) {
   const r = plan.rubrics[post.rubric];
   let art = '';
-  if (post.rubric === 'sama') art = `${TOOL_ART[post.tool]}<div class="say" style="left:96px;top:1150px">сделала<br>в нейросети</div>${sparkle(380, 1330, 90, 'var(--two)', 10)}`;
+  if (post.rubric === 'imba') art = `${TOOL_ART[post.tool]}<div class="say" style="left:96px;top:1150px">сделала<br>в нейросети</div>${sparkle(380, 1330, 90, 'var(--two)', 10)}`;
   if (post.rubric === 'uchis') art = `<div class="nb"><u class="h"></u><u></u><u></u><u class="s"></u><u></u></div><div class="cup"></div>${sparkle(880, 1060, 96, 'var(--two)', 8)}${sparkle(520, 1420, 60, 'var(--acc)')}`;
   if (post.rubric === 'sobirayus') art = `<div class="mirror"><i></i><i></i></div><div style="left:520px;top:1130px">${bow('#E27396')}</div>${sparkle(450, 1040, 80, 'var(--two)', 10)}${sparkle(860, 1420, 64, 'var(--acc)')}`;
   if (post.rubric === 'zhiza') art = `<div class="bubble">жиза</div><div class="bubble2">!!!</div>${sparkle(700, 1060, 90, 'var(--two)', 8)}`;
@@ -242,6 +266,7 @@ const jobs = [];
 for (const [id, c] of Object.entries(plan.carousels)) {
   const slides = [carouselCover(c)];
   if (c.kind === 'steps') { c.steps.forEach((_, i) => slides.push(stepSlide(c, i))); slides.push(finalSlide(c)); }
+  else if (c.kind === 'prompts') { c.items.forEach((_, i) => slides.push(promptSlide(c, i))); slides.push(finalSlide(c)); }
   else { c.words.forEach((_, i) => slides.push(quizSlide(c, i))); slides.push(quizFinal(c)); }
   slides.forEach((html, i) => jobs.push({ file: path.join(id, String(i + 1).padStart(2, '0') + '.png'), html }));
 }
