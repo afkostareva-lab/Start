@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Контент-план «Учёба красиво»</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Yeseva+One&display=swap">
+<style>
+/* Лента по неделям в одну колонку: у публикации слева дата, справа обложка, под текстом лента картинок */
+:root{
+  --bg:#F7EFF3; --card:#fffdf8; --ink:#4a2a38; --muted:#80606c; --line:#EBD3DF; --accent:#C94F7A; --link:#1f6f78;
+  --zhiza:#5f7334; --zhiza-bg:#E6EFCB; --sohrani:#B8436D; --sohrani-bg:#F8DDE9; --sobirayus:#87509a; --sobirayus-bg:#EADBF0;
+  --sama:#1f6f78; --sama-bg:#CFEBEE; --uchis:#fffdf8; --uchis-bg:#4a2a38; --shade:rgba(74,42,56,.55);
+  --display:'Yeseva One',Georgia,'Times New Roman',serif;
+  --body:'Golos Text',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#231920; --card:#30222b; --ink:#f7e9f0; --muted:#c4a6b4; --line:#4a3542; --accent:#EB9AB2; --link:#9bd6dc;
+    --zhiza:#cfe0a3; --zhiza-bg:#3a4423; --sohrani:#f6bdd0; --sohrani-bg:#5a2a3d; --sobirayus:#e0c0ea; --sobirayus-bg:#4a2f52;
+    --sama:#b4e3e8; --sama-bg:#1f4449; --uchis:#4a2a38; --uchis-bg:#EFCFE3; --shade:rgba(0,0,0,.7); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#231920; --card:#30222b; --ink:#f7e9f0; --muted:#c4a6b4; --line:#4a3542; --accent:#EB9AB2; --link:#9bd6dc;
+  --zhiza:#cfe0a3; --zhiza-bg:#3a4423; --sohrani:#f6bdd0; --sohrani-bg:#5a2a3d; --sobirayus:#e0c0ea; --sobirayus-bg:#4a2f52;
+  --sama:#b4e3e8; --sama-bg:#1f4449; --uchis:#4a2a38; --uchis-bg:#EFCFE3; --shade:rgba(0,0,0,.7); color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--body)}
+.wrap{max-width:880px;margin:0 auto;padding-block:28px 72px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:44px}
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance;line-height:1.12}
+h1{font-size:clamp(38px,8vw,60px);color:var(--accent)}
+h2{font-size:clamp(26px,5vw,34px)}
+h3{font-size:clamp(22px,4.4vw,27px)}
+h4{font:700 19px/1.3 var(--body);margin:0;text-wrap:balance}
+p{margin:0}
+a{color:var(--link);text-underline-offset:3px}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+code{font:600 .92em ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--bg);padding:1px 6px;border-radius:6px}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.hero{display:flex;flex-direction:column;gap:14px}
+.lead{font-size:18px;max-width:62ch}
+.facts{display:flex;flex-wrap:wrap;gap:6px 22px;font-weight:600;font-variant-numeric:tabular-nums}
+.facts b{color:var(--accent);font-weight:700}
+.nav{display:flex;flex-wrap:wrap;gap:8px}
+.nav a{font-weight:600;font-size:14px;text-decoration:none;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:999px;padding:7px 14px}
+.sec{display:flex;flex-direction:column;gap:18px}
+.sec>p{max-width:68ch}
+.scroll{overflow-x:auto;border:1.5px solid var(--line);border-radius:16px;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:15px}
+th,td{text-align:left;padding:11px 14px;vertical-align:top;border-bottom:1.5px solid var(--line)}
+tr:last-child td{border-bottom:0}
+th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
+.chip{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 11px;border-radius:999px;white-space:nowrap}
+.r-zhiza{background:var(--zhiza-bg);color:var(--zhiza)}
+.r-sohrani{background:var(--sohrani-bg);color:var(--sohrani)}
+.r-sobirayus{background:var(--sobirayus-bg);color:var(--sobirayus)}
+.r-sama{background:var(--sama-bg);color:var(--sama)}
+.r-uchis{background:var(--uchis-bg);color:var(--uchis)}
+.week{display:flex;flex-direction:column;gap:14px}
+.wh{display:flex;flex-direction:column;gap:6px;padding-top:6px}
+.wtool{color:var(--muted)}
+.post,.prep{display:grid;grid-template-columns:58px minmax(0,1fr);gap:16px;background:var(--card);border:1.5px solid var(--line);border-radius:20px;padding:18px}
+.prep{background:transparent;border-style:dashed}
+.date{display:flex;flex-direction:column;align-items:center;line-height:1.05;padding-top:2px}
+.date .dow{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.date .dd{font-family:var(--display);font-size:34px;color:var(--accent);font-variant-numeric:tabular-nums}
+.date .mm{font-size:13px;color:var(--muted)}
+.body{display:flex;flex-direction:column;gap:12px;min-width:0}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;font-size:14px}
+.fmt{color:var(--muted);font-weight:600}
+.toollink{font-weight:600}
+.cols{display:flex;gap:16px;align-items:flex-start}
+.txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:8px}
+.shots{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:3px}
+.th{flex:none;padding:0;border:0;background:none;cursor:zoom-in;border-radius:10px;line-height:0}
+.th img{display:block;width:78px;height:auto;aspect-ratio:9/16;border-radius:10px;border:1.5px solid var(--line)}
+.th.cover img{width:92px}
+.strip{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;max-width:100%}
+.cap{display:flex;gap:12px;align-items:flex-start;background:var(--bg);border-radius:14px;padding:12px 14px}
+.capt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;font-size:15px}
+.tags{color:var(--link);font-weight:600}
+.btn{flex:none;font:600 14px/1 var(--body);padding:10px 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.done{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;align-self:flex-start}
+.done input{width:18px;height:18px;accent-color:var(--accent)}
+.post.is-done{opacity:.62}
+.tools{display:grid;gap:16px}
+.tool{background:var(--card);border:1.5px solid var(--line);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.tmeta{color:var(--muted);font-weight:600;font-size:14px}
+.vids{margin:0;padding-left:20px}
+.prompt{background:var(--bg);border-radius:14px;padding:14px 16px;font-size:15px;align-self:stretch}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.box{background:var(--card);border:1.5px solid var(--line);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.box ul,.box ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.big{font-family:var(--display);font-size:30px;color:var(--accent);font-variant-numeric:tabular-nums;line-height:1.1}
+.note{color:var(--muted);font-size:14px}
+#lb{position:fixed;inset:0;z-index:20;background:var(--shade);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+  padding:calc(14px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(14px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+#lb img{max-width:100%;max-height:calc(100% - 110px);width:auto;height:auto;border-radius:14px;background:var(--card)}
+#lb .bar{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;align-items:center}
+#lb-cap{color:#fffdf8;font-weight:600;font-size:14px;text-align:center}
+@media (max-width:560px){
+  .post,.prep{grid-template-columns:minmax(0,1fr);padding:16px}
+  .date{flex-direction:row;align-items:baseline;gap:8px}
+  .date .dd{font-size:26px}
+  .cap{flex-direction:column}
+  .th.cover img{width:76px}
+}
+@media (prefers-reduced-motion:no-preference){.btn,.nav a{transition:border-color .15s}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Контент-план TikTok · 11 ноября — 6 декабря 2026</p>
+    <h1>Учёба красиво</h1>
+    <p class="lead">Учёба, эстетика и жизнь школьницы в одном блоге. У каждой недели одна тема и один HTML-инструмент: его показывают в субботу и пользуются им в кадре в воскресенье.</p>
+    <p class="facts"><span><b>19</b> публикаций</span><span><b>4</b> инструмента</span><span><b>4</b> готовые карусели</span><span><b>45</b> картинок</span></p>
+    <nav class="nav" aria-label="Разделы"><a href="#week-1">Неделя 1</a><a href="#week-2">Неделя 2</a><a href="#week-3">Неделя 3</a><a href="#week-4">Неделя 4</a><a href="#html">Что генерировать в HTML</a><a href="#cifry">Цифры</a><a href="#kartinki">Картинки</a></nav>
+  </header>
+
+  <section class="sec" id="ritm">
+    <h2>Ритм недели</h2>
+    <p>Пять рубрик, у каждой свой день и своя задача. В будни снимать почти нечего: в четверг выходит готовая карусель, во вторник ролик на десять секунд.</p>
+    <div class="scroll"><table>
+      <thead><tr><th>День</th><th>Рубрика</th><th>Формат</th><th>Зачем</th><th>Цель по ролику</th></tr></thead>
+      <tbody><tr><td class="num">вт</td><td><span class="chip r-zhiza">Школьная жиза</span></td><td>видео, 7–12 секунд</td><td>охват</td><td>просмотров в 1,5 раза больше обычного</td></tr><tr><td class="num">чт</td><td><span class="chip r-sohrani">Сохрани</span></td><td>карусель из готовых картинок</td><td>сохранения</td><td>сохранений не меньше 1,5 % от просмотров</td></tr><tr><td class="num">пт</td><td><span class="chip r-sobirayus">Собираюсь и рассказываю</span></td><td>видео, 20–30 секунд</td><td>комментарии</td><td>10 комментариев и больше</td></tr><tr><td class="num">сб</td><td><span class="chip r-sama">Сделала сама</span></td><td>видео, 20–30 секунд</td><td>подписчики</td><td>сохранений не меньше 1,5 % и новые подписчики</td></tr><tr><td class="num">вс</td><td><span class="chip r-uchis">Учись со мной</span></td><td>видео, 25–40 секунд</td><td>досмотры</td><td>досмотров больше, чем у прошлого воскресного ролика</td></tr></tbody></table></div>
+  </section>
+
+  <section class="sec" id="plan">
+    <h2>План по дням</h2>
+    <p>Название ролика пишется текстом на первом кадре. Описание и хэштеги копируются кнопкой. Картинка открывается в полном размере по нажатию.</p>
+    <section class="week" id="week-1">
+  <header class="wh"><p class="eyebrow">Неделя 1 · 11–15 ноября</p><h3>Уроки без растягивания</h3>
+    <p class="wtool">Инструмент недели: <a href="#tool-timer">Таймер «25 на 5»</a>, нужен к субботе 14 ноября</p></header>
+  <div class="prep"><div class="date"><span class="dow">ср</span><span class="dd">11</span><span class="mm">ноя</span></div>
+    <div><h4>Подготовка, без публикации</h4><ul class="shots"><li>Заполнить шапку профиля</li><li>Сгенерировать таймер «25 на 5» по ТЗ ниже</li><li>Сохранить в галерею картинки карусели на четверг</li></ul></div></div><article class="post" id="w1-thu">
+  <div class="date"><span class="dow">чт</span><span class="dd">12</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="chip r-sohrani">Сохрани</span><span class="fmt">карусель · 7 картинок</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Параграф за 15 минут: 5 шагов</h4>
+      <ul class="shots"><li>Картинки готовы, загрузить по порядку</li><li>Звук: спокойный трек из популярных</li><li>Первый комментарий от себя: «Какой предмет учить сложнее всего?»</li></ul>
+    </div></div>
+    <div class="strip" role="group" aria-label="Картинки карусели"><button type="button" class="th " data-g="w1-thu" data-i="0" data-full="img/karusel-1-paragraf/01.png" aria-label="Картинка 1 из 7: открыть в полном размере"><img src="img/thumbs/karusel-1-paragraf/01.jpg" alt="Картинка 1 из 7" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="w1-thu" data-i="1" data-full="img/karusel-1-paragraf/02.png" aria-label="Картинка 2 из 7: открыть в полном размере"><img src="img/thumbs/karusel-1-paragraf/02.jpg" alt="Картинка 2 из 7" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="w1-thu" data-i="2" data-full="img/karusel-1-paragraf/03.png" aria-label="Картинка 3 из 7: открыть в полном размере"><img src="img/thumbs/karusel-1-paragraf/03.jpg" alt="Картинка 3 из 7" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="w1-thu" data-i="3" data-full="img/karusel-1-paragraf/04.png" aria-label="Картинка 4 из 7: открыть в полном размере"><img src="img/thumbs/karusel-1-paragraf/04.jpg" alt="Картинка 4 из 7" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="w1-thu" data-i="4" data-full="img/karusel-1-paragraf/05.png" aria-label="Картинка 5 из 7: открыть в полном размере"><img src="img/thumbs/karusel-1-paragraf/05.jpg" alt="Картинка 5 из 7" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="w1-thu" data-i="5" data-full="img/karusel-1-paragraf/06.png" aria-label="Картинка 6 из 7: открыть в полном размере"><img src="img/thumbs/karusel-1-paragraf/06.jpg" alt="Картинка 6 из 7" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="w1-thu" data-i="6" data-full="img/karusel-1-paragraf/07.png" aria-label="Картинка 7 из 7: открыть в полном размере"><img src="img/thumbs/karusel-1-paragraf/07.jpg" alt="Картинка 7 из 7" width="324" height="576" loading="lazy"></button></div>
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-w1-thu">Как выучить параграф, когда осталось 15 минут. Сохрани, пригодится перед уроком <span class="tags">#учеба #лайфхакидляучебы #стадиток #школа</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-w1-thu">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-w1-thu"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="w1-fri">
+  <div class="date"><span class="dow">пт</span><span class="dd">13</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="chip r-sobirayus">Собираюсь и рассказываю</span><span class="fmt">видео · 20–30 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Собираюсь в школу в пятницу 13-го</h4>
+      <ul class="shots"><li>Быстрые кадры сборов: волосы, одежда, рюкзак</li><li>Голос за кадром: одна история про приметы перед контрольной</li><li>Последняя фраза: «А вы верите в приметы?»</li></ul>
+    </div><button type="button" class="th cover" data-g="w1-fri" data-i="0" data-full="img/oblozhki/11-13-sobirayus.png" aria-label="Обложка «Собираюсь в школу в пятницу 13-го»: открыть в полном размере"><img src="img/thumbs/oblozhki/11-13-sobirayus.jpg" alt="Обложка «Собираюсь в школу в пятницу 13-го»" width="324" height="576" loading="lazy"></button></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-w1-fri">Собираюсь в школу в пятницу 13-го и рассказываю про свои приметы перед контрольной <span class="tags">#grwmвшколу #сборывшколу #школа #пятница13</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-w1-fri">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-w1-fri"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="w1-sat">
+  <div class="date"><span class="dow">сб</span><span class="dd">14</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="chip r-sama">Сделала сама</span><span class="fmt">видео · 20–30 с</span><a class="toollink" href="#tool-timer">Инструмент: Таймер «25 на 5»</a></div>
+    <div class="cols"><div class="txt">
+      <h4>Сделала таймер, чтобы не сидеть над уроками весь вечер</h4>
+      <ul class="shots"><li>Первая секунда: таймер на экране телефона крупно</li><li>Показать запуск, перерыв и счётчик кругов</li><li>Последняя фраза: «Какой инструмент сделать следующим?»</li></ul>
+    </div><button type="button" class="th cover" data-g="w1-sat" data-i="0" data-full="img/oblozhki/11-14-sdelala-sama.png" aria-label="Обложка «Сделала таймер, чтобы не сидеть над уроками весь вечер»: открыть в полном размере"><img src="img/thumbs/oblozhki/11-14-sdelala-sama.jpg" alt="Обложка «Сделала таймер, чтобы не сидеть над уроками весь вечер»" width="324" height="576" loading="lazy"></button></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-w1-sat">Сделала в нейросети таймер для уроков: 25 минут учусь, 5 отдыхаю. С ним домашка не растягивается на весь вечер <span class="tags">#учеба #лайфхакидляучебы #нейросети #стадиток</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-w1-sat">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-w1-sat"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="w1-sun">
+  <div class="date"><span class="dow">вс</span><span class="dd">15</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="chip r-uchis">Учись со мной</span><span class="fmt">видео · 25–40 с</span><a class="toollink" href="#tool-timer">Инструмент: Таймер «25 на 5»</a></div>
+    <div class="cols"><div class="txt">
+      <h4>Делаю уроки на понедельник за три таймера</h4>
+      <ul class="shots"><li>Стол сверху: тетради, чай, телефон с таймером</li><li>Ускоренная съёмка трёх кругов, на экране подписи предметов</li><li>Финал: собранный рюкзак и время на часах</li></ul>
+    </div><button type="button" class="th cover" data-g="w1-sun" data-i="0" data-full="img/oblozhki/11-15-uchis-so-mnoy.png" aria-label="Обложка «Делаю уроки на понедельник за три таймера»: открыть в полном размере"><img src="img/thumbs/oblozhki/11-15-uchis-so-mnoy.jpg" alt="Обложка «Делаю уроки на понедельник за три таймера»" width="324" height="576" loading="lazy"></button></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-w1-sun">Воскресный вечер: делаю уроки на понедельник за три таймера по 25 минут. Учись со мной <span class="tags">#учисьсомной #studywithme #стадиток #учеба</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-w1-sun">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-w1-sun"> Выложено</label>
+  </div>
+</article>
+</section>
+<section class="week" id="week-2">
+  <header class="wh"><p class="eyebrow">Неделя 2 · 16–22 ноября</p><h3>Неделя по расписанию</h3>
+    <p class="wtool">Инструмент недели: <a href="#tool-raspisanie">Расписание на обои</a>, нужен к субботе 21 ноября</p></header>
+  <article class="post" id="w2-tue">
+  <div class="date"><span class="dow">вт</span><span class="dd">17</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="chip r-zhiza">Школьная жиза</span><span class="fmt">видео · 7–12 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Думала, сегодня 5 уроков. Их 7</h4>
+      <ul class="shots"><li>Название текстом на экране с первой секунды</li><li>Одна эмоция под популярный звук недели</li><li>Без слов, один дубль</li></ul>
+    </div><button type="button" class="th cover" data-g="w2-tue" data-i="0" data-full="img/oblozhki/11-17-zhiza.png" aria-label="Обложка «Думала, сегодня 5 уроков. Их 7»: открыть в полном размере"><img src="img/thumbs/oblozhki/11-17-zhiza.jpg" alt="Обложка «Думала, сегодня 5 уроков. Их 7»" width="324" height="576" loading="lazy"></button></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-w2-tue">Когда думала, что сегодня пять уроков, а их семь. У кого так было? <span class="tags">#школа #школьнаяжиза #жиза #учеба</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-w2-tue">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-w2-tue"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="w2-thu">
+  <div class="date"><span class="dow">чт</span><span class="dd">19</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="chip r-sohrani">Сохрани</span><span class="fmt">карусель · 10 картинок</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Ударения, в которых ошибаются все</h4>
+      <ul class="shots"><li>Картинки готовы, загрузить по порядку</li><li>Ответ стоит на следующей картинке, поэтому карусель долистывают</li><li>Первый комментарий от себя: «У меня 6 из 8, а у вас?»</li></ul>
+    </div></div>
+    <div class="strip" role="group" aria-label="Картинки карусели"><button type="button" class="th " data-g="w2-thu" data-i="0" data-full="img/karusel-2-udareniya/01.png" aria-label="Картинка 1 из 10: открыть в полном размере"><img src="img/thumbs/karusel-2-udareniya/01.jpg" alt="Картинка 1 из 10" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="w2-thu" data-i="1" data-full="img/karusel-2-udareniya/02.png" aria-label="Картинка 2 из 10: открыть в полном размере"><img src="img/thumbs/karusel-2-udareniya/02.jpg" alt="Картинка 2 из 10" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="w2-thu" data-i="2" data-full="img/karusel-2-udareniya/03.png" aria-label="Картинка 3 из 10: открыть в полном размере"><img src="img/thumbs/karusel-2-udareniya/03.jpg" alt="Картинка 3 из 10" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="w2-thu" data-i="3" data-full="img/karusel-2-udareniya/04.png" aria-label="Картинка 4 из 10: открыть в полном размере"><img src="img/thumbs/karusel-2-udareniya/04.jpg" alt="Картинка 4 из 10" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="w2-thu" data-i="4" data-full="img/karusel-2-udareniya/05.png" aria-label="Картинка 5 из 10: открыть в полном размере"><img src="img/thumbs/karusel-2-udareniya/05.jpg" alt="Картинка 5 из 10" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="w2-thu" data-i="5" data-full="img/karusel-2-udareniya/06.png" aria-label="Картинка 6 из 10: открыть в полном размере"><img src="img/thumbs/karusel-2-udareniya/06.jpg" alt="Картинка 6 из 10" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="w2-thu" data-i="6" data-full="img/karusel-2-udareniya/07.png" aria-label="Картинка 7 из 10: открыть в полном размере"><img src="img/thumbs/karusel-2-udareniya/07.jpg" alt="Картинка 7 из 10" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="w2-thu" data-i="7" data-full="img/karusel-2-udareniya/08.png" aria-label="Картинка 8 из 10: открыть в полном размере"><img src="img/thumbs/karusel-2-udareniya/08.jpg" alt="Картинка 8 из 10" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="w2-thu" data-i="8" data-full="img/karusel-2-udareniya/09.png" aria-label="Картинка 9 из 10: открыть в полном размере"><img src="img/thumbs/karusel-2-udareniya/09.jpg" alt="Картинка 9 из 10" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="w2-thu" data-i="9" data-full="img/karusel-2-udareniya/10.png" aria-label="Картинка 10 из 10: открыть в полном размере"><img src="img/thumbs/karusel-2-udareniya/10.jpg" alt="Картинка 10 из 10" width="324" height="576" loading="lazy"></button></div>
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-w2-thu">Проверь себя: 8 слов, в которых ошибаются даже взрослые. Сколько у тебя из 8? <span class="tags">#русскийязык #ударения #проверьсебя #учеба #школа</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-w2-thu">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-w2-thu"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="w2-fri">
+  <div class="date"><span class="dow">пт</span><span class="dd">20</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="chip r-sobirayus">Собираюсь и рассказываю</span><span class="fmt">видео · 20–30 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Что в моём рюкзаке: показываю всё</h4>
+      <ul class="shots"><li>Достаю вещи по одной, руки крупным планом</li><li>Голос за кадром: зачем каждая вещь и одна смешная находка</li><li>Последняя фраза: «Что у вас всегда лежит в рюкзаке?»</li></ul>
+    </div><button type="button" class="th cover" data-g="w2-fri" data-i="0" data-full="img/oblozhki/11-20-sobirayus.png" aria-label="Обложка «Что в моём рюкзаке: показываю всё»: открыть в полном размере"><img src="img/thumbs/oblozhki/11-20-sobirayus.jpg" alt="Обложка «Что в моём рюкзаке: показываю всё»" width="324" height="576" loading="lazy"></button></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-w2-fri">Что лежит в моём школьном рюкзаке: пенал, тетради и одна странная вещь <span class="tags">#чтовмоемрюкзаке #рюкзак #канцелярия #школа</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-w2-fri">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-w2-fri"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="w2-sat">
+  <div class="date"><span class="dow">сб</span><span class="dd">21</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="chip r-sama">Сделала сама</span><span class="fmt">видео · 20–30 с</span><a class="toollink" href="#tool-raspisanie">Инструмент: Расписание на обои</a></div>
+    <div class="cols"><div class="txt">
+      <h4>Сделала расписание уроков на обои телефона</h4>
+      <ul class="shots"><li>Первая секунда: экран блокировки с расписанием</li><li>Показать ввод уроков, выбор цвета и кнопку «Скачать»</li><li>Последняя фраза: «Розовое или голубое?»</li></ul>
+    </div><button type="button" class="th cover" data-g="w2-sat" data-i="0" data-full="img/oblozhki/11-21-sdelala-sama.png" aria-label="Обложка «Сделала расписание уроков на обои телефона»: открыть в полном размере"><img src="img/thumbs/oblozhki/11-21-sdelala-sama.jpg" alt="Обложка «Сделала расписание уроков на обои телефона»" width="324" height="576" loading="lazy"></button></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-w2-sat">Сделала в нейросети расписание уроков, которое ставится на обои. Больше не ищу дневник, чтобы узнать, что завтра <span class="tags">#расписание #обои #школа #нейросети #учеба</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-w2-sat">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-w2-sat"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="w2-sun">
+  <div class="date"><span class="dow">вс</span><span class="dd">22</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="chip r-uchis">Учись со мной</span><span class="fmt">видео · 25–40 с</span><a class="toollink" href="#tool-raspisanie">Инструмент: Расписание на обои</a></div>
+    <div class="cols"><div class="txt">
+      <h4>Готовлюсь к неделе: стол, рюкзак, расписание</h4>
+      <ul class="shots"><li>Уборка стола в ускоренной съёмке</li><li>Собираю рюкзак по расписанию с обоев телефона</li><li>Финал: стол до и после</li></ul>
+    </div><button type="button" class="th cover" data-g="w2-sun" data-i="0" data-full="img/oblozhki/11-22-uchis-so-mnoy.png" aria-label="Обложка «Готовлюсь к неделе: стол, рюкзак, расписание»: открыть в полном размере"><img src="img/thumbs/oblozhki/11-22-uchis-so-mnoy.jpg" alt="Обложка «Готовлюсь к неделе: стол, рюкзак, расписание»" width="324" height="576" loading="lazy"></button></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-w2-sun">Воскресная подготовка к школьной неделе: убираю стол и собираю рюкзак по расписанию. Учись со мной <span class="tags">#учисьсомной #подготовкакнеделе #стадиток #школа</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-w2-sun">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-w2-sun"> Выложено</label>
+  </div>
+</article>
+</section>
+<section class="week" id="week-3">
+  <header class="wh"><p class="eyebrow">Неделя 3 · 23–29 ноября</p><h3>Неделя контрольных</h3>
+    <p class="wtool">Инструмент недели: <a href="#tool-pary">Найди пару</a>, нужен к субботе 28 ноября</p></header>
+  <article class="post" id="w3-tue">
+  <div class="date"><span class="dow">вт</span><span class="dd">24</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="chip r-zhiza">Школьная жиза</span><span class="fmt">видео · 7–12 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Когда контрольную перенесли на сегодня</h4>
+      <ul class="shots"><li>Название текстом на экране с первой секунды</li><li>Лицо до новости и после, под популярный звук недели</li><li>Без слов, один дубль</li></ul>
+    </div><button type="button" class="th cover" data-g="w3-tue" data-i="0" data-full="img/oblozhki/11-24-zhiza.png" aria-label="Обложка «Когда контрольную перенесли на сегодня»: открыть в полном размере"><img src="img/thumbs/oblozhki/11-24-zhiza.jpg" alt="Обложка «Когда контрольную перенесли на сегодня»" width="324" height="576" loading="lazy"></button></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-w3-tue">Учитель: контрольную пишем сегодня. Я в этот момент <span class="tags">#школа #контрольная #школьнаяжиза #жиза</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-w3-tue">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-w3-tue"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="w3-thu">
+  <div class="date"><span class="dow">чт</span><span class="dd">26</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="chip r-sohrani">Сохрани</span><span class="fmt">карусель · 6 картинок</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Конспект, который хочется открыть: 4 правила</h4>
+      <ul class="shots"><li>Картинки готовы, загрузить по порядку</li><li>Звук: спокойный трек из популярных</li><li>Первый комментарий от себя: «Каким цветом выделяете главное?»</li></ul>
+    </div></div>
+    <div class="strip" role="group" aria-label="Картинки карусели"><button type="button" class="th " data-g="w3-thu" data-i="0" data-full="img/karusel-3-konspekt/01.png" aria-label="Картинка 1 из 6: открыть в полном размере"><img src="img/thumbs/karusel-3-konspekt/01.jpg" alt="Картинка 1 из 6" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="w3-thu" data-i="1" data-full="img/karusel-3-konspekt/02.png" aria-label="Картинка 2 из 6: открыть в полном размере"><img src="img/thumbs/karusel-3-konspekt/02.jpg" alt="Картинка 2 из 6" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="w3-thu" data-i="2" data-full="img/karusel-3-konspekt/03.png" aria-label="Картинка 3 из 6: открыть в полном размере"><img src="img/thumbs/karusel-3-konspekt/03.jpg" alt="Картинка 3 из 6" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="w3-thu" data-i="3" data-full="img/karusel-3-konspekt/04.png" aria-label="Картинка 4 из 6: открыть в полном размере"><img src="img/thumbs/karusel-3-konspekt/04.jpg" alt="Картинка 4 из 6" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="w3-thu" data-i="4" data-full="img/karusel-3-konspekt/05.png" aria-label="Картинка 5 из 6: открыть в полном размере"><img src="img/thumbs/karusel-3-konspekt/05.jpg" alt="Картинка 5 из 6" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="w3-thu" data-i="5" data-full="img/karusel-3-konspekt/06.png" aria-label="Картинка 6 из 6: открыть в полном размере"><img src="img/thumbs/karusel-3-konspekt/06.jpg" alt="Картинка 6 из 6" width="324" height="576" loading="lazy"></button></div>
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-w3-thu">Четыре правила красивого и понятного конспекта без дорогой канцелярии. Сохрани и попробуй завтра <span class="tags">#конспекты #эстетикаучебы #канцелярия #стадиток #учеба</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-w3-thu">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-w3-thu"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="w3-fri">
+  <div class="date"><span class="dow">пт</span><span class="dd">27</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="chip r-sobirayus">Собираюсь и рассказываю</span><span class="fmt">видео · 20–30 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Собираюсь на контрольную: мой счастливый набор</h4>
+      <ul class="shots"><li>Сборы и вещи на удачу: ручка, резинка, шоколадка</li><li>Голос за кадром: как готовилась вчера вечером</li><li>Последняя фраза: «Что вы берёте на удачу?»</li></ul>
+    </div><button type="button" class="th cover" data-g="w3-fri" data-i="0" data-full="img/oblozhki/11-27-sobirayus.png" aria-label="Обложка «Собираюсь на контрольную: мой счастливый набор»: открыть в полном размере"><img src="img/thumbs/oblozhki/11-27-sobirayus.jpg" alt="Обложка «Собираюсь на контрольную: мой счастливый набор»" width="324" height="576" loading="lazy"></button></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-w3-fri">Собираюсь на контрольную и показываю, что беру с собой на удачу <span class="tags">#grwmвшколу #сборывшколу #контрольная #школа</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-w3-fri">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-w3-fri"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="w3-sat">
+  <div class="date"><span class="dow">сб</span><span class="dd">28</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="chip r-sama">Сделала сама</span><span class="fmt">видео · 20–30 с</span><a class="toollink" href="#tool-pary">Инструмент: Найди пару</a></div>
+    <div class="cols"><div class="txt">
+      <h4>Превратила параграф по истории в игру</h4>
+      <ul class="shots"><li>Первая секунда: игра на экране, соединяю пары на время</li><li>Показать, как вставила свои термины и получила игру</li><li>Последняя фраза: мой рекорд и «Какой параграф превратить следующим?»</li></ul>
+    </div><button type="button" class="th cover" data-g="w3-sat" data-i="0" data-full="img/oblozhki/11-28-sdelala-sama.png" aria-label="Обложка «Превратила параграф по истории в игру»: открыть в полном размере"><img src="img/thumbs/oblozhki/11-28-sdelala-sama.jpg" alt="Обложка «Превратила параграф по истории в игру»" width="324" height="576" loading="lazy"></button></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-w3-sat">Сделала в нейросети игру: вставляешь термины из любого параграфа и соединяешь пары на время. Учить историю стало веселее <span class="tags">#история #учеба #лайфхакидляучебы #нейросети #стадиток</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-w3-sat">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-w3-sat"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="w3-sun">
+  <div class="date"><span class="dow">вс</span><span class="dd">29</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="chip r-uchis">Учись со мной</span><span class="fmt">видео · 25–40 с</span><a class="toollink" href="#tool-pary">Инструмент: Найди пару</a></div>
+    <div class="cols"><div class="txt">
+      <h4>Учу биологию через игру: успею за 20 минут?</h4>
+      <ul class="shots"><li>Таймер на 20 минут в кадре</li><li>Три раунда игры, время каждого раунда текстом на экране</li><li>Финал: пересказываю параграф без учебника</li></ul>
+    </div><button type="button" class="th cover" data-g="w3-sun" data-i="0" data-full="img/oblozhki/11-29-uchis-so-mnoy.png" aria-label="Обложка «Учу биологию через игру: успею за 20 минут?»: открыть в полном размере"><img src="img/thumbs/oblozhki/11-29-uchis-so-mnoy.jpg" alt="Обложка «Учу биологию через игру: успею за 20 минут?»" width="324" height="576" loading="lazy"></button></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-w3-sun">Проверяю, можно ли выучить параграф по биологии за 20 минут через игру. Учись со мной <span class="tags">#учисьсомной #биология #стадиток #учеба</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-w3-sun">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-w3-sun"> Выложено</label>
+  </div>
+</article>
+</section>
+<section class="week" id="week-4">
+  <header class="wh"><p class="eyebrow">Неделя 4 · 30 ноября — 6 декабря</p><h3>Неделя оценок</h3>
+    <p class="wtool">Инструмент недели: <a href="#tool-ocenki">Калькулятор оценок</a>, нужен к субботе 5 декабря</p></header>
+  <article class="post" id="w4-tue">
+  <div class="date"><span class="dow">вт</span><span class="dd">1</span><span class="mm">дек</span></div>
+  <div class="body">
+    <div class="meta"><span class="chip r-zhiza">Школьная жиза</span><span class="fmt">видео · 7–12 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Открываю электронный дневник в декабре</h4>
+      <ul class="shots"><li>Название текстом на экране с первой секунды</li><li>Медленно открываю дневник, реакция под популярный звук недели</li><li>Без слов, один дубль</li></ul>
+    </div><button type="button" class="th cover" data-g="w4-tue" data-i="0" data-full="img/oblozhki/12-01-zhiza.png" aria-label="Обложка «Открываю электронный дневник в декабре»: открыть в полном размере"><img src="img/thumbs/oblozhki/12-01-zhiza.jpg" alt="Обложка «Открываю электронный дневник в декабре»" width="324" height="576" loading="lazy"></button></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-w4-tue">Тот самый момент, когда открываешь электронный дневник перед концом четверти <span class="tags">#школа #дневник #оценки #школьнаяжиза</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-w4-tue">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-w4-tue"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="w4-thu">
+  <div class="date"><span class="dow">чт</span><span class="dd">3</span><span class="mm">дек</span></div>
+  <div class="body">
+    <div class="meta"><span class="chip r-sohrani">Сохрани</span><span class="fmt">карусель · 7 картинок</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Вечер перед контрольной: план на 40 минут</h4>
+      <ul class="shots"><li>Картинки готовы, загрузить по порядку</li><li>Звук: спокойный трек из популярных</li><li>Первый комментарий от себя: «Во сколько вы ложитесь перед контрольной?»</li></ul>
+    </div></div>
+    <div class="strip" role="group" aria-label="Картинки карусели"><button type="button" class="th " data-g="w4-thu" data-i="0" data-full="img/karusel-4-vecher/01.png" aria-label="Картинка 1 из 7: открыть в полном размере"><img src="img/thumbs/karusel-4-vecher/01.jpg" alt="Картинка 1 из 7" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="w4-thu" data-i="1" data-full="img/karusel-4-vecher/02.png" aria-label="Картинка 2 из 7: открыть в полном размере"><img src="img/thumbs/karusel-4-vecher/02.jpg" alt="Картинка 2 из 7" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="w4-thu" data-i="2" data-full="img/karusel-4-vecher/03.png" aria-label="Картинка 3 из 7: открыть в полном размере"><img src="img/thumbs/karusel-4-vecher/03.jpg" alt="Картинка 3 из 7" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="w4-thu" data-i="3" data-full="img/karusel-4-vecher/04.png" aria-label="Картинка 4 из 7: открыть в полном размере"><img src="img/thumbs/karusel-4-vecher/04.jpg" alt="Картинка 4 из 7" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="w4-thu" data-i="4" data-full="img/karusel-4-vecher/05.png" aria-label="Картинка 5 из 7: открыть в полном размере"><img src="img/thumbs/karusel-4-vecher/05.jpg" alt="Картинка 5 из 7" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="w4-thu" data-i="5" data-full="img/karusel-4-vecher/06.png" aria-label="Картинка 6 из 7: открыть в полном размере"><img src="img/thumbs/karusel-4-vecher/06.jpg" alt="Картинка 6 из 7" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="w4-thu" data-i="6" data-full="img/karusel-4-vecher/07.png" aria-label="Картинка 7 из 7: открыть в полном размере"><img src="img/thumbs/karusel-4-vecher/07.jpg" alt="Картинка 7 из 7" width="324" height="576" loading="lazy"></button></div>
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-w4-thu">Что делать вечером перед контрольной: план на 40 минут. Сохрани до следующей контрольной <span class="tags">#контрольная #лайфхакидляучебы #стадиток #учеба #школа</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-w4-thu">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-w4-thu"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="w4-fri">
+  <div class="date"><span class="dow">пт</span><span class="dd">4</span><span class="mm">дек</span></div>
+  <div class="body">
+    <div class="meta"><span class="chip r-sobirayus">Собираюсь и рассказываю</span><span class="fmt">видео · 20–30 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Зимние сборы в школу: тепло и красиво</h4>
+      <ul class="shots"><li>Слои одежды по порядку, шарф и варежки крупно</li><li>Голос за кадром: что изменилось в сборах зимой</li><li>Последняя фраза: «Шапка или капюшон?»</li></ul>
+    </div><button type="button" class="th cover" data-g="w4-fri" data-i="0" data-full="img/oblozhki/12-04-sobirayus.png" aria-label="Обложка «Зимние сборы в школу: тепло и красиво»: открыть в полном размере"><img src="img/thumbs/oblozhki/12-04-sobirayus.jpg" alt="Обложка «Зимние сборы в школу: тепло и красиво»" width="324" height="576" loading="lazy"></button></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-w4-fri">Зимние сборы в школу: как одеться тепло и чтобы нравилось самой <span class="tags">#grwmвшколу #образвшколу #зима #школа</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-w4-fri">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-w4-fri"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="w4-sat">
+  <div class="date"><span class="dow">сб</span><span class="dd">5</span><span class="mm">дек</span></div>
+  <div class="body">
+    <div class="meta"><span class="chip r-sama">Сделала сама</span><span class="fmt">видео · 20–30 с</span><a class="toollink" href="#tool-ocenki">Инструмент: Калькулятор оценок</a></div>
+    <div class="cols"><div class="txt">
+      <h4>Сколько пятёрок нужно, чтобы вышла 5 в четверти</h4>
+      <ul class="shots"><li>Первая секунда: вопрос текстом и калькулятор на экране</li><li>Ввожу оценки и получаю ответ: «ещё 4 пятёрки»</li><li>Последняя фраза: «Проверь свой предмет и напиши, сколько вышло»</li></ul>
+    </div><button type="button" class="th cover" data-g="w4-sat" data-i="0" data-full="img/oblozhki/12-05-sdelala-sama.png" aria-label="Обложка «Сколько пятёрок нужно, чтобы вышла 5 в четверти»: открыть в полном размере"><img src="img/thumbs/oblozhki/12-05-sdelala-sama.jpg" alt="Обложка «Сколько пятёрок нужно, чтобы вышла 5 в четверти»" width="324" height="576" loading="lazy"></button></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-w4-sat">Сделала в нейросети калькулятор оценок: вводишь свои оценки и узнаёшь, сколько пятёрок нужно до конца четверти <span class="tags">#оценки #четверть #школа #нейросети #учеба</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-w4-sat">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-w4-sat"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="w4-sun">
+  <div class="date"><span class="dow">вс</span><span class="dd">6</span><span class="mm">дек</span></div>
+  <div class="body">
+    <div class="meta"><span class="chip r-uchis">Учись со мной</span><span class="fmt">видео · 25–40 с</span><a class="toollink" href="#tool-ocenki">Инструмент: Калькулятор оценок</a></div>
+    <div class="cols"><div class="txt">
+      <h4>Составляю план, как закрыть четверть</h4>
+      <ul class="shots"><li>Калькулятор по трём предметам, результаты на экране</li><li>Пишу план на листке: предмет, сколько оценок нужно, к какому числу</li><li>Финал: листок висит над столом</li></ul>
+    </div><button type="button" class="th cover" data-g="w4-sun" data-i="0" data-full="img/oblozhki/12-06-uchis-so-mnoy.png" aria-label="Обложка «Составляю план, как закрыть четверть»: открыть в полном размере"><img src="img/thumbs/oblozhki/12-06-uchis-so-mnoy.jpg" alt="Обложка «Составляю план, как закрыть четверть»" width="324" height="576" loading="lazy"></button></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-w4-sun">Считаю оценки и составляю план на три недели до конца четверти. Учись со мной <span class="tags">#учисьсомной #четверть #оценки #стадиток</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-w4-sun">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-w4-sun"> Выложено</label>
+  </div>
+</article>
+</section>
+  </section>
+
+  <section class="sec" id="html">
+    <h2>Что генерировать в HTML</h2>
+    <p>Один инструмент в неделю. Каждый работает на телефоне, красиво выглядит в кадре и решает одну школьную задачу, поэтому его хочется забрать себе. ТЗ ниже можно вставлять в нейросеть целиком: в нём уже описаны цвета и общие требования.</p>
+    <div class="tools"><article class="tool" id="tool-timer">
+  <h3>Таймер «25 на 5»</h3>
+  <p class="tmeta">Файл <code>timer.html</code> · нужен к субботе 14 ноября</p>
+  <p>25 минут учёбы, 5 минут перерыва. Пока идёт учёба, на экране наполняется кружка какао. Зритель забирает таймер, с которым уроки не растягиваются на весь вечер.</p>
+  <p class="lbl">Ролики с этим инструментом</p><ul class="vids"><li><a href="#w1-sat">сб 14 ноя</a> · Сделала таймер, чтобы не сидеть над уроками весь вечер</li><li><a href="#w1-sun">вс 15 ноя</a> · Делаю уроки на понедельник за три таймера</li></ul>
+  <p class="lbl">ТЗ для генерации</p>
+  <div class="prompt" id="prompt-timer">Сделай одностраничный HTML-файл: всё в одном файле, без внешних библиотек, работает на телефоне без интернета. Стиль как в моём тренажёре глаголов: фон #ECF2D8, карточки #fffdf8, текст #4a2a38, главный цвет розовый #E27396, второй голубой #B3DEE2 и #2f8f99, заголовки шрифтом с засечками (Yeseva One, запасной Georgia). Кнопки и надписи крупные: экран будут снимать на видео вертикально. Без регистрации, ничего никуда не отправляет, введённое запоминает на этом телефоне.<br><br>Таймер для уроков «25 на 5». В центре большой круг с обратным отсчётом и кружка какао, которая наполняется, пока идёт учёба. Над кругом поле «Что делаю», туда пишу предмет. Кнопки: Старт, Пауза, Сброс. Когда 25 минут прошли, звучит мягкий сигнал и начинается перерыв 5 минут с одной случайной идеей: попить воды, размяться, посмотреть в окно. Внизу счётчик «Кругов сегодня» и список предметов, которые уже сделаны. В настройках можно выбрать длительность: 15 и 3, 25 и 5, 40 и 10 минут. Экран не гаснет, пока таймер идёт.</div>
+  <button type="button" class="btn copy" data-copy="prompt-timer">Скопировать ТЗ</button>
+</article>
+<article class="tool" id="tool-raspisanie">
+  <h3>Расписание на обои</h3>
+  <p class="tmeta">Файл <code>raspisanie.html</code> · нужен к субботе 21 ноября</p>
+  <p>Вводишь уроки по дням и получаешь картинку для экрана блокировки. Зритель забирает красивые обои со своим расписанием.</p>
+  <p class="lbl">Ролики с этим инструментом</p><ul class="vids"><li><a href="#w2-sat">сб 21 ноя</a> · Сделала расписание уроков на обои телефона</li><li><a href="#w2-sun">вс 22 ноя</a> · Готовлюсь к неделе: стол, рюкзак, расписание</li></ul>
+  <p class="lbl">ТЗ для генерации</p>
+  <div class="prompt" id="prompt-raspisanie">Сделай одностраничный HTML-файл: всё в одном файле, без внешних библиотек, работает на телефоне без интернета. Стиль как в моём тренажёре глаголов: фон #ECF2D8, карточки #fffdf8, текст #4a2a38, главный цвет розовый #E27396, второй голубой #B3DEE2 и #2f8f99, заголовки шрифтом с засечками (Yeseva One, запасной Georgia). Кнопки и надписи крупные: экран будут снимать на видео вертикально. Без регистрации, ничего никуда не отправляет, введённое запоминает на этом телефоне.<br><br>Расписание уроков на обои телефона. Шаг 1: ввожу уроки по дням с понедельника по субботу, до 8 уроков в день, субботу можно выключить. Шаг 2: выбираю оформление из четырёх: розовое, голубое, зимнее светлое, тёмное сливовое. Шаг 3: вижу превью экрана блокировки, сверху свободное место под часы, ниже расписание на всю неделю. Кнопка «Скачать картинку» сохраняет PNG размером 1170 на 2532. Кнопка «Только завтра» делает картинку с уроками одного дня. Введённое расписание запоминается.</div>
+  <button type="button" class="btn copy" data-copy="prompt-raspisanie">Скопировать ТЗ</button>
+</article>
+<article class="tool" id="tool-pary">
+  <h3>Найди пару</h3>
+  <p class="tmeta">Файл <code>naidi-paru.html</code> · нужен к субботе 28 ноября</p>
+  <p>Вставляешь термины из любого параграфа и соединяешь пары на время. Зритель забирает игру, которая работает с его собственным параграфом.</p>
+  <p class="lbl">Ролики с этим инструментом</p><ul class="vids"><li><a href="#w3-sat">сб 28 ноя</a> · Превратила параграф по истории в игру</li><li><a href="#w3-sun">вс 29 ноя</a> · Учу биологию через игру: успею за 20 минут?</li></ul>
+  <p class="lbl">ТЗ для генерации</p>
+  <div class="prompt" id="prompt-pary">Сделай одностраничный HTML-файл: всё в одном файле, без внешних библиотек, работает на телефоне без интернета. Стиль как в моём тренажёре глаголов: фон #ECF2D8, карточки #fffdf8, текст #4a2a38, главный цвет розовый #E27396, второй голубой #B3DEE2 и #2f8f99, заголовки шрифтом с засечками (Yeseva One, запасной Georgia). Кнопки и надписи крупные: экран будут снимать на видео вертикально. Без регистрации, ничего никуда не отправляет, введённое запоминает на этом телефоне.<br><br>Игра «Найди пару» из любого параграфа. Вставляю в поле пары по одной в строке в виде «термин — определение», подойдут и «дата — событие», и «страна — столица». Кнопка «Играть»: слева столбец терминов, справа перемешанные определения. Нажимаю на левую карточку, потом на правую. Правильная пара исчезает с анимацией, неправильная вздрагивает. Идёт секундомер, считаются ошибки. В конце показываются время, число ошибок, рекорд и кнопка «Повторить только ошибки». На экране не больше шести пар, остальные идут следующими раундами. Для пробы встроены примеры по шесть пар: история, биология, география, английский.</div>
+  <button type="button" class="btn copy" data-copy="prompt-pary">Скопировать ТЗ</button>
+</article>
+<article class="tool" id="tool-ocenki">
+  <h3>Калькулятор оценок</h3>
+  <p class="tmeta">Файл <code>ocenki.html</code> · нужен к субботе 5 декабря</p>
+  <p>Вводишь свои оценки и узнаёшь, сколько пятёрок нужно до конца четверти. Зритель получает ответ про свой предмет за 20 секунд.</p>
+  <p class="lbl">Ролики с этим инструментом</p><ul class="vids"><li><a href="#w4-sat">сб 5 дек</a> · Сколько пятёрок нужно, чтобы вышла 5 в четверти</li><li><a href="#w4-sun">вс 6 дек</a> · Составляю план, как закрыть четверть</li></ul>
+  <p class="lbl">ТЗ для генерации</p>
+  <div class="prompt" id="prompt-ocenki">Сделай одностраничный HTML-файл: всё в одном файле, без внешних библиотек, работает на телефоне без интернета. Стиль как в моём тренажёре глаголов: фон #ECF2D8, карточки #fffdf8, текст #4a2a38, главный цвет розовый #E27396, второй голубой #B3DEE2 и #2f8f99, заголовки шрифтом с засечками (Yeseva One, запасной Georgia). Кнопки и надписи крупные: экран будут снимать на видео вертикально. Без регистрации, ничего никуда не отправляет, введённое запоминает на этом телефоне.<br><br>Калькулятор оценок. Выбираю предмет, предметов можно добавить несколько. Нажимаю кнопки 5, 4, 3, 2, чтобы ввести свои оценки: они появляются цветными кружками, лишнюю можно убрать нажатием. Сразу вижу средний балл с двумя знаками после запятой. Выбираю цель: «5», «4» или «3». Порог по умолчанию 4,5, 3,5 и 2,5, его можно изменить в настройках, потому что в школах округляют по-разному. Ответ крупно: «Нужно ещё N пятёрок подряд», ниже варианты, если среди них будут четвёрки. Если цель уже достигнута, показать, сколько четвёрок можно получить и не потерять её. Если цели не достичь даже за 15 оценок, честно написать об этом. Оценки по предметам запоминаются.</div>
+  <button type="button" class="btn copy" data-copy="prompt-ocenki">Скопировать ТЗ</button>
+</article></div>
+    <h3>Очередь после 6 декабря</h3>
+    <div class="scroll"><table>
+      <thead><tr><th>Когда</th><th>Инструмент</th><th>Что делает</th><th>Название ролика</th></tr></thead>
+      <tbody><tr><td class="num">12 декабря</td><td><strong>Итоги четверти</strong></td><td>Карточка с итогами: любимый предмет, лучшая оценка, сколько книг прочитано. Скачивается картинкой.</td><td>Мои итоги четверти одной картинкой</td></tr><tr><td class="num">19 декабря</td><td><strong>Счётчик до каникул</strong></td><td>Показывает, сколько учебных дней и уроков осталось.</td><td>До каникул осталось столько учебных дней</td></tr><tr><td class="num">26 декабря</td><td><strong>Список желаний</strong></td><td>Собирает вишлист на Новый год в одну красивую картинку.</td><td>Мой вишлист на Новый год одной картинкой</td></tr><tr><td class="num">январь</td><td><strong>Тест «Твоя учебная эстетика»</strong></td><td>Восемь вопросов и карточка с результатом.</td><td>Какая у тебя учебная эстетика? Прохожу свой тест</td></tr><tr><td class="num">январь</td><td><strong>Колесо домашки</strong></td><td>Крутишь колесо, и оно выбирает, с какого предмета начать.</td><td>Колесо решает, какой урок делать первым</td></tr><tr><td class="num">январь</td><td><strong>Устный счёт за 60 секунд</strong></td><td>Примеры на скорость и личный рекорд.</td><td>Сколько примеров решу за 60 секунд?</td></tr><tr><td class="num">январь</td><td><strong>Ударения: нажми правильное</strong></td><td>Игра по мотивам карусели, 20 слов.</td><td>Пройду свою игру на ударения без ошибок?</td></tr><tr><td class="num">февраль</td><td><strong>Утро по минутам</strong></td><td>Вводишь время выхода из дома и получаешь расписание утра.</td><td>Встаю в 6:40: моё утро по минутам</td></tr><tr><td class="num">февраль</td><td><strong>Книжная полка</strong></td><td>Трекер прочитанного: корешки книг встают на полку.</td><td>Моя полка: что я прочитала за зиму</td></tr><tr><td class="num">февраль</td><td><strong>Школьное бинго</strong></td><td>Карточка 5 на 5 со школьными ситуациями, отмечаешь нажатием.</td><td>Школьное бинго: сколько у тебя совпало?</td></tr></tbody></table></div>
+  </section>
+
+  <section class="sec" id="cifry">
+    <h2>Цифры</h2>
+    <div class="two">
+      <div class="box"><p class="lbl">Точка отсчёта, 10 ноября</p><p class="big">240–310</p><p>просмотров набирает обычный ролик.</p></div>
+      <div class="box"><p class="lbl">Ориентиры на 6 декабря</p>
+        <ul><li>19 публикаций без пропусков</li><li>обычный ролик набирает 500 просмотров и больше</li><li>хотя бы один ролик набрал 3 000</li><li>100 подписчиков</li></ul>
+        <p class="note">Это ориентиры, а не обещание. По ним видно, туда ли движется блог.</p></div>
+    </div>
+    <div class="box"><p class="lbl">Разбор по воскресеньям, 10 минут</p>
+      <ol><li>Выписать по каждому ролику недели просмотры, сохранения, комментарии и новых подписчиков.</li>
+      <li>Рубрика два раза подряд не дотянула до своей цели: меняем первую фразу и подачу, тему оставляем.</li>
+      <li>Ролик набрал втрое больше обычного: на следующей неделе вместо «Школьной жизы» выходит его продолжение.</li></ol></div>
+  </section>
+
+  <section class="sec" id="kartinki">
+    <h2>Картинки</h2>
+    <div class="two">
+      <div class="box"><p class="lbl">Карусели</p><p>Загружать по порядку номеров, начиная с 01. Размер 1080 на 1920. Текст стоит там, где его не закрывают кнопки и подпись TikTok.</p></div>
+      <div class="box"><p class="lbl">Обложки роликов</p><p>Вставить картинку первым кадром на треть секунды и при публикации выбрать этот кадр обложкой. Тогда сетка профиля выглядит единой.</p></div>
+    </div>
+    <p>Все файлы лежат в папке <code>tiktok/img</code>. Тексты на картинках берутся из <code>tiktok/src/plan.json</code>: после правки запустите <code>node tiktok/src/render.mjs</code>, и картинки перерисуются.</p>
+  </section>
+</div>
+
+<div id="lb" hidden role="dialog" aria-modal="true" aria-label="Картинка в полном размере">
+  <img id="lb-img" alt="">
+  <div id="lb-cap"></div>
+  <div class="bar"><button type="button" class="btn" id="lb-prev">Назад</button><button type="button" class="btn" id="lb-next">Дальше</button><button type="button" class="btn" id="lb-x">Закрыть</button></div>
+</div>
+<script>
+(function(){
+  function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+  // Скопировать описание или ТЗ
+  document.querySelectorAll('.copy').forEach(function(b){
+    b.addEventListener('click',function(){
+      var el=document.getElementById(b.dataset.copy), text=el.innerText.trim(), old=b.textContent;
+      function ok(){b.textContent='Скопировано';setTimeout(function(){b.textContent=old},1600)}
+      function pick(){var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Выделено, скопируйте';setTimeout(function(){b.textContent=old},2400)}
+      try{navigator.clipboard.writeText(text).then(ok,pick)}catch(e){pick()}
+    });
+  });
+  // Отметка «Выложено» хранится только в этом браузере
+  document.querySelectorAll('.done input').forEach(function(c){
+    var post=c.closest('.post');
+    if(store(c.id)==='1'){c.checked=true;post.classList.add('is-done')}
+    c.addEventListener('change',function(){store(c.id,c.checked?'1':'0');post.classList.toggle('is-done',c.checked)});
+  });
+  // Просмотр картинки в полном размере
+  var lb=document.getElementById('lb'),img=document.getElementById('lb-img'),cap=document.getElementById('lb-cap'),group=[],idx=0,last=null;
+  function show(){var t=group[idx];img.src=t.dataset.full;img.alt=t.querySelector('img').alt;
+    cap.textContent=(group.length>1?(idx+1)+' из '+group.length+' · ':'')+t.dataset.full+' · чтобы сохранить, удерживайте картинку';
+    document.getElementById('lb-prev').hidden=document.getElementById('lb-next').hidden=group.length<2}
+  function close(){lb.hidden=true;img.removeAttribute('src');if(last)last.focus()}
+  document.querySelectorAll('.th').forEach(function(t){
+    t.addEventListener('click',function(){last=t;group=[].slice.call(document.querySelectorAll('.th[data-g="'+t.dataset.g+'"]'));idx=+t.dataset.i;show();lb.hidden=false;document.getElementById('lb-x').focus()});
+  });
+  document.getElementById('lb-x').addEventListener('click',close);
+  document.getElementById('lb-prev').addEventListener('click',function(){idx=(idx+group.length-1)%group.length;show()});
+  document.getElementById('lb-next').addEventListener('click',function(){idx=(idx+1)%group.length;show()});
+  lb.addEventListener('click',function(e){if(e.target===lb)close()});
+  document.addEventListener('keydown',function(e){if(lb.hidden)return;if(e.key==='Escape')close();if(e.key==='ArrowLeft')document.getElementById('lb-prev').click();if(e.key==='ArrowRight')document.getElementById('lb-next').click()});
+})();
+</script>
+</body>
+</html>
