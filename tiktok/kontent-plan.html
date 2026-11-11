@@ -60,7 +60,10 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
 .r-sohrani,.r-zaberu{background:var(--sohrani-bg);color:var(--sohrani)}
 .r-sobirayus{background:var(--sobirayus-bg);color:var(--sobirayus)}
 .r-sama,.r-imba{background:var(--sama-bg);color:var(--sama)}
-.r-uchis,.r-mama{background:var(--uchis-bg);color:var(--uchis)}
+.r-uchis,.r-mama,.r-trend{background:var(--uchis-bg);color:var(--uchis)}
+.r-skvish{background:var(--sama-bg);color:var(--sama)}
+.r-komnata{background:var(--line);color:var(--ink)}
+.r-popytka{background:transparent;color:var(--accent);box-shadow:inset 0 0 0 1.5px var(--accent)}
 .week{display:flex;flex-direction:column;gap:14px}
 .wh{display:flex;flex-direction:column;gap:6px;padding-top:6px}
 .wtool{color:var(--muted)}
@@ -121,7 +124,7 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
     <p class="eyebrow">Контент-план TikTok · 11 ноября — 6 декабря 2026</p>
     <h1>Учёба красиво</h1>
     <p class="lead">Учёба, эстетика и жизнь школьницы в одном блоге. Каждая неделя строится вокруг одной школьной боли и одного файла, который её снимает. Форматы взяты у роликов, которые уже набирали миллионы на маленьких аккаунтах.</p>
-    <p class="facts"><span><b>19</b> публикаций</span><span><b>4</b> файла</span><span><b>13</b> готовых картинок</span></p>
+    <p class="facts"><span><b>19</b> публикаций</span><span><b>6</b> рубрик</span><span><b>4</b> файла</span><span><b>13</b> готовых картинок</span></p>
     <nav class="nav" aria-label="Разделы"><a href="#week-1">Неделя 1</a><a href="#week-2">Неделя 2</a><a href="#week-3">Неделя 3</a><a href="#week-4">Неделя 4</a><a href="#html">Что генерировать в HTML</a><a href="#cifry">Цифры</a><a href="#kartinki">Картинки</a></nav>
   </header>
 
@@ -131,6 +134,7 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
     <div class="scroll"><table>
       <thead><tr><th>День</th><th>Рубрика</th><th>Формат</th><th>Цель по ролику</th><th>На чём основано</th></tr></thead>
       <tbody><tr><td class="num">вт</td><td><span class="chip r-tema">Как ощущается</span></td><td>видео, 7–11 секунд</td><td>пересылают не меньше 1,5 % зрителей</td><td>Ролик на 11 секунд с текстом «Как ощущается эта тема» у аккаунта без аудитории: 2,8 млн просмотров, пересылают 2 %</td></tr><tr><td class="num">чт</td><td><span class="chip r-zaberu">Заберу себе</span></td><td>карусель-подборка</td><td>сохраняют не меньше 6 % зрителей</td><td>«10 читерских кодов для ChatGPT»: 5,7 млн, сохраняют 14 %. Карусель «5 приложений, которые облегчают учёбу» у аккаунта на 4,9 тыс. подписчиков: 2 млн, сохраняют 7,8 %</td></tr><tr><td class="num">пт</td><td><span class="chip r-sobirayus">Собираюсь и рассказываю</span></td><td>видео, 20–30 секунд</td><td>10 комментариев и больше</td><td>Сборы и влоги набирают 0,9–1,3 млн только у авторов с аудиторией. Здесь они нужны, чтобы зрители знали автора в лицо</td></tr><tr><td class="num">сб</td><td><span class="chip r-imba">Имба для школы</span></td><td>видео, 7–10 секунд</td><td>сохраняют не меньше 5 % зрителей</td><td>Ролик на 7 секунд с текстом «спасибо этой имбе за…» у аккаунта на 840 подписчиков: 1,1 млн, сохраняют 6 %</td></tr><tr><td class="num">вс</td><td><span class="chip r-uchis">Учись со мной</span></td><td>видео, 20–30 секунд</td><td>досмотров больше, чем у прошлого воскресного ролика</td><td>Школьные влоги на 60–100 секунд: 0,9 млн у авторов с аудиторией. Здесь это эстетика и файл недели в кадре</td></tr><tr><td class="num">вс</td><td><span class="chip r-mama">Мама против школы</span></td><td>видео, 20–30 секунд</td><td>гипотеза, проверяем два раза</td><td>Прямых примеров в нише нет. Ближайшее: взрослые отвечают на вопросы школьной программы, 1,6–2,1 млн</td></tr></tbody></table></div>
+    
   </section>
 
   <section class="sec" id="plan">
@@ -459,7 +463,7 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
 </section>
   </section>
 
-  <section class="sec" id="html">
+    <section class="sec" id="html">
     <h2>Что генерировать в HTML</h2>
     <p>Один файл в неделю, каждый под конкретную школьную боль: его хочется забрать, и он хорошо смотрится в записи экрана. ТЗ ниже можно вставлять в нейросеть целиком: в нём уже описаны цвета и общие требования.</p>
     <div class="tools"><article class="tool" id="tool-glagoly">
@@ -503,6 +507,7 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
       <thead><tr><th>Когда</th><th>Инструмент</th><th>Что делает</th><th>Название ролика</th></tr></thead>
       <tbody><tr><td class="num">12 декабря</td><td><strong>Счётчик до каникул</strong></td><td>Показывает, сколько учебных дней и уроков осталось.</td><td>Когда до каникул осталось столько уроков</td></tr><tr><td class="num">19 декабря</td><td><strong>Найди пару</strong></td><td>Термины и определения из любого параграфа соединяются на время.</td><td>Когда параграф по истории стал игрой</td></tr><tr><td class="num">26 декабря</td><td><strong>Итоги четверти</strong></td><td>Карточка с итогами: любимый предмет, лучшая оценка, сколько книг прочитано. Скачивается картинкой.</td><td>Мои итоги четверти одной картинкой</td></tr><tr><td class="num">январь</td><td><strong>Таблица умножения за 60 секунд</strong></td><td>Примеры на скорость и личный рекорд.</td><td>Мама против таблицы умножения</td></tr><tr><td class="num">январь</td><td><strong>Расписание на обои</strong></td><td>Вводишь уроки и получаешь картинку для экрана блокировки.</td><td>Когда расписание наконец на экране блокировки</td></tr><tr><td class="num">январь</td><td><strong>Тест «Твоя учебная эстетика»</strong></td><td>Восемь вопросов и карточка с результатом.</td><td>Какая у тебя учебная эстетика? Прохожу свой тест</td></tr><tr><td class="num">январь</td><td><strong>Колесо домашки</strong></td><td>Крутишь колесо, и оно выбирает, с какого предмета начать.</td><td>Когда не можешь выбрать, с какого урока начать</td></tr><tr><td class="num">февраль</td><td><strong>Таймер «25 на 5»</strong></td><td>25 минут учёбы, 5 минут перерыва, счётчик кругов.</td><td>Делаю уроки на понедельник за три таймера</td></tr><tr><td class="num">февраль</td><td><strong>Утро по минутам</strong></td><td>Вводишь время выхода из дома и получаешь расписание утра.</td><td>Встаю в 6:40: моё утро по минутам</td></tr><tr><td class="num">февраль</td><td><strong>Школьное бинго</strong></td><td>Карточка 5 на 5 со школьными ситуациями, отмечаешь нажатием.</td><td>Школьное бинго: сколько у тебя совпало?</td></tr></tbody></table></div>
   </section>
+  
 
   <section class="sec" id="cifry">
     <h2>Цифры</h2>
@@ -513,12 +518,10 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
         <p class="note">Вирусность нельзя назначить на дату. Можно делать больше попыток в форматах, которые уже залетали у других, и это план и делает.</p></div>
     </div>
     <div class="box"><p class="lbl">Разбор по воскресеньям, 10 минут</p>
-      <ol><li>Выписать по каждому ролику недели просмотры, сохранения, комментарии и новых подписчиков.</li>
-      <li>Рубрика два раза подряд не дотянула до своей цели: меняем первую фразу и подачу, тему оставляем.</li>
-      <li>Ролик набрал втрое больше обычного: в ближайший вторник выходит его «часть 2». У конкурента вторая часть собрала вчетверо больше первой.</li></ol></div>
+      <ol><li>Выписать по каждому ролику недели просмотры, сохранения, комментарии и новых подписчиков.</li><li>Рубрика два раза подряд не дотянула до своей цели: меняем первую фразу и подачу, тему оставляем.</li><li>Ролик набрал втрое больше обычного: в ближайший вторник выходит его «часть 2». У конкурента вторая часть собрала вчетверо больше первой.</li></ol></div>
   </section>
 
-  <section class="sec" id="kartinki">
+    <section class="sec" id="kartinki">
     <h2>Картинки</h2>
     <div class="two">
       <div class="box"><p class="lbl">Карусель</p><p>Готова первая, с запросами для нейросети. Загружать по порядку номеров, начиная с 01. Размер 1080 на 1920. Остальные три рисуются по тому же шаблону, когда утверждены тексты.</p></div>

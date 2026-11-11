@@ -1,5 +1,6 @@
 // Собирает страницу контент-плана из plan.json.
-// Запуск: node tiktok/src/build-page.mjs  →  tiktok/kontent-plan.html
+// Запуск: node tiktok/src/build-page.mjs [файл плана] [имя страницы]
+// Без аргументов: plan.json → tiktok/kontent-plan.html
 // Если задана переменная ARTIFACT_OUT, туда же пишется вариант без обёртки <html>.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -7,7 +8,11 @@ import { fileURLToPath } from 'node:url';
 
 const SRC = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(SRC, '..');
-const plan = JSON.parse(fs.readFileSync(path.join(SRC, 'plan.json'), 'utf8'));
+const PLAN_FILE = process.argv[2] || 'plan.json';
+const OUT_FILE = process.argv[3] || 'kontent-plan.html';
+const plan = JSON.parse(fs.readFileSync(path.join(SRC, PLAN_FILE), 'utf8'));
+plan.tools = plan.tools || [];
+plan.queue = plan.queue || [];
 
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const MONTHS = ['янв', 'фев', 'мар', 'апр', 'мая', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
@@ -17,6 +22,7 @@ const toolById = Object.fromEntries(plan.tools.map(t => [t.id, t]));
 const posts = plan.weeks.flatMap(w => w.posts);
 const slideCount = id => fs.readdirSync(path.join(ROOT, 'img', id)).filter(f => f.endsWith('.png')).length;
 const pad = n => String(n).padStart(2, '0');
+const nRub = Object.keys(plan.rubrics).length;
 const plural = (n, f) => f[n % 10 === 1 && n % 100 !== 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2];
 const need = t => (t.when.startsWith('к ') ? 'нужен ' : '') + t.when;
 
@@ -54,12 +60,12 @@ function postHtml(p) {
 }
 
 function weekHtml(w) {
-  const t = toolById[w.tool];
+  const t = w.tool ? toolById[w.tool] : null;
   const prep = w.prep ? `<div class="prep"><div class="date"><span class="dow">${esc(w.prep.dow)}</span><span class="dd">${dayOf(w.prep.date)}</span><span class="mm">${monOf(w.prep.date)}</span></div>
     <div><h4>${esc(w.prep.title)}</h4><ul class="shots">${w.prep.todo.map(s => `<li>${esc(s)}</li>`).join('')}</ul></div></div>` : '';
   return `<section class="week" id="week-${w.n}">
   <header class="wh"><p class="eyebrow">Неделя ${w.n} · ${esc(w.dates)}</p><h3>${esc(w.theme)}</h3>
-    <p class="wtool">Файл недели: <a href="#tool-${t.id}">${esc(t.name)}</a>, ${esc(need(t))}</p></header>
+    ${t ? `<p class="wtool">Файл недели: <a href="#tool-${t.id}">${esc(t.name)}</a>, ${esc(need(t))}</p>` : ''}${w.note ? `<p class="wtool">${esc(w.note)}</p>` : ''}</header>
   ${prep}${w.posts.map(postHtml).join('\n')}
 </section>`;
 }
@@ -141,7 +147,10 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
 .r-sohrani,.r-zaberu{background:var(--sohrani-bg);color:var(--sohrani)}
 .r-sobirayus{background:var(--sobirayus-bg);color:var(--sobirayus)}
 .r-sama,.r-imba{background:var(--sama-bg);color:var(--sama)}
-.r-uchis,.r-mama{background:var(--uchis-bg);color:var(--uchis)}
+.r-uchis,.r-mama,.r-trend{background:var(--uchis-bg);color:var(--uchis)}
+.r-skvish{background:var(--sama-bg);color:var(--sama)}
+.r-komnata{background:var(--line);color:var(--ink)}
+.r-popytka{background:transparent;color:var(--accent);box-shadow:inset 0 0 0 1.5px var(--accent)}
 .week{display:flex;flex-direction:column;gap:14px}
 .wh{display:flex;flex-direction:column;gap:6px;padding-top:6px}
 .wtool{color:var(--muted)}
@@ -236,26 +245,27 @@ const BODY = `
   <header class="hero">
     <p class="eyebrow">Контент-план TikTok · ${esc(plan.period)}</p>
     <h1>${esc(plan.name)}</h1>
-    <p class="lead">Учёба, эстетика и жизнь школьницы в одном блоге. Каждая неделя строится вокруг одной школьной боли и одного файла, который её снимает. Форматы взяты у роликов, которые уже набирали миллионы на маленьких аккаунтах.</p>
-    <p class="facts"><span><b>${posts.length}</b> публикаций</span><span><b>${plan.tools.length}</b> файла</span><span><b>${nImg}</b> ${plural(nImg, ['готовая картинка', 'готовые картинки', 'готовых картинок'])}</span></p>
-    <nav class="nav" aria-label="Разделы">${plan.weeks.map(w => `<a href="#week-${w.n}">Неделя ${w.n}</a>`).join('')}<a href="#html">Что генерировать в HTML</a><a href="#cifry">Цифры</a><a href="#kartinki">Картинки</a></nav>
+    <p class="lead">${esc(plan.lead || 'Учёба, эстетика и жизнь школьницы в одном блоге. Каждая неделя строится вокруг одной школьной боли и одного файла, который её снимает. Форматы взяты у роликов, которые уже набирали миллионы на маленьких аккаунтах.')}</p>
+    <p class="facts"><span><b>${posts.length}</b> публикаций</span><span><b>${nRub}</b> ${plural(nRub, ['рубрика', 'рубрики', 'рубрик'])}</span>${plan.tools.length ? `<span><b>${plan.tools.length}</b> файла</span>` : ''}${nImg ? `<span><b>${nImg}</b> ${plural(nImg, ['готовая картинка', 'готовые картинки', 'готовых картинок'])}</span>` : ''}</p>
+    <nav class="nav" aria-label="Разделы">${plan.weeks.map(w => `<a href="#week-${w.n}">Неделя ${w.n}</a>`).join('')}${plan.tools.length ? '<a href="#html">Что генерировать в HTML</a>' : ''}${plan.ideas ? '<a href="#idei">Идеи про запас</a>' : ''}<a href="#cifry">Цифры</a>${nImg ? '<a href="#kartinki">Картинки</a>' : ''}</nav>
   </header>
 
   <section class="sec" id="ritm">
     <h2>Ритм недели</h2>
-    <p>У каждой рубрики свой день, своя цель в цифрах и ролик конкурента, на котором она основана. Проценты в целях взяты из этих же роликов. По воскресеньям рубрики чередуются.</p>
+    <p>${esc(plan.ritm || 'У каждой рубрики свой день, своя цель в цифрах и ролик конкурента, на котором она основана. Проценты в целях взяты из этих же роликов. По воскресеньям рубрики чередуются.')}</p>
     <div class="scroll"><table>
       <thead><tr><th>День</th><th>Рубрика</th><th>Формат</th><th>Цель по ролику</th><th>На чём основано</th></tr></thead>
       <tbody>${rubricRows}</tbody></table></div>
+    ${plan.mix ? `<p class="note">${esc(plan.mix)}</p>` : ''}
   </section>
 
   <section class="sec" id="plan">
     <h2>План по дням</h2>
-    <p>Название ролика пишется текстом на первом кадре. Описание и хэштеги копируются кнопкой. Картинка открывается в полном размере по нажатию.</p>
+    <p>Название ролика пишется текстом на первом кадре. Описание и хэштеги копируются кнопкой.${nImg ? ' Картинка открывается в полном размере по нажатию.' : ''}</p>
     ${plan.weeks.map(weekHtml).join('\n')}
   </section>
 
-  <section class="sec" id="html">
+  ${plan.tools.length ? `  <section class="sec" id="html">
     <h2>Что генерировать в HTML</h2>
     <p>Один файл в неделю, каждый под конкретную школьную боль: его хочется забрать, и он хорошо смотрится в записи экрана. ТЗ ниже можно вставлять в нейросеть целиком: в нём уже описаны цвета и общие требования.</p>
     <div class="tools">${plan.tools.map(toolHtml).join('\n')}</div>
@@ -263,30 +273,35 @@ const BODY = `
     <div class="scroll"><table>
       <thead><tr><th>Когда</th><th>Инструмент</th><th>Что делает</th><th>Название ролика</th></tr></thead>
       <tbody>${queueRows}</tbody></table></div>
-  </section>
+  </section>` : ''}
+  ${plan.ideas ? `<section class="sec" id="idei">
+    <h2>Идеи про запас</h2>
+    <p>${esc(plan.ideasText || '')}</p>
+    <div class="scroll"><table>
+      <thead><tr><th>Рубрика</th><th>Название ролика</th><th>На чём основано</th></tr></thead>
+      <tbody>${plan.ideas.map(q => `<tr><td><span class="chip r-${q.rubric}">${esc(plan.rubrics[q.rubric].name)}</span></td><td><strong>${esc(q.title)}</strong></td><td>${esc(q.proof)}</td></tr>`).join('')}</tbody></table></div>
+  </section>` : ''}
 
   <section class="sec" id="cifry">
     <h2>Цифры</h2>
     <div class="two">
       <div class="box"><p class="lbl">Точка отсчёта, 10 ноября</p><p class="big">240–310</p><p>просмотров набирает обычный ролик.</p></div>
       <div class="box"><p class="lbl">Ориентиры на 6 декабря</p>
-        <ul><li>${posts.length} публикаций без пропусков</li><li>обычный ролик набирает 500 просмотров и больше</li><li>ролики с файлом сохраняют 5 % зрителей</li><li>хотя бы один ролик набрал 3 000</li><li>100 подписчиков</li></ul>
+        <ul>${(plan.targets || [posts.length + ' публикаций без пропусков', 'обычный ролик набирает 500 просмотров и больше', 'ролики с файлом сохраняют 5 % зрителей', 'хотя бы один ролик набрал 3 000', '100 подписчиков']).map(t => `<li>${esc(t)}</li>`).join('')}</ul>
         <p class="note">Вирусность нельзя назначить на дату. Можно делать больше попыток в форматах, которые уже залетали у других, и это план и делает.</p></div>
     </div>
     <div class="box"><p class="lbl">Разбор по воскресеньям, 10 минут</p>
-      <ol><li>Выписать по каждому ролику недели просмотры, сохранения, комментарии и новых подписчиков.</li>
-      <li>Рубрика два раза подряд не дотянула до своей цели: меняем первую фразу и подачу, тему оставляем.</li>
-      <li>Ролик набрал втрое больше обычного: в ближайший вторник выходит его «часть 2». У конкурента вторая часть собрала вчетверо больше первой.</li></ol></div>
+      <ol>${(plan.review || ['Выписать по каждому ролику недели просмотры, сохранения, комментарии и новых подписчиков.', 'Рубрика два раза подряд не дотянула до своей цели: меняем первую фразу и подачу, тему оставляем.', 'Ролик набрал втрое больше обычного: в ближайший вторник выходит его «часть 2». У конкурента вторая часть собрала вчетверо больше первой.']).map(t => `<li>${esc(t)}</li>`).join('')}</ol></div>
   </section>
 
-  <section class="sec" id="kartinki">
+  ${nImg ? `  <section class="sec" id="kartinki">
     <h2>Картинки</h2>
     <div class="two">
       <div class="box"><p class="lbl">Карусель</p><p>Готова первая, с запросами для нейросети. Загружать по порядку номеров, начиная с 01. Размер 1080 на 1920. Остальные три рисуются по тому же шаблону, когда утверждены тексты.</p></div>
       <div class="box"><p class="lbl">Обложки роликов с файлом</p><p>Вставить картинку первым кадром на треть секунды и при публикации выбрать этот кадр обложкой. Так серию «Имба для школы» видно в сетке профиля.</p></div>
     </div>
     <p>Все файлы лежат в папке <code>tiktok/img</code>. Тексты на картинках берутся из <code>tiktok/src/plan.json</code>: после правки запустите <code>node tiktok/src/render.mjs</code>, и картинки перерисуются.</p>
-  </section>
+  </section>` : ''}
 </div>
 
 <div id="lb" hidden role="dialog" aria-modal="true" aria-label="Картинка в полном размере">
@@ -300,7 +315,7 @@ const TITLE = `Контент-план «${plan.name}»`;
 const FONTS = `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Yeseva+One&display=swap">`;
 
 // Вариант для репозитория: обычная самостоятельная страница
-fs.writeFileSync(path.join(ROOT, 'kontent-plan.html'),
+fs.writeFileSync(path.join(ROOT, OUT_FILE),
   `<!doctype html>\n<html lang="ru">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">\n<title>${esc(TITLE)}</title>\n${FONTS}\n<style>${STYLE}</style>\n</head>\n<body>${BODY}<script>${SCRIPT}</script>\n</body>\n</html>\n`);
 
 // Вариант без обёртки, если нужен
