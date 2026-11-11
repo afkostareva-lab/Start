@@ -1,0 +1,1078 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Контент-план «Два поста в день»</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Yeseva+One&display=swap">
+<style>
+/* Лента по неделям в одну колонку: у публикации слева дата, справа обложка, под текстом лента картинок */
+:root{
+  --bg:#F7EFF3; --card:#fffdf8; --ink:#4a2a38; --muted:#80606c; --line:#EBD3DF; --accent:#C94F7A; --link:#1f6f78;
+  --zhiza:#5f7334; --zhiza-bg:#E6EFCB; --sohrani:#B8436D; --sohrani-bg:#F8DDE9; --sobirayus:#87509a; --sobirayus-bg:#EADBF0;
+  --sama:#1f6f78; --sama-bg:#CFEBEE; --uchis:#fffdf8; --uchis-bg:#4a2a38; --shade:rgba(74,42,56,.55);
+  --display:'Yeseva One',Georgia,'Times New Roman',serif;
+  --body:'Golos Text',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#231920; --card:#30222b; --ink:#f7e9f0; --muted:#c4a6b4; --line:#4a3542; --accent:#EB9AB2; --link:#9bd6dc;
+    --zhiza:#cfe0a3; --zhiza-bg:#3a4423; --sohrani:#f6bdd0; --sohrani-bg:#5a2a3d; --sobirayus:#e0c0ea; --sobirayus-bg:#4a2f52;
+    --sama:#b4e3e8; --sama-bg:#1f4449; --uchis:#4a2a38; --uchis-bg:#EFCFE3; --shade:rgba(0,0,0,.7); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#231920; --card:#30222b; --ink:#f7e9f0; --muted:#c4a6b4; --line:#4a3542; --accent:#EB9AB2; --link:#9bd6dc;
+  --zhiza:#cfe0a3; --zhiza-bg:#3a4423; --sohrani:#f6bdd0; --sohrani-bg:#5a2a3d; --sobirayus:#e0c0ea; --sobirayus-bg:#4a2f52;
+  --sama:#b4e3e8; --sama-bg:#1f4449; --uchis:#4a2a38; --uchis-bg:#EFCFE3; --shade:rgba(0,0,0,.7); color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--body)}
+.wrap{max-width:880px;margin:0 auto;padding-block:28px 72px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:44px}
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance;line-height:1.12}
+h1{font-size:clamp(38px,8vw,60px);color:var(--accent)}
+h2{font-size:clamp(26px,5vw,34px)}
+h3{font-size:clamp(22px,4.4vw,27px)}
+h4{font:700 19px/1.3 var(--body);margin:0;text-wrap:balance}
+p{margin:0}
+a{color:var(--link);text-underline-offset:3px}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+code{font:600 .92em ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--bg);padding:1px 6px;border-radius:6px}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.hero{display:flex;flex-direction:column;gap:14px}
+.lead{font-size:18px;max-width:62ch}
+.facts{display:flex;flex-wrap:wrap;gap:6px 22px;font-weight:600;font-variant-numeric:tabular-nums}
+.facts b{color:var(--accent);font-weight:700}
+.nav{display:flex;flex-wrap:wrap;gap:8px}
+.nav a{font-weight:600;font-size:14px;text-decoration:none;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:999px;padding:7px 14px}
+.sec{display:flex;flex-direction:column;gap:18px}
+.sec>p{max-width:68ch}
+.scroll{overflow-x:auto;border:1.5px solid var(--line);border-radius:16px;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:15px}
+th,td{text-align:left;padding:11px 14px;vertical-align:top;border-bottom:1.5px solid var(--line)}
+tr:last-child td{border-bottom:0}
+th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
+.chip{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 11px;border-radius:999px;white-space:nowrap}
+.r-zhiza,.r-tema{background:var(--zhiza-bg);color:var(--zhiza)}
+.r-sohrani,.r-zaberu{background:var(--sohrani-bg);color:var(--sohrani)}
+.r-sobirayus{background:var(--sobirayus-bg);color:var(--sobirayus)}
+.r-sama,.r-imba{background:var(--sama-bg);color:var(--sama)}
+.r-uchis,.r-mama,.r-trend{background:var(--uchis-bg);color:var(--uchis)}
+.r-skvish{background:var(--sama-bg);color:var(--sama)}
+.r-komnata{background:var(--line);color:var(--ink)}
+.r-popytka{background:transparent;color:var(--accent);box-shadow:inset 0 0 0 1.5px var(--accent)}
+.week{display:flex;flex-direction:column;gap:14px}
+.wh{display:flex;flex-direction:column;gap:6px;padding-top:6px}
+.wtool{color:var(--muted)}
+.post,.prep{display:grid;grid-template-columns:58px minmax(0,1fr);gap:16px;background:var(--card);border:1.5px solid var(--line);border-radius:20px;padding:18px}
+.prep{background:transparent;border-style:dashed}
+.date{display:flex;flex-direction:column;align-items:center;line-height:1.05;padding-top:2px}
+.date .dow{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.date .dd{font-family:var(--display);font-size:34px;color:var(--accent);font-variant-numeric:tabular-nums}
+.date .mm{font-size:13px;color:var(--muted)}
+.body{display:flex;flex-direction:column;gap:12px;min-width:0}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;font-size:14px}
+.fmt{color:var(--muted);font-weight:600}
+.toollink{font-weight:600}
+.slot{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.r-proba{background:var(--accent);color:var(--card)}
+.pnote{font-size:14px;color:var(--muted);font-weight:600}
+.cols{display:flex;gap:16px;align-items:flex-start}
+.txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:8px}
+.shots{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:3px}
+.th{flex:none;padding:0;border:0;background:none;cursor:zoom-in;border-radius:10px;line-height:0}
+.th img{display:block;width:78px;height:auto;aspect-ratio:9/16;border-radius:10px;border:1.5px solid var(--line)}
+.th.cover img{width:92px}
+.strip{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;max-width:100%}
+.cap{display:flex;gap:12px;align-items:flex-start;background:var(--bg);border-radius:14px;padding:12px 14px}
+.capt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;font-size:15px}
+.tags{color:var(--link);font-weight:600}
+.btn{flex:none;font:600 14px/1 var(--body);padding:10px 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.done{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;align-self:flex-start}
+.done input{width:18px;height:18px;accent-color:var(--accent)}
+.post.is-done{opacity:.62}
+.tools{display:grid;gap:16px}
+.tool{background:var(--card);border:1.5px solid var(--line);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.tmeta{color:var(--muted);font-weight:600;font-size:14px}
+.vids{margin:0;padding-left:20px}
+.prompt{background:var(--bg);border-radius:14px;padding:14px 16px;font-size:15px;align-self:stretch}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.box{background:var(--card);border:1.5px solid var(--line);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.box ul,.box ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.big{font-family:var(--display);font-size:30px;color:var(--accent);font-variant-numeric:tabular-nums;line-height:1.1}
+.note{color:var(--muted);font-size:14px}
+#lb{position:fixed;inset:0;z-index:20;background:var(--shade);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+  padding:calc(14px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(14px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+#lb img{max-width:100%;max-height:calc(100% - 110px);width:auto;height:auto;border-radius:14px;background:var(--card)}
+#lb .bar{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;align-items:center}
+#lb-cap{color:#fffdf8;font-weight:600;font-size:14px;text-align:center}
+@media (max-width:560px){
+  .post,.prep{grid-template-columns:minmax(0,1fr);padding:16px}
+  .date{flex-direction:row;align-items:baseline;gap:8px}
+  .date .dd{font-size:26px}
+  .cap{flex-direction:column}
+  .th.cover img{width:76px}
+}
+@media (prefers-reduced-motion:no-preference){.btn,.nav a{transition:border-color .15s}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Контент-план TikTok · 11 ноября — 6 декабря 2026</p>
+    <h1>Два поста в день</h1>
+    <p class="lead">Школьный план и план вне школы в одном календаре. В день выходят два поста с разбегом: первый днём после школы, второй вечером. В свободных слотах понедельника и среды стоят пробы: темы, которые выстрелили у конкурентов на прошлой неделе.</p>
+    <p class="facts"><span><b>50</b> публикаций</span><span><b>14</b> рубрик</span><span><b>4</b> файла</span><span><b>13</b> готовых картинок</span></p>
+    <nav class="nav" aria-label="Разделы"><a href="#week-1">Неделя 1</a><a href="#week-2">Неделя 2</a><a href="#week-3">Неделя 3</a><a href="#week-4">Неделя 4</a><a href="#html">Что генерировать в HTML</a><a href="#idei">Идеи про запас</a><a href="#cifry">Цифры</a><a href="#kartinki">Картинки</a></nav>
+  </header>
+
+  <section class="sec" id="ritm">
+    <h2>Ритм недели</h2>
+    <p>Четырнадцать рубрик: шесть школьных, семь вне школы и проба недели. Между двумя постами дня не меньше четырёх часов, например 15:00 и 19:30.</p>
+    <div class="scroll"><table>
+      <thead><tr><th>День</th><th>План</th><th>Рубрика</th><th>Формат</th><th>Цель по ролику</th><th>На чём основано</th></tr></thead>
+      <tbody><tr><td class="num">пн</td><td>вне школы</td><td><span class="chip r-zhiza">Жиза за 7 секунд</span></td><td>видео, 6–10 секунд, без голоса</td><td>пересылают не меньше 1,5 % зрителей</td><td>6 секунд, текст «это я зову маму показать комнату, когда впервые за год убралась»: 9,7 млн. «Как ощущается приходить домой к подруге…»: 6,2 млн, пересылают 3,3 %</td></tr><tr><td class="num">пн, ср</td><td>проба</td><td><span class="chip r-proba">Проба недели</span></td><td>по образцу свежего ролика конкурента</td><td>просмотров вдвое больше обычного: тогда тема уходит в постоянные</td><td>Темы, которые выстрелили у конкурентов 4–11 ноября: от 3 до 1600 раз выше их обычного ролика</td></tr><tr><td class="num">вт</td><td>школа</td><td><span class="chip r-tema">Как ощущается</span></td><td>видео, 7–11 секунд</td><td>пересылают не меньше 1,5 % зрителей</td><td>Ролик на 11 секунд с текстом «Как ощущается эта тема» у аккаунта без аудитории: 2,8 млн просмотров, пересылают 2 %</td></tr><tr><td class="num">вт</td><td>вне школы</td><td><span class="chip r-skvish">Сквиш недели</span></td><td>видео, 20–40 секунд, без голоса</td><td>10 комментариев с заказами и больше</td><td>Под тегом #бумажныесквиши всего 4 тыс. роликов на 80 млн просмотров. Девять из десяти лучших сняты в 2026 году, по 1,6–3,8 млн. Ролик с просьбой «пишите, что сделать ещё»: 3,8 млн. За 4–11 ноября волна спала: автор этого ролика набрала 270 тыс. при обычных 437 тыс., семь из тринадцати авторов ниши не выходили больше недели</td></tr><tr><td class="num">ср</td><td>вне школы</td><td><span class="chip r-trend">Тренд</span></td><td>видео, 10–15 секунд, звук недели</td><td>просмотров в 1,5 раза больше обычного</td><td>Танец под звук недели: 15 млн. У дочери именно тренды пока дают больше всего просмотров</td></tr><tr><td class="num">чт</td><td>школа</td><td><span class="chip r-zaberu">Заберу себе</span></td><td>карусель-подборка</td><td>сохраняют не меньше 6 % зрителей</td><td>«10 читерских кодов для ChatGPT»: 5,7 млн, сохраняют 14 %. Карусель «5 приложений, которые облегчают учёбу» у аккаунта на 4,9 тыс. подписчиков: 2 млн, сохраняют 7,8 %</td></tr><tr><td class="num">чт</td><td>вне школы</td><td><span class="chip r-sohrani">Сохрани себе</span></td><td>карусель из своих фото</td><td>сохраняют не меньше 4 % зрителей</td><td>Карусель «пиццабоны» из 18 фото: 24,7 млн, сохраняют 4,2 %. Вишлист из 25 картинок: 3,6 млн, сохраняют 6,6 %</td></tr><tr><td class="num">пт</td><td>школа</td><td><span class="chip r-sobirayus">Собираюсь и рассказываю</span></td><td>видео, 20–30 секунд</td><td>10 комментариев и больше</td><td>Сборы и влоги набирают 0,9–1,3 млн только у авторов с аудиторией. Здесь они нужны, чтобы зрители знали автора в лицо</td></tr><tr><td class="num">пт</td><td>вне школы</td><td><span class="chip r-sobirayus">Собираюсь и рассказываю</span></td><td>видео, 40–60 секунд, говорит на камеру</td><td>10 комментариев и больше</td><td>Сборы с признанием на экране «Я не пошла»: 13,8 млн. Сборы с рассказом «Всегда гуляю одна»: 10,6 млн</td></tr><tr><td class="num">сб</td><td>школа</td><td><span class="chip r-imba">Имба для школы</span></td><td>видео, 7–10 секунд</td><td>сохраняют не меньше 5 % зрителей</td><td>Ролик на 7 секунд с текстом «спасибо этой имбе за…» у аккаунта на 840 подписчиков: 1,1 млн, сохраняют 6 %</td></tr><tr><td class="num">сб</td><td>вне школы</td><td><span class="chip r-komnata">Комната</span></td><td>видео, 20–30 секунд, до и после</td><td>досмотров больше, чем у прошлого субботнего ролика</td><td>Румтуры: 6–7 млн. Оформление комнаты, ролик от 3 ноября: 729 тыс. Сейчас сезон: у тега #новыйгод2027 уже 35 млн просмотров</td></tr><tr><td class="num">вс</td><td>школа</td><td><span class="chip r-uchis">Учись со мной</span></td><td>видео, 20–30 секунд</td><td>досмотров больше, чем у прошлого воскресного ролика</td><td>Школьные влоги на 60–100 секунд: 0,9 млн у авторов с аудиторией. Здесь это эстетика и файл недели в кадре</td></tr><tr><td class="num">вс</td><td>школа</td><td><span class="chip r-mama">Мама против школы</span></td><td>видео, 20–30 секунд</td><td>гипотеза, проверяем два раза</td><td>Прямых примеров в нише нет. Ближайшее: взрослые отвечают на вопросы школьной программы, 1,6–2,1 млн</td></tr><tr><td class="num">вс</td><td>вне школы</td><td><span class="chip r-popytka">Попытка №1</span></td><td>видео, 45–70 секунд, говорит на камеру</td><td>10 комментариев и больше; при успехе снимается часть 2</td><td>«Сквиши в воске» с текстом «спойлер: 🤦» и «попытка №2»: две части по 7,5 млн. «Слайм без загустителя»: 10,6 млн</td></tr></tbody></table></div>
+    
+  </section>
+
+  <section class="sec" id="plan">
+    <h2>План по дням</h2>
+    <p>Название ролика пишется текстом на первом кадре. Описание и хэштеги копируются кнопкой. Картинка открывается в полном размере по нажатию.</p>
+    <section class="week" id="week-1">
+  <header class="wh"><p class="eyebrow">Неделя 1 · 11–15 ноября</p><h3>Неправильные глаголы</h3>
+    <p class="wtool">Файл недели: <a href="#tool-glagoly">Тренажёр неправильных глаголов</a>, уже есть</p><p class="wtool">Вне школы: старт: четыре разных формата</p></header>
+  <div class="prep"><div class="date"><span class="dow">ср</span><span class="dd">11</span><span class="mm">ноя</span></div>
+    <div><h4>Подготовка, без публикации</h4><ul class="shots"><li>Заполнить шапку профиля и вписать в неё адрес тренажёра</li><li>Записать экран: десять секунд быстрых правильных ответов в тренажёре</li><li>Сохранить в галерею картинки карусели на четверг</li></ul></div></div><article class="post" id="sh-w1-thu">
+  <div class="date"><span class="dow">чт</span><span class="dd">12</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">днём</span><span class="chip r-zaberu">Заберу себе</span><span class="fmt">карусель · 9 картинок</span></div>
+    <div class="cols"><div class="txt">
+      <h4>7 читерских запросов для нейросети. Для школы</h4>
+      
+      <ul class="shots"><li>Картинки готовы, загрузить по порядку</li><li>Звук: спокойный трек из популярных</li><li>Первый комментарий от себя: «Какой запрос добавить в часть 2?»</li></ul>
+      
+    </div></div>
+    <div class="strip" role="group" aria-label="Картинки карусели"><button type="button" class="th " data-g="sh-w1-thu" data-i="0" data-full="img/karusel-1-zaprosy/01.png" aria-label="Картинка 1 из 9: открыть в полном размере"><img src="img/thumbs/karusel-1-zaprosy/01.jpg" alt="Картинка 1 из 9" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="sh-w1-thu" data-i="1" data-full="img/karusel-1-zaprosy/02.png" aria-label="Картинка 2 из 9: открыть в полном размере"><img src="img/thumbs/karusel-1-zaprosy/02.jpg" alt="Картинка 2 из 9" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="sh-w1-thu" data-i="2" data-full="img/karusel-1-zaprosy/03.png" aria-label="Картинка 3 из 9: открыть в полном размере"><img src="img/thumbs/karusel-1-zaprosy/03.jpg" alt="Картинка 3 из 9" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="sh-w1-thu" data-i="3" data-full="img/karusel-1-zaprosy/04.png" aria-label="Картинка 4 из 9: открыть в полном размере"><img src="img/thumbs/karusel-1-zaprosy/04.jpg" alt="Картинка 4 из 9" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="sh-w1-thu" data-i="4" data-full="img/karusel-1-zaprosy/05.png" aria-label="Картинка 5 из 9: открыть в полном размере"><img src="img/thumbs/karusel-1-zaprosy/05.jpg" alt="Картинка 5 из 9" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="sh-w1-thu" data-i="5" data-full="img/karusel-1-zaprosy/06.png" aria-label="Картинка 6 из 9: открыть в полном размере"><img src="img/thumbs/karusel-1-zaprosy/06.jpg" alt="Картинка 6 из 9" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="sh-w1-thu" data-i="6" data-full="img/karusel-1-zaprosy/07.png" aria-label="Картинка 7 из 9: открыть в полном размере"><img src="img/thumbs/karusel-1-zaprosy/07.jpg" alt="Картинка 7 из 9" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="sh-w1-thu" data-i="7" data-full="img/karusel-1-zaprosy/08.png" aria-label="Картинка 8 из 9: открыть в полном размере"><img src="img/thumbs/karusel-1-zaprosy/08.jpg" alt="Картинка 8 из 9" width="324" height="576" loading="lazy"></button><button type="button" class="th " data-g="sh-w1-thu" data-i="8" data-full="img/karusel-1-zaprosy/09.png" aria-label="Картинка 9 из 9: открыть в полном размере"><img src="img/thumbs/karusel-1-zaprosy/09.jpg" alt="Картинка 9 из 9" width="324" height="576" loading="lazy"></button></div>
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-sh-w1-thu">7 запросов для нейросети, с которыми учить легче. Она ничего не решает за тебя: объясняет, спрашивает и находит ошибки. Сохрани <span class="tags">#нейросеть #промпты #учеба #лайфхакидляучебы #школа</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-sh-w1-thu">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-sh-w1-thu"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="lf-w1-thu">
+  <div class="date"><span class="dow">чт</span><span class="dd">12</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-zhiza">Жиза за 7 секунд</span><span class="fmt">видео · 6–10 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Как ощущается, когда мама заходит в комнату без стука</h4>
+      
+      <ul class="shots"><li>Название ролика текстом на экране с первой секунды</li><li>Одна реакция на камеру: замерла, спрятала телефон, улыбнулась</li><li>Звук из популярных, без слов</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w1-thu">Как ощущается, когда мама заходит в комнату без стука. У кого так же? <span class="tags">#жиза #мама #комната #подростки</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-lf-w1-thu">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-lf-w1-thu"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="sh-w1-fri">
+  <div class="date"><span class="dow">пт</span><span class="dd">13</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">днём</span><span class="chip r-sobirayus">Собираюсь и рассказываю</span><span class="fmt">видео · 20–30 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Собираюсь в школу в пятницу 13-го</h4>
+      
+      <ul class="shots"><li>Быстрые кадры сборов: волосы, одежда, рюкзак</li><li>Голос за кадром: одна история про приметы перед контрольной</li><li>Последняя фраза: «А вы верите в приметы?»</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-sh-w1-fri">Собираюсь в школу в пятницу 13-го и рассказываю про свои приметы перед контрольной <span class="tags">#grwmвшколу #сборывшколу #школа #пятница13</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-sh-w1-fri">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-sh-w1-fri"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="lf-w1-fri">
+  <div class="date"><span class="dow">пт</span><span class="dd">13</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-sobirayus">Собираюсь и рассказываю</span><span class="fmt">видео · 40–60 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Собираюсь гулять в пятницу 13-го и рассказываю три свои неудачи</h4>
+      
+      <ul class="shots"><li>Первая фраза на камеру: «Сегодня пятница, 13-е, и вот что со мной уже было»</li><li>Сборы идут фоном: волосы, куртка, шарф. Три короткие истории</li><li>Последняя фраза: «А у вас что случалось в пятницу 13-го?»</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w1-fri">Собираюсь гулять в пятницу 13-го и вспоминаю три свои неудачи. А у вас что случалось в такой день? <span class="tags">#грвм #собирайсясомной #пятница13 #истории</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-lf-w1-fri">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-lf-w1-fri"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="sh-w1-sat">
+  <div class="date"><span class="dow">сб</span><span class="dd">14</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">днём</span><span class="chip r-imba">Имба для школы</span><span class="fmt">видео · 7–10 с</span><a class="toollink" href="#tool-glagoly">Файл: Тренажёр неправильных глаголов</a></div>
+    <div class="cols"><div class="txt">
+      <h4>Когда завтра спрашивают неправильные глаголы</h4>
+      
+      <ul class="shots"><li>Название ролика текстом на экране с первой секунды</li><li>Запись экрана: тренажёр, три быстрых правильных ответа подряд</li><li>Последний кадр, текст: «спасибо этой имбе». Звук из популярных, без голоса</li></ul>
+      
+    </div><button type="button" class="th cover" data-g="sh-w1-sat" data-i="0" data-full="img/oblozhki/11-14-imba.png" aria-label="Обложка «Когда завтра спрашивают неправильные глаголы»: открыть в полном размере"><img src="img/thumbs/oblozhki/11-14-imba.jpg" alt="Обложка «Когда завтра спрашивают неправильные глаголы»" width="324" height="576" loading="lazy"></button></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-sh-w1-sat">Тренажёр неправильных глаголов: сам проверяет и запоминает ошибки. Сделала в нейросети, адрес в профиле <span class="tags">#неправильныеглаголы #английскийязык #нейросеть #учеба #лайфхакидляучебы</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-sh-w1-sat">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-sh-w1-sat"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="lf-w1-sat">
+  <div class="date"><span class="dow">сб</span><span class="dd">14</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-komnata">Комната</span><span class="fmt">видео · 20–30 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Убираю комнату, в которую страшно зайти</h4>
+      
+      <ul class="shots"><li>Первый кадр: комната «до» и название ролика текстом</li><li>Ускоренная съёмка уборки с одной точки</li><li>Финал: тот же ракурс «после» и вопрос: «Сколько дней продержится?»</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w1-sat">Убираю комнату, в которую было страшно зайти. Ставки: сколько дней продержится порядок? <span class="tags">#комната #уборка #доипосле #жиза</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-lf-w1-sat">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-lf-w1-sat"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="sh-w1-sun">
+  <div class="date"><span class="dow">вс</span><span class="dd">15</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">днём</span><span class="chip r-uchis">Учись со мной</span><span class="fmt">видео · 20–30 с</span><a class="toollink" href="#tool-glagoly">Файл: Тренажёр неправильных глаголов</a></div>
+    <div class="cols"><div class="txt">
+      <h4>Учу 20 глаголов, пока заваривается чай</h4>
+      
+      <ul class="shots"><li>Чайник, кружка, стол: спокойные кадры по две секунды</li><li>Телефон с тренажёром в кадре, счётчик растёт</li><li>Финал: чай готов, на экране результат</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-sh-w1-sun">Проверяю, сколько неправильных глаголов успею повторить, пока заваривается чай. Учись со мной <span class="tags">#учисьсомной #studywithme #стадиток #неправильныеглаголы</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-sh-w1-sun">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-sh-w1-sun"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="lf-w1-sun">
+  <div class="date"><span class="dow">вс</span><span class="dd">15</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-popytka">Попытка №1</span><span class="fmt">видео · 45–70 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Первый раз делаю сквиш из бумаги. Попытка №1</h4>
+      
+      <ul class="shots"><li>Первая фраза на камеру: «Все делают сквиши из бумаги, я попробовала. Спойлер…»</li><li>Процесс с комментариями: бумага, скотч, наполнитель. Ошибки не вырезать</li><li>Финал: сжимаю то, что получилось, и спрашиваю, какой сделать следующим</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w1-sun">Первый раз делаю сквиш из бумаги и скотча. Напишите, какой сделать следующим: выберу по комментариям <span class="tags">#бумажныесквиши #сквишиизбумаги #сквиши #своимируками</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-lf-w1-sun">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-lf-w1-sun"> Выложено</label>
+  </div>
+</article>
+</section>
+<section class="week" id="week-2">
+  <header class="wh"><p class="eyebrow">Неделя 2 · 16–22 ноября</p><h3>Ужасная тема по математике</h3>
+    <p class="wtool">Файл недели: <a href="#tool-drobi">Тренажёр ужасной темы: дроби</a>, нужен к субботе 21 ноября</p><p class="wtool">Вне школы: сквиши и первый уют</p></header>
+  <article class="post" id="lf-w2-mon">
+  <div class="date"><span class="dow">пн</span><span class="dd">16</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">днём</span><span class="chip r-zhiza">Жиза за 7 секунд</span><span class="fmt">видео · 6–10 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Когда сказала маме «пять минут» час назад</h4>
+      
+      <ul class="shots"><li>Название ролика текстом на экране с первой секунды</li><li>Лежу с телефоном, слышу шаги, резко вскакиваю и делаю вид, что убираюсь</li><li>Звук из популярных, без слов</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w2-mon">Когда сказала маме «пять минут» час назад. Кто так делает? <span class="tags">#жиза #мама #подростки #комната</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-lf-w2-mon">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-lf-w2-mon"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="pr-p1">
+  <div class="date"><span class="dow">пн</span><span class="dd">16</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-proba">Проба недели</span><span class="fmt">видео · 6–10 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Как ощущается утро после ночёвки</h4>
+      <p class="pnote">Образец от 6 ноября: 11 секунд, 3,5 млн при обычных 2 тыс. у автора, пересылают 7 %. Снимается и одной.</p>
+      <ul class="shots"><li>Название ролика текстом на экране с первой секунды</li><li>Растрёпанные волосы, один носок, взгляд в пустоту</li><li>Звук из популярных, без слов</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-pr-p1">Как ощущается утро после ночёвки. Кто на них вообще спит? <span class="tags">#ночевка #утро #жиза #подруги</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-pr-p1">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-pr-p1"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="sh-w2-tue">
+  <div class="date"><span class="dow">вт</span><span class="dd">17</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">днём</span><span class="chip r-tema">Как ощущается</span><span class="fmt">видео · 7–11 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Как ощущается тема «дроби»</h4>
+      <p class="pnote">Дроби стоят для примера. Взять тему, которую сейчас проходят по математике.</p>
+      <ul class="shots"><li>Страница учебника с темой крупно, название ролика текстом на экране</li><li>Звук из популярных, под который всё рушится</li><li>В описании вопрос про самую ужасную тему: по ответам делается следующий тренажёр</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-sh-w2-tue">Как ощущается тема «дроби». Какая тема самая ужасная у вас? По самой частой сделаю тренажёр <span class="tags">#математика #дроби #ужаснаятема #школа #учеба</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-sh-w2-tue">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-sh-w2-tue"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="lf-w2-tue">
+  <div class="date"><span class="dow">вт</span><span class="dd">17</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-skvish">Сквиш недели</span><span class="fmt">видео · 20–40 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Сквиш-мандарин из бумаги и скотча</h4>
+      
+      <ul class="shots"><li>Первая секунда: готовый мандарин сжимается в руке</li><li>Процесс ускоренно: рисую, обклеиваю скотчем, набиваю</li><li>Финал: сжимаю ещё раз, текст «какой следующий?»</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w2-tue">Сквиш-мандарин из бумаги и скотча. Пишите, что сделать следующим: выиграет комментарий с самым большим числом лайков <span class="tags">#бумажныесквиши #сквишиизбумаги #сквиши #асмр</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-lf-w2-tue">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-lf-w2-tue"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="lf-w2-wed">
+  <div class="date"><span class="dow">ср</span><span class="dd">18</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">днём</span><span class="chip r-trend">Тренд</span><span class="fmt">видео · 10–15 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Переход: из пижамы в зимний образ</h4>
+      
+      <ul class="shots"><li>Звук из топа этой недели</li><li>До: пижама и растрёпанные волосы. Хлопок или взмах пледом</li><li>После: зимний образ, тот же ракурс</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w2-wed">Из пижамы в зимний образ за один хлопок <span class="tags">#переход #образ #зима #тренд</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-lf-w2-wed">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-lf-w2-wed"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="pr-p2">
+  <div class="date"><span class="dow">ср</span><span class="dd">18</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-proba">Проба недели</span><span class="fmt">видео · 8–12 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Холодно, а значит можно доставать эту имбу</h4>
+      <p class="pnote">Образец от 6 ноября: 11 секунд, 386 тыс. при обычных 23 тыс., сохраняют 6,6 %. Имба своя: вещь, которая спасает дочь от холода.</p>
+      <ul class="shots"><li>Первый кадр: окно или градусник, название текстом</li><li>Достаю вещь и показываю, как она работает</li><li>Последний кадр: надела и довольна. Звук из популярных</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-pr-p2">Холодно, а значит можно доставать эту имбу. Что спасает вас? <span class="tags">#зима #лайфхак #утепляемся #образ</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-pr-p2">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-pr-p2"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="sh-w2-thu">
+  <div class="date"><span class="dow">чт</span><span class="dd">19</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">днём</span><span class="chip r-zaberu">Заберу себе</span><span class="fmt">карусель · 7 картинок</span></div>
+    <div class="cols"><div class="txt">
+      <h4>5 странных способов учить, которые работают</h4>
+      
+      <ul class="shots"><li>Обложка, пять способов, итог</li><li>Способы: объяснить игрушке, нарисовать комиксом, разложить даты по комнате, спеть на мотив песни, придумать тест подруге</li><li>Первый комментарий от себя: «Какой самый странный способ у вас?»</li></ul>
+      <p class="pnote">Картинки для этой карусели пока не нарисованы.</p>
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-sh-w2-thu">Пять странных способов учить, которые правда работают. Третий выглядит глупо, но даты после него не забываются <span class="tags">#учеба #лайфхакидляучебы #стадиток #школа</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-sh-w2-thu">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-sh-w2-thu"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="lf-w2-thu">
+  <div class="date"><span class="dow">чт</span><span class="dd">19</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-sohrani">Сохрани себе</span><span class="fmt">фотокарусель · 8–10 фото</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Синнабоны из слоёного теста за 20 минут</h4>
+      
+      <ul class="shots"><li>Первое фото: готовые булочки крупно, название текстом</li><li>Дальше по фото на шаг: тесто, корица с сахаром, рулет, нарезка, противень</li><li>Последнее фото: список продуктов. Духовку включает взрослый</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w2-thu">Синнабоны из готового слоёного теста: тесто, масло, сахар, корица. 20 минут в духовке. Сохрани на выходные <span class="tags">#синнабоны #выпечка #рецепт #чтоприготовить</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-lf-w2-thu">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-lf-w2-thu"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="sh-w2-fri">
+  <div class="date"><span class="dow">пт</span><span class="dd">20</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">днём</span><span class="chip r-sobirayus">Собираюсь и рассказываю</span><span class="fmt">видео · 20–30 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Что в моём рюкзаке: показываю всё</h4>
+      
+      <ul class="shots"><li>Достаю вещи по одной, руки крупным планом</li><li>Голос за кадром: зачем каждая вещь и одна смешная находка</li><li>Последняя фраза: «Что у вас всегда лежит в рюкзаке?»</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-sh-w2-fri">Что лежит в моём школьном рюкзаке: пенал, тетради и одна странная вещь <span class="tags">#чтовмоемрюкзаке #рюкзак #канцелярия #школа</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-sh-w2-fri">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-sh-w2-fri"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="lf-w2-fri">
+  <div class="date"><span class="dow">пт</span><span class="dd">20</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-sobirayus">Собираюсь и рассказываю</span><span class="fmt">видео · 40–60 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Собираюсь гулять и рассказываю, за что мне до сих пор стыдно</h4>
+      
+      <ul class="shots"><li>Первая фраза на камеру: «Мне до сих пор стыдно за одну вещь»</li><li>Сборы фоном, одна история с началом, провалом и концовкой</li><li>Последняя фраза: «Расскажите свою, мне станет легче»</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w2-fri">Собираюсь гулять и рассказываю историю, за которую мне до сих пор стыдно. Расскажите свою <span class="tags">#грвм #собирайсясомной #истории #стыдно</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-lf-w2-fri">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-lf-w2-fri"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="sh-w2-sat">
+  <div class="date"><span class="dow">сб</span><span class="dd">21</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">днём</span><span class="chip r-imba">Имба для школы</span><span class="fmt">видео · 7–10 с</span><a class="toollink" href="#tool-drobi">Файл: Тренажёр ужасной темы: дроби</a></div>
+    <div class="cols"><div class="txt">
+      <h4>Спасибо этой имбе за дроби</h4>
+      
+      <ul class="shots"><li>Первый кадр: пример из учебника и текст «дроби, которые я не понимала»</li><li>Запись экрана: тренажёр показывает общий знаменатель по шагам</li><li>Последний кадр, текст: название ролика. Звук из популярных, без голоса</li></ul>
+      
+    </div><button type="button" class="th cover" data-g="sh-w2-sat" data-i="0" data-full="img/oblozhki/11-21-imba.png" aria-label="Обложка «Спасибо этой имбе за дроби»: открыть в полном размере"><img src="img/thumbs/oblozhki/11-21-imba.jpg" alt="Обложка «Спасибо этой имбе за дроби»" width="324" height="576" loading="lazy"></button></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-sh-w2-sat">Тренажёр дробей: показывает решение по шагам и считает серию без ошибок. Сделала в нейросети, адрес в профиле <span class="tags">#дроби #математика #нейросеть #учеба #школа</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-sh-w2-sat">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-sh-w2-sat"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="lf-w2-sat">
+  <div class="date"><span class="dow">сб</span><span class="dd">21</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-komnata">Комната</span><span class="fmt">видео · 20–30 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Делаю уютный угол у окна за ноль рублей</h4>
+      
+      <ul class="shots"><li>Первый кадр: угол «до» и название ролика текстом</li><li>Переношу плед, подушки, гирлянду и книги из других мест комнаты</li><li>Финал: сажусь туда с кружкой, тот же ракурс</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w2-sat">Сделала уютный угол у окна из того, что уже было в комнате. Комната к зиме, часть 1 <span class="tags">#комната #декоркомнаты #уют #зимнийвайб</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-lf-w2-sat">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-lf-w2-sat"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="sh-w2-sun">
+  <div class="date"><span class="dow">вс</span><span class="dd">22</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">днём</span><span class="chip r-mama">Мама против школы</span><span class="fmt">видео · 20–30 с</span><a class="toollink" href="#tool-drobi">Файл: Тренажёр ужасной темы: дроби</a></div>
+    <div class="cols"><div class="txt">
+      <h4>Мама против дробей из моего учебника</h4>
+      
+      <ul class="shots"><li>Первый кадр: мама с телефоном, название ролика текстом на экране</li><li>Пять примеров на время, счёт на экране: мама и я</li><li>Финал: кто проиграл, тот моет посуду</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-sh-w2-sun">Мама решает дроби из моего учебника на время. Кто проиграл, моет посуду <span class="tags">#мамаидочь #школьнаяпрограмма #математика #дроби</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-sh-w2-sun">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-sh-w2-sun"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="lf-w2-sun">
+  <div class="date"><span class="dow">вс</span><span class="dd">22</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-popytka">Попытка №1</span><span class="fmt">видео · 45–70 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Слайм без загустителя: получится или нет</h4>
+      
+      <ul class="shots"><li>Первая фраза на камеру: «Говорят, слайм можно сделать без загустителя. Проверяю»</li><li>Процесс с комментариями, ошибки не вырезать</li><li>Финал: тяну то, что получилось, и честно ставлю оценку</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w2-sun">Проверяю рецепт слайма без загустителя. Получилось или нет, смотрите до конца <span class="tags">#слайм #слаймбеззагустителя #своимируками #эксперимент</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-lf-w2-sun">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-lf-w2-sun"> Выложено</label>
+  </div>
+</article>
+</section>
+<section class="week" id="week-3">
+  <header class="wh"><p class="eyebrow">Неделя 3 · 23–29 ноября</p><h3>Слова к диктанту</h3>
+    <p class="wtool">Файл недели: <a href="#tool-slova">Мои слова</a>, нужен к субботе 28 ноября</p><p class="wtool">Вне школы: заказы из комментариев</p></header>
+  <article class="post" id="lf-w3-mon">
+  <div class="date"><span class="dow">пн</span><span class="dd">23</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">днём</span><span class="chip r-zhiza">Жиза за 7 секунд</span><span class="fmt">видео · 6–10 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Как ощущается, когда подруга ответила «ок»</h4>
+      
+      <ul class="shots"><li>Название ролика текстом на экране с первой секунды</li><li>Смотрю в телефон, лицо меняется от улыбки к тревоге</li><li>Звук из популярных, без слов</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w3-mon">Как ощущается, когда подруга ответила просто «ок». Что это вообще значит? <span class="tags">#жиза #подруги #переписка #подростки</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-lf-w3-mon">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-lf-w3-mon"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="pr-p3">
+  <div class="date"><span class="dow">пн</span><span class="dd">23</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-proba">Проба недели</span><span class="fmt">видео · 40–60 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Сборы той самой, которая всё забыла дома</h4>
+      <p class="pnote">Образцы от 6 и 10 ноября: «грвм той самой американки…», 506 и 781 тыс. Похожая пародия раньше набрала 13,6 млн.</p>
+      <ul class="shots"><li>Первая фраза в образе: «Я точно всё взяла»</li><li>Сборы в роли: ищет ключи, возвращается за телефоном, уходит без шапки</li><li>Финал: дверь закрылась, через секунду звонок в дверь</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-pr-p3">Сборы той самой, которая всё забыла дома. Отметьте подругу, которая так делает <span class="tags">#грвм #пародия #тесамые #собирайсясомной</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-pr-p3">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-pr-p3"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="sh-w3-tue">
+  <div class="date"><span class="dow">вт</span><span class="dd">24</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">днём</span><span class="chip r-tema">Как ощущается</span><span class="fmt">видео · 7–11 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Как ощущается диктант, о котором сказали сегодня</h4>
+      
+      <ul class="shots"><li>Список слов в тетради крупно, название ролика текстом на экране</li><li>Звук из популярных, одна эмоция</li><li>В описании вопрос: «Сколько слов задают вам?»</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-sh-w3-tue">Как ощущается словарный диктант, о котором сказали за урок до него. Сколько слов задают вам? <span class="tags">#диктант #английскийязык #школа #жиза</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-sh-w3-tue">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-sh-w3-tue"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="lf-w3-tue">
+  <div class="date"><span class="dow">вт</span><span class="dd">24</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-skvish">Сквиш недели</span><span class="fmt">видео · 20–40 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Сквиш, который выбрали в комментариях</h4>
+      
+      <ul class="shots"><li>Первый кадр: скриншот комментария-победителя</li><li>Процесс ускоренно, готовый сквиш сжимается в конце</li><li>Текст в финале: «следующий снова выбираете вы»</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w3-tue">Сделала сквиш, который вы выбрали в комментариях. Следующий снова за вами <span class="tags">#бумажныесквиши #сквишиизбумаги #сквиши #асмр</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-lf-w3-tue">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-lf-w3-tue"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="lf-w3-wed">
+  <div class="date"><span class="dow">ср</span><span class="dd">25</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">днём</span><span class="chip r-trend">Тренд</span><span class="fmt">видео · 10–15 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Танец недели в комнате с гирляндой</h4>
+      
+      <ul class="shots"><li>Звук и движения из топа этой недели</li><li>Свет выключен, горит гирлянда из субботнего ролика</li><li>Один дубль, 10–15 секунд</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w3-wed">Танец недели, но в моём уютном углу <span class="tags">#тренд #танец #гирлянда #зимнийвайб</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-lf-w3-wed">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-lf-w3-wed"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="pr-p4">
+  <div class="date"><span class="dow">ср</span><span class="dd">25</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-proba">Проба недели</span><span class="fmt">фотокарусель · 16 картинок</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Что подарить подруге до 300 рублей: 15 идей</h4>
+      <p class="pnote">Образец от 9 ноября: карусель из 29 картинок, 179 тыс. при обычных 53 тыс., сохраняют 14 %.</p>
+      <ul class="shots"><li>Первая картинка: название и коллаж</li><li>По картинке на идею: скриншот из магазина и цена</li><li>Последняя картинка: «Что добавить?»</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-pr-p4">15 идей, что подарить подруге до 300 рублей. Сохрани до Нового года <span class="tags">#чтоподаритьподруге #идеиподарков #подарки #новыйгод2027</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-pr-p4">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-pr-p4"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="sh-w3-thu">
+  <div class="date"><span class="dow">чт</span><span class="dd">26</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">днём</span><span class="chip r-zaberu">Заберу себе</span><span class="fmt">карусель · 8 картинок</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Читерские запросы, часть 2: английский</h4>
+      
+      <ul class="shots"><li>Обложка, шесть запросов, итог</li><li>Запросы: разговор в магазине, слова про любимых героев, разбор песни, проверка письма, диктант наоборот, времена на примере моего дня</li><li>Первый комментарий от себя: «Какой предмет взять в часть 3?»</li></ul>
+      <p class="pnote">Картинки для этой карусели пока не нарисованы.</p>
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-sh-w3-thu">Шесть запросов для нейросети, с которыми английский учится быстрее. Сохрани <span class="tags">#английскийязык #нейросеть #промпты #studyenglish #учеба</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-sh-w3-thu">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-sh-w3-thu"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="lf-w3-thu">
+  <div class="date"><span class="dow">чт</span><span class="dd">26</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-sohrani">Сохрани себе</span><span class="fmt">фотокарусель · 6–8 фото</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Горячий шоколад как в кофейне из трёх продуктов</h4>
+      
+      <ul class="shots"><li>Первое фото: кружка с зефиром крупно, название текстом</li><li>По фото на шаг: молоко, плитка шоколада, какао, зефир сверху</li><li>Последнее фото: список продуктов и сколько чего</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w3-thu">Горячий шоколад из молока, плитки шоколада и какао. Густой, как в кофейне. Сохрани на первый снег <span class="tags">#горячийшоколад #какао #рецепт #зимнийвайб</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-lf-w3-thu">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-lf-w3-thu"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="sh-w3-fri">
+  <div class="date"><span class="dow">пт</span><span class="dd">27</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">днём</span><span class="chip r-sobirayus">Собираюсь и рассказываю</span><span class="fmt">видео · 20–30 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Собираюсь на контрольную: мой счастливый набор</h4>
+      
+      <ul class="shots"><li>Сборы и вещи на удачу: ручка, резинка, шоколадка</li><li>Голос за кадром: как готовилась вчера вечером</li><li>Последняя фраза: «Что вы берёте на удачу?»</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-sh-w3-fri">Собираюсь на контрольную и показываю, что беру с собой на удачу <span class="tags">#grwmвшколу #сборывшколу #контрольная #школа</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-sh-w3-fri">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-sh-w3-fri"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="lf-w3-fri">
+  <div class="date"><span class="dow">пт</span><span class="dd">27</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-sobirayus">Собираюсь и рассказываю</span><span class="fmt">видео · 40–60 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Собираюсь на день рождения: подарок за 500 рублей</h4>
+      <p class="pnote">Если дня рождения на этой неделе нет, подойдёт любой повод выйти из дома: история важнее повода.</p>
+      <ul class="shots"><li>Первая фраза на камеру: «Иду на день рождения, на подарок у меня 500 рублей»</li><li>Сборы фоном, показываю подарок и как его упаковала</li><li>Последняя фраза: «Что вы дарите подругам?»</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w3-fri">Собираюсь на день рождения и показываю подарок за 500 рублей. Что вы дарите подругам? <span class="tags">#грвм #собирайсясомной #чтоподаритьподруге #подарок</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-lf-w3-fri">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-lf-w3-fri"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="sh-w3-sat">
+  <div class="date"><span class="dow">сб</span><span class="dd">28</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">днём</span><span class="chip r-imba">Имба для школы</span><span class="fmt">видео · 7–10 с</span><a class="toollink" href="#tool-slova">Файл: Мои слова</a></div>
+    <div class="cols"><div class="txt">
+      <h4>Когда завтра диктант, а слов тридцать</h4>
+      
+      <ul class="shots"><li>Название ролика текстом на экране с первой секунды</li><li>Запись экрана: вставляю слова из учебника, тренажёр готов за пять секунд</li><li>Последний кадр, текст: «спасибо этой имбе». Звук из популярных, без голоса</li></ul>
+      
+    </div><button type="button" class="th cover" data-g="sh-w3-sat" data-i="0" data-full="img/oblozhki/11-28-imba.png" aria-label="Обложка «Когда завтра диктант, а слов тридцать»: открыть в полном размере"><img src="img/thumbs/oblozhki/11-28-imba.jpg" alt="Обложка «Когда завтра диктант, а слов тридцать»" width="324" height="576" loading="lazy"></button></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-sh-w3-sat">Вставляешь слова из своего учебника и получаешь тренажёр: карточки, выбор перевода, диктант. Сделала в нейросети, адрес в профиле <span class="tags">#английскийязык #диктант #нейросеть #учеба #лайфхакидляучебы</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-sh-w3-sat">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-sh-w3-sat"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="lf-w3-sat">
+  <div class="date"><span class="dow">сб</span><span class="dd">28</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-komnata">Комната</span><span class="fmt">видео · 20–30 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Вырезаю снежинки на окно. Комната к зиме, часть 2</h4>
+      
+      <ul class="shots"><li>Первый кадр: готовое окно со снежинками, название текстом</li><li>Ускоренно: складываю, вырезаю, клею</li><li>Финал: окно вечером с гирляндой</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w3-sat">Вырезаю снежинки и клею на окно. Комната к зиме, часть 2 <span class="tags">#комната #снежинки #новогоднийдекор #своимируками</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-lf-w3-sat">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-lf-w3-sat"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="sh-w3-sun">
+  <div class="date"><span class="dow">вс</span><span class="dd">29</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">днём</span><span class="chip r-uchis">Учись со мной</span><span class="fmt">видео · 20–30 с</span><a class="toollink" href="#tool-slova">Файл: Мои слова</a></div>
+    <div class="cols"><div class="txt">
+      <h4>Учу слова к диктанту за один чай</h4>
+      
+      <ul class="shots"><li>Чай, плед, стол: спокойные кадры по две секунды</li><li>Телефон с тренажёром в кадре, ошибки уходят в отдельный список</li><li>Финал: все слова зелёные</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-sh-w3-sun">Учу тридцать слов к диктанту, пока пью чай. Учись со мной <span class="tags">#учисьсомной #studywithme #стадиток #английскийязык</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-sh-w3-sun">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-sh-w3-sun"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="lf-w3-sun">
+  <div class="date"><span class="dow">вс</span><span class="dd">29</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-popytka">Попытка №1</span><span class="fmt">видео · 45–70 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Кудри на носки: сплю так всю ночь</h4>
+      
+      <ul class="shots"><li>Первая фраза на камеру: «Накручиваю волосы на носки и ложусь спать»</li><li>Вечер: накручиваю. Утро: снимаю носки на камеру без монтажа</li><li>Финал: результат и честная оценка от 1 до 10</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w3-sun">Накрутила волосы на носки и легла спать. Результат утром в конце ролика <span class="tags">#кудрибезплойки #укладкананоски #волосы #эксперимент</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-lf-w3-sun">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-lf-w3-sun"> Выложено</label>
+  </div>
+</article>
+</section>
+<section class="week" id="week-4">
+  <header class="wh"><p class="eyebrow">Неделя 4 · 30 ноября — 6 декабря</p><h3>Оценки перед концом четверти</h3>
+    <p class="wtool">Файл недели: <a href="#tool-ocenki">Калькулятор оценок</a>, нужен к субботе 5 декабря</p><p class="wtool">Вне школы: декабрь начинается</p></header>
+  <article class="post" id="lf-w4-mon">
+  <div class="date"><span class="dow">пн</span><span class="dd">30</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">днём</span><span class="chip r-zhiza">Жиза за 7 секунд</span><span class="fmt">видео · 6–10 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Когда достала зимнюю куртку, а в кармане сто рублей</h4>
+      
+      <ul class="shots"><li>Название ролика текстом на экране с первой секунды</li><li>Сую руку в карман куртки, замираю, достаю купюру, счастье</li><li>Звук из популярных, без слов</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w4-mon">Когда достала зимнюю куртку, а в кармане сто рублей с прошлой зимы. Лучшее чувство <span class="tags">#жиза #зима #куртка #подростки</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-lf-w4-mon">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-lf-w4-mon"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="pr-p5">
+  <div class="date"><span class="dow">пн</span><span class="dd">30</span><span class="mm">ноя</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-proba">Проба недели</span><span class="fmt">видео · 10–20 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Вечер в эстетике tumblr: гирлянда, плед, блокнот</h4>
+      <p class="pnote">Образец от 6 ноября: «pov: все зашарили за „новую“ эстетику», 303 тыс. при обычных 23 тыс.</p>
+      <ul class="shots"><li>Первый кадр, текст: «pov: все полюбили эстетику 2016, а я в ней живу»</li><li>Кадры по две секунды: гирлянда, кружка, плед, блокнот, окно</li><li>Холодный фильтр, медленный звук из популярных</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-pr-p5">Вечер в эстетике tumblr: гирлянда, плед и блокнот <span class="tags">#tumblr #эстетика #зимнийвайб #комната</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-pr-p5">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-pr-p5"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="sh-w4-tue">
+  <div class="date"><span class="dow">вт</span><span class="dd">1</span><span class="mm">дек</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">днём</span><span class="chip r-tema">Как ощущается</span><span class="fmt">видео · 7–11 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Как ощущается электронный дневник в декабре</h4>
+      
+      <ul class="shots"><li>Палец медленно тянется к дневнику, название ролика текстом на экране</li><li>Звук из популярных, одна эмоция</li><li>В описании вопрос: «Какой предмет страшнее всего открывать?»</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-sh-w4-tue">Как ощущается электронный дневник за три недели до конца четверти. Какой предмет страшнее всего открывать? <span class="tags">#дневник #оценки #четверть #школа</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-sh-w4-tue">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-sh-w4-tue"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="lf-w4-tue">
+  <div class="date"><span class="dow">вт</span><span class="dd">1</span><span class="mm">дек</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-skvish">Сквиш недели</span><span class="fmt">видео · 20–40 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Сквиш-кружка какао с зефирками</h4>
+      
+      <ul class="shots"><li>Первая секунда: готовая кружка сжимается в руке</li><li>Процесс ускоренно: рисую кружку и зефирки, обклеиваю, набиваю</li><li>Финал: сжимаю ещё раз, текст «какой следующий?»</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w4-tue">Сквиш-кружка какао с зефирками из бумаги и скотча. Какой сделать следующим? <span class="tags">#бумажныесквиши #сквишиизбумаги #сквиши #асмр</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-lf-w4-tue">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-lf-w4-tue"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="lf-w4-wed">
+  <div class="date"><span class="dow">ср</span><span class="dd">2</span><span class="mm">дек</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">днём</span><span class="chip r-trend">Тренд</span><span class="fmt">видео · 10–15 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Переход: комната до и после гирлянд</h4>
+      
+      <ul class="shots"><li>Звук из топа этой недели</li><li>До: обычная комната днём. Щелчок выключателя</li><li>После: вечер, гирлянды и снежинки на окне</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w4-wed">Комната до и после гирлянд. Один щелчок <span class="tags">#переход #комната #гирлянда #новыйгод2027</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-lf-w4-wed">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-lf-w4-wed"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="pr-p6">
+  <div class="date"><span class="dow">ср</span><span class="dd">2</span><span class="mm">дек</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-proba">Проба недели</span><span class="fmt">видео · 20–35 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Этот торт за 5 минут пора продавать в кофейнях</h4>
+      <p class="pnote">Образец от 10 ноября: «этот наполеон за 5 минут нужно вводить в меню кофеен», 117 тыс. при обычных 6 тыс. Торт без духовки: печенье, сметана, сахар.</p>
+      <ul class="shots"><li>Первый кадр: готовый кусок на тарелке и название текстом</li><li>Сборка ускоренно: слой печенья, слой крема, повторить</li><li>Финал: разрез ножом и первая ложка</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-pr-p6">Торт из печенья и сметаны за 5 минут, без духовки. Сохрани на выходные <span class="tags">#тортбезвыпечки #рецептза5минут #десерт #рецепт</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-pr-p6">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-pr-p6"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="sh-w4-thu">
+  <div class="date"><span class="dow">чт</span><span class="dd">3</span><span class="mm">дек</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">днём</span><span class="chip r-zaberu">Заберу себе</span><span class="fmt">карусель · 7 картинок</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Читерские запросы, часть 3: перед контрольной</h4>
+      
+      <ul class="shots"><li>Обложка, пять запросов, итог</li><li>Запросы: мини-контрольная, типичные ошибки по теме, разбор моей ошибки, план на вечер, вопросы, которые любит задавать учитель</li><li>Первый комментарий от себя: «По какому предмету у вас контрольная?»</li></ul>
+      <p class="pnote">Картинки для этой карусели пока не нарисованы.</p>
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-sh-w4-thu">Пять запросов для нейросети на вечер перед контрольной. Сохрани до следующей <span class="tags">#контрольная #нейросеть #промпты #учеба #школа</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-sh-w4-thu">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-sh-w4-thu"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="lf-w4-thu">
+  <div class="date"><span class="dow">чт</span><span class="dd">3</span><span class="mm">дек</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-sohrani">Сохрани себе</span><span class="fmt">фотокарусель · 13 картинок</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Мой вишлист на Новый год: 12 вещей до тысячи рублей</h4>
+      
+      <ul class="shots"><li>Первая картинка: название и коллаж из всех вещей</li><li>По картинке на вещь: скриншот из магазина и цена</li><li>Последняя картинка: «Что в вашем вишлисте?»</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w4-thu">Мой вишлист на Новый год: 12 вещей, каждая дешевле тысячи рублей. Сохрани, пригодится для подарка подруге <span class="tags">#вишлист #новыйгод2027 #идеиподарков #чтоподаритьподруге</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-lf-w4-thu">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-lf-w4-thu"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="sh-w4-fri">
+  <div class="date"><span class="dow">пт</span><span class="dd">4</span><span class="mm">дек</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">днём</span><span class="chip r-sobirayus">Собираюсь и рассказываю</span><span class="fmt">видео · 20–30 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Зимние сборы в школу: тепло и красиво</h4>
+      
+      <ul class="shots"><li>Слои одежды по порядку, шарф и варежки крупно</li><li>Голос за кадром: что изменилось в сборах зимой</li><li>Последняя фраза: «Шапка или капюшон?»</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-sh-w4-fri">Зимние сборы в школу: как одеться тепло и чтобы нравилось самой <span class="tags">#grwmвшколу #образвшколу #зима #школа</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-sh-w4-fri">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-sh-w4-fri"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="lf-w4-fri">
+  <div class="date"><span class="dow">пт</span><span class="dd">4</span><span class="mm">дек</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-sobirayus">Собираюсь и рассказываю</span><span class="fmt">видео · 40–60 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Собираюсь на каток: первый раз за эту зиму</h4>
+      
+      <ul class="shots"><li>Первая фраза на камеру: «Иду на каток первый раз за зиму. В прошлый раз я…»</li><li>Сборы фоном: тёплые слои, варежки. История про прошлый раз</li><li>Последняя фраза: «Кто умеет тормозить, научите»</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w4-fri">Собираюсь на каток первый раз за эту зиму и вспоминаю, чем закончился прошлый <span class="tags">#грвм #собирайсясомной #каток #зима</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-lf-w4-fri">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-lf-w4-fri"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="sh-w4-sat">
+  <div class="date"><span class="dow">сб</span><span class="dd">5</span><span class="mm">дек</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">днём</span><span class="chip r-imba">Имба для школы</span><span class="fmt">видео · 7–10 с</span><a class="toollink" href="#tool-ocenki">Файл: Калькулятор оценок</a></div>
+    <div class="cols"><div class="txt">
+      <h4>Когда до конца четверти три недели, а выходит 3,6</h4>
+      
+      <ul class="shots"><li>Название ролика текстом на экране с первой секунды</li><li>Запись экрана: ввожу оценки, калькулятор отвечает «ещё 4 пятёрки»</li><li>Последний кадр, текст: «спасибо этой имбе». Звук из популярных, без голоса</li></ul>
+      
+    </div><button type="button" class="th cover" data-g="sh-w4-sat" data-i="0" data-full="img/oblozhki/12-05-imba.png" aria-label="Обложка «Когда до конца четверти три недели, а выходит 3,6»: открыть в полном размере"><img src="img/thumbs/oblozhki/12-05-imba.jpg" alt="Обложка «Когда до конца четверти три недели, а выходит 3,6»" width="324" height="576" loading="lazy"></button></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-sh-w4-sat">Калькулятор оценок: вводишь свои оценки и узнаёшь, сколько пятёрок нужно до конца четверти. Сделала в нейросети, адрес в профиле <span class="tags">#оценки #четверть #нейросеть #школа #учеба</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-sh-w4-sat">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-sh-w4-sat"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="lf-w4-sat">
+  <div class="date"><span class="dow">сб</span><span class="dd">5</span><span class="mm">дек</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-komnata">Комната</span><span class="fmt">видео · 20–30 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Украшаю комнату к Новому году. Часть 3</h4>
+      
+      <ul class="shots"><li>Первый кадр: коробка с украшениями и название ролика текстом</li><li>Ускоренно: гирлянды, шары, маленькая ёлка</li><li>Финал: обход комнаты одним кадром под новогодний звук</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w4-sat">Украшаю комнату к Новому году. Часть 3: гирлянды, шары и маленькая ёлка <span class="tags">#комната #новыйгод2027 #новогоднийдекор #украшаюкомнату</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-lf-w4-sat">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-lf-w4-sat"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="sh-w4-sun">
+  <div class="date"><span class="dow">вс</span><span class="dd">6</span><span class="mm">дек</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">днём</span><span class="chip r-mama">Мама против школы</span><span class="fmt">видео · 20–30 с</span><a class="toollink" href="#tool-glagoly">Файл: Тренажёр неправильных глаголов</a></div>
+    <div class="cols"><div class="txt">
+      <h4>Мама против неправильных глаголов. На время</h4>
+      
+      <ul class="shots"><li>Первый кадр: мама с телефоном, название ролика текстом на экране</li><li>По шестьдесят секунд каждой, счёт на экране</li><li>Финал: два результата рядом и реакция</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-sh-w4-sun">Мама проходит мой тренажёр неправильных глаголов на время. У кого больше? <span class="tags">#мамаидочь #неправильныеглаголы #английскийязык #школьнаяпрограмма</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-sh-w4-sun">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-sh-w4-sun"> Выложено</label>
+  </div>
+</article>
+<article class="post" id="lf-w4-sun">
+  <div class="date"><span class="dow">вс</span><span class="dd">6</span><span class="mm">дек</span></div>
+  <div class="body">
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-popytka">Попытка №1</span><span class="fmt">видео · 45–70 с</span></div>
+    <div class="cols"><div class="txt">
+      <h4>Пеку имбирных человечков первый раз. Попытка №1</h4>
+      
+      <ul class="shots"><li>Первая фраза на камеру: «Пеку имбирных человечков первый раз, и вот что вышло»</li><li>Тесто, формочки, духовка вместе со взрослым. Кривых не прятать</li><li>Финал: лучший и худший человечек рядом</li></ul>
+      
+    </div></div>
+    
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w4-sun">Пеку имбирных человечков первый раз. Лучшего и худшего покажу в конце <span class="tags">#имбирноепеченье #выпечка #новыйгод2027 #эксперимент</span></span></div>
+      <button type="button" class="btn copy" data-copy="cap-lf-w4-sun">Скопировать</button></div>
+    <label class="done"><input type="checkbox" id="done-lf-w4-sun"> Выложено</label>
+  </div>
+</article>
+</section>
+  </section>
+
+    <section class="sec" id="html">
+    <h2>Что генерировать в HTML</h2>
+    <p>Один файл в неделю, каждый под конкретную школьную боль: его хочется забрать, и он хорошо смотрится в записи экрана. ТЗ ниже можно вставлять в нейросеть целиком: в нём уже описаны цвета и общие требования.</p>
+    <div class="tools"><article class="tool" id="tool-glagoly">
+  <h3>Тренажёр неправильных глаголов</h3>
+  <p class="tmeta">Файл <code>irregular-verbs.html</code> · уже есть</p>
+  <p>Уже сделан и уже дал лучший ролик по сохранениям. Для роликов на время ему нужен режим «60 секунд» со счётом в конце. Зритель забирает тренажёр и приходит в комментарии со своим счётом.</p>
+  <p class="lbl">Ролики с этим инструментом</p><ul class="vids"><li><a href="#sh-w1-sat">сб 14 ноя</a> · Когда завтра спрашивают неправильные глаголы</li><li><a href="#sh-w1-sun">вс 15 ноя</a> · Учу 20 глаголов, пока заваривается чай</li><li><a href="#sh-w4-sun">вс 6 дек</a> · Мама против неправильных глаголов. На время</li></ul>
+  <p class="lbl">ТЗ для генерации</p>
+  <div class="prompt" id="prompt-glagoly">Добавь в мой тренажёр неправильных глаголов режим «На время»: 60 секунд, крупный таймер сверху, за каждый правильный ответ плюс один. В конце экран с результатом «Мой счёт: N» и кнопкой «Ещё раз». Рекорд запоминается. Остальное не меняй.</div>
+  <button type="button" class="btn copy" data-copy="prompt-glagoly">Скопировать ТЗ</button>
+</article>
+<article class="tool" id="tool-drobi">
+  <h3>Тренажёр ужасной темы: дроби</h3>
+  <p class="tmeta">Файл <code>drobi.html</code> · нужен к субботе 21 ноября</p>
+  <p>Примеры на дроби с разными знаменателями. После ошибки показывает решение по шагам. Зритель забирает тренажёр по теме, которую сам сейчас проходит. Если под вторничным роликом чаще назовут другую тему, тренажёр делается по ней.</p>
+  <p class="lbl">Ролики с этим инструментом</p><ul class="vids"><li><a href="#sh-w2-sat">сб 21 ноя</a> · Спасибо этой имбе за дроби</li><li><a href="#sh-w2-sun">вс 22 ноя</a> · Мама против дробей из моего учебника</li></ul>
+  <p class="lbl">ТЗ для генерации</p>
+  <div class="prompt" id="prompt-drobi">Сделай одностраничный HTML-файл: всё в одном файле, без внешних библиотек, работает на телефоне без интернета. Стиль как в моём тренажёре глаголов: фон #ECF2D8, карточки #fffdf8, текст #4a2a38, главный цвет розовый #E27396, второй голубой #B3DEE2 и #2f8f99, заголовки шрифтом с засечками (Yeseva One, запасной Georgia). Кнопки и надписи крупные: экран будут снимать на видео вертикально. Без регистрации, ничего никуда не отправляет, введённое запоминает на этом телефоне.<br><br>Тренажёр дробей. Показывает пример на сложение или вычитание дробей с разными знаменателями, дроби нарисованы крупно, как в учебнике. Ответ ввожу в два поля: числитель и знаменатель. Правильно: зелёная галочка и следующий пример. Неправильно: решение по шагам — общий знаменатель, дополнительные множители, действие, сокращение. Сверху серия без ошибок и рекорд. Раунд из 10 примеров, в конце результат. В настройках выбор: сложение и вычитание, умножение, деление, смешанные числа.</div>
+  <button type="button" class="btn copy" data-copy="prompt-drobi">Скопировать ТЗ</button>
+</article>
+<article class="tool" id="tool-slova">
+  <h3>Мои слова</h3>
+  <p class="tmeta">Файл <code>moi-slova.html</code> · нужен к субботе 28 ноября</p>
+  <p>Вставляешь слова из своего учебника и получаешь тренажёр с тремя режимами. Зритель забирает тренажёр под свой учебник и свой диктант.</p>
+  <p class="lbl">Ролики с этим инструментом</p><ul class="vids"><li><a href="#sh-w3-sat">сб 28 ноя</a> · Когда завтра диктант, а слов тридцать</li><li><a href="#sh-w3-sun">вс 29 ноя</a> · Учу слова к диктанту за один чай</li></ul>
+  <p class="lbl">ТЗ для генерации</p>
+  <div class="prompt" id="prompt-slova">Сделай одностраничный HTML-файл: всё в одном файле, без внешних библиотек, работает на телефоне без интернета. Стиль как в моём тренажёре глаголов: фон #ECF2D8, карточки #fffdf8, текст #4a2a38, главный цвет розовый #E27396, второй голубой #B3DEE2 и #2f8f99, заголовки шрифтом с засечками (Yeseva One, запасной Georgia). Кнопки и надписи крупные: экран будут снимать на видео вертикально. Без регистрации, ничего никуда не отправляет, введённое запоминает на этом телефоне.<br><br>Тренажёр «Мои слова». Вставляю в поле список по одной паре в строке: «слово — перевод». Кнопка «Учить» даёт три режима: карточки (нажал — перевернул), выбор перевода из четырёх вариантов, диктант (вижу перевод, печатаю слово). Ошибки собираются в отдельный список и повторяются в конце. Сверху прогресс: сколько слов выучено из скольких. Списки сохраняются под названиями, например «Модуль 4». Для пробы встроен список из десяти слов.</div>
+  <button type="button" class="btn copy" data-copy="prompt-slova">Скопировать ТЗ</button>
+</article>
+<article class="tool" id="tool-ocenki">
+  <h3>Калькулятор оценок</h3>
+  <p class="tmeta">Файл <code>ocenki.html</code> · нужен к субботе 5 декабря</p>
+  <p>Вводишь свои оценки и узнаёшь, сколько пятёрок нужно до конца четверти. Зритель получает ответ про свой предмет за 20 секунд и пишет его в комментариях.</p>
+  <p class="lbl">Ролики с этим инструментом</p><ul class="vids"><li><a href="#sh-w4-sat">сб 5 дек</a> · Когда до конца четверти три недели, а выходит 3,6</li></ul>
+  <p class="lbl">ТЗ для генерации</p>
+  <div class="prompt" id="prompt-ocenki">Сделай одностраничный HTML-файл: всё в одном файле, без внешних библиотек, работает на телефоне без интернета. Стиль как в моём тренажёре глаголов: фон #ECF2D8, карточки #fffdf8, текст #4a2a38, главный цвет розовый #E27396, второй голубой #B3DEE2 и #2f8f99, заголовки шрифтом с засечками (Yeseva One, запасной Georgia). Кнопки и надписи крупные: экран будут снимать на видео вертикально. Без регистрации, ничего никуда не отправляет, введённое запоминает на этом телефоне.<br><br>Калькулятор оценок. Выбираю предмет, предметов можно добавить несколько. Нажимаю кнопки 5, 4, 3, 2, чтобы ввести свои оценки: они появляются цветными кружками, лишнюю можно убрать нажатием. Сразу вижу средний балл с двумя знаками после запятой. Выбираю цель: «5», «4» или «3». Порог по умолчанию 4,5, 3,5 и 2,5, его можно изменить в настройках, потому что в школах округляют по-разному. Ответ крупно: «Нужно ещё N пятёрок подряд», ниже варианты, если среди них будут четвёрки. Если цель уже достигнута, показать, сколько четвёрок можно получить и не потерять её. Если цели не достичь даже за 15 оценок, честно написать об этом. Оценки по предметам запоминаются.</div>
+  <button type="button" class="btn copy" data-copy="prompt-ocenki">Скопировать ТЗ</button>
+</article></div>
+    <h3>Очередь после 6 декабря</h3>
+    <div class="scroll"><table>
+      <thead><tr><th>Когда</th><th>Инструмент</th><th>Что делает</th><th>Название ролика</th></tr></thead>
+      <tbody><tr><td class="num">12 декабря</td><td><strong>Счётчик до каникул</strong></td><td>Показывает, сколько учебных дней и уроков осталось.</td><td>Когда до каникул осталось столько уроков</td></tr><tr><td class="num">19 декабря</td><td><strong>Найди пару</strong></td><td>Термины и определения из любого параграфа соединяются на время.</td><td>Когда параграф по истории стал игрой</td></tr><tr><td class="num">26 декабря</td><td><strong>Итоги четверти</strong></td><td>Карточка с итогами: любимый предмет, лучшая оценка, сколько книг прочитано. Скачивается картинкой.</td><td>Мои итоги четверти одной картинкой</td></tr><tr><td class="num">январь</td><td><strong>Таблица умножения за 60 секунд</strong></td><td>Примеры на скорость и личный рекорд.</td><td>Мама против таблицы умножения</td></tr><tr><td class="num">январь</td><td><strong>Расписание на обои</strong></td><td>Вводишь уроки и получаешь картинку для экрана блокировки.</td><td>Когда расписание наконец на экране блокировки</td></tr><tr><td class="num">январь</td><td><strong>Тест «Твоя учебная эстетика»</strong></td><td>Восемь вопросов и карточка с результатом.</td><td>Какая у тебя учебная эстетика? Прохожу свой тест</td></tr><tr><td class="num">январь</td><td><strong>Колесо домашки</strong></td><td>Крутишь колесо, и оно выбирает, с какого предмета начать.</td><td>Когда не можешь выбрать, с какого урока начать</td></tr><tr><td class="num">февраль</td><td><strong>Таймер «25 на 5»</strong></td><td>25 минут учёбы, 5 минут перерыва, счётчик кругов.</td><td>Делаю уроки на понедельник за три таймера</td></tr><tr><td class="num">февраль</td><td><strong>Утро по минутам</strong></td><td>Вводишь время выхода из дома и получаешь расписание утра.</td><td>Встаю в 6:40: моё утро по минутам</td></tr><tr><td class="num">февраль</td><td><strong>Школьное бинго</strong></td><td>Карточка 5 на 5 со школьными ситуациями, отмечаешь нажатием.</td><td>Школьное бинго: сколько у тебя совпало?</td></tr></tbody></table></div>
+  </section>
+  <section class="sec" id="idei">
+    <h2>Идеи про запас</h2>
+    <p>Ими заменяются рубрики, которые за две недели не дотянули до цели. У каждой идеи есть ролик-образец.</p>
+    <div class="scroll"><table>
+      <thead><tr><th>Рубрика</th><th>Название ролика</th><th>На чём основано</th></tr></thead>
+      <tbody><tr><td><span class="chip r-popytka">Попытка №1</span></td><td><strong>Сквиши в воске. Попытка №1</strong></td><td>Две части у одного автора по 7,5 млн, на экране «спойлер: 🤦»</td></tr><tr><td><span class="chip r-skvish">Сквиш недели</span></td><td><strong>Режу сквиш, когда наберётся 100 лайков</strong></td><td>Ролик со ступенями «10, 50, 150, 500 лайков»: 28 млн</td></tr><tr><td><span class="chip r-zhiza">Жиза за 7 секунд</span></td><td><strong>Ты не 10 из 10. Ты как поп-ит из 2021</strong></td><td>«Ты как сквиши из 2020, которые пахли ванилью»: 2,8 млн, пересылают 7,5 %</td></tr><tr><td><span class="chip r-sohrani">Сохрани себе</span></td><td><strong>Пиццабоны из слоёного теста</strong></td><td>Карусель из 18 фото: 24,7 млн, сохраняют 4,2 %</td></tr><tr><td><span class="chip r-sobirayus">Собираюсь и рассказываю</span></td><td><strong>Те самые сборы первоклашек: пародия</strong></td><td>Пародия на сборы малышей, 61 секунда: 13,6 млн</td></tr><tr><td><span class="chip r-komnata">Комната</span></td><td><strong>Румтур: моя комната зимой</strong></td><td>Румтуры у двух авторов: 6–7 млн</td></tr><tr><td><span class="chip r-popytka">Попытка №1</span></td><td><strong>Косички на ночь вместо плойки: что будет утром</strong></td><td>Сборы с косичками-колосками: 11 млн</td></tr><tr><td><span class="chip r-sohrani">Сохрани себе</span></td><td><strong>Подарки подругам до 300 рублей</strong></td><td>Подборка подарков подруге: 3,6 млн, сохраняют 6,6 %</td></tr><tr><td><span class="chip r-sobirayus">Собираюсь и рассказываю</span></td><td><strong>Топ звуков для будильника, от которых хочется плакать</strong></td><td>Рассказ на камеру про звуки будильника: 5,2 млн, в комментариях 0,6 % зрителей</td></tr><tr><td><span class="chip r-skvish">Сквиш недели</span></td><td><strong>Сквиш-телефон: на него ушло больше всего времени</strong></td><td>Ролик про сквиш-телефон с такой же жалобой: 1,6 млн</td></tr></tbody></table></div>
+  </section>
+
+  <section class="sec" id="cifry">
+    <h2>Цифры</h2>
+    <div class="two">
+      <div class="box"><p class="lbl">Точка отсчёта, 10 ноября</p><p class="big">240–310</p><p>просмотров набирает обычный ролик.</p></div>
+      <div class="box"><p class="lbl">Ориентиры на 6 декабря</p>
+        <ul><li>50 публикаций без пропусков</li><li>обычный ролик набирает 500 просмотров и больше</li><li>ролики с файлом сохраняют 5 % зрителей</li><li>жизу и мемы пересылают 1,5 % зрителей</li><li>хотя бы один ролик набрал 3 000</li><li>100 подписчиков</li></ul>
+        <p class="note">Вирусность нельзя назначить на дату. Можно делать больше попыток в форматах, которые уже залетали у других, и это план и делает.</p></div>
+    </div>
+    <div class="box"><p class="lbl">Разбор по воскресеньям, 10 минут</p>
+      <ol><li>Выписать по каждому ролику недели просмотры, сохранения, репосты, комментарии и новых подписчиков.</li><li>Ролик набрал втрое больше обычного: в ближайшие два дня выходит его «часть 2» вместо самого слабого формата недели.</li><li>Посмотреть, что выстрелило у конкурентов за семь дней, и поставить эти темы в пробы следующей недели.</li><li>22 ноября, после двух недель: оставить восемь рубрик с лучшими цифрами, остальные заменить идеями из запаса и удачными пробами.</li></ol></div>
+  </section>
+
+    <section class="sec" id="kartinki">
+    <h2>Картинки</h2>
+    <div class="two">
+      <div class="box"><p class="lbl">Карусель</p><p>Готова первая, с запросами для нейросети. Загружать по порядку номеров, начиная с 01. Размер 1080 на 1920. Остальные три рисуются по тому же шаблону, когда утверждены тексты.</p></div>
+      <div class="box"><p class="lbl">Обложки роликов с файлом</p><p>Вставить картинку первым кадром на треть секунды и при публикации выбрать этот кадр обложкой. Так серию «Имба для школы» видно в сетке профиля.</p></div>
+    </div>
+    <p>Все файлы лежат в папке <code>tiktok/img</code>. Тексты на картинках берутся из <code>tiktok/src/plan.json</code>: после правки запустите <code>node tiktok/src/render.mjs</code>, и картинки перерисуются.</p>
+  </section>
+</div>
+
+<div id="lb" hidden role="dialog" aria-modal="true" aria-label="Картинка в полном размере">
+  <img id="lb-img" alt="">
+  <div id="lb-cap"></div>
+  <div class="bar"><button type="button" class="btn" id="lb-prev">Назад</button><button type="button" class="btn" id="lb-next">Дальше</button><button type="button" class="btn" id="lb-x">Закрыть</button></div>
+</div>
+<script>
+(function(){
+  function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+  // Скопировать описание или ТЗ
+  document.querySelectorAll('.copy').forEach(function(b){
+    b.addEventListener('click',function(){
+      var el=document.getElementById(b.dataset.copy), text=el.innerText.trim(), old=b.textContent;
+      function ok(){b.textContent='Скопировано';setTimeout(function(){b.textContent=old},1600)}
+      function pick(){var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Выделено, скопируйте';setTimeout(function(){b.textContent=old},2400)}
+      try{navigator.clipboard.writeText(text).then(ok,pick)}catch(e){pick()}
+    });
+  });
+  // Отметка «Выложено» хранится только в этом браузере
+  document.querySelectorAll('.done input').forEach(function(c){
+    var post=c.closest('.post');
+    if(store(c.id)==='1'){c.checked=true;post.classList.add('is-done')}
+    c.addEventListener('change',function(){store(c.id,c.checked?'1':'0');post.classList.toggle('is-done',c.checked)});
+  });
+  // Просмотр картинки в полном размере
+  var lb=document.getElementById('lb'),img=document.getElementById('lb-img'),cap=document.getElementById('lb-cap'),group=[],idx=0,last=null;
+  function show(){var t=group[idx];img.src=t.dataset.full;img.alt=t.querySelector('img').alt;
+    cap.textContent=(group.length>1?(idx+1)+' из '+group.length+' · ':'')+t.dataset.full+' · чтобы сохранить, удерживайте картинку';
+    document.getElementById('lb-prev').hidden=document.getElementById('lb-next').hidden=group.length<2}
+  function close(){lb.hidden=true;img.removeAttribute('src');if(last)last.focus()}
+  document.querySelectorAll('.th').forEach(function(t){
+    t.addEventListener('click',function(){last=t;group=[].slice.call(document.querySelectorAll('.th[data-g="'+t.dataset.g+'"]'));idx=+t.dataset.i;show();lb.hidden=false;document.getElementById('lb-x').focus()});
+  });
+  document.getElementById('lb-x').addEventListener('click',close);
+  document.getElementById('lb-prev').addEventListener('click',function(){idx=(idx+group.length-1)%group.length;show()});
+  document.getElementById('lb-next').addEventListener('click',function(){idx=(idx+1)%group.length;show()});
+  lb.addEventListener('click',function(e){if(e.target===lb)close()});
+  document.addEventListener('keydown',function(e){if(lb.hidden)return;if(e.key==='Escape')close();if(e.key==='ArrowLeft')document.getElementById('lb-prev').click();if(e.key==='ArrowRight')document.getElementById('lb-next').click()});
+})();
+</script>
+</body>
+</html>

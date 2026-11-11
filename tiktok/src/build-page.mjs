@@ -44,7 +44,7 @@ function postHtml(p) {
   return `<article class="post" id="${p.id}">
   <div class="date"><span class="dow">${esc(p.dow)}</span><span class="dd">${dayOf(p.date)}</span><span class="mm">${monOf(p.date)}</span></div>
   <div class="body">
-    <div class="meta"><span class="chip r-${p.rubric}">${esc(r.name)}</span><span class="fmt">${esc(p.format)}</span>${tool}</div>
+    <div class="meta">${p.slot ? `<span class="slot">${esc(p.slot)}</span>` : ''}<span class="chip r-${r.chip || p.rubric}">${esc(r.name)}</span><span class="fmt">${esc(p.format)}</span>${tool}</div>
     <div class="cols"><div class="txt">
       <h4>${esc(p.title)}</h4>
       ${p.note ? `<p class="pnote">${esc(p.note)}</p>` : ''}
@@ -70,8 +70,12 @@ function weekHtml(w) {
 </section>`;
 }
 
-const rubricRows = Object.entries(plan.rubrics).map(([id, r]) =>
-  `<tr><td class="num">${esc(r.day)}</td><td><span class="chip r-${id}">${esc(r.name)}</span></td><td>${esc(r.format)}</td><td>${esc(r.goal)}</td><td>${esc(r.proof)}</td></tr>`).join('');
+const hasGroup = Object.values(plan.rubrics).some(r => r.group);
+const DAYS = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
+const rubricList = Object.entries(plan.rubrics);
+if (hasGroup) rubricList.sort((a, b) => DAYS.indexOf(a[1].day.slice(0, 2)) - DAYS.indexOf(b[1].day.slice(0, 2)));
+const rubricRows = rubricList.map(([id, r]) =>
+  `<tr><td class="num">${esc(r.day)}</td>${hasGroup ? `<td>${esc(r.group || '')}</td>` : ''}<td><span class="chip r-${r.chip || id}">${esc(r.name)}</span></td><td>${esc(r.format)}</td><td>${esc(r.goal)}</td><td>${esc(r.proof)}</td></tr>`).join('');
 
 const toolHtml = t => {
   const vids = posts.filter(p => p.tool === t.id).map(p => `<li><a href="#${p.id}">${esc(p.dow)} ${dayOf(p.date)} ${monOf(p.date)}</a> · ${esc(p.title)}</li>`).join('');
@@ -164,6 +168,8 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
 .meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;font-size:14px}
 .fmt{color:var(--muted);font-weight:600}
 .toollink{font-weight:600}
+.slot{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.r-proba{background:var(--accent);color:var(--card)}
 .pnote{font-size:14px;color:var(--muted);font-weight:600}
 .cols{display:flex;gap:16px;align-items:flex-start}
 .txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:8px}
@@ -254,7 +260,7 @@ const BODY = `
     <h2>Ритм недели</h2>
     <p>${esc(plan.ritm || 'У каждой рубрики свой день, своя цель в цифрах и ролик конкурента, на котором она основана. Проценты в целях взяты из этих же роликов. По воскресеньям рубрики чередуются.')}</p>
     <div class="scroll"><table>
-      <thead><tr><th>День</th><th>Рубрика</th><th>Формат</th><th>Цель по ролику</th><th>На чём основано</th></tr></thead>
+      <thead><tr><th>День</th>${hasGroup ? '<th>План</th>' : ''}<th>Рубрика</th><th>Формат</th><th>Цель по ролику</th><th>На чём основано</th></tr></thead>
       <tbody>${rubricRows}</tbody></table></div>
     ${plan.mix ? `<p class="note">${esc(plan.mix)}</p>` : ''}
   </section>
@@ -279,7 +285,7 @@ const BODY = `
     <p>${esc(plan.ideasText || '')}</p>
     <div class="scroll"><table>
       <thead><tr><th>Рубрика</th><th>Название ролика</th><th>На чём основано</th></tr></thead>
-      <tbody>${plan.ideas.map(q => `<tr><td><span class="chip r-${q.rubric}">${esc(plan.rubrics[q.rubric].name)}</span></td><td><strong>${esc(q.title)}</strong></td><td>${esc(q.proof)}</td></tr>`).join('')}</tbody></table></div>
+      <tbody>${plan.ideas.map(q => `<tr><td><span class="chip r-${plan.rubrics[q.rubric].chip || q.rubric}">${esc(plan.rubrics[q.rubric].name)}</span></td><td><strong>${esc(q.title)}</strong></td><td>${esc(q.proof)}</td></tr>`).join('')}</tbody></table></div>
   </section>` : ''}
 
   <section class="sec" id="cifry">
