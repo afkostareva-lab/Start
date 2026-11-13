@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>SportZania ID — прототип паспорта резидента</title>
-<meta name="description" content="Кликабельный прототип цифрового паспорта ребёнка для лагеря и онлайн-школы SportZania. Sk Kids Challenge 2026.">
+<meta name="theme-color" content="#0A0F1D">
+<title>SportZania ID — пилот цифрового паспорта резидента</title>
+<meta name="description" content="Кликабельный пилот цифрового паспорта ребёнка для лагеря и онлайн-школы SportZania. Sk Kids Challenge 2026.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -12,173 +13,264 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
 body{font-family:Inter,"Helvetica Neue",Arial,sans-serif;font-weight:500;color:var(--ink);background:var(--paper) radial-gradient(#d6d0c2 1px,transparent 1px) 0 0/20px 20px;line-height:1.35}
-button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
-.stage{min-height:100%;display:flex;gap:48px;align-items:center;justify-content:center;padding:24px}
-.about{max-width:340px}
-.about h1{font-size:40px;font-weight:900;color:var(--cobalt);letter-spacing:-1px;line-height:1}
-.about .sub{font-weight:800;letter-spacing:3px;font-size:13px;margin:8px 0 18px}
-.about ol{padding-left:20px;display:grid;gap:8px;font-size:15px;color:var(--slate)}
-.about b{color:var(--ink)}
-.about .foot{margin-top:18px;font-size:12px;font-weight:800;letter-spacing:1px;border-top:3px solid var(--ink);padding-top:10px}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;text-align:inherit}
+h1,h2,h3,h4{font-weight:900}
+.stage{min-height:100%;display:flex;gap:56px;align-items:center;justify-content:center;padding:24px}
+/* Пояснение слева (на компьютере) */
+.about{width:360px}
+.about .mast{display:flex;align-items:center;gap:12px;border-bottom:3px solid var(--ink);padding-bottom:12px;margin-bottom:14px}
+.about h1{font-size:38px;color:var(--cobalt);letter-spacing:-1px;line-height:.95}
+.about .sub{font-weight:800;letter-spacing:3px;font-size:12px;margin-top:6px}
+.about .lead{font-size:14.5px;color:var(--slate);margin-bottom:14px}
+.todo{display:grid;gap:7px;list-style:none}
+.todo li{display:grid;grid-template-columns:22px 1fr;gap:9px;font-size:14px;font-weight:700;align-items:start}
+.todo i{width:20px;height:20px;border:2px solid var(--ink);background:#fff;display:grid;place-items:center;margin-top:1px}
+.todo .ok i{background:var(--green)}.todo .ok i::after{content:"";width:9px;height:5px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:rotate(-45deg) translateY(-1px)}
+.todo .ok{color:var(--slate);text-decoration:line-through;text-decoration-thickness:1px}
+.about .foot{margin-top:16px;font-size:11px;font-weight:800;letter-spacing:1.5px;border-top:3px solid var(--ink);padding-top:10px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.barcode{height:26px;width:86px;background:repeating-linear-gradient(90deg,var(--ink) 0 3px,transparent 3px 5px,var(--ink) 5px 6px,transparent 6px 10px,var(--ink) 10px 14px,transparent 14px 16px)}
+/* Телефон */
 .phone{width:390px;height:844px;flex:none;background:var(--paper);border:3px solid var(--ink);border-radius:38px;box-shadow:12px 12px 0 var(--ink);overflow:hidden;display:flex;flex-direction:column;position:relative}
-.top{flex:none;display:flex;align-items:center;gap:8px;padding:14px 14px 10px;border-bottom:3px solid var(--ink);background:var(--paper)}
+.demo{flex:none;display:grid;grid-template-columns:repeat(4,1fr);background:var(--ink)}
+.demo button{color:#fff;font-size:10.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;padding:9px 2px 8px;text-align:center;opacity:.72}
+.demo button+button{border-left:1px solid #334155}
+.demo .on{background:var(--cobalt);opacity:1}
+.top{flex:none;display:flex;align-items:center;gap:8px;padding:9px 14px;border-bottom:3px solid var(--ink);background:var(--paper)}
 .brand{background:var(--ink);color:#fff;font-weight:900;font-size:12px;letter-spacing:1px;padding:7px 9px;white-space:nowrap}
-.roles{margin-left:auto;display:flex;border:2px solid var(--ink)}
-.roles button{font-size:11px;font-weight:800;padding:6px 7px;letter-spacing:.3px}
-.roles button+button{border-left:2px solid var(--ink)}
-.roles .on{background:var(--cobalt);color:#fff}
-main{flex:1;overflow-y:auto;padding:14px 14px 22px;display:grid;gap:14px;align-content:start}
+.top .where{font-size:10.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--cobalt);margin-left:2px}
+.top .r{margin-left:auto;display:flex;gap:6px;align-items:center}
+.pill{border:2px solid var(--ink);background:#fff;font-size:11.5px;font-weight:900;padding:4px 7px;white-space:nowrap}
+.help{width:28px;height:28px;border:2px solid var(--ink);background:var(--cobalt);color:#fff;font-weight:900;text-align:center;font-size:14px}
+main{flex:1;overflow-y:auto;padding:14px 14px 24px;display:grid;gap:14px;align-content:start}
 .tabs{flex:none;display:grid;grid-template-columns:repeat(4,1fr);border-top:3px solid var(--ink);background:var(--card)}
-.tabs button{padding:10px 2px 12px;font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;display:grid;gap:4px;justify-items:center;position:relative}
+.tabs button{padding:9px 2px 11px;font-size:10.5px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;display:grid;gap:3px;justify-items:center;position:relative}
 .tabs button+button{border-left:2px solid var(--ink)}
 .tabs svg{width:22px;height:22px}
 .tabs .on{background:var(--cobalt);color:#fff}
-.tabs .lock::after{content:"";position:absolute;top:6px;right:10px;width:8px;height:8px;background:var(--red);border:1.5px solid var(--ink)}
+.tabs .lock::after,.tabs .dot::after{content:"";position:absolute;top:6px;right:12px;width:9px;height:9px;background:var(--red);border:1.5px solid var(--ink)}
+.tabs .dot::after{border-radius:50%;background:var(--green)}
+/* Блоки */
 .card{background:var(--card);border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink)}
-.bar{background:var(--ink);color:#fff;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:8px 10px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.bar::after{content:"";width:44px;height:14px;flex:none;background:repeating-linear-gradient(115deg,var(--cobalt) 0 5px,transparent 5px 9px)}
+.bar{background:var(--ink);color:#fff;font-size:10.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:8px 10px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.bar::after{content:"";width:40px;height:13px;flex:none;background:repeating-linear-gradient(115deg,var(--cobalt) 0 5px,transparent 5px 9px)}
 .bar.plain::after{display:none}
+.bar>span:first-child{margin-right:auto}
 .pad{padding:12px}
-.h{font-size:19px;font-weight:900;letter-spacing:-.3px;line-height:1.15}
+.g{display:grid;gap:10px}
+.h{font-size:18px;font-weight:900;letter-spacing:-.3px;line-height:1.15}
+.h.s{font-size:15.5px}
 .muted{color:var(--slate);font-size:13px}
 .cap{font-size:10.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--cobalt)}
 .row{display:flex;align-items:center;gap:10px}
 .sp{justify-content:space-between}
-.btn{display:block;width:100%;background:var(--ink);color:#fff;font-weight:800;font-size:13px;letter-spacing:.8px;text-transform:uppercase;padding:12px;border:2px solid var(--ink);text-align:center}
-.btn.cobalt{background:var(--cobalt)}
+.btn{display:block;width:100%;background:var(--ink);color:#fff;font-weight:800;font-size:12.5px;letter-spacing:.8px;text-transform:uppercase;padding:12px;border:2px solid var(--ink);text-align:center}
+.btn.cobalt{background:var(--cobalt)}.btn.green{background:var(--green)}
 .btn.ghost{background:transparent;color:var(--ink)}
-.btn.sm{width:auto;padding:7px 10px;font-size:11px}
+.btn.sm{width:auto;padding:7px 10px;font-size:10.5px;flex:none}
 .btn[disabled]{background:var(--line);border-color:var(--line);color:var(--slate);cursor:default}
+.btn:active:not([disabled]){transform:translate(2px,2px)}
 .chips{display:flex;flex-wrap:wrap;gap:7px}
 .chip{border:2px solid var(--ink);background:#fff;padding:6px 10px;font-size:12.5px;font-weight:700}
-.chip.on{background:var(--cobalt);color:#fff}
-.chip.green{background:var(--green);color:#fff}
-.chip.red{background:var(--red);color:#fff}
+.chip.on{background:var(--cobalt);color:#fff}.chip.green{background:var(--green);color:#fff}
 .chip.flat{border-width:1.5px;padding:3px 7px;font-size:11px}
-.tag{display:inline-block;background:var(--ink);color:#fff;font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;padding:3px 7px}
-.tag.green{background:var(--green)}.tag.red{background:var(--red)}.tag.cobalt{background:var(--cobalt)}
-.ava{width:52px;height:52px;border:2px solid var(--ink);border-radius:50%;object-fit:cover;background:var(--tint);display:grid;place-items:center;font-weight:900;font-size:17px;color:var(--cobalt);flex:none}
-.ava.sq{border-radius:0}
+.tag{display:inline-block;background:var(--ink);color:#fff;font-size:9.5px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;padding:3px 6px;white-space:nowrap}
+.tag.green{background:var(--green)}.tag.red{background:var(--red)}.tag.cobalt{background:var(--cobalt)}.tag.out{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.ava{width:50px;height:50px;border:2px solid var(--ink);border-radius:50%;object-fit:cover;background:var(--tint);display:grid;place-items:center;font-weight:900;font-size:17px;color:var(--cobalt);flex:none}
+.ava.s{width:38px;height:38px;font-size:13px}
+.ava.me{background:var(--ink);color:#fff;font-size:12px}
 .ava.hit{outline:4px solid var(--green);outline-offset:1px}
-.ava.dim{opacity:.32}
-.ava.me{background:var(--ink);color:#fff;font-size:13px}
-.team .ava{width:40px;height:40px}
-.hero{display:grid;grid-template-columns:118px 1fr;gap:12px;align-items:center}
-.hero img{width:118px;height:118px;object-fit:cover;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink)}
-.nick{font-size:23px;font-weight:900;letter-spacing:-.5px}
-.lvl{display:inline-block;background:var(--ink);color:#fff;font-size:10.5px;font-weight:800;letter-spacing:1px;padding:4px 8px;margin-top:5px}
-.coins{position:relative;display:grid;grid-template-columns:1fr 1fr;border:2px solid var(--ink);background:linear-gradient(120deg,#fff 0,#cbd5e1 35%,#94a3b8 70%,#fff 100%)}
-.coins div{padding:8px 12px}.coins div+div{border-left:2px solid var(--ink)}
-.coins b{display:block;font-size:22px;font-weight:900;line-height:1.1}
-.coins span{font-size:10px;font-weight:800;letter-spacing:1px}
-.prog{height:12px;border:2px solid var(--ink);background:#fff}.prog i{display:block;height:100%;background:var(--cobalt)}
-.tog{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid var(--line);font-size:13.5px;font-weight:700;width:100%;text-align:left}
+.ava.dim{opacity:.3}
+/* Паспорт */
+.hero{display:grid;grid-template-columns:112px 1fr;gap:12px;align-items:center}
+.hero img{width:112px;height:112px;object-fit:cover;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink)}
+.nick{font-size:22px;font-weight:900;letter-spacing:-.5px;line-height:1.1}
+.lvl{display:inline-block;background:var(--ink);color:#fff;font-size:10px;font-weight:800;letter-spacing:1px;padding:4px 7px;margin-top:5px}
+.lvl.res{background:var(--cobalt)}
+.prog{height:12px;border:2px solid var(--ink);background:#fff}.prog i{display:block;height:100%;background:var(--cobalt);transition:width .3s}
+.prog.gr i{background:var(--green)}
+.plate{display:grid;grid-template-columns:1fr 1fr;border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);background:linear-gradient(118deg,#fff 0,#d8dee7 28%,#94a3b8 52%,#e2e8f0 74%,#fff 100%)}
+.plate div{padding:8px 12px}.plate div+div{border-left:2px solid var(--ink)}
+.plate b{display:block;font-size:23px;font-weight:900;line-height:1.1;text-shadow:1px 1px 0 #fff}
+.plate span{font-size:9.5px;font-weight:800;letter-spacing:1.2px}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.days i{font-style:normal;border:2px solid var(--ink);text-align:center;font-size:11px;font-weight:900;padding:5px 0;background:#fff}
+.days i.on{background:var(--cobalt);color:#fff}.days i.now{background:var(--green);color:#fff}
+.badges{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.badge{border:2px solid var(--ink);background:#fff;padding:8px 5px;text-align:center;font-size:10.5px;font-weight:800;line-height:1.2;display:grid;gap:5px;justify-items:center;align-content:start}
+.badge svg{width:28px;height:28px;padding:4px;background:var(--cobalt);color:#fff;border:2px solid var(--ink)}
+.badge.off{background:transparent;border-style:dashed;color:var(--slate)}
+.badge.off svg{background:var(--line);color:var(--slate);border-color:var(--slate)}
+.badge small{font-weight:700;font-size:9.5px;color:var(--slate)}
+.feed{display:grid}
+.feed div{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;padding:8px 0;border-top:1px solid var(--line);font-size:12.5px;font-weight:700}
+.feed div:first-child{border-top:0}
+.tog{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid var(--line);font-size:13.5px;font-weight:700;width:100%}
 .tog:first-child{border-top:0}
 .sw{width:42px;height:24px;border:2px solid var(--ink);background:#fff;position:relative;flex:none}
-.sw::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;background:var(--ink)}
+.sw::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;background:var(--ink);transition:left .15s}
 .sw.on{background:var(--green)}.sw.on::after{left:20px}
-.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px 6px}
-.res{display:grid;justify-items:center;gap:3px;font-size:11.5px;font-weight:700}
+.only{display:flex;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line);font-size:13.5px;font-weight:700;width:100%}
+.only:first-child{border-top:0}.only svg,.row>svg{width:21px;height:21px;flex:none}
+.only small{display:block;font-weight:600;color:var(--slate);font-size:12px;margin-top:2px}
 .lockbox{border:2px dashed var(--ink);padding:22px 14px;text-align:center;display:grid;gap:10px;justify-items:center}
 .lockbox svg{width:44px;height:44px}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
-.steps div{font-size:10.5px;font-weight:800;text-align:center;padding:6px 2px;border:2px solid var(--ink);background:var(--green);color:#fff}
-.quote{border-left:4px solid var(--green);padding:6px 10px;background:#fff;font-size:13px}
-.kv{display:grid;grid-template-columns:86px 1fr;gap:6px 10px;font-size:13.5px}
+.note{font-size:12px;color:var(--slate);border:1.5px dashed var(--slate);padding:8px 10px}
+/* Город */
+.map{background:var(--cobalt) linear-gradient(rgba(255,255,255,.09) 1px,transparent 1px) 0 0/100% 22px;border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);padding:10px;display:grid;gap:10px}
+.block{border:1.5px solid #fff;background:rgba(255,255,255,.1);padding:8px 8px 10px}
+.block.my{background:rgba(255,255,255,.2);border-width:2.5px}
+.block h4{color:#fff;font-size:10.5px;letter-spacing:1.2px;margin-bottom:8px;display:flex;justify-content:space-between;text-transform:uppercase}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px 4px}
+.res{display:grid;justify-items:center;gap:3px;font-size:11px;font-weight:800;color:#fff;text-align:center;align-content:start}
+.res .ava{border-color:#fff}
+.res .tag{font-size:8.5px;padding:2px 4px}
+/* Проекты */
+.kv{display:grid;grid-template-columns:84px 1fr;gap:6px 10px;font-size:13.5px}
 .kv dt{font-size:10.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--cobalt);padding-top:2px}
 .kv dd{font-weight:700}
-input[type=range]{width:100%;accent-color:var(--cobalt);height:26px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.steps div{font-size:10.5px;font-weight:800;text-align:center;padding:6px 2px;border:2px solid var(--ink);background:#fff}
+.steps .ok{background:var(--green);color:#fff}.steps .now{background:var(--cobalt);color:#fff}
+.quote{border-left:4px solid var(--green);padding:6px 10px;background:#fff;font-size:13px}
+.pic{height:86px;border:2px solid var(--ink);background:var(--tint) repeating-linear-gradient(135deg,rgba(29,78,216,.1) 0 8px,transparent 8px 16px);display:grid;place-items:center;color:var(--cobalt)}
+.pic svg{width:44px;height:44px}
+/* Вечер */
+.slider{-webkit-appearance:none;appearance:none;width:100%;height:18px;border:2px solid var(--ink);background:linear-gradient(90deg,#EF4444,#FDE68A 50%,#10B981);margin:8px 0}
+.slider::-webkit-slider-thumb{-webkit-appearance:none;width:34px;height:34px;border-radius:50%;border:2.5px solid var(--ink);background:radial-gradient(circle at 35% 30%,#fff,#cbd5e1 55%,#64748b);box-shadow:2px 2px 0 var(--ink)}
+.slider::-moz-range-thumb{width:30px;height:30px;border-radius:50%;border:2.5px solid var(--ink);background:radial-gradient(circle at 35% 30%,#fff,#cbd5e1 55%,#64748b)}
+.slider:disabled{opacity:.65}
 .scale{display:flex;justify-content:space-between;font-size:11.5px;font-weight:900;letter-spacing:.5px}
 .status{border:2px dashed var(--cobalt);background:var(--tint);color:var(--cobalt);font-weight:900;font-size:13.5px;text-align:center;padding:8px}
 .lb{display:flex;justify-content:space-between;padding:7px 10px;font-size:13px;font-weight:700;border-top:1px solid var(--line)}
 .lb.me{background:var(--tint);color:var(--cobalt);font-weight:900}
-.bars{display:flex;align-items:flex-end;gap:8px;height:70px}
+.seg{display:grid;grid-template-columns:1fr 1fr;border-bottom:2px solid var(--ink)}
+.seg button{padding:8px;font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;text-align:center}
+.seg button+button{border-left:2px solid var(--ink)}.seg .on{background:var(--cobalt);color:#fff}
+img.wide{display:block;width:100%;border-bottom:2px solid var(--ink)}
+/* Вожатый, преподаватель, родитель */
+.bars{display:flex;align-items:flex-end;gap:8px;height:74px}
 .bars i{flex:1;background:var(--green);border:2px solid var(--ink);position:relative}
 .bars i.low{background:var(--red)}
 .bars i span{position:absolute;bottom:-18px;left:0;right:0;text-align:center;font-style:normal;font-size:10px;font-weight:800}
-.kid{display:grid;grid-template-columns:52px 1fr auto;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}
+.kid{display:grid;grid-template-columns:50px 1fr auto;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}
 .kid:first-child{border-top:0}
-.note{font-size:12px;color:var(--slate);border:1.5px dashed var(--slate);padding:8px 10px}
-.only{display:flex;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line);font-size:13.5px;font-weight:700}
-.only:first-child{border-top:0}.only svg,.row>svg{width:22px;height:22px;flex:none}
+.mini{display:grid;grid-template-columns:1fr repeat(4,48px);font-size:11.5px;font-weight:700}
+.mini>*{padding:6px 2px;border-top:1px solid var(--line);display:grid;place-items:center}
+.mini>*:nth-child(5n+1){place-items:center start;padding-left:0}
+.mini .hd{font-size:7.5px;font-weight:800;letter-spacing:.2px;text-transform:uppercase;color:var(--slate);border-top:0}
+.mini b{width:16px;height:16px;border:1.5px solid var(--ink);background:var(--green)}.mini b.no{background:var(--red)}
+/* Панели */
 .sheet{position:absolute;inset:0;background:rgba(10,15,29,.55);display:flex;align-items:flex-end;z-index:5}
-.sheet>div{width:100%;background:var(--paper);border-top:3px solid var(--ink);padding:16px 14px 20px;display:grid;gap:12px;max-height:86%;overflow-y:auto}
-.toast{position:absolute;left:14px;right:14px;bottom:86px;background:var(--green);color:#fff;border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);font-weight:800;font-size:13.5px;padding:10px 12px;z-index:6}
-.qr{width:132px;height:132px;border:2px solid var(--ink);background:#fff;padding:6px;margin:0 auto}
-.demo{font-size:11.5px;font-weight:700;color:var(--slate);text-decoration:underline;text-underline-offset:3px}
-img.wide{display:block;width:100%;border-bottom:2px solid var(--ink)}
-@media (max-width:820px){.about{display:none}.stage{padding:0}.phone{width:100%;height:100dvh;border:0;border-radius:0;box-shadow:none}}
-@media (prefers-reduced-motion:no-preference){.sheet>div{animation:up .18s ease-out}@keyframes up{from{transform:translateY(24px);opacity:.4}}}
+.sheet>div{width:100%;background:var(--paper);border-top:3px solid var(--ink);padding:16px 14px 20px;display:grid;gap:12px;max-height:88%;overflow-y:auto}
+.toast{position:absolute;left:14px;right:14px;bottom:84px;background:var(--green);color:#fff;border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);font-weight:800;font-size:13.5px;padding:10px 12px;z-index:7}
+.over{position:absolute;inset:0;background:var(--cobalt);color:#fff;z-index:6;display:grid;place-items:center;text-align:center;padding:28px}
+.over svg.key{width:120px;height:120px;margin:0 auto 18px;display:block}
+.over h2{font-size:34px;letter-spacing:-1px;line-height:1}
+.over p{font-size:15px;margin:10px 0 22px;font-weight:700}
+.over .btn{background:#fff;color:var(--ink);border-color:var(--ink);box-shadow:4px 4px 0 var(--ink)}
+.qr{width:132px;height:132px;border:2px solid var(--ink);background:#fff;padding:6px;margin:0 auto;display:block}
+.link{font-size:11.5px;font-weight:700;color:var(--slate);text-decoration:underline;text-underline-offset:3px;width:auto;justify-self:start}
+.globe,.row>svg.globe{width:84px;height:84px;flex:none}
+.path{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:6px;align-items:center;text-align:center}
+.path b{display:block;border:2px solid var(--ink);background:#fff;font-size:10.5px;letter-spacing:.8px;padding:7px 2px}
+.path b.on{background:var(--cobalt);color:#fff}
+.path small{display:block;font-size:10.5px;color:var(--slate);font-weight:700;margin-top:4px;line-height:1.2}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);border:2px solid var(--ink);background:#fff}
+.stats div{padding:6px 4px;text-align:center;font-size:9.5px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--slate)}
+.stats div+div{border-left:2px solid var(--ink)}
+.stats b{display:block;font-size:17px;color:var(--ink);letter-spacing:0}
+@media (max-width:860px){.about{display:none}.stage{padding:0}.phone{width:100%;height:100dvh;border:0;border-radius:0;box-shadow:none}}
+@media (min-width:861px){.help{display:none}.phone{height:min(844px,calc(100vh - 48px))}}
+@media (prefers-reduced-motion:no-preference){
+  .sheet>div{animation:up .18s ease-out}@keyframes up{from{transform:translateY(24px);opacity:.4}}
+  .over svg.key{animation:pop .5s cubic-bezier(.2,1.4,.4,1)}@keyframes pop{from{transform:scale(.2) rotate(-40deg);opacity:0}}
+  .toast{animation:up .18s ease-out}
+}
 button:focus-visible,input:focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
 </style>
 </head>
 <body>
 <div class="stage">
   <aside class="about">
-    <h1>SPORTZANIA ID //</h1>
-    <div class="sub">THE RESIDENT PASSPORT</div>
-    <ol>
-      <li><b>Стань жителем города:</b> выбери три интереса и получи ключ.</li>
-      <li><b>Найди своих:</b> фильтры «Общие вайбы» подсветят ребят с теми же увлечениями.</li>
-      <li><b>Подружись:</b> контакты открываются только после взаимного согласия. Переписки в паспорте нет.</li>
-      <li><b>Отметь настроение дня</b> на вкладке «Вечер».</li>
-      <li><b>Смени роль</b> сверху: что видит вожатый и что видит родитель.</li>
-    </ol>
-    <div class="foot">SK KIDS CHALLENGE 2026 // КОСТАРЕВ ФЁДОР</div>
+    <div class="mast"><div id="globe"></div><div><h1>SPORTZANIA ID //</h1><div class="sub">THE RESIDENT PASSPORT</div></div></div>
+    <p class="lead">Пилот цифрового паспорта ребёнка: лагерь как город, соцсеть без переписки. Пройдите путь за две минуты:</p>
+    <ul class="todo" id="todo"></ul>
+    <div class="foot"><span>SK KIDS CHALLENGE 2026<br>КОСТАРЕВ ФЁДОР, 11 ЛЕТ</span><span class="barcode" aria-hidden="true"></span></div>
   </aside>
   <div class="phone" id="phone">
-    <header class="top">
-      <div class="brand">SPORTZANIA ID //</div>
-      <div class="roles" id="roles"></div>
-    </header>
+    <div class="demo" id="roles" aria-label="Демо: смотреть как"></div>
+    <header class="top" id="top"></header>
     <main id="view"></main>
     <nav class="tabs" id="tabs"></nav>
   </div>
 </div>
+<noscript><p style="padding:24px;font-weight:700">Для работы пилота включите JavaScript в браузере.</p></noscript>
 <script>
-const IMG = {portrait:"{{portrait}}",masha:"{{masha}}",artem:"{{artem}}",diana:"{{diana}}",kirill:"{{kirill}}",coins:"{{coins}}",baro:"{{baro}}",cups:"{{cups}}"};
+const IMG = {portrait:"{{portrait}}",masha:"{{masha}}",artem:"{{artem}}",diana:"{{diana}}",kirill:"{{kirill}}",baro:"{{baro}}",cups:"{{cups}}"};
 const INTERESTS = ["Python","Робототехника","Баскетбол","Видеомонтаж","Английский","Рисование","Шахматы","Музыка","Футбол","Танцы"];
 const GOALS = ["Собрать робота","Найти команду","Подтянуть английский","Снять фильм отряда"];
-const FILTERS = [["Кто кодит на Python?","Python"],["Кто собирает роботов?","Робототехника"],["Кто монтирует видео?","Видеомонтаж"],["Кто играет в баскетбол?","Баскетбол"]];
+const WINS = ["Защитил проект","Помог другу","Забил гол","Выступил на сцене","Просто хороший день"];
+const FILTERS = [["Как у меня","__me"],["Кто кодит на Python?","Python"],["Кто собирает роботов?","Робототехника"],["Кто монтирует видео?","Видеомонтаж"],["Кто играет в баскетбол?","Баскетбол"]];
 const PEOPLE = [
-  {id:"masha",name:"Маша",squad:2,likes:["Python","Английский","Рисование"],handle:"@masha_z",proj:"Игра на Python"},
+  {id:"masha",name:"Маша",f:1,squad:2,likes:["Python","Английский","Рисование"],handle:"@masha_z",proj:"Игра на Python"},
   {id:"artem",name:"Артём",squad:2,likes:["Видеомонтаж","Музыка","Футбол"],handle:"@artem_dev",proj:"Фильм отряда"},
-  {id:"diana",name:"Диана",squad:2,likes:["Баскетбол","Танцы","Английский"],handle:"@diana.sport",proj:"Турнир 3×3"},
+  {id:"diana",name:"Диана",f:1,squad:2,likes:["Баскетбол","Танцы","Английский"],handle:"@diana.sport",proj:"Турнир 3×3"},
   {id:"kirill",name:"Кирилл",squad:2,likes:["Робототехника","Python","Шахматы"],handle:"@kirill_code",proj:"Робот-сортировщик"},
   {id:"alex",name:"Алекс",squad:1,likes:["Python","Шахматы"],handle:"@alex_super",proj:"Чат-бот отряда"},
-  {id:"varya",name:"Варя",squad:1,likes:["Рисование","Танцы"],handle:"@varya_learn",proj:"Афиша смены"},
-  {id:"sonya",name:"Соня",squad:1,likes:["Музыка","Английский"],handle:"@sonya_song",proj:"Гимн отряда"},
+  {id:"varya",name:"Варя",f:1,squad:1,likes:["Рисование","Танцы"],handle:"@varya_learn",proj:"Афиша смены"},
+  {id:"sonya",name:"Соня",f:1,squad:1,likes:["Музыка","Английский"],handle:"@sonya_song",proj:"Гимн отряда"},
   {id:"tema",name:"Тёма",squad:3,likes:["Робототехника","Футбол"],handle:"@tema_play",proj:"Робот-вратарь"},
   {id:"maxim",name:"Максим",squad:3,likes:["Баскетбол","Видеомонтаж"],handle:"@maxim_sport",proj:"Спортивный влог"},
   {id:"lev",name:"Лев",squad:3,likes:["Python","Робототехника"],handle:"@lev_code",proj:"Умная теплица"}
 ];
-const SKILLS = [["Лидерство",92],["Технологии",87],["Команда",90],["Английский",78],["Спорт",85]];
+const BASE = [["Лидерство",92],["Технологии",87],["Команда",90],["Английский",78],["Спорт",85]];
 const PRAISE = ["Взял на себя организацию","Помог соседу разобраться","Довёл дело до конца"];
+const LESSONS = [["Small talk о своих проектах","Английский"],["Python: чат-бот для отряда","Технологии"],["Защита мини-проекта на английском","Английский"]];
+const TOP = [["@alex_super",12450],["@diana.sport",11870],["@kirill_code",11320],["@masha_z",10980],["me",0],["@tema_play",10210],["@varya_learn",9950],["@maxim_sport",9730],["@lev_code",9510],["@sonya_song",9340]];
+const I = (d) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
 const ICON = {
-  id:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="5" width="18" height="14"/><circle cx="9" cy="11" r="2.2"/><path d="M5.5 16c.8-2 6.2-2 7 0M15 10h4M15 14h3"/></svg>',
-  city:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 21V9l6-4v16M9 21V11h6v10M15 21V7l6 3v11M2 21h20"/></svg>',
-  proj:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="5" y="8" width="14" height="11"/><path d="M12 8V4M9 13h.01M15 13h.01M9 16h6M2 12v4M22 12v4"/></svg>',
-  eve:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 16a8 8 0 0 1 16 0M12 16l4-6M2 20h20"/></svg>',
-  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="5" y="11" width="14" height="10"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>'
+  id:I('<rect x="3" y="5" width="18" height="14"/><circle cx="9" cy="11" r="2.2"/><path d="M5.5 16c.8-2 6.2-2 7 0M15 10h4M15 14h3"/>'),
+  city:I('<path d="M3 21V9l6-4v16M9 21V11h6v10M15 21V7l6 3v11M2 21h20"/>'),
+  proj:I('<rect x="5" y="8" width="14" height="11"/><path d="M12 8V4M9 13h.01M15 13h.01M9 16h6M2 12v4M22 12v4"/>'),
+  eve:I('<path d="M4 16a8 8 0 0 1 16 0M12 16l4-6M2 20h20"/>'),
+  lock:I('<rect x="5" y="11" width="14" height="10"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>'),
+  open:I('<rect x="5" y="11" width="14" height="10"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/>'),
+  key:I('<circle cx="8" cy="15" r="4.5"/><path d="M11.5 11.5 20 3M16 7l3 3M13.5 9.5l2.5 2.5"/>'),
+  flame:I('<path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-9z"/>'),
+  users:I('<circle cx="9" cy="9" r="3"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><circle cx="17" cy="8" r="2.5"/><path d="M16.5 14c2.8 0 4.5 2 4.5 5"/>'),
+  star:I('<path d="M12 3l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.9 6.6 19.8l1.1-6.1L3.2 9.4l6.1-.8z"/>'),
+  globe:I('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>'),
+  film:I('<rect x="3" y="6" width="13" height="12"/><path d="M16 10l5-3v10l-5-3"/>')
 };
-const DEF = {role:"kid",tab:"passport",status:"guest",likes:[],goal:null,friends:{artem:1},sent:{},incoming:{diana:1},filter:null,coins:420,streak:7,done:false,mood:85,hide:{},link:false,share:true,marks:0};
-let S = Object.assign({}, DEF);
-try { const s = JSON.parse(localStorage.getItem("szid2")); if (s) S = Object.assign(S, s); } catch (e) {}
-let sheet = null, toast = null, tt = 0;
-const save = () => { try { localStorage.setItem("szid2", JSON.stringify(S)); } catch (e) {} };
+const DEF = {v:3,role:"kid",tab:"passport",step:0,status:"guest",likes:[],goal:null,friends:{artem:1},sent:{},incoming:{diana:1},filter:null,coins:420,streak:7,freeze:1,done:false,mood:85,win:null,hide:{},link:false,share:true,consent:true,marks:[],film:false,team:false,season:"camp",courseOn:false,course:0,lbTab:"me",reveal:null,tour:{}};
+let S = JSON.parse(JSON.stringify(DEF));
+try { const s = JSON.parse(localStorage.getItem("szid3")); if (s && s.v === 3) S = Object.assign(S, s); } catch (e) {}
+let sheet = null, toast = null, over = null, tt = 0;
+const save = () => { try { localStorage.setItem("szid3", JSON.stringify(S)); } catch (e) {} };
 const $ = (id) => document.getElementById(id);
 const who = (id) => PEOPLE.find((p) => p.id === id);
 const ava = (p, cls = "") => IMG[p.id] ? `<img class="ava ${cls}" src="${IMG[p.id]}" alt="">` : `<span class="ava ${cls}">${p.name[0]}</span>`;
 const LEVEL = {guest:"ГОСТЬ",citizen:"ЖИТЕЛЬ ГОРОДА",resident:"РЕЗИДЕНТ 2027"};
-
-function radar() {
-  const c = 160, R = 70, pt = (i, r) => { const a = Math.PI * 2 / 5 * i - Math.PI / 2; return [(c + r * Math.cos(a)).toFixed(1), (104 + r * Math.sin(a)).toFixed(1)]; };
+const common = (p) => p.likes.filter((t) => S.likes.includes(t));
+const friendsN = () => Object.keys(S.friends).length;
+const points = () => 10350 + S.coins;
+const fmt = (n) => n.toLocaleString("ru-RU");
+function skills() {
+  const add = {};
+  S.marks.forEach((m) => { add[m.skill] = (add[m.skill] || 0) + 1; });
+  LESSONS.slice(0, S.course).forEach((l) => { add[l[1]] = (add[l[1]] || 0) + 2; });
+  if (S.film) add["Команда"] = (add["Команда"] || 0) + 2;
+  return BASE.map(([n, v]) => [n, Math.min(100, v + (add[n] || 0))]);
+}
+function radar(max = 340) {
+  const SK = skills(), c = 160, R = 70, pt = (i, r) => { const a = Math.PI * 2 / 5 * i - Math.PI / 2; return [(c + r * Math.cos(a)).toFixed(1), (104 + r * Math.sin(a)).toFixed(1)]; };
   let g = "";
-  for (let l = 1; l <= 4; l++) g += `<polygon points="${SKILLS.map((_, i) => pt(i, R / 4 * l).join(",")).join(" ")}" fill="none" stroke="#CBD5E1" stroke-width="1"/>`;
-  SKILLS.forEach((_, i) => { const [x, y] = pt(i, R); g += `<line x1="${c}" y1="104" x2="${x}" y2="${y}" stroke="#0A0F1D" stroke-width="1.2"/>`; });
-  g += `<polygon points="${SKILLS.map((s, i) => pt(i, R * s[1] / 100).join(",")).join(" ")}" fill="rgba(29,78,216,.22)" stroke="#1D4ED8" stroke-width="2.5"/>`;
-  SKILLS.forEach((s, i) => { const [x, y] = pt(i, R + 15); const anchor = i === 0 ? "middle" : i < 3 ? "start" : "end"; const dx = i === 0 ? 0 : i < 3 ? -8 : 8; g += `<text x="${+x + dx}" y="${+y + (i === 0 ? 0 : i === 2 || i === 3 ? 9 : 3)}" text-anchor="${anchor}" font-size="10" font-weight="800">${s[0].toUpperCase()} ${s[1]}</text>`; });
-  return `<svg viewBox="0 0 320 196" role="img" aria-label="Радар компетенций: ${SKILLS.map((s) => s.join(" ")).join(", ")}" style="display:block;width:100%;max-width:340px;margin:0 auto">${g}</svg>`;
+  for (let l = 1; l <= 4; l++) g += `<polygon points="${SK.map((_, i) => pt(i, R / 4 * l).join(",")).join(" ")}" fill="none" stroke="#CBD5E1" stroke-width="1"/>`;
+  SK.forEach((_, i) => { const [x, y] = pt(i, R); g += `<line x1="${c}" y1="104" x2="${x}" y2="${y}" stroke="#0A0F1D" stroke-width="1.2"/>`; });
+  g += `<polygon points="${SK.map((s, i) => pt(i, R * s[1] / 100).join(",")).join(" ")}" fill="rgba(29,78,216,.22)" stroke="#1D4ED8" stroke-width="2.5"/>`;
+  SK.forEach((s, i) => { const [x, y] = pt(i, R * s[1] / 100); g += `<circle cx="${x}" cy="${y}" r="3.6" fill="#1D4ED8" stroke="#fff" stroke-width="1.4"/>`; });
+  SK.forEach((s, i) => { const [x, y] = pt(i, R + 15); const an = i === 0 ? "middle" : i < 3 ? "start" : "end", dx = i === 0 ? 0 : i < 3 ? -8 : 8; g += `<text x="${+x + dx}" y="${+y + (i === 0 ? 0 : i === 2 || i === 3 ? 9 : 3)}" text-anchor="${an}" font-size="10" font-weight="800">${s[0].toUpperCase()} ${s[1]}</text>`; });
+  return `<svg viewBox="0 0 320 196" role="img" aria-label="Радар компетенций: ${SK.map((s) => s.join(" ")).join(", ")}" style="display:block;width:100%;max-width:${max}px;margin:0 auto">${g}</svg>`;
 }
 function qr() {
   const n = 21; let r = "", seed = 7;
@@ -191,121 +283,244 @@ function qr() {
   }
   return `<svg class="qr" viewBox="0 0 21 21" shape-rendering="crispEdges" aria-label="Демонстрационный QR-код">${r}</svg>`;
 }
+function globe(color = "#1D4ED8") {
+  const R = 44, c = 50, t = 22 * Math.PI / 180, sp = 18 * Math.PI / 180;
+  const pr = (la, lo) => { const x = Math.cos(la) * Math.sin(lo + sp), y = Math.sin(la), z = Math.cos(la) * Math.cos(lo + sp); return [c + R * x, c - R * (y * Math.cos(t) - z * Math.sin(t)), y * Math.sin(t) + z * Math.cos(t)]; };
+  let f = "", b = "";
+  const curve = (fn) => { let p = fn(0); for (let i = 1; i <= 60; i++) { const q = fn(i / 60); const s = `M${p[0].toFixed(1)} ${p[1].toFixed(1)}L${q[0].toFixed(1)} ${q[1].toFixed(1)}`; if (p[2] + q[2] >= 0) f += s; else b += s; p = q; } };
+  for (let k = 0; k < 6; k++) curve((u) => pr(-Math.PI + u * 2 * Math.PI, k * Math.PI / 6));
+  [-60, -30, 0, 30, 60].forEach((d) => curve((u) => pr(d * Math.PI / 180, u * 2 * Math.PI)));
+  return `<svg class="globe" viewBox="0 0 100 100" fill="none" stroke="${color}" stroke-linecap="round" aria-hidden="true"><path d="${b}" stroke-width=".7" opacity=".4"/><path d="${f}" stroke-width="1.2"/><circle cx="50" cy="50" r="${R}" stroke-width="1.6"/></svg>`;
+}
+
+// ---------- Лента «что попало в паспорт» ----------
+function feed() {
+  const f = [];
+  LESSONS.slice(0, S.course).reverse().forEach((l) => f.push(["ОНЛАЙН-ШКОЛА", "Урок пройден: " + l[0], "+ " + l[1]]));
+  S.marks.slice().reverse().forEach((m) => f.push(["ВОЖАТЫЙ", "«" + m.phrase + "»", "+ " + m.skill]));
+  if (S.film) f.push(["ПРОЕКТ", "«Фильм отряда» подтверждён", "+ Команда"]);
+  if (S.done) f.push(["БАРОМЕТР", "Вечерний чек-ин", "+10 монет"]);
+  f.push(["БРАСЛЕТ", "8 200 шагов за день", "+ Спорт"], ["ПРОЕКТ", "«Робот-сортировщик» подтверждён", "+ Технологии"], ["ПУТЁВКА", "Смена 2–9 января, отряд 2", "само"]);
+  return f;
+}
+function badges() {
+  const n = friendsN();
+  return [
+    ["key", "Житель города", S.status !== "guest", "выбери 3 интереса"],
+    ["star", "Резидент 2027", S.status === "resident", "добавь цель"],
+    ["proj", "Первый проект", true, ""],
+    ["flame", "7 дней подряд", S.streak >= 7, "держи стрик"],
+    ["users", "Друг отряда", n >= 3, "друзей: " + n + " из 3"],
+    ["film", "Командный игрок", S.film, "ещё 1 проект"],
+    ["globe", "Полиглот B1", S.course >= 3, "онлайн-курс"],
+    ["eve", "Честный барометр", S.streak >= 5, "5 чек-инов"],
+    ["city", "Шаги отряда", false, "86 400 из 100 000"]
+  ];
+}
 
 // ---------- Экраны резидента ----------
-function vPassport() {
-  if (S.status === "guest") return `
-    <div class="card"><div class="bar">Добро пожаловать в город</div><div class="pad" style="display:grid;gap:12px">
-      <div class="h">Ты пока гость. Стань жителем города SportZania</div>
-      <p class="muted">Выбери три интереса — получишь ключ и увидишь, кто живёт в твоём отряде и во всём лагере.</p>
-      <div class="chips">${INTERESTS.map((t) => `<button class="chip ${S.likes.includes(t) ? "on" : ""}" data-a="like" data-v="${t}">${t}</button>`).join("")}</div>
+function vOnboard() {
+  if (S.step === 0) return `
+    <div class="card"><div class="bar">Паспорт резидента</div><div class="pad g" style="gap:14px">
+      <div class="row">${globe()}<div><div class="cap">Смена 2–9 января · Новая Истра</div><div class="h">Привет! Это твой цифровой паспорт</div></div></div>
+      <p class="muted">Лагерь — это город. Жители видят друг друга, находят своих по интересам и дружат. Личной переписки здесь нет: знакомимся в паспорте — общаемся вживую.</p>
+      <div>
+        <div class="only">${ICON.key}<span>Выбери три интереса — получи ключ от города</span></div>
+        <div class="only">${ICON.city}<span>Смотри, кто живёт в твоём отряде и в лагере</span></div>
+        <div class="only">${ICON.lock}<span>Контакты открываются только друзьям</span></div>
+      </div>
+      <button class="btn cobalt" data-a="scan">Сканировать QR на бейдже</button>
+    </div></div>
+    <div class="card"><div class="bar plain">Как стать своим в городе</div><div class="pad"><div class="path">
+      <div><b class="on">ГОСТЬ</b><small>выбери три интереса</small></div><span>→</span>
+      <div><b>ЖИТЕЛЬ</b><small>видишь город и отряд</small></div><span>→</span>
+      <div><b>РЕЗИДЕНТ</b><small>дружишь через Friend-Lock</small></div></div></div></div>
+    <p class="note">Это пилот: данные и ребята в нём придуманы для демонстрации.</p>`;
+  return `
+    <div class="card"><div class="bar">Шаг 1 из 2 · профиль-минимум</div><div class="pad g">
+      <div class="row"><img class="ava" src="${IMG.portrait}" alt=""><div><div class="h s">Фёдор · отряд 2</div><div class="muted">Имя, отряд и смена пришли из путёвки</div></div><span class="tag green" style="margin-left:auto">само</span></div>
+      <div class="h">Выбери три интереса — и ты житель города</div>
+      <div class="chips">${INTERESTS.map((t) => `<button class="chip ${S.likes.includes(t) ? "on" : ""}" data-a="like" data-v="${t}" aria-pressed="${S.likes.includes(t)}">${t}</button>`).join("")}</div>
       <div class="row sp"><span class="cap">Выбрано: ${S.likes.length} из 3</span><div class="prog" style="width:120px"><i style="width:${Math.min(100, S.likes.length / 3 * 100)}%"></i></div></div>
       <button class="btn cobalt" data-a="key" ${S.likes.length < 3 ? "disabled" : ""}>Получить ключ от города</button>
     </div></div>
-    <p class="note">В паспорте нет личной переписки: здесь знакомятся, а общаются вживую.</p>`;
+    <p class="note">Писать ничего не нужно: только выбрать. Остальное паспорт соберёт сам — из проектов, отметок вожатых и браслета.</p>`;
+}
+function vPassport() {
+  if (S.status === "guest") return vOnboard();
+  const full = S.status === "resident" ? 100 : 60, bd = badges(), got = bd.filter((b) => b[2]).length, SK = skills();
+  const course = S.season !== "after" ? "" : !S.courseOn ? `
+    <div class="card" style="background:var(--tint)"><div class="bar">Паспорт советует курс</div><div class="pad g">
+      <div class="h">Python + Разговорный английский B1</div>
+      <div class="chips"><span class="chip flat">Технологии ${SK[1][1]}</span><span class="chip flat">Английский ${SK[3][1]}</span><span class="chip flat">проект: робот</span></div>
+      <p class="muted">Подобрано по сильным сторонам смены. <b style="color:var(--ink)">Скидка резидента.</b></p>
+      <button class="btn cobalt" data-a="course">Начать курс</button></div></div>` : `
+    <div class="card"><div class="bar"><span>Онлайн-курс</span><span class="tag ${S.course >= 3 ? "green" : "cobalt"}">${S.course} из 3</span></div><div class="pad g">
+      <div class="h s">Python + Разговорный английский B1</div><div class="prog gr"><i style="width:${S.course / 3 * 100}%"></i></div>
+      ${LESSONS.map((l, i) => `<div class="row sp" style="font-size:13px;font-weight:700"><span>${i + 1}. ${l[0]}</span><span class="tag ${i < S.course ? "green" : "out"}">${i < S.course ? "пройден" : "впереди"}</span></div>`).join("")}
+      ${S.course < 3 ? `<button class="btn cobalt" data-a="lesson">Пройти урок ${S.course + 1}</button>` : `<div class="quote"><b>Курс пройден.</b> Бейдж «Полиглот B1» в паспорте. К новой смене вожатый увидит твой рост.</div>`}
+      <p class="muted">Преподаватель видит твои навыки и проекты — и не начинает с нуля.</p></div></div>`;
   const next = S.status === "citizen"
-    ? `<div class="h" style="font-size:16px">Добавь цель на смену — и сможешь дружить</div><div class="chips" style="margin-top:8px">${GOALS.map((g) => `<button class="chip" data-a="goal" data-v="${g}">${g}</button>`).join("")}</div>`
-    : `<div class="row sp"><div class="h" style="font-size:16px">До бейджа «Командный игрок» — 1 проект</div></div><div class="prog" style="margin-top:8px"><i style="width:66%"></i></div><p class="muted" style="margin-top:6px">Твоя цель на смену: ${S.goal}</p>`;
+    ? `<div class="h s">Добавь цель на смену — станешь резидентом и сможешь дружить</div><div class="chips">${GOALS.map((g) => `<button class="chip" data-a="goal" data-v="${g}">${g}</button>`).join("")}</div>`
+    : S.film ? `<div class="h s">Цель достигнута: бейдж «Командный игрок»</div><div class="prog gr"><i style="width:100%"></i></div><p class="muted">Твоя цель на смену: ${S.goal}</p>`
+    : `<div class="h s">До бейджа «Командный игрок» — 1 проект</div><div class="prog"><i style="width:66%"></i></div><p class="muted">Твоя цель на смену: ${S.goal}. Закончи «Фильм отряда» — и вожатый подтвердит проект.</p>`;
   return `
-    <div class="card pad"><div class="hero"><img src="${IMG.portrait}" alt="Аватар резидента">
-      <div><div class="cap">Отряд 2 · Новая Истра</div><div class="nick">@fedya_tech</div><div class="lvl">УРОВЕНЬ: ${LEVEL[S.status]}</div>
-      <div class="chips" style="margin-top:8px">${S.likes.slice(0, 3).map((t) => `<span class="chip flat">${t}</span>`).join("")}</div></div></div></div>
-    <div class="coins"><div><span>МОНЕТЫ ZANIA</span><b>${S.coins}</b></div><div><span>СТРИК</span><b>${S.streak} дней</b></div></div>
-    <div class="card"><div class="bar">5 компетенций <span class="tag green">оценка наставников</span></div><div class="pad">${radar()}</div></div>
-    <div class="card"><div class="bar">Следующая цель</div><div class="pad">${next}</div></div>
+    <div class="card pad g"><div class="hero"><img src="${IMG.portrait}" alt="Аватар резидента">
+      <div><div class="cap">Отряд 2 · Новая Истра</div><div class="nick">@fedya_tech</div><div class="lvl ${S.status === "resident" ? "res" : ""}">УРОВЕНЬ: ${LEVEL[S.status]}</div>
+      <div class="chips" style="margin-top:7px">${S.likes.slice(0, 3).map((t) => `<span class="chip flat">${t}</span>`).join("")}</div></div></div>
+      <div class="row sp"><span class="cap">Заполнен на ${full}%</span><div class="prog ${full === 100 ? "gr" : ""}" style="width:170px"><i style="width:${full}%"></i></div></div>
+      <div class="stats"><div><b>${friendsN()}</b>друзья</div><div><b>${S.film ? 2 : 1}</b>проекты</div><div><b>${got}</b>бейджи</div></div></div>
+    ${course}
+    <div class="plate"><div><span>МОНЕТЫ ZANIA</span><b>${S.coins}</b></div><div><span>СТРИК</span><b>${S.streak} дней</b></div></div>
+    <div class="card"><div class="bar"><span>5 компетенций</span><span class="tag green">оценка наставников</span></div><div class="pad">${radar()}</div></div>
+    <div class="card"><div class="bar">Следующая цель</div><div class="pad g">${next}</div></div>
+    <div class="card"><div class="bar"><span>Бейджи</span><span class="tag cobalt">${got} из ${bd.length}</span></div><div class="pad"><div class="badges">
+      ${bd.map(([ic, t, ok, hint]) => `<div class="badge ${ok ? "" : "off"}">${ICON[ic]}<span>${t}</span>${ok ? "" : `<small>${hint}</small>`}</div>`).join("")}</div></div></div>
+    <div class="card"><div class="bar"><span>Попало в паспорт само</span><span class="tag green">без писанины</span></div><div class="pad"><div class="feed">
+      ${feed().slice(0, 6).map(([src, t, plus]) => `<div><span class="tag out">${src}</span><span>${t}</span><span class="tag ${plus === "само" ? "" : "green"}">${plus}</span></div>`).join("")}</div></div></div>
     <div class="card"><div class="bar">Кто что видит</div><div class="pad">
-      <button class="tog" data-a="tog" data-v="share"><span>Мои интересы видят жители города</span><i class="sw ${S.share ? "on" : ""}"></i></button>
-      <button class="tog" data-a="tog" data-v="link"><span>Публичная ссылка для школы и олимпиад</span><i class="sw ${S.link ? "on" : ""}"></i></button>
-      ${S.link ? `<div style="padding:10px 0;display:grid;gap:8px;text-align:center">${qr()}<div class="muted">По ссылке видны только навыки и проекты.<br>Контактов и номера комнаты там нет.</div></div>` : ""}
-      <div class="only">${ICON.lock}<span>Здоровье, геопозиция, пульс и сон — только родителю</span></div>
-      <div class="only">${ICON.lock}<span>Личной переписки в паспорте нет</span></div>
-      <button class="demo" data-a="reset" style="margin-top:10px">Начать демо заново</button>
-    </div></div>`;
+      <button class="tog" data-a="tog" data-v="share" role="switch" aria-checked="${S.share}"><span>Мои интересы видят жители города${S.share ? "" : "<small style='display:block;font-weight:600;color:var(--slate);font-size:12px'>скрыты: по фильтру «Общие вайбы» тебя не найдут</small>"}</span><i class="sw ${S.share ? "on" : ""}"></i></button>
+      <button class="tog" data-a="tog" data-v="link" role="switch" aria-checked="${S.link}"><span>Публичная ссылка для школы и олимпиад</span><i class="sw ${S.link ? "on" : ""}"></i></button>
+      ${S.link ? `<div class="g" style="padding:6px 0 10px">${qr()}<button class="btn ghost sm" style="justify-self:center" data-a="pub">Что увидит учитель по ссылке</button></div>` : ""}
+      <div class="only">${ICON.lock}<span>Здоровье, геопозиция, пульс и сон<small>видит только родитель</small></span></div>
+      <div class="only">${ICON.lock}<span>Личной переписки в паспорте нет<small>знакомимся здесь — общаемся вживую</small></span></div>
+      <button class="btn ghost" data-a="del" style="margin-top:10px;border-color:var(--red);color:var(--red)">Удалить паспорт</button></div></div>
+    <div class="card"><div class="bar plain">Сценарий: после смены</div><div class="pad g">
+      ${S.season === "after" ? `<p class="muted">Смена закончилась. Паспорт поехал с тобой в онлайн-школу, а друзья остались в городе.</p><button class="btn ghost" data-a="season" data-v="camp">Вернуться на смену</button>`
+        : `<p class="muted">Посмотри, что происходит с паспортом, когда ребёнок начинает онлайн-курс.</p><button class="btn" data-a="season" data-v="after">Смена закончилась: показать</button>`}
+      <button class="link" data-a="reset">Начать демо заново</button></div></div>`;
+}
+function gate(title) {
+  return `<div class="card"><div class="bar">${title}</div><div class="pad"><div class="lockbox">${ICON.lock}<div class="h">Сначала стань жителем</div><p class="muted">Жители видят город, а гости — нет. Выбери три интереса в паспорте и получи ключ.</p><button class="btn cobalt" data-a="tab" data-v="passport">Заполнить паспорт</button></div></div></div>`;
 }
 function vCity() {
-  if (S.status === "guest") return `
-    <div class="card"><div class="bar">Город SportZania</div><div class="pad"><div class="lockbox">${ICON.lock}
-      <div class="h">Город закрыт</div><p class="muted">Жители видят друг друга, а гости — нет. Выбери три интереса в паспорте и получи ключ.</p>
-      <button class="btn cobalt" data-a="tab" data-v="passport">Заполнить паспорт</button></div></div></div>`;
-  const f = S.filter, hit = (p) => f && p.likes.includes(f);
+  if (S.status === "guest") return gate("Город SportZania");
+  const f = S.filter, hit = (p) => f && (f === "__me" ? common(p).length > 0 : p.likes.includes(f));
   const count = PEOPLE.filter(hit).length;
   const inc = Object.keys(S.incoming).filter((id) => !S.friends[id]);
-  const squad = (n) => `<div class="card"><div class="bar">Отряд ${n}${n === 2 ? " · твой" : ""}</div><div class="pad"><div class="grid4">
+  const fr = PEOPLE.filter((p) => S.friends[p.id]);
+  const block = (n) => `<div class="block ${n === 2 ? "my" : ""}"><h4><span>Отряд ${n}</span><span>${n === 2 ? "твой отряд" : ""}</span></h4><div class="grid4">
       ${n === 2 ? `<div class="res"><span class="ava me">ВЫ</span>Федя</div>` : ""}
-      ${PEOPLE.filter((p) => p.squad === n).map((p) => `<button class="res" data-a="open" data-v="${p.id}">${ava(p, f ? (hit(p) ? "hit" : "dim") : "")}${p.name}${S.friends[p.id] ? ' <span class="tag green">друг</span>' : ""}</button>`).join("")}
-    </div></div></div>`;
+      ${PEOPLE.filter((p) => p.squad === n).map((p) => `<button class="res" data-a="open" data-v="${p.id}" aria-label="${p.name}, отряд ${n}">${ava(p, f ? (hit(p) ? "hit" : "dim") : "")}${p.name}${S.friends[p.id] ? '<span class="tag green">друг</span>' : S.sent[p.id] ? '<span class="tag out">ждём</span>' : ""}</button>`).join("")}
+    </div></div>`;
   return `
-    ${inc.map((id) => `<div class="card pad" style="display:grid;gap:10px;background:var(--tint)"><div class="row">${ava(who(id))}<div><div class="cap">Запрос в друзья</div><div class="h" style="font-size:16px">${who(id).name} хочет дружить</div></div></div>
+    ${inc.map((id) => `<div class="card pad g" style="background:var(--tint)"><div class="row">${ava(who(id))}<div><div class="cap">Запрос в друзья</div><div class="h s">${who(id).name} хочет дружить</div></div></div>
       <div class="row"><button class="btn cobalt" data-a="accept" data-v="${id}">Принять</button><button class="btn ghost" data-a="decline" data-v="${id}">Не сейчас</button></div></div>`).join("")}
-    <div><div class="cap" style="margin-bottom:7px">Общие вайбы: найди своих</div><div class="chips">${FILTERS.map(([t, v]) => `<button class="chip ${f === v ? "on" : ""}" data-a="filter" data-v="${v}">${t}</button>`).join("")}</div>
+    <div><div class="cap" style="margin-bottom:7px">Общие вайбы: найди своих</div><div class="chips">${FILTERS.map(([t, v]) => `<button class="chip ${f === v ? "on" : ""}" data-a="filter" data-v="${v}" aria-pressed="${f === v}">${t}</button>`).join("")}</div>
       ${f ? `<div class="status" style="margin-top:9px">Совпадений в городе: ${count}</div>` : ""}</div>
-    ${[2, 1, 3].map(squad).join("")}
-    <p class="note">Нажми на жителя, чтобы открыть его карточку. Контакты видны только друзьям.</p>`;
+    <div class="map" aria-label="Карта города">${[2, 1, 3].map(block).join("")}</div>
+    <div class="card"><div class="bar"><span>Мои друзья</span><span class="tag cobalt">${fr.length}</span></div><div class="pad">
+      ${fr.length ? fr.map((p) => `<div class="kid" style="grid-template-columns:38px 1fr auto">${ava(p, "s")}<div><b>${p.name}</b><div class="muted">${S.consent ? p.handle + " · Telegram" : "ник закрыт родителем"}</div></div><span class="tag green">открыт</span></div>`).join("") : `<p class="muted">Пока никого. Нажми на жителя на карте и отправь запрос.</p>`}</div></div>
+    <p class="note">Нажми на жителя, чтобы открыть его карточку. Контакты видны только друзьям, а сообщений здесь нет вовсе.</p>`;
 }
 function vProjects() {
-  if (S.status === "guest") return `<div class="card"><div class="bar">Паспорта проектов</div><div class="pad"><div class="lockbox">${ICON.lock}<div class="h">Сначала стань жителем</div><button class="btn cobalt" data-a="tab" data-v="passport">Заполнить паспорт</button></div></div></div>`;
+  if (S.status === "guest") return gate("Паспорта проектов");
   return `
-    <div class="card"><div class="bar">Паспорт проекта <span class="tag green">подтверждён</span></div><div class="pad" style="display:grid;gap:12px">
+    <div class="card"><div class="bar"><span>Паспорт проекта</span><span class="tag green">подтверждён</span></div><div class="pad g" style="gap:12px">
       <div><div class="cap">Смена 2–9 января · Отряд 2</div><div class="h">Робот-сортировщик</div></div>
       <dl class="kv"><dt>Цель</dt><dd>Научить робота сортировать детали по цвету</dd>
-        <dt>Команда</dt><dd><div class="row team" style="gap:4px;flex-wrap:wrap">${["kirill", "masha"].map((id) => ava(who(id))).join("")}<span class="ava me">ВЫ</span><span class="tag cobalt">роль: тимлид</span></div></dd>
+        <dt>Команда</dt><dd><div class="row" style="gap:4px;flex-wrap:wrap">${["kirill", "masha"].map((id) => ava(who(id), "s")).join("")}<span class="ava s me">ВЫ</span><span class="tag cobalt">роль: тимлид</span></div></dd>
         <dt>Результат</dt><dd>Рабочий прототип и видео защиты</dd></dl>
-      <div><div class="cap" style="margin-bottom:5px">Этапы</div><div class="steps"><div>Идея</div><div>Сборка</div><div>Код</div><div>Защита</div></div></div>
+      <div><div class="cap" style="margin-bottom:5px">Этапы</div><div class="steps"><div class="ok">Идея</div><div class="ok">Сборка</div><div class="ok">Код</div><div class="ok">Защита</div></div></div>
       <div><div class="cap" style="margin-bottom:5px">Отметка наставника</div><div class="quote">«Сам распределил роли и довёл команду до защиты».<br><b>Вожатый отряда 2</b></div></div>
       <div><div class="cap" style="margin-bottom:5px">Прокачанные навыки</div><div class="chips"><span class="chip green">+ Технологии</span><span class="chip green">+ Лидерство</span><span class="chip green">+ Команда</span></div></div>
-      <div class="row"><button class="btn" data-a="qr">Показать вне платформы</button></div>
+      <button class="btn" data-a="qr">Показать вне платформы</button>
     </div></div>
-    <div class="card"><div class="bar plain">Фильм отряда <span class="tag">роль: монтажёр</span></div><div class="pad">
-      <button class="tog" data-a="hide" data-v="film"><span>${S.hide.film ? "Проект скрыт: его видишь только ты" : "Проект виден жителям города"}</span><i class="sw ${S.hide.film ? "" : "on"}"></i></button></div></div>
-    <p class="note">Проект попадает в паспорт сам — после защиты. Наставник подтверждает его в три касания.</p>`;
+    <div class="card"><div class="bar"><span>Паспорт проекта</span><span class="tag ${S.film ? "green" : "cobalt"}">${S.film ? "подтверждён" : "в работе"}</span></div><div class="pad g">
+      <div class="pic">${ICON.film}</div>
+      <div><div class="cap">Смена 2–9 января · Отряд 2</div><div class="h">Фильм отряда</div></div>
+      <dl class="kv"><dt>Цель</dt><dd>Снять фильм о смене к закрытию</dd><dt>Команда</dt><dd><div class="row" style="gap:4px">${ava(who("artem"), "s")}<span class="ava s me">ВЫ</span><span class="tag cobalt">роль: монтажёр</span></div></dd></dl>
+      <div class="steps"><div class="ok">Идея</div><div class="ok">Съёмка</div><div class="${S.film ? "ok" : "now"}">Монтаж</div><div class="${S.film ? "ok" : ""}">Показ</div></div>
+      ${S.film ? `<div class="quote">«Смонтировал фильм и показал его всему лагерю».<br><b>Вожатый отряда 2</b></div><div class="chips"><span class="chip green">+ Команда</span></div>`
+        : `<p class="muted">После показа проект подтвердит вожатый. Переключись сверху на роль «Вожатый» и подтверди его сам.</p>`}
+      <button class="tog" data-a="hide" data-v="film" role="switch" aria-checked="${!S.hide.film}"><span>${S.hide.film ? "Скрыт: проект видишь только ты" : "Проект виден жителям города"}</span><i class="sw ${S.hide.film ? "" : "on"}"></i></button>
+    </div></div>
+    <p class="note">Проект попадает в паспорт сам — после защиты. Наставник подтверждает его, чтобы достижение было настоящим, а не нарисованным.</p>`;
 }
 function vEvening() {
-  if (S.status === "guest") return `<div class="card"><div class="bar">Барометр дня</div><div class="pad"><div class="lockbox">${ICON.lock}<div class="h">Сначала стань жителем</div><button class="btn cobalt" data-a="tab" data-v="passport">Заполнить паспорт</button></div></div></div>`;
+  if (S.status === "guest") return gate("Барометр дня");
   const m = S.mood, txt = m > 70 ? "Сегодня имба!" : m > 35 ? "Нормальный вайб" : "Сегодня токсично";
+  const lb = S.lbTab === "squads"
+    ? [["Отряд 2 · твой", 3480 + (S.done ? 10 : 0), 1], ["Отряд 1", 3310], ["Отряд 3", 3120]].map(([n, v, me], i) => `<div class="lb ${me ? "me" : ""}"><span>0${i + 1}. ${n}</span><span>${fmt(v)}</span></div>`).join("")
+    : TOP.map(([n, v]) => n === "me" ? ["@fedya_tech (ты)", points(), 1] : [n, v]).sort((a, b) => b[1] - a[1]).map(([n, v, me], i) => `<div class="lb ${me ? "me" : ""}"><span>${String(i + 1).padStart(2, "0")}. ${n}</span><span>${fmt(v)}</span></div>`).join("");
   return `
-    <div class="card"><div class="bar">Барометр дня <span class="tag cobalt">21:30</span></div><img class="wide" src="${IMG.baro}" alt="">
-      <div class="pad" style="display:grid;gap:10px">
+    <div class="card"><div class="bar"><span>Барометр дня</span><span class="tag cobalt">21:30</span></div><img class="wide" src="${IMG.baro}" alt="">
+      <div class="pad g">
       <div class="scale"><span style="color:var(--red)">ТОКСИЧНО</span><span style="color:var(--green)">ИМБА!</span></div>
-      <input type="range" min="0" max="100" value="${m}" id="mood" aria-label="Настроение дня" ${S.done ? "disabled" : ""}>
+      <input class="slider" type="range" min="0" max="100" value="${m}" id="mood" aria-label="Настроение дня" ${S.done ? "disabled" : ""}>
       <div class="status" id="moodtxt">${txt}</div>
       ${S.done ? `<div class="quote"><b>Чек-ин сохранён: +10 монет, стрик ${S.streak} дней.</b><br>Ответ анонимный: вожатый видит только настроение отряда целиком.</div>`
-        : `<button class="btn" data-a="checkin">Сохранить вечерний чек-ин</button><p class="muted">Две минуты перед отбоем. Без оценок: честный ответ тоже приносит монеты.</p>`}
+        : `<div><div class="cap" style="margin-bottom:6px">Главная победа дня · по желанию</div><div class="chips">${WINS.map((w) => `<button class="chip ${S.win === w ? "on" : ""}" data-a="win" data-v="${w}" aria-pressed="${S.win === w}">${w}</button>`).join("")}</div></div>
+        <button class="btn" data-a="checkin">Сохранить вечерний чек-ин</button><p class="muted">Две минуты перед отбоем. Без оценок: честный ответ тоже приносит монеты.</p>`}
     </div></div>
+    <div class="card"><div class="bar"><span>Стрик</span><span class="tag out">заморозка: ${S.freeze}</span></div><div class="pad g">
+      <div class="days">${[2, 3, 4, 5, 6, 7, 8].map((d, i) => `<i class="${i < 6 ? "on" : S.done ? "now" : ""}">${d}</i>`).join("")}</div>
+      <p class="muted">Пропустил вечер — стрик не сгорит: его можно заморозить на день.</p></div></div>
+    <div class="card"><div class="bar"><span>Копилка отряда 2</span><span class="tag green">вместе</span></div><div class="pad g">
+      <div class="h s">Шаги отряда: 86 400 из 100 000</div><div class="prog gr"><i style="width:86%"></i></div>
+      <p class="muted">Шаги считают браслеты. Цель общая: никто не соревнуется с соседом по комнате.</p></div></div>
     <div class="card"><div class="bar">Активность смены · лидерборд</div><img class="wide" src="${IMG.cups}" alt="">
-      <div class="lb" style="border-top:0"><span>Копилка отряда 2</span><span>3 480</span></div>
-      <div class="lb"><span>04. @masha_z</span><span>10 980</span></div>
-      <div class="lb me"><span>05. @fedya_tech (ты)</span><span>${(10350 + S.coins).toLocaleString("ru-RU")}</span></div>
-      <div class="lb"><span>06. @tema_play</span><span>10 210</span></div></div>
-    <p class="note">Баллы дают за проекты и помощь отряду. Стрик можно заморозить на день — он не сгорит.</p>`;
+      <div class="seg"><button class="${S.lbTab === "me" ? "on" : ""}" data-a="lb" data-v="me">Резиденты · Топ-10</button><button class="${S.lbTab === "squads" ? "on" : ""}" data-a="lb" data-v="squads">Отряды</button></div>
+      <div style="margin-top:-1px">${lb}</div></div>
+    <p class="note">Баллы дают за проекты и помощь отряду, а не за победу над соседом.</p>`;
 }
-// ---------- Экран вожатого ----------
+
+// ---------- Вожатый ----------
 function vCounselor() {
   const kids = [["fedya", "Федя", "Робототехника, Python", "Прошлая смена: проект «Умный дом»"], ["kirill", "Кирилл", "Робототехника, шахматы", "Первый раз в лагере"], ["masha", "Маша", "Python, английский", "Онлайн-курс: английский B1"], ["diana", "Диана", "Баскетбол, танцы", "Капитан команды 3×3"]];
+  const today = S.done ? Math.max(20, Math.round(S.mood * .8)) : 66;
   return `
-    <div class="card"><div class="bar">Отряд 2 · 12 жителей</div><div class="pad" style="display:grid;gap:8px">
-      <div class="cap">Подсказка паспорта</div><div class="h" style="font-size:16px">Федя и Кирилл любят робототехнику — предложи им одну команду</div></div></div>
-    <div class="card"><div class="bar">Пульс отряда <span class="tag cobalt">анонимно</span></div><div class="pad" style="padding-bottom:26px"><div class="bars">
-      ${[[78, 3], [84, 4], [41, 5], [30, 6], [66, 7]].map(([v, d]) => `<i class="${v < 45 ? "low" : ""}" style="height:${v}%"><span>${d}.01</span></i>`).join("")}</div></div></div>
-    <div class="card"><div class="bar">Мои ребята ${S.marks ? `<span class="tag green">отметок: ${S.marks}</span>` : ""}</div><div class="pad">
+    <div class="card"><div class="bar">Отряд 2 · 12 жителей</div><div class="pad g">
+      <div class="cap">Подсказка паспорта</div><div class="h s">Федя и Кирилл любят робототехнику — предложи им одну команду</div>
+      ${S.team ? `<div class="quote"><b>Команда «Роботы» собрана:</b> Федя, Кирилл. Тема: робот-сортировщик.</div>` : `<button class="btn cobalt" data-a="team">Собрать команду</button>`}</div></div>
+    <div class="card"><div class="bar"><span>Пульс отряда</span><span class="tag cobalt">анонимно</span></div><div class="pad g"><div class="bars" style="margin-bottom:18px">
+      ${[[78, 3], [84, 4], [41, 5], [30, 6], [today, 7]].map(([v, d]) => `<i class="${v < 45 ? "low" : ""}" style="height:${v}%"><span>${d}.01</span></i>`).join("")}</div>
+      <p class="muted"><b style="color:var(--red)">Сигнал:</b> 5–6 января настроение упало. Имён нет — стоит поговорить со всем отрядом.</p></div></div>
+    <div class="card"><div class="bar"><span>Проекты на подтверждение</span><span class="tag ${S.film ? "green" : "red"}">${S.film ? "готово" : "1"}</span></div><div class="pad">
+      <div class="row sp"><div><b>Фильм отряда</b><div class="muted">Федя, Артём · показ состоялся</div></div>${S.film ? `<span class="tag green">подтверждён</span>` : `<button class="btn sm green" data-a="confirmFilm">Подтвердить</button>`}</div></div></div>
+    <div class="card"><div class="bar"><span>Мои ребята</span>${S.marks.length ? `<span class="tag green">отметок: ${S.marks.length}</span>` : ""}</div><div class="pad">
       ${kids.map(([id, n, likes, hint]) => `<div class="kid">${id === "fedya" ? `<img class="ava" src="${IMG.portrait}" alt="">` : ava(who(id))}<div><b>${n}</b><div class="muted">${likes}</div><div class="muted" style="font-size:11.5px">${hint}</div></div><button class="btn sm" data-a="mark" data-v="${n}">Отметить</button></div>`).join("")}</div></div>
     <p class="note">Вожатый не видит соцсети, здоровье и геопозицию. Ответы барометра приходят без имён — только настроение отряда.</p>`;
 }
-// ---------- Экран родителя ----------
-function vParent() {
+// ---------- Преподаватель онлайн-школы ----------
+function vTeacher() {
+  const SK = skills();
   return `
-    <div class="card pad"><div class="hero"><img src="${IMG.portrait}" alt=""><div><div class="cap">Паспорт ребёнка</div><div class="nick" style="font-size:20px">Фёдор, 11 лет</div><div class="lvl">ОТРЯД 2 · НОВАЯ ИСТРА</div><p class="muted" style="margin-top:6px">2 проекта · 5 навыков · стрик ${S.streak} дней</p></div></div></div>
-    <div class="card"><div class="bar">Видите только вы <span class="tag red">закрыто для всех</span></div><div class="pad">
-      <div class="only">${ICON.lock}<span>Здоровье и медицинские ограничения</span></div>
-      <div class="only">${ICON.lock}<span>Геопозиция с браслета</span></div>
-      <div class="only">${ICON.lock}<span>Пульс и сон</span></div>
-      <p class="muted" style="margin-top:8px">Эти данные не попадают в профиль: их не видят ни дети, ни вожатые, ни преподаватели.</p></div></div>
+    <div class="card"><div class="bar">Онлайн-школа · новый ученик</div><div class="pad g">
+      <div class="row"><img class="ava" src="${IMG.portrait}" alt=""><div><div class="h s">Фёдор, 11 лет</div><div class="muted">Резидент смены 2–9 января</div></div><span class="tag cobalt" style="margin-left:auto">B1</span></div>
+      <div class="cap">Подсказка паспорта</div><div class="h s">Начните с проекта: чат-бот для отряда. Любит Python и робототехнику, был тимлидом</div></div></div>
+    <div class="card"><div class="bar"><span>Что я вижу</span><span class="tag green">из паспорта</span></div><div class="pad g">
+      ${radar(300)}
+      <div><div class="only">${ICON.proj}<span>Робот-сортировщик<small>роль: тимлид · подтверждён наставником</small></span></div>
+      ${S.film && !S.hide.film ? `<div class="only">${ICON.film}<span>Фильм отряда<small>роль: монтажёр · подтверждён наставником</small></span></div>` : ""}</div></div></div>
+    <div class="card"><div class="bar"><span>Курс: Python + английский B1</span><span class="tag ${S.course >= 3 ? "green" : "cobalt"}">${S.course} из 3</span></div><div class="pad g">
+      ${!S.courseOn ? `<p class="muted">Курс начнётся после смены. Покажем, что будет, когда ребёнок приходит в онлайн-школу.</p><button class="btn cobalt" data-a="course">Показать: ученик начал курс</button>`
+        : LESSONS.map((l, i) => `<div class="row sp" style="font-size:13px;font-weight:700"><span>${i + 1}. ${l[0]}</span>${i < S.course ? `<span class="tag green">пройден</span>` : i === S.course ? `<button class="btn sm green" data-a="lesson">Отметить</button>` : `<span class="tag out">впереди</span>`}</div>`).join("") + `<p class="muted">Каждый урок сам обновляет радар в паспорте ребёнка.</p>`}</div></div>
+    <div class="card"><div class="bar"><span>Что закрыто</span><span class="tag red">не вижу</span></div><div class="pad">
+      <div class="only">${ICON.lock}<span>Ники соцсетей и телефон</span></div><div class="only">${ICON.lock}<span>Здоровье, геопозиция, пульс и сон</span></div><div class="only">${ICON.lock}<span>Ответы барометра и список друзей</span></div></div></div>`;
+}
+// ---------- Родитель ----------
+function vParent() {
+  const priv = [["health", "Здоровье и медицинские ограничения", "Указаны вами при бронировании. В профиль не попадают."], ["geo", "Геопозиция с браслета", "На территории лагеря · обновлено в 21:40"], ["sleep", "Пульс и сон", "Сон 8 ч 20 мин · 8 200 шагов за день"]];
+  const mx = [["Интересы, отряд", 1, 1, 1, 1], ["Навыки и проекты", 1, 1, 1, 1], ["Ники и телефон", 0, 1, 0, 0], ["Ответ барометра", 0, 0, 0, 0], ["Здоровье, геопозиция", 0, 0, 0, 0]];
+  const SK = skills();
+  return `
+    <div class="card pad"><div class="hero"><img src="${IMG.portrait}" alt=""><div><div class="cap">Паспорт ребёнка</div><div class="nick" style="font-size:20px">Фёдор, 11 лет</div><div class="lvl">ОТРЯД 2 · НОВАЯ ИСТРА</div><p class="muted" style="margin-top:6px">Проектов: ${S.film ? 2 : 1} · стрик ${S.streak} дней · друзей: ${friendsN()}</p></div></div></div>
+    <div class="card"><div class="bar"><span>Видите только вы</span><span class="tag red">закрыто для всех</span></div><div class="pad">
+      ${priv.map(([k, t, v]) => `<button class="only" data-a="reveal" data-v="${k}" aria-expanded="${S.reveal === k}">${S.reveal === k ? ICON.open : ICON.lock}<span>${t}<small>${S.reveal === k ? v : "нажмите, чтобы открыть"}</small></span></button>`).join("")}
+      <p class="muted" style="margin-top:8px">Из-за диагноза могут дразнить, а геопозиция — вопрос безопасности. Поэтому эти данные не видят ни дети, ни вожатые, ни преподаватели.</p></div></div>
+    <div class="card"><div class="bar">Кто что видит</div><div class="pad"><div class="mini">
+      <span class="hd"></span><span class="hd">Город</span><span class="hd">Друзья</span><span class="hd">Вожатый</span><span class="hd">Педагог</span>
+      ${mx.map(([t, ...c]) => `<span>${t}</span>` + c.map((v) => `<span><b class="${v ? "" : "no"}" title="${v ? "видно" : "закрыто"}"></b></span>`).join("")).join("")}</div>
+      <p class="muted" style="margin-top:8px">Зелёный — видно, красный — закрыто. Ответ барометра не видит никто: вожатому приходит только настроение отряда.</p></div></div>
     <div class="card"><div class="bar">Согласия</div><div class="pad">
       <div class="tog"><span>Обработка данных ребёнка</span><span class="tag green">дано</span></div>
-      <button class="tog" data-a="tog" data-v="consent"><span>Обмен контактами с друзьями (Friend-Lock)</span><i class="sw ${S.consent === false ? "" : "on"}"></i></button>
-      <button class="tog" data-a="tog" data-v="link"><span>Публичная ссылка на навыки и проекты</span><i class="sw ${S.link ? "on" : ""}"></i></button>
+      <button class="tog" data-a="tog" data-v="consent" role="switch" aria-checked="${S.consent}"><span>Обмен контактами с друзьями (Friend-Lock)</span><i class="sw ${S.consent ? "on" : ""}"></i></button>
+      <button class="tog" data-a="tog" data-v="link" role="switch" aria-checked="${S.link}"><span>Публичная ссылка на навыки и проекты</span><i class="sw ${S.link ? "on" : ""}"></i></button>
       <button class="btn ghost" data-a="del" style="margin-top:10px;border-color:var(--red);color:var(--red)">Удалить паспорт</button></div></div>
-    <div class="card"><div class="bar">Рекомендация после смены</div><div class="pad" style="display:grid;gap:8px"><div class="h" style="font-size:16px">Python + Разговорный английский B1</div>
-      <p class="muted">Подобрано по сильным сторонам: «Технологии» 87 и «Английский» 78.</p><span class="tag green" style="justify-self:start">скидка резидента</span></div></div>`;
+    <div class="card"><div class="bar">Рекомендация после смены</div><div class="pad g"><div class="h s">Python + Разговорный английский B1</div>
+      <p class="muted">Подобрано по сильным сторонам: «Технологии» ${SK[1][1]} и «Английский» ${SK[3][1]}.</p>
+      ${S.courseOn ? `<span class="tag green" style="justify-self:start">ребёнок учится: ${S.course} из 3 уроков</span>` : `<button class="btn cobalt" data-a="course">Записать на курс со скидкой резидента</button>`}</div></div>`;
 }
 
 // ---------- Всплывающие панели ----------
@@ -313,63 +528,94 @@ function sheetHtml() {
   if (!sheet) return "";
   let h = "";
   if (sheet.t === "person") {
-    const p = who(sheet.id), fr = S.friends[p.id], sent = S.sent[p.id];
-    h = `<div class="row">${ava(p)}<div><div class="cap">Отряд ${p.squad} · житель города</div><div class="h">${p.name}</div></div></div>
+    const p = who(sheet.id), fr = S.friends[p.id], sent = S.sent[p.id], cm = common(p);
+    h = `<div class="row">${ava(p)}<div><div class="cap">Отряд ${p.squad} · житель города</div><div class="h">${p.name}</div></div>${cm.length ? `<span class="tag green" style="margin-left:auto">общих: ${cm.length}</span>` : ""}</div>
       <div class="chips">${p.likes.map((t) => `<span class="chip flat ${S.likes.includes(t) ? "on" : ""}">${t}</span>`).join("")}</div>
       <p class="muted">Проект смены: <b style="color:var(--ink)">${p.proj}</b></p>
-      ${S.consent === false ? `<p class="note">Родитель не разрешил обмен контактами. Дружить можно, ники останутся закрытыми.</p>`
-        : fr ? `<div class="quote"><b>Вы друзья. Контакт открыт:</b><br>${p.handle} · Telegram</div>`
+      ${!S.consent ? `<p class="note">Родитель не разрешил обмен контактами. Дружить можно, ники останутся закрытыми.</p>`
+        : fr ? `<div class="quote"><div class="row">${ICON.open}<div><b>Вы друзья. Friend-Lock открыт:</b><br>${p.handle} · Telegram</div></div></div>`
         : S.status !== "resident" ? `<p class="note">Чтобы дружить, добавь цель на смену в паспорте — это второй шаг.</p><button class="btn cobalt" data-a="tab" data-v="passport">Добавить цель</button>`
-        : sent ? `<div class="status">Запрос отправлен. Ждём ответа</div><button class="demo" data-a="confirm" data-v="${p.id}">Демо: ${p.name} подтверждает дружбу</button>`
+        : sent ? `<div class="status">Запрос отправлен. Ждём ответа</div><div class="row">${ICON.lock}<span class="muted">Контакты всё ещё закрыты: нужен ответ второго.</span></div><button class="link" data-a="confirm" data-v="${p.id}">Демо: ${p.name} подтверждает дружбу</button>`
         : `<div class="row">${ICON.lock}<span class="muted">Соцсети и телефон закрыты, пока вы оба не подтвердите дружбу.</span></div><button class="btn cobalt" data-a="request" data-v="${p.id}">Запрос в друзья</button>`}
       <p class="muted" style="font-size:12px">Написать сообщение здесь нельзя: переписки в паспорте нет.</p>`;
   } else if (sheet.t === "qr") {
-    h = `<div class="h">Паспорт в кармане</div>${qr()}<p class="muted" style="text-align:center">QR-код и ссылка открывают только этот проект и радар навыков. Контакты и номер комнаты не показываются.</p>`;
+    h = `<div class="h">Паспорт в кармане</div>${qr()}<p class="muted" style="text-align:center">QR-код и ссылка открывают только проекты и радар навыков. Контактов и номера комнаты там нет.</p><button class="btn" data-a="pub">Что увидит учитель</button>`;
+  } else if (sheet.t === "pub") {
+    h = `<div class="cap">Публичная страница · sportzania.id/fedya_tech</div><div class="h">Резидент SportZania 2027</div>${radar(280)}
+      <div><div class="only">${ICON.proj}<span>Робот-сортировщик<small>тимлид · подтверждён наставником</small></span></div>
+      ${S.film && !S.hide.film ? `<div class="only">${ICON.film}<span>Фильм отряда<small>монтажёр · подтверждён наставником</small></span></div>` : ""}</div>
+      <p class="note">Имени, отряда, контактов и номера комнаты здесь нет. Ссылку можно закрыть в любой момент.</p>`;
   } else if (sheet.t === "mark") {
-    h = sheet.step === 1 ? `<div class="cap">Отметка за 1 минуту · шаг 1 из 2</div><div class="h">Какой навык проявил ${sheet.n}?</div><div class="chips">${SKILLS.map((s) => `<button class="chip" data-a="mark2" data-v="${s[0]}">${s[0]}</button>`).join("")}</div>`
-      : `<div class="cap">Шаг 2 из 2 · навык «${sheet.skill}»</div><div class="h">Что сказать?</div><div style="display:grid;gap:8px">${PRAISE.map((t) => `<button class="chip" style="text-align:left" data-a="mark3" data-v="${t}">${t}</button>`).join("")}</div>`;
+    h = sheet.step === 1 ? `<div class="cap">Отметка за 1 минуту · касание 2 из 3</div><div class="h">Какой навык проявил ${sheet.n}?</div><div class="chips">${BASE.map((s) => `<button class="chip" data-a="mark2" data-v="${s[0]}">${s[0]}</button>`).join("")}</div>`
+      : `<div class="cap">Касание 3 из 3 · навык «${sheet.skill}»</div><div class="h">Что сказать?</div><div class="g" style="gap:8px">${PRAISE.map((t) => `<button class="chip" data-a="mark3" data-v="${t}">${t}</button>`).join("")}</div>`;
   } else if (sheet.t === "del") {
     h = `<div class="h">Удалить паспорт?</div><p class="muted">Профиль, проекты и друзья исчезнут навсегда. Удаление подтверждает родитель — это право семьи.</p><button class="btn" style="background:var(--red);border-color:var(--red)" data-a="reset">Удалить и начать заново</button>`;
+  } else if (sheet.t === "help") {
+    h = `<div class="h">Что попробовать</div><ul class="todo">${todo()}</ul><button class="btn ghost" data-a="reset">Начать демо заново</button>`;
   }
-  return `<div class="sheet" data-a="close"><div data-stop="1">${h}<button class="btn ghost" data-a="close">Закрыть</button></div></div>`;
+  return `<div class="sheet" data-a="close"><div data-stop="1" role="dialog" aria-modal="true">${h}<button class="btn ghost" data-a="close">Закрыть</button></div></div>`;
 }
-function say(t) { toast = t; clearTimeout(tt); tt = setTimeout(() => { toast = null; draw(); }, 2600); }
+function todo() {
+  return [["Стань жителем города: выбери три интереса", S.status !== "guest"], ["Найди своих фильтром «Общие вайбы»", S.tour.filter], ["Добавь цель и стань резидентом", S.status === "resident"],
+    ["Подружись: Friend-Lock откроет контакт", S.tour.friend], ["Отметь настроение дня на вкладке «Вечер»", S.done], ["Вожатый: отметь прогресс в три касания", S.marks.length > 0],
+    ["Родитель: открой данные, закрытые для всех", S.tour.parent], ["После смены: начни онлайн-курс", S.courseOn]]
+    .map(([t, ok]) => `<li class="${ok ? "ok" : ""}"><i></i><span>${t}</span></li>`).join("");
+}
+function say(t) { toast = t; clearTimeout(tt); tt = setTimeout(() => { toast = null; draw(); }, 2800); }
 
 function draw() {
-  $("roles").innerHTML = [["kid", "Резидент"], ["counselor", "Вожатый"], ["parent", "Родитель"]].map(([r, t]) => `<button class="${S.role === r ? "on" : ""}" data-a="role" data-v="${r}">${t}</button>`).join("");
-  const locked = S.status === "guest";
+  const ROLES = [["kid", "Резидент"], ["counselor", "Вожатый"], ["teacher", "Педагог"], ["parent", "Родитель"]];
+  $("roles").innerHTML = ROLES.map(([r, t]) => `<button class="${S.role === r ? "on" : ""}" data-a="role" data-v="${r}" aria-pressed="${S.role === r}">${t}</button>`).join("");
+  const where = {kid: S.season === "after" ? "после смены" : "идёт смена", counselor: "экран вожатого", teacher: "онлайн-школа", parent: "кабинет родителя"}[S.role];
+  $("top").innerHTML = `<div class="brand">SPORTZANIA ID //</div><span class="where">${where}</span><div class="r">${S.role === "kid" && S.status !== "guest" ? `<span class="pill">${S.coins} Z</span>` : ""}<button class="help" data-a="help" aria-label="Что попробовать">?</button></div>`;
+  const locked = S.status === "guest", inc = Object.keys(S.incoming).filter((id) => !S.friends[id]).length;
   $("tabs").style.display = S.role === "kid" ? "" : "none";
   $("tabs").innerHTML = [["passport", "Паспорт", ICON.id], ["city", "Город", ICON.city], ["projects", "Проекты", ICON.proj], ["evening", "Вечер", ICON.eve]]
-    .map(([k, t, i]) => `<button class="${S.tab === k ? "on" : ""} ${locked && k !== "passport" ? "lock" : ""}" data-a="tab" data-v="${k}">${i}${t}</button>`).join("");
-  const v = S.role === "counselor" ? vCounselor() : S.role === "parent" ? vParent() : {passport: vPassport, city: vCity, projects: vProjects, evening: vEvening}[S.tab]();
-  $("view").innerHTML = v;
-  document.querySelectorAll(".sheet,.toast").forEach((e) => e.remove());
-  $("phone").insertAdjacentHTML("beforeend", sheetHtml() + (toast ? `<div class="toast" role="status">${toast}</div>` : ""));
+    .map(([k, t, i]) => `<button class="${S.tab === k ? "on" : ""} ${locked && k !== "passport" ? "lock" : !locked && S.tab !== k && ((k === "city" && inc) || (k === "evening" && !S.done)) ? "dot" : ""}" data-a="tab" data-v="${k}" aria-current="${S.tab === k}">${i}${t}</button>`).join("");
+  const v = {counselor: vCounselor, teacher: vTeacher, parent: vParent}[S.role] || {passport: vPassport, city: vCity, projects: vProjects, evening: vEvening}[S.tab];
+  $("view").innerHTML = v();
+  document.querySelectorAll(".sheet,.toast,.over").forEach((e) => e.remove());
+  const ov = over === "key" ? `<div class="over" role="dialog" aria-modal="true"><div><svg class="key" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4.5"/><path d="M11.5 11.5 20 3M16 7l3 3M13.5 9.5l2.5 2.5"/></svg><h2>КЛЮЧ ПОЛУЧЕН</h2><p>Ты — житель города SportZania.<br>Теперь видно, кто живёт рядом.</p><button class="btn" data-a="enter">Войти в город</button></div></div>` : "";
+  $("phone").insertAdjacentHTML("beforeend", ov + sheetHtml() + (toast ? `<div class="toast" role="status">${toast}</div>` : ""));
   const r = $("mood");
   if (r) r.oninput = () => { S.mood = +r.value; $("moodtxt").textContent = S.mood > 70 ? "Сегодня имба!" : S.mood > 35 ? "Нормальный вайб" : "Сегодня токсично"; save(); };
+  $("todo").innerHTML = todo();
   save();
 }
+const top0 = () => { $("view").scrollTop = 0; };
 const ACT = {
-  role: (v) => { S.role = v; sheet = null; $("view").scrollTop = 0; },
-  tab: (v) => { S.tab = v; S.role = "kid"; sheet = null; $("view").scrollTop = 0; },
+  role: (v) => { S.role = v; sheet = null; top0(); },
+  tab: (v) => { S.tab = v; S.role = "kid"; sheet = null; top0(); },
+  scan: () => { S.step = 1; say("Бейдж найден: Фёдор, отряд 2"); top0(); },
   like: (v) => { S.likes = S.likes.includes(v) ? S.likes.filter((x) => x !== v) : S.likes.concat(v); },
-  key: () => { if (S.likes.length >= 3) { S.status = "citizen"; S.tab = "city"; say("Ключ получен! Теперь ты житель города"); } },
+  key: () => { if (S.likes.length >= 3) { S.status = "citizen"; over = "key"; } },
+  enter: () => { over = null; S.tab = "city"; top0(); },
   goal: (v) => { S.goal = v; S.status = "resident"; say("Уровень: Резидент 2027. Теперь можно дружить"); },
-  filter: (v) => { S.filter = S.filter === v ? null : v; },
+  filter: (v) => { S.filter = S.filter === v ? null : v; S.tour.filter = 1; },
   open: (v) => { sheet = {t: "person", id: v}; },
   request: (v) => { S.sent[v] = 1; say("Запрос отправлен: ждём ответа"); },
-  confirm: (v) => { S.friends[v] = 1; delete S.sent[v]; say(who(v).name + " подтвердил(а) дружбу. Контакт открыт"); },
-  accept: (v) => { if (S.status !== "resident") { say("Сначала добавь цель на смену в паспорте"); return; } S.friends[v] = 1; delete S.incoming[v]; say("Вы друзья: контакты открыты обоим"); },
+  confirm: (v) => { const p = who(v); S.friends[v] = 1; delete S.sent[v]; S.tour.friend = 1; say(p.name + (p.f ? " подтвердила" : " подтвердил") + " дружбу. Friend-Lock открыт"); },
+  accept: (v) => { if (S.status !== "resident") { say("Сначала добавь цель на смену в паспорте"); return; } S.friends[v] = 1; delete S.incoming[v]; S.tour.friend = 1; say("Вы друзья: контакты открыты обоим"); },
   decline: (v) => { delete S.incoming[v]; },
-  tog: (v) => { S[v] = v === "consent" ? S.consent === false : !S[v]; },
+  tog: (v) => { S[v] = !S[v]; },
   hide: (v) => { S.hide[v] = !S.hide[v]; },
+  win: (v) => { S.win = S.win === v ? null : v; },
   checkin: () => { S.done = true; S.coins += 10; S.streak += 1; say("Чек-ин сохранён: +10 монет"); },
+  lb: (v) => { S.lbTab = v; },
   qr: () => { sheet = {t: "qr"}; },
+  pub: () => { sheet = {t: "pub"}; },
+  help: () => { sheet = {t: "help"}; },
+  team: () => { S.team = true; say("Команда «Роботы» собрана"); },
+  confirmFilm: () => { S.film = true; say("Проект подтверждён: он уже в паспорте ребёнка"); },
   mark: (v) => { sheet = {t: "mark", step: 1, n: v}; },
   mark2: (v) => { sheet.step = 2; sheet.skill = v; },
-  mark3: () => { S.marks += 1; say("Готово: отметка попала в паспорт ребёнка"); sheet = null; },
+  mark3: (v) => { S.marks.push({skill: sheet.skill, phrase: v}); say("Готово: +1 к навыку «" + sheet.skill + "» в паспорте"); sheet = null; },
+  season: (v) => { S.season = v; say(v === "after" ? "Смена закончилась. Паспорт едет в онлайн-школу" : "Снова на смене"); top0(); },
+  course: () => { S.courseOn = true; S.season = "after"; say("Курс начат: преподаватель уже видит навыки и проекты"); top0(); },
+  lesson: () => { if (S.course < 3) { const l = LESSONS[S.course]; S.course += 1; say("Урок пройден: +2 к навыку «" + l[1] + "»"); } },
+  reveal: (v) => { S.reveal = S.reveal === v ? null : v; S.tour.parent = 1; },
   del: () => { sheet = {t: "del"}; },
-  reset: () => { S = JSON.parse(JSON.stringify(DEF)); sheet = null; },
+  reset: () => { S = JSON.parse(JSON.stringify(DEF)); sheet = null; over = null; top0(); },
   close: () => { sheet = null; }
 };
 document.addEventListener("click", (e) => {
@@ -379,6 +625,8 @@ document.addEventListener("click", (e) => {
   ACT[el.dataset.a](el.dataset.v);
   draw();
 });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && sheet) { sheet = null; draw(); } });
+$("globe").innerHTML = globe();
 draw();
 </script>
 </body>
