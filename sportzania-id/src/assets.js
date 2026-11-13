@@ -114,4 +114,4 @@ async function buildAssets(HEX) {
   return A;
 }
 
-module.exports = { buildAssets };
+module.exports = { buildAssets, globeSVG, barcodeSVG, hatchSVG, gradientSVG };
