@@ -77,6 +77,30 @@ if (hasGroup) rubricList.sort((a, b) => DAYS.indexOf(a[1].day.slice(0, 2)) - DAY
 const rubricRows = rubricList.map(([id, r]) =>
   `<tr><td class="num">${esc(r.day)}</td>${hasGroup ? `<td>${esc(r.group || '')}</td>` : ''}<td><span class="chip r-${r.chip || id}">${esc(r.name)}</span></td><td>${esc(r.format)}</td><td>${esc(r.goal)}</td><td>${esc(r.proof)}</td></tr>`).join('');
 
+const fmtDate = iso => `${dayOf(iso)} ${['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'][+iso.slice(5, 7) - 1]}`;
+const soundCard = z => `<article class="snd" id="snd-${esc(z.id)}">
+  <div class="meta"><span class="st st-${z.status === 'начинает' ? 'new' : 'mid'}">${esc(z.status)}</span>${z.kind ? `<span class="fmt">${esc(z.kind)}</span>` : ''}${z.use ? `<span class="slot">в плане: ${esc(z.use)}</span>` : ''}</div>
+  <h3>${esc(z.title)}</h3>
+  <ul class="facts2">${z.facts.map(f => `<li>${esc(f)}</li>`).join('')}</ul>
+  <p><span class="lbl">Как используют</span><br>${esc(z.how)}</p>
+  <div class="ex">${z.examples.map(e => `<a class="exa" href="${esc(e.url)}" target="_blank" rel="noopener"><span class="ext">«${esc(e.text)}»</span><span class="exm">${esc(e.meta)}</span></a>`).join('')}</div>
+  <div class="cap"><div class="capt"><span class="lbl">Строки для неё</span><span id="idea-${esc(z.id)}">${z.ideas.map(esc).join('<br>')}</span></div>
+    <button type="button" class="btn copy" data-copy="idea-${esc(z.id)}">Скопировать</button></div>
+</article>`;
+const soundsHtml = z => `<section class="sec" id="zvuki">
+    <h2>Звуки недели</h2>
+    <p class="eyebrow">Список от ${esc(fmtDate(z.date))} · следующий ${esc(fmtDate(z.next))}</p>
+    <p>${esc(z.text)}</p>
+    <div class="snds">${z.sounds.map(soundCard).join('\n')}</div>
+    ${z.late && z.late.length ? `<div class="box"><p class="lbl">Поздно брать</p><ul>${z.late.map(l => `<li><strong>${esc(l.title)}</strong>: ${esc(l.why)}</li>`).join('')}</ul></div>` : ''}
+    <p class="note">${esc(z.method)}</p>
+  </section>`;
+const notebookHtml = n => `<section class="sec" id="bloknot">
+    <h2>Блокнот моментов</h2>
+    <p>${esc(n.text)}</p>
+    <div class="box"><p class="lbl">Вопросы на вечер, если ничего не вспоминается</p><ul>${n.prompts.map(q => `<li>${esc(q)}</li>`).join('')}</ul></div>
+  </section>`;
+
 const toolHtml = t => {
   const vids = posts.filter(p => p.tool === t.id).map(p => `<li><a href="#${p.id}">${esc(p.dow)} ${dayOf(p.date)} ${monOf(p.date)}</a> · ${esc(p.title)}</li>`).join('');
   return `<article class="tool" id="tool-${t.id}">
@@ -168,6 +192,18 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
 .meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;font-size:14px}
 .fmt{color:var(--muted);font-weight:600}
 .toollink{font-weight:600}
+.snds{display:grid;gap:16px}
+.snd{background:var(--card);border:1.5px solid var(--line);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.snd h3{font-size:clamp(20px,4vw,24px)}
+.st{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 11px;border-radius:999px}
+.st-new{background:var(--accent);color:var(--card)}
+.st-mid{background:var(--sama-bg);color:var(--sama)}
+.facts2{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:3px;font-variant-numeric:tabular-nums}
+.ex{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.exa{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--ink);background:var(--bg);border-radius:14px;padding:12px 14px;border:1.5px solid transparent;min-width:0}
+.exa:hover{border-color:var(--accent)}
+.ext{font-weight:600;overflow-wrap:anywhere}
+.exm{font-size:13px;color:var(--link);font-weight:600}
 .slot{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
 .r-proba{background:var(--accent);color:var(--card)}
 .pnote{font-size:14px;color:var(--muted);font-weight:600}
@@ -253,8 +289,11 @@ const BODY = `
     <h1>${esc(plan.name)}</h1>
     <p class="lead">${esc(plan.lead || 'Учёба, эстетика и жизнь школьницы в одном блоге. Каждая неделя строится вокруг одной школьной боли и одного файла, который её снимает. Форматы взяты у роликов, которые уже набирали миллионы на маленьких аккаунтах.')}</p>
     <p class="facts"><span><b>${posts.length}</b> публикаций</span><span><b>${nRub}</b> ${plural(nRub, ['рубрика', 'рубрики', 'рубрик'])}</span>${plan.tools.length ? `<span><b>${plan.tools.length}</b> файла</span>` : ''}${nImg ? `<span><b>${nImg}</b> ${plural(nImg, ['готовая картинка', 'готовые картинки', 'готовых картинок'])}</span>` : ''}</p>
-    <nav class="nav" aria-label="Разделы">${plan.weeks.map(w => `<a href="#week-${w.n}">Неделя ${w.n}</a>`).join('')}${plan.tools.length ? '<a href="#html">Что генерировать в HTML</a>' : ''}${plan.ideas ? '<a href="#idei">Идеи про запас</a>' : ''}<a href="#cifry">Цифры</a>${nImg ? '<a href="#kartinki">Картинки</a>' : ''}</nav>
+    <nav class="nav" aria-label="Разделы">${plan.sounds ? '<a href="#zvuki">Звуки недели</a>' : ''}${plan.notebook ? '<a href="#bloknot">Блокнот моментов</a>' : ''}${plan.weeks.map(w => `<a href="#week-${w.n}">Неделя ${w.n}</a>`).join('')}${plan.tools.length ? '<a href="#html">Что генерировать в HTML</a>' : ''}${plan.ideas ? '<a href="#idei">Идеи про запас</a>' : ''}<a href="#cifry">Цифры</a>${nImg ? '<a href="#kartinki">Картинки</a>' : ''}</nav>
   </header>
+
+  ${plan.sounds ? soundsHtml(plan.sounds) : ''}
+  ${plan.notebook ? notebookHtml(plan.notebook) : ''}
 
   <section class="sec" id="ritm">
     <h2>Ритм недели</h2>

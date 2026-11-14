@@ -8,6 +8,11 @@ import { fileURLToPath } from 'node:url';
 const SRC = path.dirname(fileURLToPath(import.meta.url));
 const load = f => JSON.parse(fs.readFileSync(path.join(SRC, f), 'utf8'));
 const school = load('plan.json'), life = load('plan-life.json'), proba = load('plan-proba.json');
+// Последний разобранный список звуков: tiktok/zvuki/nedelya-ГГГГ-ММ-ДД.json
+const ZV = path.join(SRC, '..', 'zvuki');
+const weekly = fs.existsSync(ZV) ? fs.readdirSync(ZV).filter(f => /^nedelya-\d{4}-\d{2}-\d{2}\.json$/.test(f)).sort() : [];
+const sounds = weekly.length ? JSON.parse(fs.readFileSync(path.join(ZV, weekly.at(-1)), 'utf8')) : null;
+const notebook = fs.existsSync(path.join(SRC, 'bloknot.json')) ? load('bloknot.json') : null;
 
 const rubrics = {};
 for (const [id, r] of Object.entries(school.rubrics)) rubrics['sh-' + id] = { ...r, chip: id, group: 'школа' };
@@ -33,6 +38,7 @@ const out = {
   period: school.period,
   lead: 'Школьный план и план вне школы в одном календаре. В день выходят два поста с разбегом: первый днём после школы, второй вечером. В свободных слотах понедельника и среды стоят пробы: темы, которые выстрелили у конкурентов на прошлой неделе.',
   ritm: 'Четырнадцать рубрик: шесть школьных, семь вне школы и проба недели. Между двумя постами дня не меньше четырёх часов, например 15:00 и 19:30.',
+  sounds, notebook,
   rubrics, weeks,
   toolStyle: school.toolStyle, tools: school.tools, queue: school.queue,
   ideasText: life.ideasText,
@@ -49,6 +55,7 @@ const out = {
     'Выписать по каждому ролику недели просмотры, сохранения, репосты, комментарии и новых подписчиков.',
     'Ролик набрал втрое больше обычного: в ближайшие два дня выходит его «часть 2» вместо самого слабого формата недели.',
     'Посмотреть, что выстрелило у конкурентов за семь дней, и поставить эти темы в пробы следующей недели.',
+    'В субботу выходит новый список звуков. Звуки из него идут в жизу понедельника, в «Звук недели» во вторник и в «Танец недели» в среду.',
     '22 ноября, после двух недель: оставить восемь рубрик с лучшими цифрами, остальные заменить идеями из запаса и удачными пробами.',
   ],
 };
