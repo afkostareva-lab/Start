@@ -9,16 +9,18 @@ import trimesh
 
 VOX = 0.15            # шаг сетки, мм (меньше = глаже и тяжелее файл)
 SCALE = 1.0           # общий масштаб фигурки
-# Заглушка в питьевое отверстие крышки (овал). Подгоните под свои крышки!
-PLUG_LEN, PLUG_W, PLUG_DEPTH = 10.2, 4.2, 7.0   # длина, ширина, глубина входа в крышку
-POCKET_GAP = 0.2      # зазор гнезда под заглушку в основании (на сторону)
-POCKET_H = 3.0        # глубина гнезда в основании
+# Круглый выступ снизу — вставляется в углубление на крышке. Подгоните под свои крышки!
+PEG_D = 12.0          # диаметр выступа, мм (= диаметр углубления минус ~0.2)
+PEG_H = 4.0           # высота выступа, мм
+BASE_RX, BASE_RY = 11.0, 10.5                 # полуоси овальной площадки под пингвином
+LIFT = PEG_H + (max(BASE_RX, BASE_RY) - PEG_D/2) - 1.4   # подъём фигурки над столом
 OUT = os.path.dirname(os.path.abspath(__file__))
 
 xs = np.arange(-13.875, 13.8, VOX, dtype=np.float32)
 ys = np.arange(-14.075, 12.0, VOX, dtype=np.float32)
-zs = np.arange(-0.675, 36.0, VOX, dtype=np.float32)
-X, Y, Z = np.meshgrid(xs, ys, zs, indexing="ij")
+zs = np.arange(-0.675, 36.0 + LIFT, VOX, dtype=np.float32)
+X, Y, ZG = np.meshgrid(xs, ys, zs, indexing="ij")
+Z = ZG - LIFT           # координата Z в системе пингвина (верх площадки = 2.4)
 
 def ell(c, r):
     """Приближённое SDF эллипсоида."""
@@ -36,8 +38,12 @@ def stadium(L, W):   # 2D-овал (стадион) в плане XY
 
 HEAD = (0, 0, 20.5)
 # --- основание
-base = I(ell((0, -1, 0), (12, 11, 1e3)), Z - 2.4)
-base = I(base, (np.sqrt((X/12)**2 + ((Y+1)/11)**2) - 1)*11 + (Z - 1.6))  # фаска сверху
+e2 = (np.sqrt((X/BASE_RX)**2 + ((Y+1)/BASE_RY)**2) - 1)*min(BASE_RX, BASE_RY)
+rho = np.sqrt(X**2 + (Y+1)**2)
+base = I(I(e2, Z - 2.4), e2 + (Z - 1.6))                 # площадка с фаской сверху
+base = I(base, PEG_H + np.maximum(rho - PEG_D/2, 0) - ZG)  # низ — воронка 45°, без поддержек
+peg_r = PEG_D/2 - 0.4*np.clip((1.2 - ZG)/1.2, 0, 1)       # заходная фаска на конце
+base = U(base, I(rho - peg_r, ZG - PEG_H - 0.5))
 # --- тело + голова + крылья + хвост
 body = ell((0, 0.5, 9.5), (9, 8, 10))
 head = sph(HEAD, 8.0)
@@ -69,10 +75,7 @@ pom = sph((0, 0.3, 31.6), 3.1) - 0.3*np.cos(5*X)*np.cos(5*Y)*np.cos(5*Z)
 hat = smin(hat, pom, 0.8)
 dh = np.maximum(sph(HEAD, 8.0), 0)
 hat = I(hat, -(zrel - 0.95*dh))                # низ отворота под 45° — печать без поддержек
-# --- гнездо под заглушку снизу
-pocket = I(stadium(PLUG_LEN + 2*POCKET_GAP, PLUG_W + 2*POCKET_GAP), Z - POCKET_H)
-
-floor = -Z
+floor = -ZG
 def cut(a, *others):
     for o in others: a = I(a, -o)
     return a
@@ -82,8 +85,8 @@ parts = {
     "white":      I(cut(white, eyes, orange, hat), floor),
 }
 everything = I(U(U(black_all, hat), U(orange, eyes)), floor)
-parts["black"] = cut(everything, parts["red_hat"], parts["orange"], parts["white"], pocket)
-solid = cut(everything, pocket)
+parts["black"] = cut(everything, parts["red_hat"], parts["orange"], parts["white"])
+solid = everything
 
 def mesh(sdf, target=None):
     v, f, _, _ = measure.marching_cubes(sdf, 0.0, spacing=(VOX, VOX, VOX))
@@ -97,22 +100,42 @@ def mesh(sdf, target=None):
     m.apply_scale(SCALE)
     return m
 
+COLORS = {"black": "#1A1A1A", "white": "#FFFFFF", "orange": "#FF8C1A", "red_hat": "#D81E28"}
+def write_3mf(path, meshes):
+    """Один объект из 4 частей (по цветам) в одном файле 3MF."""
+    import zipfile
+    names = list(meshes)
+    x = ['<?xml version="1.0" encoding="UTF-8"?>',
+         '<model unit="millimeter" xml:lang="ru" xmlns="http://schemas.microsoft.com/3dmanufacturing/core/2015/02">',
+         '<resources>', '<basematerials id="1">']
+    x += [f'<base name="{n}" displaycolor="{COLORS[n]}"/>' for n in names]
+    x.append('</basematerials>')
+    for i, n in enumerate(names):
+        m = meshes[n]
+        x.append(f'<object id="{i+2}" name="{n}" type="model" pid="1" pindex="{i}"><mesh><vertices>')
+        x += [f'<vertex x="{a:.3f}" y="{b:.3f}" z="{c:.3f}"/>' for a, b, c in m.vertices]
+        x.append('</vertices><triangles>')
+        x += [f'<triangle v1="{a}" v2="{b}" v3="{c}"/>' for a, b, c in m.faces]
+        x.append('</triangles></mesh></object>')
+    x.append('<object id="100" name="penguin_topper" type="model"><components>')
+    x += [f'<component objectid="{i+2}"/>' for i in range(len(names))]
+    x += ['</components></object>', '</resources>', '<build><item objectid="100"/></build>', '</model>']
+    with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as z:
+        z.writestr("[Content_Types].xml", '<?xml version="1.0" encoding="UTF-8"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="model" ContentType="application/vnd.ms-package.3dmanufacturing-3dmodel+xml"/></Types>')
+        z.writestr("_rels/.rels", '<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Target="/3D/3dmodel.model" Id="rel0" Type="http://schemas.microsoft.com/3dmanufacturing/2013/01/3dmodel"/></Relationships>')
+        z.writestr("3D/3dmodel.model", "\n".join(x))
+
 if __name__ == "__main__":
-    targets = {"black": 120000, "red_hat": 150000, "white": 40000, "orange": 30000}
+    targets = {"black": 80000, "red_hat": 100000, "white": 30000, "orange": 20000}
+    meshes = {}
     for name, sdf in parts.items():
-        m = mesh(sdf, targets[name])
+        m = meshes[name] = mesh(sdf, targets[name])
         m.export(os.path.join(OUT, f"penguin_{name}.stl"))
         print(name, len(m.faces), "tris, watertight:", m.is_watertight, "bodies:", m.body_count,
               "bounds:", np.round(m.bounds, 1).tolist())
     m = mesh(solid, 250000)
     m.export(os.path.join(OUT, "penguin_single_color.stl"))
     print("single", len(m.faces), m.is_watertight, np.round(m.bounds, 1).tolist())
-    # заглушка: печатается отдельно, вклеивается в гнездо
-    H = POCKET_H - 0.2 + PLUG_DEPTH
-    taper = np.clip((Z - (H - 2.0))/2.0, 0, 1)*0.7       # сужение на конце
-    plug = I(I(stadium(PLUG_LEN, PLUG_W) + taper, Z - H), floor)
-    m = mesh(plug)
-    m.export(os.path.join(OUT, "plug.stl"))
-    print("plug", len(m.faces), m.is_watertight, np.round(m.bounds, 1).tolist())
+    write_3mf(os.path.join(OUT, "penguin_multicolor.3mf"), meshes)
     np.save("/tmp/labels.npy" if len(sys.argv) < 2 else sys.argv[1],
             np.stack([parts[k] for k in ("black", "white", "orange", "red_hat")]).astype(np.float16))
