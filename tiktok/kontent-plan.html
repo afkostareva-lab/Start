@@ -77,6 +77,18 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
 .meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;font-size:14px}
 .fmt{color:var(--muted);font-weight:600}
 .toollink{font-weight:600}
+.snds{display:grid;gap:16px}
+.snd{background:var(--card);border:1.5px solid var(--line);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.snd h3{font-size:clamp(20px,4vw,24px)}
+.st{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 11px;border-radius:999px}
+.st-new{background:var(--accent);color:var(--card)}
+.st-mid{background:var(--sama-bg);color:var(--sama)}
+.facts2{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:3px;font-variant-numeric:tabular-nums}
+.ex{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.exa{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--ink);background:var(--bg);border-radius:14px;padding:12px 14px;border:1.5px solid transparent;min-width:0}
+.exa:hover{border-color:var(--accent)}
+.ext{font-weight:600;overflow-wrap:anywhere}
+.exm{font-size:13px;color:var(--link);font-weight:600}
 .slot{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
 .r-proba{background:var(--accent);color:var(--card)}
 .pnote{font-size:14px;color:var(--muted);font-weight:600}
@@ -129,6 +141,9 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
     <p class="facts"><span><b>19</b> публикаций</span><span><b>6</b> рубрик</span><span><b>4</b> файла</span><span><b>13</b> готовых картинок</span></p>
     <nav class="nav" aria-label="Разделы"><a href="#week-1">Неделя 1</a><a href="#week-2">Неделя 2</a><a href="#week-3">Неделя 3</a><a href="#week-4">Неделя 4</a><a href="#html">Что генерировать в HTML</a><a href="#cifry">Цифры</a><a href="#kartinki">Картинки</a></nav>
   </header>
+
+  
+  
 
   <section class="sec" id="ritm">
     <h2>Ритм недели</h2>

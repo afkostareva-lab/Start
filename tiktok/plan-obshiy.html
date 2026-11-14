@@ -77,6 +77,18 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
 .meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;font-size:14px}
 .fmt{color:var(--muted);font-weight:600}
 .toollink{font-weight:600}
+.snds{display:grid;gap:16px}
+.snd{background:var(--card);border:1.5px solid var(--line);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.snd h3{font-size:clamp(20px,4vw,24px)}
+.st{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 11px;border-radius:999px}
+.st-new{background:var(--accent);color:var(--card)}
+.st-mid{background:var(--sama-bg);color:var(--sama)}
+.facts2{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:3px;font-variant-numeric:tabular-nums}
+.ex{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.exa{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--ink);background:var(--bg);border-radius:14px;padding:12px 14px;border:1.5px solid transparent;min-width:0}
+.exa:hover{border-color:var(--accent)}
+.ext{font-weight:600;overflow-wrap:anywhere}
+.exm{font-size:13px;color:var(--link);font-weight:600}
 .slot{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
 .r-proba{background:var(--accent);color:var(--card)}
 .pnote{font-size:14px;color:var(--muted);font-weight:600}
@@ -127,15 +139,64 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
     <h1>Два поста в день</h1>
     <p class="lead">Школьный план и план вне школы в одном календаре. В день выходят два поста с разбегом: первый днём после школы, второй вечером. В свободных слотах понедельника и среды стоят пробы: темы, которые выстрелили у конкурентов на прошлой неделе.</p>
     <p class="facts"><span><b>50</b> публикаций</span><span><b>14</b> рубрик</span><span><b>4</b> файла</span><span><b>13</b> готовых картинок</span></p>
-    <nav class="nav" aria-label="Разделы"><a href="#week-1">Неделя 1</a><a href="#week-2">Неделя 2</a><a href="#week-3">Неделя 3</a><a href="#week-4">Неделя 4</a><a href="#html">Что генерировать в HTML</a><a href="#idei">Идеи про запас</a><a href="#cifry">Цифры</a><a href="#kartinki">Картинки</a></nav>
+    <nav class="nav" aria-label="Разделы"><a href="#zvuki">Звуки недели</a><a href="#bloknot">Блокнот моментов</a><a href="#week-1">Неделя 1</a><a href="#week-2">Неделя 2</a><a href="#week-3">Неделя 3</a><a href="#week-4">Неделя 4</a><a href="#html">Что генерировать в HTML</a><a href="#idei">Идеи про запас</a><a href="#cifry">Цифры</a><a href="#kartinki">Картинки</a></nav>
   </header>
+
+  <section class="sec" id="zvuki">
+    <h2>Звуки недели</h2>
+    <p class="eyebrow">Список от 14 ноября · следующий 20 ноября</p>
+    <p>Звуки, под которыми ролики русскоязычных авторов начали набирать на этой неделе, самые свежие сверху. Я вижу названия звуков и ролики под ними, но не слышу слов, поэтому каждый звук нужно послушать до съёмки. Чтобы взять звук, откройте пример, нажмите на название звука внизу ролика и выберите «Использовать звук».</p>
+    <div class="snds"><article class="snd" id="snd-7707602046190422806">
+  <div class="meta"><span class="st st-new">начинает</span><span class="fmt">мем · 10 с</span></div>
+  <h3>«оригинальный звук» — миланка</h3>
+  <ul class="facts2"><li>Появился 13 ноября, под ним пока 134 ролика</li><li>Первый хит: 543 тыс. просмотров за сутки, пересылают 4,3 %</li><li>Под звуком почти все шутят про «Вкусно и точка»</li></ul>
+  <p><span class="lbl">Как используют</span><br>На экране доброе шуточное желание, например «хочу, чтобы все болезни были излечимы». Поворот, судя по подписям, в самом звуке и связан с «Вкусно и точка». Обязательно послушать перед съёмкой.</p>
+  <div class="ex"><a class="exa" href="https://www.tiktok.com/@mppgrl_/video/7707602013533572374" target="_blank" rel="noopener"><span class="ext">«— хочу, чтобы все болезни были излечимы»</span><span class="exm">543 тыс. · 13 ноября · 294 тыс. подписчиков</span></a><a class="exa" href="https://www.tiktok.com/@sho_ja_/video/7707752544465882388" target="_blank" rel="noopener"><span class="ext">«пов: ночью захотелось вкусно и точка и ты вспомнила, что существует свобода воли»</span><span class="exm">117 тыс. · 13 ноября</span></a></div>
+  <div class="cap"><div class="capt"><span class="lbl">Строки для неё</span><span id="idea-7707602046190422806">— хочу, чтобы контрольные отменили навсегда<br>— хочу, чтобы каникулы длились до весны<br>Своё желание из блокнота: чем благороднее, тем смешнее поворот</span></div>
+    <button type="button" class="btn copy" data-copy="idea-7707602046190422806">Скопировать</button></div>
+</article>
+<article class="snd" id="snd-7704263474918034177">
+  <div class="meta"><span class="st st-new">начинает</span><span class="fmt">диалог подруг · 9 с</span><span class="slot">в плане: вт 17 ноября</span></div>
+  <h3>«оригинальный звук» — Marlen Keńes</h3>
+  <ul class="facts2"><li>Появился 4 ноября, под ним пока 31 ролик</li><li>13–14 ноября: 418 тыс. у аккаунта на 14 тыс. подписчиков и 98 тыс. у аккаунта на 12 тыс.</li><li>Пересылают 1,3–1,7 %</li></ul>
+  <p><span class="lbl">Как используют</span><br>Диалог двух подруг текстом на экране: «— прикинь, она не лайкнула мою сторис» и «— зато я лайкнула». Снимают вдвоём или одна в двух ролях: переодеться в другую кофту и встать с другой стороны кадра.</p>
+  <div class="ex"><a class="exa" href="https://www.tiktok.com/@userpoliina/video/7707724075220667668" target="_blank" rel="noopener"><span class="ext">«— прикинь, она не лайкнула мой сторис / — зато я лайкнула»</span><span class="exm">418 тыс. · 13 ноября · 14 тыс. подписчиков</span></a><a class="exa" href="https://www.tiktok.com/@madinxsol/video/7707985087861722388" target="_blank" rel="noopener"><span class="ext">«— прикинь, она не лайкнула мой сторис / — зато я лайкнула»</span><span class="exm">98 тыс. · 14 ноября · 12 тыс. подписчиков</span></a></div>
+  <div class="cap"><div class="capt"><span class="lbl">Строки для неё</span><span id="idea-7704263474918034177">— Прикинь, она не лайкнула мою сторис / — Зато я лайкнула<br>— Прикинь, меня не позвали на ночёвку / — Зато я позвала<br>— Прикинь, мне никто не написал «доброе утро» / — Зато я написала</span></div>
+    <button type="button" class="btn copy" data-copy="idea-7704263474918034177">Скопировать</button></div>
+</article>
+<article class="snd" id="snd-7702775547667041042">
+  <div class="meta"><span class="st st-mid">в разгаре</span><span class="fmt">атмосфера · 19 с</span><span class="slot">в плане: вс 15 ноября</span></div>
+  <h3>«оригинальный звук» — tabak3rka</h3>
+  <ul class="facts2"><li>Появился 31 октября, под ним уже 66 тыс. роликов</li><li>С 4 по 12 ноября девять роликов от 668 тыс. до 3 млн</li><li>12 ноября: 1,4 млн у аккаунта на 2 тыс. подписчиков</li></ul>
+  <p><span class="lbl">Как используют</span><br>Спокойные кадры: снег за окном, автобус, ожидание. Текста мало или нет, иногда одна строка-воспоминание. В подписях часто #снегидет и #глюкоза, похоже, это ремикс песни «Снег идёт».</p>
+  <div class="ex"><a class="exa" href="https://www.tiktok.com/@_alex_v8v10v12_/video/7707087385544101140" target="_blank" rel="noopener"><span class="ext">«без текста»</span><span class="exm">1,4 млн · 12 ноября · 2 тыс. подписчиков</span></a><a class="exa" href="https://www.tiktok.com/@ogpasha1/video/7705546068968082689" target="_blank" rel="noopener"><span class="ext">«Если ты прожил подростковый период без тусовок, без «С днём рождения» и торта в лицо в 00:00…»</span><span class="exm">1,1 млн · 7 ноября · 2 тыс. подписчиков</span></a></div>
+  <div class="cap"><div class="capt"><span class="lbl">Строки для неё</span><span id="idea-7702775547667041042">Год назад и сейчас: две фотографии<br>Первый снег из окна автобуса, без текста<br>я, когда первый раз за зиму увидела снег в 7 утра</span></div>
+    <button type="button" class="btn copy" data-copy="idea-7702775547667041042">Скопировать</button></div>
+</article>
+<article class="snd" id="snd-7703530146600176392">
+  <div class="meta"><span class="st st-mid">в разгаре</span><span class="fmt">танец · 16 с</span><span class="slot">в плане: ср 18 ноября</span></div>
+  <h3>«оригинальный звук» — 𝐅𝐞𝐥𝐢𝐱ᵖᵉᵃᵏ, танец @tamina.me970</h3>
+  <ul class="facts2"><li>Танец под мэшап «Ты горишь как огонь», автор хореографии выложил его 4 ноября: 2,2 млн</li><li>8–10 ноября: 560 тыс. у аккаунта на 8 тыс. подписчиков и 501 тыс. у аккаунта на 16 тыс.</li><li>Под звуком 8 тыс. роликов. 7 ноября дочь танцевала под этот же тренд с другим звуком: 243 просмотра</li></ul>
+  <p><span class="lbl">Как используют</span><br>Повторяют танец целиком и отмечают автора в подписи: «dc: @tamina.me970». Тренд идёт с 4 ноября, к 18-му может остыть: в пятницу проверю.</p>
+  <div class="ex"><a class="exa" href="https://www.tiktok.com/@natalia_alekseeva51/video/7705766755561409844" target="_blank" rel="noopener"><span class="ext">«без текста»</span><span class="exm">560 тыс. · 8 ноября · 8 тыс. подписчиков</span></a><a class="exa" href="https://www.tiktok.com/@ariishkaa/video/7706483847017336097" target="_blank" rel="noopener"><span class="ext">«без текста, в подписи «Dc@tamina.me970»»</span><span class="exm">501 тыс. · 10 ноября · 16 тыс. подписчиков</span></a></div>
+  <div class="cap"><div class="capt"><span class="lbl">Строки для неё</span><span id="idea-7703530146600176392">Танец недели в пижаме и шерстяных носках<br>В подписи: «dc: @tamina.me970»</span></div>
+    <button type="button" class="btn copy" data-copy="idea-7703530146600176392">Скопировать</button></div>
+</article></div>
+    <div class="box"><p class="lbl">Поздно брать</p><ul><li><strong>«оригинальный звук» — киссадера (утро после ночёвки, метро)</strong>: волна хитов шла с 26 октября по 8 ноября. Роликов под звуком ещё прибавляется, +31 % за неделю, но хиты уже редкие</li><li><strong>«оригинальный звук» — RezaKino («Ты горишь как огонь»)</strong>: хиты 1–9 ноября, на смену пришла хореография @tamina.me970</li><li><strong>«young and beautiful» для «год назад и сейчас»</strong>: хиты 2–4 ноября, в основном за границей. Сам формат можно взять со звуком из списка</li><li><strong>танец под «оригинальный звук» — 𝘦𝘭𝘦𝘮𝘦𝘯𝘵𝘧𝘵, dc: @ariinzha</strong>: хиты 30 октября — 6 ноября</li></ul></div>
+    <p class="note">Как собран список: свежие ролики 82 аккаунтов (конкуренты и авторы прошлых хитов) и 33 авторов, найденных под растущими звуками, всего 87 звуков. Оставлены звуки, которые используют хотя бы несколько разных авторов, короче 40 секунд и с хитами за последние 7 дней. Отброшены реплика из сериала «Школа» 2010 года (сериал 16+) и рекламная песня. Число роликов под каждым звуком сохраняется, со следующей недели будет виден рост.</p>
+  </section>
+  <section class="sec" id="bloknot">
+    <h2>Блокнот моментов</h2>
+    <p>Сырьё для роликов «Звук недели» и «Жиза». В заметках телефона одна заметка «Моменты». Вечером дочь дописывает туда одну-три мелочи за день: что было смешно, неловко или странно. Строка должна помещаться на экран и быть понятной без объяснений, как у образцов: «наушники разрядились, ну подумаю о своём», «я ещё никогда в метро не ехала стоя при наличии свободных мест». Когда выходит новый звук, из заметки выбирается строка, которая подходит к его настроению.</p>
+    <div class="box"><p class="lbl">Вопросы на вечер, если ничего не вспоминается</p><ul><li>Что сегодня было неловко?</li><li>Что сказала мама или учитель, и это было смешно?</li><li>Что я делаю не так, как все?</li><li>Что случилось в автобусе, в очереди, в лифте?</li><li>Чего я ждала весь день и что из этого вышло?</li><li>Что я делаю, когда никто не видит?</li><li>О чём я подумала, когда разрядились наушники?</li><li>Что изменилось за год?</li></ul></div>
+  </section>
 
   <section class="sec" id="ritm">
     <h2>Ритм недели</h2>
     <p>Четырнадцать рубрик: шесть школьных, семь вне школы и проба недели. Между двумя постами дня не меньше четырёх часов, например 15:00 и 19:30.</p>
     <div class="scroll"><table>
       <thead><tr><th>День</th><th>План</th><th>Рубрика</th><th>Формат</th><th>Цель по ролику</th><th>На чём основано</th></tr></thead>
-      <tbody><tr><td class="num">пн</td><td>вне школы</td><td><span class="chip r-zhiza">Жиза за 7 секунд</span></td><td>видео, 6–10 секунд, без голоса</td><td>пересылают не меньше 1,5 % зрителей</td><td>6 секунд, текст «это я зову маму показать комнату, когда впервые за год убралась»: 9,7 млн. «Как ощущается приходить домой к подруге…»: 6,2 млн, пересылают 3,3 %</td></tr><tr><td class="num">пн, ср</td><td>проба</td><td><span class="chip r-proba">Проба недели</span></td><td>по образцу свежего ролика конкурента</td><td>просмотров вдвое больше обычного: тогда тема уходит в постоянные</td><td>Темы, которые выстрелили у конкурентов 4–11 ноября: от 3 до 1600 раз выше их обычного ролика</td></tr><tr><td class="num">вт</td><td>школа</td><td><span class="chip r-tema">Как ощущается</span></td><td>видео, 7–11 секунд</td><td>пересылают не меньше 1,5 % зрителей</td><td>Ролик на 11 секунд с текстом «Как ощущается эта тема» у аккаунта без аудитории: 2,8 млн просмотров, пересылают 2 %</td></tr><tr><td class="num">вт</td><td>вне школы</td><td><span class="chip r-skvish">Сквиш недели</span></td><td>видео, 20–40 секунд, без голоса</td><td>10 комментариев с заказами и больше</td><td>Под тегом #бумажныесквиши всего 4 тыс. роликов на 80 млн просмотров. Девять из десяти лучших сняты в 2026 году, по 1,6–3,8 млн. Ролик с просьбой «пишите, что сделать ещё»: 3,8 млн. За 4–11 ноября волна спала: автор этого ролика набрала 270 тыс. при обычных 437 тыс., семь из тринадцати авторов ниши не выходили больше недели</td></tr><tr><td class="num">ср</td><td>вне школы</td><td><span class="chip r-trend">Тренд</span></td><td>видео, 10–15 секунд, звук недели</td><td>просмотров в 1,5 раза больше обычного</td><td>Танец под звук недели: 15 млн. У дочери именно тренды пока дают больше всего просмотров</td></tr><tr><td class="num">чт</td><td>школа</td><td><span class="chip r-zaberu">Заберу себе</span></td><td>карусель-подборка</td><td>сохраняют не меньше 6 % зрителей</td><td>«10 читерских кодов для ChatGPT»: 5,7 млн, сохраняют 14 %. Карусель «5 приложений, которые облегчают учёбу» у аккаунта на 4,9 тыс. подписчиков: 2 млн, сохраняют 7,8 %</td></tr><tr><td class="num">чт</td><td>вне школы</td><td><span class="chip r-sohrani">Сохрани себе</span></td><td>карусель из своих фото</td><td>сохраняют не меньше 4 % зрителей</td><td>Карусель «пиццабоны» из 18 фото: 24,7 млн, сохраняют 4,2 %. Вишлист из 25 картинок: 3,6 млн, сохраняют 6,6 %</td></tr><tr><td class="num">пт</td><td>школа</td><td><span class="chip r-sobirayus">Собираюсь и рассказываю</span></td><td>видео, 20–30 секунд</td><td>10 комментариев и больше</td><td>Сборы и влоги набирают 0,9–1,3 млн только у авторов с аудиторией. Здесь они нужны, чтобы зрители знали автора в лицо</td></tr><tr><td class="num">пт</td><td>вне школы</td><td><span class="chip r-sobirayus">Собираюсь и рассказываю</span></td><td>видео, 40–60 секунд, говорит на камеру</td><td>10 комментариев и больше</td><td>Сборы с признанием на экране «Я не пошла»: 13,8 млн. Сборы с рассказом «Всегда гуляю одна»: 10,6 млн</td></tr><tr><td class="num">сб</td><td>школа</td><td><span class="chip r-imba">Имба для школы</span></td><td>видео, 7–10 секунд</td><td>сохраняют не меньше 5 % зрителей</td><td>Ролик на 7 секунд с текстом «спасибо этой имбе за…» у аккаунта на 840 подписчиков: 1,1 млн, сохраняют 6 %</td></tr><tr><td class="num">сб</td><td>вне школы</td><td><span class="chip r-komnata">Комната</span></td><td>видео, 20–30 секунд, до и после</td><td>досмотров больше, чем у прошлого субботнего ролика</td><td>Румтуры: 6–7 млн. Оформление комнаты, ролик от 3 ноября: 729 тыс. Сейчас сезон: у тега #новыйгод2027 уже 35 млн просмотров</td></tr><tr><td class="num">вс</td><td>школа</td><td><span class="chip r-uchis">Учись со мной</span></td><td>видео, 20–30 секунд</td><td>досмотров больше, чем у прошлого воскресного ролика</td><td>Школьные влоги на 60–100 секунд: 0,9 млн у авторов с аудиторией. Здесь это эстетика и файл недели в кадре</td></tr><tr><td class="num">вс</td><td>школа</td><td><span class="chip r-mama">Мама против школы</span></td><td>видео, 20–30 секунд</td><td>гипотеза, проверяем два раза</td><td>Прямых примеров в нише нет. Ближайшее: взрослые отвечают на вопросы школьной программы, 1,6–2,1 млн</td></tr><tr><td class="num">вс</td><td>вне школы</td><td><span class="chip r-popytka">Попытка №1</span></td><td>видео, 45–70 секунд, говорит на камеру</td><td>10 комментариев и больше; при успехе снимается часть 2</td><td>«Сквиши в воске» с текстом «спойлер: 🤦» и «попытка №2»: две части по 7,5 млн. «Слайм без загустителя»: 10,6 млн</td></tr></tbody></table></div>
+      <tbody><tr><td class="num">пн</td><td>вне школы</td><td><span class="chip r-zhiza">Жиза за 7 секунд</span></td><td>видео, 6–10 секунд, без голоса</td><td>пересылают не меньше 1,5 % зрителей</td><td>6 секунд, текст «это я зову маму показать комнату, когда впервые за год убралась»: 9,7 млн. «Как ощущается приходить домой к подруге…»: 6,2 млн, пересылают 3,3 %</td></tr><tr><td class="num">пн, ср</td><td>проба</td><td><span class="chip r-proba">Проба недели</span></td><td>по образцу свежего ролика конкурента</td><td>просмотров вдвое больше обычного: тогда тема уходит в постоянные</td><td>Темы, которые выстрелили у конкурентов 4–11 ноября: от 3 до 1600 раз выше их обычного ролика</td></tr><tr><td class="num">вт</td><td>школа</td><td><span class="chip r-tema">Как ощущается</span></td><td>видео, 7–11 секунд</td><td>пересылают не меньше 1,5 % зрителей</td><td>Ролик на 11 секунд с текстом «Как ощущается эта тема» у аккаунта без аудитории: 2,8 млн просмотров, пересылают 2 %</td></tr><tr><td class="num">вт</td><td>вне школы</td><td><span class="chip r-zvuk">Звук недели</span></td><td>видео, 7–15 секунд, одна строка на экране</td><td>пересылают не меньше 2 % зрителей</td><td>Под одним звуком за две недели выстрелили семь маленьких аккаунтов, от 648 до 28 тыс. подписчиков: 1–4,2 млн просмотров, пересылают 2–12 %. Везде одна строка — мелкий момент из своей жизни. Звук берётся из списка недели</td></tr><tr><td class="num">ср</td><td>вне школы</td><td><span class="chip r-trend">Танец недели</span></td><td>видео, 10–15 секунд, танец и звук из списка недели</td><td>просмотров в 1,5 раза больше обычного</td><td>Танец под звук недели у аккаунта на 2 тыс. подписчиков: 1 млн. Тот же танец у других авторов: 160–416 тыс. У дочери тренды пока дают больше всего просмотров</td></tr><tr><td class="num">чт</td><td>школа</td><td><span class="chip r-zaberu">Заберу себе</span></td><td>карусель-подборка</td><td>сохраняют не меньше 6 % зрителей</td><td>«10 читерских кодов для ChatGPT»: 5,7 млн, сохраняют 14 %. Карусель «5 приложений, которые облегчают учёбу» у аккаунта на 4,9 тыс. подписчиков: 2 млн, сохраняют 7,8 %</td></tr><tr><td class="num">чт</td><td>вне школы</td><td><span class="chip r-sohrani">Сохрани себе</span></td><td>карусель из своих фото</td><td>сохраняют не меньше 4 % зрителей</td><td>Карусель «пиццабоны» из 18 фото: 24,7 млн, сохраняют 4,2 %. Вишлист из 25 картинок: 3,6 млн, сохраняют 6,6 %</td></tr><tr><td class="num">пт</td><td>школа</td><td><span class="chip r-sobirayus">Собираюсь и рассказываю</span></td><td>видео, 20–30 секунд</td><td>10 комментариев и больше</td><td>Сборы и влоги набирают 0,9–1,3 млн только у авторов с аудиторией. Здесь они нужны, чтобы зрители знали автора в лицо</td></tr><tr><td class="num">пт</td><td>вне школы</td><td><span class="chip r-sobirayus">Собираюсь и рассказываю</span></td><td>видео, 40–60 секунд, говорит на камеру</td><td>10 комментариев и больше</td><td>Сборы с признанием на экране «Я не пошла»: 13,8 млн. Сборы с рассказом «Всегда гуляю одна»: 10,6 млн</td></tr><tr><td class="num">сб</td><td>школа</td><td><span class="chip r-imba">Имба для школы</span></td><td>видео, 7–10 секунд</td><td>сохраняют не меньше 5 % зрителей</td><td>Ролик на 7 секунд с текстом «спасибо этой имбе за…» у аккаунта на 840 подписчиков: 1,1 млн, сохраняют 6 %</td></tr><tr><td class="num">сб</td><td>вне школы</td><td><span class="chip r-komnata">Комната</span></td><td>видео, 20–30 секунд, до и после</td><td>досмотров больше, чем у прошлого субботнего ролика</td><td>Румтуры: 6–7 млн. Оформление комнаты, ролик от 3 ноября: 729 тыс. Сейчас сезон: у тега #новыйгод2027 уже 35 млн просмотров</td></tr><tr><td class="num">вс</td><td>школа</td><td><span class="chip r-uchis">Учись со мной</span></td><td>видео, 20–30 секунд</td><td>досмотров больше, чем у прошлого воскресного ролика</td><td>Школьные влоги на 60–100 секунд: 0,9 млн у авторов с аудиторией. Здесь это эстетика и файл недели в кадре</td></tr><tr><td class="num">вс</td><td>школа</td><td><span class="chip r-mama">Мама против школы</span></td><td>видео, 20–30 секунд</td><td>гипотеза, проверяем два раза</td><td>Прямых примеров в нише нет. Ближайшее: взрослые отвечают на вопросы школьной программы, 1,6–2,1 млн</td></tr><tr><td class="num">вс</td><td>вне школы</td><td><span class="chip r-popytka">Попытка №1</span></td><td>видео, 45–70 секунд, говорит на камеру</td><td>10 комментариев и больше; при успехе снимается часть 2</td><td>«Сквиши в воске» с текстом «спойлер: 🤦» и «попытка №2»: две части по 7,5 млн. «Слайм без загустителя»: 10,6 млн</td></tr></tbody></table></div>
     
   </section>
 
@@ -261,15 +322,15 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
 <article class="post" id="lf-w1-sun">
   <div class="date"><span class="dow">вс</span><span class="dd">15</span><span class="mm">ноя</span></div>
   <div class="body">
-    <div class="meta"><span class="slot">вечером</span><span class="chip r-popytka">Попытка №1</span><span class="fmt">видео · 45–70 с</span></div>
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-zvuk">Звук недели</span><span class="fmt">фотокарусель · 2 фото</span></div>
     <div class="cols"><div class="txt">
-      <h4>Первый раз делаю сквиш из бумаги. Попытка №1</h4>
-      
-      <ul class="shots"><li>Первая фраза на камеру: «Все делают сквиши из бумаги, я попробовала. Спойлер…»</li><li>Процесс с комментариями: бумага, скотч, наполнитель. Ошибки не вырезать</li><li>Финал: сжимаю то, что получилось, и спрашиваю, какой сделать следующим</li></ul>
+      <h4>Год назад и сейчас</h4>
+      <p class="pnote">Формат прошлой недели: две фотографии собрали 1,9–3,8 млн, в том числе у аккаунта на 6 тыс. подписчиков. Звук тех роликов уже поздно брать, поэтому берём атмосферный «снежный» звук из списка недели.</p>
+      <ul class="shots"><li>Фото 1: ноябрь 2025, любое, где видно, какой она была</li><li>Фото 2: сейчас, по возможности в том же месте или в той же позе</li><li>Звук: «оригинальный звук — tabak3rka» из списка недели. Текста на фото нет</li></ul>
       
     </div></div>
     
-    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w1-sun">Первый раз делаю сквиш из бумаги и скотча. Напишите, какой сделать следующим: выберу по комментариям <span class="tags">#бумажныесквиши #сквишиизбумаги #сквиши #своимируками</span></span></div>
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w1-sun">Год назад и сейчас. Что изменилось у вас за этот год? <span class="tags">#годназад #воспоминания #ноябрь #зимнийвайб</span></span></div>
       <button type="button" class="btn copy" data-copy="cap-lf-w1-sun">Скопировать</button></div>
     <label class="done"><input type="checkbox" id="done-lf-w1-sun"> Выложено</label>
   </div>
@@ -277,7 +338,7 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
 </section>
 <section class="week" id="week-2">
   <header class="wh"><p class="eyebrow">Неделя 2 · 16–22 ноября</p><h3>Ужасная тема по математике</h3>
-    <p class="wtool">Файл недели: <a href="#tool-drobi">Тренажёр ужасной темы: дроби</a>, нужен к субботе 21 ноября</p><p class="wtool">Вне школы: сквиши и первый уют</p></header>
+    <p class="wtool">Файл недели: <a href="#tool-drobi">Тренажёр ужасной темы: дроби</a>, нужен к субботе 21 ноября</p><p class="wtool">Вне школы: звук недели и первый уют</p></header>
   <article class="post" id="lf-w2-mon">
   <div class="date"><span class="dow">пн</span><span class="dd">16</span><span class="mm">ноя</span></div>
   <div class="body">
@@ -285,7 +346,7 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
     <div class="cols"><div class="txt">
       <h4>Когда сказала маме «пять минут» час назад</h4>
       
-      <ul class="shots"><li>Название ролика текстом на экране с первой секунды</li><li>Лежу с телефоном, слышу шаги, резко вскакиваю и делаю вид, что убираюсь</li><li>Звук из популярных, без слов</li></ul>
+      <ul class="shots"><li>Название ролика текстом на экране с первой секунды</li><li>Лежу с телефоном, слышу шаги, резко вскакиваю и делаю вид, что убираюсь</li><li>Звук из списка недели, без слов</li></ul>
       
     </div></div>
     
@@ -300,7 +361,7 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
     <div class="meta"><span class="slot">вечером</span><span class="chip r-proba">Проба недели</span><span class="fmt">видео · 6–10 с</span></div>
     <div class="cols"><div class="txt">
       <h4>Как ощущается утро после ночёвки</h4>
-      <p class="pnote">Образец от 6 ноября: 11 секунд, 3,5 млн при обычных 2 тыс. у автора, пересылают 7 %. Снимается и одной.</p>
+      <p class="pnote">Образец от 6 ноября: 11 секунд, 3,5 млн при обычных 2 тыс. у автора, пересылают 7 %. Снимается и одной. Звук образца брать уже поздно: его волна шла с 26 октября. Взять звук из раздела «Звуки недели», который подходит по настроению.</p>
       <ul class="shots"><li>Название ролика текстом на экране с первой секунды</li><li>Растрёпанные волосы, один носок, взгляд в пустоту</li><li>Звук из популярных, без слов</li></ul>
       
     </div></div>
@@ -329,15 +390,15 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
 <article class="post" id="lf-w2-tue">
   <div class="date"><span class="dow">вт</span><span class="dd">17</span><span class="mm">ноя</span></div>
   <div class="body">
-    <div class="meta"><span class="slot">вечером</span><span class="chip r-skvish">Сквиш недели</span><span class="fmt">видео · 20–40 с</span></div>
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-zvuk">Звук недели</span><span class="fmt">видео · 9 с</span></div>
     <div class="cols"><div class="txt">
-      <h4>Сквиш-мандарин из бумаги и скотча</h4>
-      
-      <ul class="shots"><li>Первая секунда: готовый мандарин сжимается в руке</li><li>Процесс ускоренно: рисую, обклеиваю скотчем, набиваю</li><li>Финал: сжимаю ещё раз, текст «какой следующий?»</li></ul>
+      <h4>— Прикинь, она не лайкнула мою сторис — Зато я лайкнула</h4>
+      <p class="pnote">Самый свежий формат недели: под звуком пока 31 ролик, но 13–14 ноября он дал 418 и 98 тыс. аккаунтам на 12–14 тыс. подписчиков.</p>
+      <ul class="shots"><li>Звук: «оригинальный звук — Marlen Keńes» из списка недели</li><li>Две роли: в первой реплике одна кофта, во второй другая, встать с другой стороны кадра. Если подруга согласится, снять вдвоём</li><li>Реплики текстом на экране, как у образца</li></ul>
       
     </div></div>
     
-    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w2-tue">Сквиш-мандарин из бумаги и скотча. Пишите, что сделать следующим: выиграет комментарий с самым большим числом лайков <span class="tags">#бумажныесквиши #сквишиизбумаги #сквиши #асмр</span></span></div>
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w2-tue">Когда подруга всегда на твоей стороне. Отметь свою <span class="tags">#подруга #трендсподругой #жиза #сторис</span></span></div>
       <button type="button" class="btn copy" data-copy="cap-lf-w2-tue">Скопировать</button></div>
     <label class="done"><input type="checkbox" id="done-lf-w2-tue"> Выложено</label>
   </div>
@@ -345,15 +406,15 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
 <article class="post" id="lf-w2-wed">
   <div class="date"><span class="dow">ср</span><span class="dd">18</span><span class="mm">ноя</span></div>
   <div class="body">
-    <div class="meta"><span class="slot">днём</span><span class="chip r-trend">Тренд</span><span class="fmt">видео · 10–15 с</span></div>
+    <div class="meta"><span class="slot">днём</span><span class="chip r-trend">Танец недели</span><span class="fmt">видео · 10–15 с</span></div>
     <div class="cols"><div class="txt">
-      <h4>Переход: из пижамы в зимний образ</h4>
+      <h4>Танец недели в пижаме и шерстяных носках</h4>
       
-      <ul class="shots"><li>Звук из топа этой недели</li><li>До: пижама и растрёпанные волосы. Хлопок или взмах пледом</li><li>После: зимний образ, тот же ракурс</li></ul>
+      <ul class="shots"><li>Танец и звук: «Ты горишь как огонь», хореография @tamina.me970 из списка недели</li><li>Один дубль в комнате, дневной свет из окна</li><li>Пижама и шерстяные носки: домашний вариант тренда</li></ul>
       
     </div></div>
     
-    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w2-wed">Из пижамы в зимний образ за один хлопок <span class="tags">#переход #образ #зима #тренд</span></span></div>
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w2-wed">Танец недели, но дома и в шерстяных носках. dc: @tamina.me970 <span class="tags">#тренд #танец #танцы #зимнийвайб</span></span></div>
       <button type="button" class="btn copy" data-copy="cap-lf-w2-wed">Скопировать</button></div>
     <label class="done"><input type="checkbox" id="done-lf-w2-wed"> Выложено</label>
   </div>
@@ -505,7 +566,7 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
 </section>
 <section class="week" id="week-3">
   <header class="wh"><p class="eyebrow">Неделя 3 · 23–29 ноября</p><h3>Слова к диктанту</h3>
-    <p class="wtool">Файл недели: <a href="#tool-slova">Мои слова</a>, нужен к субботе 28 ноября</p><p class="wtool">Вне школы: заказы из комментариев</p></header>
+    <p class="wtool">Файл недели: <a href="#tool-slova">Мои слова</a>, нужен к субботе 28 ноября</p><p class="wtool">Вне школы: какао, снежинки и кудри</p></header>
   <article class="post" id="lf-w3-mon">
   <div class="date"><span class="dow">пн</span><span class="dd">23</span><span class="mm">ноя</span></div>
   <div class="body">
@@ -557,15 +618,15 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
 <article class="post" id="lf-w3-tue">
   <div class="date"><span class="dow">вт</span><span class="dd">24</span><span class="mm">ноя</span></div>
   <div class="body">
-    <div class="meta"><span class="slot">вечером</span><span class="chip r-skvish">Сквиш недели</span><span class="fmt">видео · 20–40 с</span></div>
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-zvuk">Звук недели</span><span class="fmt">видео · 7–15 с</span></div>
     <div class="cols"><div class="txt">
-      <h4>Сквиш, который выбрали в комментариях</h4>
-      
-      <ul class="shots"><li>Первый кадр: скриншот комментария-победителя</li><li>Процесс ускоренно, готовый сквиш сжимается в конце</li><li>Текст в финале: «следующий снова выбираете вы»</li></ul>
+      <h4>Я, когда первый раз за зиму увидела снег в 7 утра</h4>
+      <p class="pnote">Строку можно заменить своей из блокнота моментов: главное, чтобы она подходила к настроению звука.</p>
+      <ul class="shots"><li>Звук: самый свежий из списка от 21 ноября</li><li>Строка на экране крупно с первой секунды, больше никакого текста</li><li>В кадре я: смотрю в камеру или в окно, один дубль на 7–12 секунд</li></ul>
       
     </div></div>
     
-    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w3-tue">Сделала сквиш, который вы выбрали в комментариях. Следующий снова за вами <span class="tags">#бумажныесквиши #сквишиизбумаги #сквиши #асмр</span></span></div>
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w3-tue">Первый снег в 7 утра — лучшее и худшее одновременно <span class="tags">#первыйснег #зима #жиза #утро</span></span></div>
       <button type="button" class="btn copy" data-copy="cap-lf-w3-tue">Скопировать</button></div>
     <label class="done"><input type="checkbox" id="done-lf-w3-tue"> Выложено</label>
   </div>
@@ -573,11 +634,11 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
 <article class="post" id="lf-w3-wed">
   <div class="date"><span class="dow">ср</span><span class="dd">25</span><span class="mm">ноя</span></div>
   <div class="body">
-    <div class="meta"><span class="slot">днём</span><span class="chip r-trend">Тренд</span><span class="fmt">видео · 10–15 с</span></div>
+    <div class="meta"><span class="slot">днём</span><span class="chip r-trend">Танец недели</span><span class="fmt">видео · 10–15 с</span></div>
     <div class="cols"><div class="txt">
       <h4>Танец недели в комнате с гирляндой</h4>
       
-      <ul class="shots"><li>Звук и движения из топа этой недели</li><li>Свет выключен, горит гирлянда из субботнего ролика</li><li>Один дубль, 10–15 секунд</li></ul>
+      <ul class="shots"><li>Танец и звук: из списка от 21 ноября</li><li>Свет выключен, горит гирлянда из субботнего ролика</li><li>Один дубль, 10–15 секунд</li></ul>
       
     </div></div>
     
@@ -785,15 +846,15 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
 <article class="post" id="lf-w4-tue">
   <div class="date"><span class="dow">вт</span><span class="dd">1</span><span class="mm">дек</span></div>
   <div class="body">
-    <div class="meta"><span class="slot">вечером</span><span class="chip r-skvish">Сквиш недели</span><span class="fmt">видео · 20–40 с</span></div>
+    <div class="meta"><span class="slot">вечером</span><span class="chip r-zvuk">Звук недели</span><span class="fmt">видео · 7–15 с</span></div>
     <div class="cols"><div class="txt">
-      <h4>Сквиш-кружка какао с зефирками</h4>
-      
-      <ul class="shots"><li>Первая секунда: готовая кружка сжимается в руке</li><li>Процесс ускоренно: рисую кружку и зефирки, обклеиваю, набиваю</li><li>Финал: сжимаю ещё раз, текст «какой следующий?»</li></ul>
+      <h4>Когда 1 декабря, а у меня уже месяц играют новогодние песни</h4>
+      <p class="pnote">Строку можно заменить своей из блокнота моментов.</p>
+      <ul class="shots"><li>Звук: самый свежий из списка от 28 ноября</li><li>Строка на экране крупно с первой секунды, больше никакого текста</li><li>В кадре я: смотрю в камеру или в окно, один дубль на 7–12 секунд</li></ul>
       
     </div></div>
     
-    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w4-tue">Сквиш-кружка какао с зефирками из бумаги и скотча. Какой сделать следующим? <span class="tags">#бумажныесквиши #сквишиизбумаги #сквиши #асмр</span></span></div>
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w4-tue">1 декабря, а у меня новогодние песни играют с октября. Кто так же? <span class="tags">#новыйгод2027 #декабрь #жиза #зимнийвайб</span></span></div>
       <button type="button" class="btn copy" data-copy="cap-lf-w4-tue">Скопировать</button></div>
     <label class="done"><input type="checkbox" id="done-lf-w4-tue"> Выложено</label>
   </div>
@@ -801,15 +862,15 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
 <article class="post" id="lf-w4-wed">
   <div class="date"><span class="dow">ср</span><span class="dd">2</span><span class="mm">дек</span></div>
   <div class="body">
-    <div class="meta"><span class="slot">днём</span><span class="chip r-trend">Тренд</span><span class="fmt">видео · 10–15 с</span></div>
+    <div class="meta"><span class="slot">днём</span><span class="chip r-trend">Танец недели</span><span class="fmt">видео · 10–15 с</span></div>
     <div class="cols"><div class="txt">
-      <h4>Переход: комната до и после гирлянд</h4>
+      <h4>Танец недели в новогоднем свитере</h4>
       
-      <ul class="shots"><li>Звук из топа этой недели</li><li>До: обычная комната днём. Щелчок выключателя</li><li>После: вечер, гирлянды и снежинки на окне</li></ul>
+      <ul class="shots"><li>Танец и звук: из списка от 28 ноября</li><li>Вечер, горят гирлянды из субботних роликов</li><li>Новогодний свитер или свитер с оленями</li></ul>
       
     </div></div>
     
-    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w4-wed">Комната до и после гирлянд. Один щелчок <span class="tags">#переход #комната #гирлянда #новыйгод2027</span></span></div>
+    <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="cap-lf-w4-wed">Танец недели в новогоднем свитере. Декабрь официально начался <span class="tags">#тренд #танец #новыйгод2027 #декабрь</span></span></div>
       <button type="button" class="btn copy" data-copy="cap-lf-w4-wed">Скопировать</button></div>
     <label class="done"><input type="checkbox" id="done-lf-w4-wed"> Выложено</label>
   </div>
@@ -1010,7 +1071,7 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
     <p>Ими заменяются рубрики, которые за две недели не дотянули до цели. У каждой идеи есть ролик-образец.</p>
     <div class="scroll"><table>
       <thead><tr><th>Рубрика</th><th>Название ролика</th><th>На чём основано</th></tr></thead>
-      <tbody><tr><td><span class="chip r-popytka">Попытка №1</span></td><td><strong>Сквиши в воске. Попытка №1</strong></td><td>Две части у одного автора по 7,5 млн, на экране «спойлер: 🤦»</td></tr><tr><td><span class="chip r-skvish">Сквиш недели</span></td><td><strong>Режу сквиш, когда наберётся 100 лайков</strong></td><td>Ролик со ступенями «10, 50, 150, 500 лайков»: 28 млн</td></tr><tr><td><span class="chip r-zhiza">Жиза за 7 секунд</span></td><td><strong>Ты не 10 из 10. Ты как поп-ит из 2021</strong></td><td>«Ты как сквиши из 2020, которые пахли ванилью»: 2,8 млн, пересылают 7,5 %</td></tr><tr><td><span class="chip r-sohrani">Сохрани себе</span></td><td><strong>Пиццабоны из слоёного теста</strong></td><td>Карусель из 18 фото: 24,7 млн, сохраняют 4,2 %</td></tr><tr><td><span class="chip r-sobirayus">Собираюсь и рассказываю</span></td><td><strong>Те самые сборы первоклашек: пародия</strong></td><td>Пародия на сборы малышей, 61 секунда: 13,6 млн</td></tr><tr><td><span class="chip r-komnata">Комната</span></td><td><strong>Румтур: моя комната зимой</strong></td><td>Румтуры у двух авторов: 6–7 млн</td></tr><tr><td><span class="chip r-popytka">Попытка №1</span></td><td><strong>Косички на ночь вместо плойки: что будет утром</strong></td><td>Сборы с косичками-колосками: 11 млн</td></tr><tr><td><span class="chip r-sohrani">Сохрани себе</span></td><td><strong>Подарки подругам до 300 рублей</strong></td><td>Подборка подарков подруге: 3,6 млн, сохраняют 6,6 %</td></tr><tr><td><span class="chip r-sobirayus">Собираюсь и рассказываю</span></td><td><strong>Топ звуков для будильника, от которых хочется плакать</strong></td><td>Рассказ на камеру про звуки будильника: 5,2 млн, в комментариях 0,6 % зрителей</td></tr><tr><td><span class="chip r-skvish">Сквиш недели</span></td><td><strong>Сквиш-телефон: на него ушло больше всего времени</strong></td><td>Ролик про сквиш-телефон с такой же жалобой: 1,6 млн</td></tr></tbody></table></div>
+      <tbody><tr><td><span class="chip r-zhiza">Жиза за 7 секунд</span></td><td><strong>Ты не 10 из 10. Ты как поп-ит из 2021</strong></td><td>«Ты как сквиши из 2020, которые пахли ванилью»: 2,8 млн, пересылают 7,5 %</td></tr><tr><td><span class="chip r-sohrani">Сохрани себе</span></td><td><strong>Пиццабоны из слоёного теста</strong></td><td>Карусель из 18 фото: 24,7 млн, сохраняют 4,2 %</td></tr><tr><td><span class="chip r-sobirayus">Собираюсь и рассказываю</span></td><td><strong>Те самые сборы первоклашек: пародия</strong></td><td>Пародия на сборы малышей, 61 секунда: 13,6 млн</td></tr><tr><td><span class="chip r-komnata">Комната</span></td><td><strong>Румтур: моя комната зимой</strong></td><td>Румтуры у двух авторов: 6–7 млн</td></tr><tr><td><span class="chip r-popytka">Попытка №1</span></td><td><strong>Косички на ночь вместо плойки: что будет утром</strong></td><td>Сборы с косичками-колосками: 11 млн</td></tr><tr><td><span class="chip r-sohrani">Сохрани себе</span></td><td><strong>Подарки подругам до 300 рублей</strong></td><td>Подборка подарков подруге: 3,6 млн, сохраняют 6,6 %</td></tr><tr><td><span class="chip r-sobirayus">Собираюсь и рассказываю</span></td><td><strong>Топ звуков для будильника, от которых хочется плакать</strong></td><td>Рассказ на камеру про звуки будильника: 5,2 млн, в комментариях 0,6 % зрителей</td></tr><tr><td><span class="chip r-trend">Танец недели</span></td><td><strong>Переход: из пижамы в зимний образ</strong></td><td>Было в плане на 18 ноября, уступило место танцу недели</td></tr><tr><td><span class="chip r-trend">Танец недели</span></td><td><strong>Переход: комната до и после гирлянд</strong></td><td>Было в плане на 2 декабря, уступило место танцу недели</td></tr><tr><td><span class="chip r-komnata">Комната</span></td><td><strong>Гирлянда из бумажных снежинок на окно</strong></td><td>Гипотеза: сезон начался, у тега #новыйгод2027 уже 35 млн. Свежих хитов именно с поделками не нашлось</td></tr><tr><td><span class="chip r-sohrani">Сохрани себе</span></td><td><strong>Открытки подругам к Новому году: 5 идей из того, что есть дома</strong></td><td>Подборка подарков подруге: сохраняют 14 %. Открытки — гипотеза на её основе</td></tr></tbody></table></div>
   </section>
 
   <section class="sec" id="cifry">
@@ -1022,7 +1083,7 @@ td.num{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
         <p class="note">Вирусность нельзя назначить на дату. Можно делать больше попыток в форматах, которые уже залетали у других, и это план и делает.</p></div>
     </div>
     <div class="box"><p class="lbl">Разбор по воскресеньям, 10 минут</p>
-      <ol><li>Выписать по каждому ролику недели просмотры, сохранения, репосты, комментарии и новых подписчиков.</li><li>Ролик набрал втрое больше обычного: в ближайшие два дня выходит его «часть 2» вместо самого слабого формата недели.</li><li>Посмотреть, что выстрелило у конкурентов за семь дней, и поставить эти темы в пробы следующей недели.</li><li>22 ноября, после двух недель: оставить восемь рубрик с лучшими цифрами, остальные заменить идеями из запаса и удачными пробами.</li></ol></div>
+      <ol><li>Выписать по каждому ролику недели просмотры, сохранения, репосты, комментарии и новых подписчиков.</li><li>Ролик набрал втрое больше обычного: в ближайшие два дня выходит его «часть 2» вместо самого слабого формата недели.</li><li>Посмотреть, что выстрелило у конкурентов за семь дней, и поставить эти темы в пробы следующей недели.</li><li>В субботу выходит новый список звуков. Звуки из него идут в жизу понедельника, в «Звук недели» во вторник и в «Танец недели» в среду.</li><li>22 ноября, после двух недель: оставить восемь рубрик с лучшими цифрами, остальные заменить идеями из запаса и удачными пробами.</li></ol></div>
   </section>
 
     <section class="sec" id="kartinki">
