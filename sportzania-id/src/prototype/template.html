@@ -115,6 +115,14 @@ main{flex:1;overflow-y:auto;padding:14px 14px 24px;display:grid;gap:14px;align-c
 .lockbox{border:2px dashed var(--ink);padding:22px 14px;text-align:center;display:grid;gap:10px;justify-items:center}
 .lockbox svg{width:44px;height:44px}
 .note{font-size:12px;color:var(--slate);border:1.5px dashed var(--slate);padding:8px 10px}
+/* Итоги смены */
+.win{display:grid;grid-template-columns:26px 1fr;gap:10px;padding:10px 0;border-top:1px solid var(--line);align-items:start}
+.win:first-child{border-top:0}
+.win>i{width:24px;height:24px;border:2px solid var(--ink);background:var(--green);color:#fff;display:grid;place-items:center}
+.win>i svg{width:15px;height:15px;stroke-width:3}
+.win b{display:block;font-size:15px;font-weight:900}
+.win small{display:block;font-size:12.5px;color:var(--slate);font-weight:600;margin:2px 0 6px}
+.win.wait>i{background:#fff;border-style:dashed}.win.wait b{color:var(--slate)}
 /* Город */
 .map{background:var(--cobalt) linear-gradient(rgba(255,255,255,.09) 1px,transparent 1px) 0 0/100% 22px;border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);padding:10px;display:grid;gap:10px}
 .block{border:1.5px solid #fff;background:rgba(255,255,255,.1);padding:8px 8px 10px}
@@ -240,9 +248,12 @@ const ICON = {
   users:I('<circle cx="9" cy="9" r="3"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><circle cx="17" cy="8" r="2.5"/><path d="M16.5 14c2.8 0 4.5 2 4.5 5"/>'),
   star:I('<path d="M12 3l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.9 6.6 19.8l1.1-6.1L3.2 9.4l6.1-.8z"/>'),
   globe:I('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>'),
-  film:I('<rect x="3" y="6" width="13" height="12"/><path d="M16 10l5-3v10l-5-3"/>')
+  film:I('<rect x="3" y="6" width="13" height="12"/><path d="M16 10l5-3v10l-5-3"/>'),
+  cup:I('<path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8 21h8M9 17h6v4H9z"/>'),
+  check:I('<path d="M5 12.5l4.5 4.5L19 7"/>'),
+  watch:I('<rect x="7" y="7" width="10" height="10" rx="2"/><path d="M9 7V3h6v4M9 17v4h6v-4"/>')
 };
-const DEF = {v:3,role:"kid",tab:"passport",step:0,status:"guest",likes:[],goal:null,friends:{artem:1},sent:{},incoming:{diana:1},filter:null,coins:420,streak:7,freeze:1,done:false,mood:85,win:null,hide:{},link:false,share:true,consent:true,marks:[],film:false,team:false,season:"camp",courseOn:false,course:0,lbTab:"me",reveal:null,tour:{}};
+const DEF = {v:3,role:"kid",tab:"passport",step:0,status:"guest",likes:[],goal:null,friends:{artem:1},sent:{},incoming:{diana:1},filter:null,coins:420,streak:7,freeze:1,done:false,mood:85,win:null,hide:{},link:false,share:true,consent:true,marks:[],film:false,team:false,season:"camp",courseOn:false,course:0,lbTab:"me",reveal:null,tour:{},cup:false,steps:true};
 let S = JSON.parse(JSON.stringify(DEF));
 try { const s = JSON.parse(localStorage.getItem("szid3")); if (s && s.v === 3) S = Object.assign(S, s); } catch (e) {}
 let sheet = null, toast = null, over = null, tt = 0;
@@ -260,6 +271,7 @@ function skills() {
   S.marks.forEach((m) => { add[m.skill] = (add[m.skill] || 0) + 1; });
   LESSONS.slice(0, S.course).forEach((l) => { add[l[1]] = (add[l[1]] || 0) + 2; });
   if (S.film) add["Команда"] = (add["Команда"] || 0) + 2;
+  if (S.cup) add["Спорт"] = (add["Спорт"] || 0) + 3;
   return BASE.map(([n, v]) => [n, Math.min(100, v + (add[n] || 0))]);
 }
 function radar(max = 340) {
@@ -294,14 +306,36 @@ function globe(color = "#1D4ED8") {
 }
 
 // ---------- Лента «что попало в паспорт» ----------
+// Кто что внёс в паспорт: у каждой записи есть автор — человек или устройство
+const SRC = {"Я":"cobalt","РОДИТЕЛЬ":"","ВОЖАТЫЙ":"green","ПЕДАГОГ":"green","БРАСЛЕТ":"out"};
 function feed() {
   const f = [];
-  LESSONS.slice(0, S.course).reverse().forEach((l) => f.push(["ОНЛАЙН-ШКОЛА", "Урок пройден: " + l[0], "+ " + l[1]]));
+  LESSONS.slice(0, S.course).reverse().forEach((l) => f.push(["ПЕДАГОГ", "Отметил урок: " + l[0], "+ " + l[1]]));
   S.marks.slice().reverse().forEach((m) => f.push(["ВОЖАТЫЙ", "«" + m.phrase + "»", "+ " + m.skill]));
-  if (S.film) f.push(["ПРОЕКТ", "«Фильм отряда» подтверждён", "+ Команда"]);
-  if (S.done) f.push(["БАРОМЕТР", "Вечерний чек-ин", "+10 монет"]);
-  f.push(["БРАСЛЕТ", "8 200 шагов за день", "+ Спорт"], ["ПРОЕКТ", "«Робот-сортировщик» подтверждён", "+ Технологии"], ["ПУТЁВКА", "Смена 2–9 января, отряд 2", "само"]);
+  if (S.cup) f.push(["ВОЖАТЫЙ", "Отметил победу в турнире 3×3", "+ Спорт"]);
+  if (S.film) f.push(["ВОЖАТЫЙ", "Подтвердил «Фильм отряда»", "+ Команда"]);
+  if (S.done) f.push(["Я", "Вечерний чек-ин", "+10 монет"]);
+  if (S.goal) f.push(["Я", "Цель на смену: " + S.goal, "выбором"]);
+  if (S.steps) f.push(["БРАСЛЕТ", "8 200 шагов · разрешил родитель", "копилка"]);
+  f.push(["ВОЖАТЫЙ", "Подтвердил «Робот-сортировщик»", "+ Технологии"], ["Я", "Интересы: " + S.likes.slice(0, 3).join(", "), "выбором"], ["РОДИТЕЛЬ", "Путёвка: смена 2–9 января, отряд 2", "бронь"]);
   return f;
+}
+const plural = (n) => n % 10 === 1 && n % 100 !== 11 ? "друг" : [2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100) ? "друга" : "друзей";
+// Итоги смены: те же четыре достижения, что пропадают без паспорта
+function itog(parent) {
+  const SK = skills(), n = friendsN();
+  const rows = [
+    ["Собрал робота", "Паспорт проекта «Робот-сортировщик»", "подтвердил вожатый", true],
+    ["Победил в турнире", S.cup ? "Бейдж «Чемпион смены» · Спорт " + SK[4][1] : "Турнир 3×3 сыгран, победу ещё не отметили", S.cup ? "отметил вожатый" : "", S.cup],
+    ["Подтянул английский", "Английский: 72 на заезде → " + SK[3][1] + " сейчас", "оценил педагог смены", true],
+    ["Нашёл друзей", n + " " + plural(n) + " в городе · контакты через Friend-Lock", "подтвердили обе стороны", true]
+  ];
+  return `<div class="card"><div class="bar"><span>Итоги смены 2–9 января</span><span class="tag green">сохранено</span></div><div class="pad g">
+    <div class="h">${parent ? "Паспорт успехов за смену" : "Ничего не потерялось"}</div>
+    <div>${rows.map(([t, where, by, ok]) => `<div class="win ${ok ? "" : "wait"}"><i>${ok ? ICON.check : ""}</i><div><b>${t}</b><small>${where}</small>${by ? `<span class="tag out">${by}</span>` : parent ? `<span class="tag out">ждёт отметки вожатого</span>` : `<button class="link" data-a="cup">Демо: вожатый отмечает победу</button>`}</div></div>`).join("")}</div>
+    <p class="muted">${parent ? "Грамота и фото тоже будут. Но теперь рост ребёнка записан и подтверждён наставниками — его увидят в онлайн-школе и на следующей смене." : "Грамота и фото тоже остались. Но теперь всё, что ты сделал, записано — и это можно показать в школе или кружке."}</p>
+    ${parent ? "" : `<button class="btn" data-a="qr">Показать вне платформы</button>`}
+  </div></div>`;
 }
 function badges() {
   const n = friendsN();
@@ -314,7 +348,7 @@ function badges() {
     ["film", "Командный игрок", S.film, "ещё 1 проект"],
     ["globe", "Полиглот B1", S.course >= 3, "онлайн-курс"],
     ["eve", "Честный барометр", S.streak >= 5, "5 чек-инов"],
-    ["city", "Шаги отряда", false, "86 400 из 100 000"]
+    ["cup", "Чемпион смены", S.cup, "победа в турнире"]
   ];
 }
 
@@ -338,13 +372,13 @@ function vOnboard() {
     <p class="note">Это пилот: данные и ребята в нём придуманы для демонстрации.</p>`;
   return `
     <div class="card"><div class="bar">Шаг 1 из 2 · профиль-минимум</div><div class="pad g">
-      <div class="row"><img class="ava" src="${IMG.portrait}" alt=""><div><div class="h s">Фёдор · отряд 2</div><div class="muted">Имя, отряд и смена пришли из путёвки</div></div><span class="tag green" style="margin-left:auto">само</span></div>
+      <div class="row"><img class="ava" src="${IMG.portrait}" alt=""><div><div class="h s">Фёдор · отряд 2</div><div class="muted">Имя, возраст и отряд внёс родитель, когда бронировал путёвку</div></div><span class="tag" style="margin-left:auto">родитель</span></div>
       <div class="h">Выбери три интереса — и ты житель города</div>
       <div class="chips">${INTERESTS.map((t) => `<button class="chip ${S.likes.includes(t) ? "on" : ""}" data-a="like" data-v="${t}" aria-pressed="${S.likes.includes(t)}">${t}</button>`).join("")}</div>
       <div class="row sp"><span class="cap">Выбрано: ${S.likes.length} из 3</span><div class="prog" style="width:120px"><i style="width:${Math.min(100, S.likes.length / 3 * 100)}%"></i></div></div>
       <button class="btn cobalt" data-a="key" ${S.likes.length < 3 ? "disabled" : ""}>Получить ключ от города</button>
     </div></div>
-    <p class="note">Писать ничего не нужно: только выбрать. Остальное паспорт соберёт сам — из проектов, отметок вожатых и браслета.</p>`;
+    <p class="note">Писать ничего не нужно: только выбрать. Проекты, навыки и уроки внесут вожатые и педагоги — там, где они и так работают.</p>`;
 }
 function vPassport() {
   if (S.status === "guest") return vOnboard();
@@ -370,14 +404,16 @@ function vPassport() {
       <div class="chips" style="margin-top:7px">${S.likes.slice(0, 3).map((t) => `<span class="chip flat">${t}</span>`).join("")}</div></div></div>
       <div class="row sp"><span class="cap">Заполнен на ${full}%</span><div class="prog ${full === 100 ? "gr" : ""}" style="width:170px"><i style="width:${full}%"></i></div></div>
       <div class="stats"><div><b>${friendsN()}</b>друзья</div><div><b>${S.film ? 2 : 1}</b>проекты</div><div><b>${got}</b>бейджи</div></div></div>
+    ${S.season === "after" ? itog(false) : ""}
     ${course}
     <div class="plate"><div><span>МОНЕТЫ ZANIA</span><b>${S.coins}</b></div><div><span>СТРИК</span><b>${S.streak} дней</b></div></div>
     <div class="card"><div class="bar"><span>5 компетенций</span><span class="tag green">оценка наставников</span></div><div class="pad">${radar()}</div></div>
     <div class="card"><div class="bar">Следующая цель</div><div class="pad g">${next}</div></div>
     <div class="card"><div class="bar"><span>Бейджи</span><span class="tag cobalt">${got} из ${bd.length}</span></div><div class="pad"><div class="badges">
       ${bd.map(([ic, t, ok, hint]) => `<div class="badge ${ok ? "" : "off"}">${ICON[ic]}<span>${t}</span>${ok ? "" : `<small>${hint}</small>`}</div>`).join("")}</div></div></div>
-    <div class="card"><div class="bar"><span>Попало в паспорт само</span><span class="tag green">без писанины</span></div><div class="pad"><div class="feed">
-      ${feed().slice(0, 6).map(([src, t, plus]) => `<div><span class="tag out">${src}</span><span>${t}</span><span class="tag ${plus === "само" ? "" : "green"}">${plus}</span></div>`).join("")}</div></div></div>
+    <div class="card"><div class="bar"><span>Кто что внёс в паспорт</span><span class="tag green">с подписью</span></div><div class="pad g"><div class="feed">
+      ${feed().slice(0, 7).map(([src, t, plus]) => `<div><span class="tag ${SRC[src]}">${src}</span><span>${t}</span><span class="tag out">${plus}</span></div>`).join("")}</div>
+      <p class="muted">Из ниоткуда ничего не берётся. Ты только выбираешь и отмечаешь, а проекты, навыки и уроки вносят взрослые — там, где они и так работают.</p></div></div>
     <div class="card"><div class="bar">Кто что видит</div><div class="pad">
       <button class="tog" data-a="tog" data-v="share" role="switch" aria-checked="${S.share}"><span>Мои интересы видят жители города${S.share ? "" : "<small style='display:block;font-weight:600;color:var(--slate);font-size:12px'>скрыты: по фильтру «Общие вайбы» тебя не найдут</small>"}</span><i class="sw ${S.share ? "on" : ""}"></i></button>
       <button class="tog" data-a="tog" data-v="link" role="switch" aria-checked="${S.link}"><span>Публичная ссылка для школы и олимпиад</span><i class="sw ${S.link ? "on" : ""}"></i></button>
@@ -387,7 +423,7 @@ function vPassport() {
       <button class="btn ghost" data-a="del" style="margin-top:10px;border-color:var(--red);color:var(--red)">Удалить паспорт</button></div></div>
     <div class="card"><div class="bar plain">Сценарий: после смены</div><div class="pad g">
       ${S.season === "after" ? `<p class="muted">Смена закончилась. Паспорт поехал с тобой в онлайн-школу, а друзья остались в городе.</p><button class="btn ghost" data-a="season" data-v="camp">Вернуться на смену</button>`
-        : `<p class="muted">Посмотри, что происходит с паспортом, когда ребёнок начинает онлайн-курс.</p><button class="btn" data-a="season" data-v="after">Смена закончилась: показать</button>`}
+        : `<p class="muted">Посмотри итоги смены и что происходит с паспортом, когда начинается онлайн-курс.</p><button class="btn" data-a="season" data-v="after">Смена закончилась: показать итоги</button>`}
       <button class="link" data-a="reset">Начать демо заново</button></div></div>`;
 }
 function gate(title) {
@@ -435,7 +471,7 @@ function vProjects() {
         : `<p class="muted">После показа проект подтвердит вожатый. Переключись сверху на роль «Вожатый» и подтверди его сам.</p>`}
       <button class="tog" data-a="hide" data-v="film" role="switch" aria-checked="${!S.hide.film}"><span>${S.hide.film ? "Скрыт: проект видишь только ты" : "Проект виден жителям города"}</span><i class="sw ${S.hide.film ? "" : "on"}"></i></button>
     </div></div>
-    <p class="note">Проект попадает в паспорт сам — после защиты. Наставник подтверждает его, чтобы достижение было настоящим, а не нарисованным.</p>`;
+    <p class="note">Проект вносит вожатый после защиты, а ребёнок прикладывает фото или видео. Отметка наставника — знак, что достижение настоящее, а не нарисованное.</p>`;
 }
 function vEvening() {
   if (S.status === "guest") return gate("Барометр дня");
@@ -458,7 +494,7 @@ function vEvening() {
       <p class="muted">Пропустил вечер — стрик не сгорит: его можно заморозить на день.</p></div></div>
     <div class="card"><div class="bar"><span>Копилка отряда 2</span><span class="tag green">вместе</span></div><div class="pad g">
       <div class="h s">Шаги отряда: 86 400 из 100 000</div><div class="prog gr"><i style="width:86%"></i></div>
-      <p class="muted">Шаги считают браслеты. Цель общая: никто не соревнуется с соседом по комнате.</p></div></div>
+      <p class="muted">${S.steps ? "Шаги передают браслеты — если разрешили родители. Цель общая: никто не соревнуется с соседом по комнате." : "Твои шаги в копилку не идут: родитель не разрешил. Копилка всё равно общая — отряд справится."}</p></div></div>
     <div class="card"><div class="bar">Активность смены · лидерборд</div><img class="wide" src="${IMG.cups}" alt="">
       <div class="seg"><button class="${S.lbTab === "me" ? "on" : ""}" data-a="lb" data-v="me">Резиденты · Топ-10</button><button class="${S.lbTab === "squads" ? "on" : ""}" data-a="lb" data-v="squads">Отряды</button></div>
       <div style="margin-top:-1px">${lb}</div></div>
@@ -478,6 +514,8 @@ function vCounselor() {
       <p class="muted"><b style="color:var(--red)">Сигнал:</b> 5–6 января настроение упало. Имён нет — стоит поговорить со всем отрядом.</p></div></div>
     <div class="card"><div class="bar"><span>Проекты на подтверждение</span><span class="tag ${S.film ? "green" : "red"}">${S.film ? "готово" : "1"}</span></div><div class="pad">
       <div class="row sp"><div><b>Фильм отряда</b><div class="muted">Федя, Артём · показ состоялся</div></div>${S.film ? `<span class="tag green">подтверждён</span>` : `<button class="btn sm green" data-a="confirmFilm">Подтвердить</button>`}</div></div></div>
+    <div class="card"><div class="bar"><span>Турнир 3×3 · финал сыгран</span><span class="tag ${S.cup ? "green" : "red"}">${S.cup ? "готово" : "1"}</span></div><div class="pad">
+      <div class="row sp"><div><b>Победили: Диана, Федя, Кирилл</b><div class="muted">Одна отметка — бейдж «Чемпион смены» у всех троих</div></div>${S.cup ? `<span class="tag green">отмечено</span>` : `<button class="btn sm green" data-a="cup">Отметить</button>`}</div></div></div>
     <div class="card"><div class="bar"><span>Мои ребята</span>${S.marks.length ? `<span class="tag green">отметок: ${S.marks.length}</span>` : ""}</div><div class="pad">
       ${kids.map(([id, n, likes, hint]) => `<div class="kid">${id === "fedya" ? `<img class="ava" src="${IMG.portrait}" alt="">` : ava(who(id))}<div><b>${n}</b><div class="muted">${likes}</div><div class="muted" style="font-size:11.5px">${hint}</div></div><button class="btn sm" data-a="mark" data-v="${n}">Отметить</button></div>`).join("")}</div></div>
     <p class="note">Вожатый не видит соцсети, здоровье и геопозицию. Ответы барометра приходят без имён — только настроение отряда.</p>`;
@@ -495,7 +533,7 @@ function vTeacher() {
       ${S.film && !S.hide.film ? `<div class="only">${ICON.film}<span>Фильм отряда<small>роль: монтажёр · подтверждён наставником</small></span></div>` : ""}</div></div></div>
     <div class="card"><div class="bar"><span>Курс: Python + английский B1</span><span class="tag ${S.course >= 3 ? "green" : "cobalt"}">${S.course} из 3</span></div><div class="pad g">
       ${!S.courseOn ? `<p class="muted">Курс начнётся после смены. Покажем, что будет, когда ребёнок приходит в онлайн-школу.</p><button class="btn cobalt" data-a="course">Показать: ученик начал курс</button>`
-        : LESSONS.map((l, i) => `<div class="row sp" style="font-size:13px;font-weight:700"><span>${i + 1}. ${l[0]}</span>${i < S.course ? `<span class="tag green">пройден</span>` : i === S.course ? `<button class="btn sm green" data-a="lesson">Отметить</button>` : `<span class="tag out">впереди</span>`}</div>`).join("") + `<p class="muted">Каждый урок сам обновляет радар в паспорте ребёнка.</p>`}</div></div>
+        : LESSONS.map((l, i) => `<div class="row sp" style="font-size:13px;font-weight:700"><span>${i + 1}. ${l[0]}</span>${i < S.course ? `<span class="tag green">пройден</span>` : i === S.course ? `<button class="btn sm green" data-a="lesson">Отметить</button>` : `<span class="tag out">впереди</span>`}</div>`).join("") + `<p class="muted">Ваша отметка за урок обновляет радар в паспорте ребёнка.</p>`}</div></div>
     <div class="card"><div class="bar"><span>Что закрыто</span><span class="tag red">не вижу</span></div><div class="pad">
       <div class="only">${ICON.lock}<span>Ники соцсетей и телефон</span></div><div class="only">${ICON.lock}<span>Здоровье, геопозиция, пульс и сон</span></div><div class="only">${ICON.lock}<span>Ответы барометра и список друзей</span></div></div></div>`;
 }
@@ -506,6 +544,7 @@ function vParent() {
   const SK = skills();
   return `
     <div class="card pad"><div class="hero"><img src="${IMG.portrait}" alt=""><div><div class="cap">Паспорт ребёнка</div><div class="nick" style="font-size:20px">Фёдор, 11 лет</div><div class="lvl">ОТРЯД 2 · НОВАЯ ИСТРА</div><p class="muted" style="margin-top:6px">Проектов: ${S.film ? 2 : 1} · стрик ${S.streak} дней · друзей: ${friendsN()}</p></div></div></div>
+    ${S.season === "after" ? itog(true) : ""}
     <div class="card"><div class="bar"><span>Видите только вы</span><span class="tag red">закрыто для всех</span></div><div class="pad">
       ${priv.map(([k, t, v]) => `<button class="only" data-a="reveal" data-v="${k}" aria-expanded="${S.reveal === k}">${S.reveal === k ? ICON.open : ICON.lock}<span>${t}<small>${S.reveal === k ? v : "нажмите, чтобы открыть"}</small></span></button>`).join("")}
       <p class="muted" style="margin-top:8px">Из-за диагноза могут дразнить, а геопозиция — вопрос безопасности. Поэтому эти данные не видят ни дети, ни вожатые, ни преподаватели.</p></div></div>
@@ -513,9 +552,16 @@ function vParent() {
       <span class="hd"></span><span class="hd">Город</span><span class="hd">Друзья</span><span class="hd">Вожатый</span><span class="hd">Педагог</span>
       ${mx.map(([t, ...c]) => `<span>${t}</span>` + c.map((v) => `<span><b class="${v ? "" : "no"}" title="${v ? "видно" : "закрыто"}"></b></span>`).join("")).join("")}</div>
       <p class="muted" style="margin-top:8px">Зелёный — видно, красный — закрыто. Ответ барометра не видит никто: вожатому приходит только настроение отряда.</p></div></div>
+    <div class="card"><div class="bar">Кто наполняет паспорт</div><div class="pad">
+      <div class="only">${ICON.id}<span>Вы — при бронировании путёвки<small>имя, возраст, отряд, здоровье и согласия</small></span></div>
+      <div class="only">${ICON.star}<span>Ребёнок — выбором, без текста<small>интересы, цель на смену, друзья, вечерний чек-ин</small></span></div>
+      <div class="only">${ICON.proj}<span>Вожатый — в отчёте смены<small>проекты, отметки навыков, победы</small></span></div>
+      <div class="only">${ICON.globe}<span>Педагог онлайн-школы<small>уроки, тесты, уровень английского</small></span></div>
+      <div class="only">${ICON.watch}<span>Браслет — если вы разрешили<small>в паспорт идут только шаги; пульс, сон и геопозицию видите только вы</small></span></div></div></div>
     <div class="card"><div class="bar">Согласия</div><div class="pad">
       <div class="tog"><span>Обработка данных ребёнка</span><span class="tag green">дано</span></div>
       <button class="tog" data-a="tog" data-v="consent" role="switch" aria-checked="${S.consent}"><span>Обмен контактами с друзьями (Friend-Lock)</span><i class="sw ${S.consent ? "on" : ""}"></i></button>
+      <button class="tog" data-a="tog" data-v="steps" role="switch" aria-checked="${S.steps}"><span>Шаги с браслета — в паспорт и копилку отряда</span><i class="sw ${S.steps ? "on" : ""}"></i></button>
       <button class="tog" data-a="tog" data-v="link" role="switch" aria-checked="${S.link}"><span>Публичная ссылка на навыки и проекты</span><i class="sw ${S.link ? "on" : ""}"></i></button>
       <button class="btn ghost" data-a="del" style="margin-top:10px;border-color:var(--red);color:var(--red)">Удалить паспорт</button></div></div>
     <div class="card"><div class="bar">Рекомендация после смены</div><div class="pad g"><div class="h s">Python + Разговорный английский B1</div>
@@ -558,7 +604,7 @@ function sheetHtml() {
 function todo() {
   return [["Стань жителем города: выбери три интереса", S.status !== "guest"], ["Найди своих фильтром «Общие вайбы»", S.tour.filter], ["Добавь цель и стань резидентом", S.status === "resident"],
     ["Подружись: Friend-Lock откроет контакт", S.tour.friend], ["Отметь настроение дня на вкладке «Вечер»", S.done], ["Вожатый: отметь прогресс в три касания", S.marks.length > 0],
-    ["Родитель: открой данные, закрытые для всех", S.tour.parent], ["После смены: начни онлайн-курс", S.courseOn]]
+    ["Вожатый: отметь победу в турнире", S.cup], ["Родитель: открой данные, закрытые для всех", S.tour.parent], ["После смены: открой итоги и начни курс", S.courseOn]]
     .map(([t, ok]) => `<li class="${ok ? "ok" : ""}"><i></i><span>${t}</span></li>`).join("");
 }
 function say(t) { toast = t; clearTimeout(tt); tt = setTimeout(() => { toast = null; draw(); }, 2800); }
@@ -606,6 +652,7 @@ const ACT = {
   pub: () => { sheet = {t: "pub"}; },
   help: () => { sheet = {t: "help"}; },
   team: () => { S.team = true; say("Команда «Роботы» собрана"); },
+  cup: () => { S.cup = true; say("Победа отмечена: бейдж «Чемпион смены» у Дианы, Феди и Кирилла"); },
   confirmFilm: () => { S.film = true; say("Проект подтверждён: он уже в паспорте ребёнка"); },
   mark: (v) => { sheet = {t: "mark", step: 1, n: v}; },
   mark2: (v) => { sheet.step = 2; sheet.skill = v; },

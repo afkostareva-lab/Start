@@ -45,24 +45,41 @@ const { chromium } = require('playwright');
     await page.click('[data-a=role][data-v=counselor]'); await page.click('[data-a=team]');
     await page.click('[data-a=mark] >> nth=0'); await page.click('[data-a=mark2][data-v="Лидерство"]'); await page.click('[data-a=mark3] >> nth=0');
     await page.click('[data-a=confirmFilm]');
+    await page.click('[data-a=cup]'); ok('вожатый отметил победу в турнире', /отмечено/i.test(await page.innerText('#view')));
     await page.click('[data-a=role][data-v=kid]'); await page.click('[data-a=tab][data-v=passport]');
     const pv = await page.innerText('#view');
     ok('отметка вожатого попала в паспорт ребёнка', /ВОЖАТЫЙ/.test(pv) && /ЛИДЕРСТВО 93/.test(pv));
     ok('подтверждённый проект дал бейдж «Командный игрок»', await page.locator('.badge:not(.off):has-text("Командный игрок")').count() === 1);
+    ok('победа в турнире: бейдж «Чемпион смены» и Спорт 88', await page.locator('.badge:not(.off):has-text("Чемпион смены")').count() === 1 && /СПОРТ 88/.test(pv));
+    ok('у каждой записи в ленте есть автор', await page.locator('.feed > div').count() >= 5 && (await page.locator('.feed > div > .tag:first-child').allInnerTexts()).every((t) => /^(Я|РОДИТЕЛЬ|ВОЖАТЫЙ|ПЕДАГОГ|БРАСЛЕТ)$/.test(t.trim())));
+    ok('слова «само» в паспорте нет', !/(^|[^а-яё])само([^а-яё]|$)/i.test(pv));
     await page.click('[data-a=tab][data-v=projects]'); ok('«Фильм отряда» подтверждён', /Смонтировал фильм/.test(await page.innerText('#view')));
     await page.click('[data-a=qr]'); await page.click('.sheet [data-a=pub]'); ok('публичная страница без контактов', /Имени, отряда, контактов/.test(await page.innerText('.sheet')) && !/@/.test((await page.innerText('.sheet')).replace('sportzania.id/fedya_tech', '')));
     await page.keyboard.press('Escape');
     await page.click('[data-a=role][data-v=parent]'); await page.click('[data-a=reveal][data-v=geo]'); ok('родитель открывает закрытые данные', /На территории лагеря/.test(await page.innerText('#view')));
     await page.click('[data-a=tog][data-v=consent]'); await page.click('[data-a=role][data-v=kid]'); await page.click('[data-a=tab][data-v=city]');
     ok('без согласия родителя ники закрыты даже у друзей', /ник закрыт родителем/.test(await page.innerText('#view')) && !/@kirill_code/.test(await page.innerText('#view')));
-    await page.click('[data-a=role][data-v=parent]'); await page.click('[data-a=tog][data-v=consent]'); await page.click('[data-a=course]');
+    await page.click('[data-a=role][data-v=parent]'); await page.click('[data-a=tog][data-v=consent]');
+    await page.click('[data-a=tog][data-v=steps]'); await page.click('[data-a=role][data-v=kid]'); await page.click('[data-a=tab][data-v=passport]');
+    ok('без согласия родителя шаги не идут в паспорт', !/БРАСЛЕТ/.test(await page.innerText('.feed')));
+    await page.click('[data-a=role][data-v=parent]'); await page.click('[data-a=tog][data-v=steps]'); await page.click('[data-a=course]');
+    ok('родитель видит паспорт успехов за смену', /Паспорт успехов за смену/.test(await page.innerText('#view')) && await page.locator('.win').count() === 4);
     await page.click('[data-a=role][data-v=teacher]'); for (let i = 0; i < 3; i++) await page.click('[data-a=lesson]');
     await page.click('[data-a=role][data-v=kid]'); await page.click('[data-a=tab][data-v=passport]');
     const pv2 = await page.innerText('#view');
     ok('уроки преподавателя обновили радар и дали бейдж', /АНГЛИЙСКИЙ 82/.test(pv2) && /Курс пройден/.test(pv2) && await page.locator('.badge:not(.off):has-text("Полиглот B1")').count() === 1);
+    ok('итоги смены: все четыре достижения сохранены', /Ничего не потерялось/.test(pv2) && await page.locator('.win').count() === 4 && await page.locator('.win.wait').count() === 0 && /Чемпион смены/.test(pv2) && /Робот-сортировщик/.test(pv2) && /72 на заезде → 82/.test(pv2));
     ok('преподаватель не видит контакты', await (async () => { await page.click('[data-a=role][data-v=teacher]'); const t = await page.innerText('#view'); return !/@kirill_code|@masha_z/.test(t) && /Что закрыто/i.test(t); })());
-    await page.click('[data-a=help]'); ok('чек-лист: все восемь шагов пройдены', await page.locator('.sheet .todo li.ok').count() === 8);
+    await page.click('[data-a=help]'); ok('чек-лист: все девять шагов пройдены', await page.locator('.sheet .todo li.ok').count() === 9);
     await page.click('.sheet [data-a=reset]'); ok('сброс возвращает к началу', /Привет! Это твой цифровой паспорт/.test(await view(200)));
+    await ctx.close();
+  }
+  {
+    const { ctx, page } = await mk({ v: 3, role: 'kid', tab: 'passport', step: 1, status: 'resident', likes: ['Python', 'Робототехника', 'Баскетбол'], goal: 'Собрать робота', friends: { artem: 1 }, sent: {}, incoming: {}, season: 'after', tour: {} }, 1);
+    log.push((await page.locator('.win.wait').count() === 1 ? 'PASS ' : 'FAIL ') + 'итоги: турнир ждёт отметки вожатого');
+    await page.click('.win.wait [data-a=cup]');
+    log.push((await page.locator('.win.wait').count() === 0 && /Чемпион смены/.test(await page.innerText('#view')) ? 'PASS ' : 'FAIL ') + 'итоги: отметка из демо-кнопки');
+    log.push((/1 друг /.test(await page.innerText('#view')) ? 'PASS ' : 'FAIL ') + 'итоги: «1 друг» склоняется верно');
     await ctx.close();
   }
   const base = { v: 3, role: 'kid', tab: 'passport', step: 1, status: 'resident', likes: ['Python', 'Робототехника', 'Баскетбол'], goal: 'Собрать робота', friends: { artem: 1, masha: 1 }, sent: {}, incoming: {}, filter: null, coins: 420, streak: 7, freeze: 1, done: false, mood: 85, win: null, hide: {}, link: false, share: true, consent: true, marks: [], film: false, team: false, season: 'camp', courseOn: false, course: 0, lbTab: 'me', reveal: null, tour: {} };
@@ -71,6 +88,7 @@ const { chromium } = require('playwright');
     ['counselor', { ...base, role: 'counselor' }], ['parent', { ...base, role: 'parent', reveal: 'geo' }], ['teacher', { ...base, role: 'teacher', season: 'after', courseOn: true, course: 1 }],
     ['guest', { ...base, status: 'guest', likes: ['Python', 'Робототехника'], goal: null, friends: { artem: 1 } }], ['start', { ...base, status: 'guest', step: 0, likes: [], goal: null, friends: { artem: 1 } }],
     ['after', { ...base, season: 'after', courseOn: true, course: 2 }],
+    ['itog', { ...base, season: 'after', cup: true, friends: { artem: 1, masha: 1, kirill: 1 } }], ['parent-after', { ...base, role: 'parent', season: 'after', cup: true }],
   ];
   for (const [name, st] of shots) { const { ctx, page } = await mk(st); await page.screenshot({ path: `${out}/${name}.png` }); await ctx.close(); }
   { const { ctx, page } = await mk({ ...base, tab: 'city', friends: { artem: 1 } }); await page.click('[data-a=open][data-v=kirill]'); await page.waitForTimeout(300); await page.screenshot({ path: `${out}/friendlock.png` }); await ctx.close(); }
