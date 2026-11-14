@@ -95,6 +95,20 @@ const soundsHtml = z => `<section class="sec" id="zvuki">
     ${z.late && z.late.length ? `<div class="box"><p class="lbl">Поздно брать</p><ul>${z.late.map(l => `<li><strong>${esc(l.title)}</strong>: ${esc(l.why)}</li>`).join('')}</ul></div>` : ''}
     <p class="note">${esc(z.method)}</p>
   </section>`;
+const askHtml = q => `<section class="sec" id="voprosy">
+    <h2>Посты по вопросам зрителей</h2>
+    <p class="eyebrow">Разбор от ${esc(fmtDate(q.date))}</p>
+    <p>${esc(q.text)}</p>
+    <div class="snds">${q.items.map((it, i) => `<article class="snd">
+      <div class="meta"><span class="st st-new">предложение</span>${it.format ? `<span class="fmt">${esc(it.format)}</span>` : ''}</div>
+      <h3>${esc(it.title)}</h3>
+      <p><span class="lbl">Почему</span><br>${esc(it.why)}</p>
+      ${it.questions && it.questions.length ? `<ul class="facts2">${it.questions.map(x => `<li>«${esc(x)}»</li>`).join('')}</ul>` : ''}
+      <ul class="shots">${it.shots.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+      <div class="cap"><div class="capt"><span class="lbl">Описание</span><span id="ask-${i}">${esc(it.caption)}</span></div>
+        <button type="button" class="btn copy" data-copy="ask-${i}">Скопировать</button></div>
+    </article>`).join('\n')}</div>
+  </section>`;
 const notebookHtml = n => `<section class="sec" id="bloknot">
     <h2>Блокнот моментов</h2>
     <p>${esc(n.text)}</p>
@@ -289,10 +303,11 @@ const BODY = `
     <h1>${esc(plan.name)}</h1>
     <p class="lead">${esc(plan.lead || 'Учёба, эстетика и жизнь школьницы в одном блоге. Каждая неделя строится вокруг одной школьной боли и одного файла, который её снимает. Форматы взяты у роликов, которые уже набирали миллионы на маленьких аккаунтах.')}</p>
     <p class="facts"><span><b>${posts.length}</b> публикаций</span><span><b>${nRub}</b> ${plural(nRub, ['рубрика', 'рубрики', 'рубрик'])}</span>${plan.tools.length ? `<span><b>${plan.tools.length}</b> файла</span>` : ''}${nImg ? `<span><b>${nImg}</b> ${plural(nImg, ['готовая картинка', 'готовые картинки', 'готовых картинок'])}</span>` : ''}</p>
-    <nav class="nav" aria-label="Разделы">${plan.sounds ? '<a href="#zvuki">Звуки недели</a>' : ''}${plan.notebook ? '<a href="#bloknot">Блокнот моментов</a>' : ''}${plan.weeks.map(w => `<a href="#week-${w.n}">Неделя ${w.n}</a>`).join('')}${plan.tools.length ? '<a href="#html">Что генерировать в HTML</a>' : ''}${plan.ideas ? '<a href="#idei">Идеи про запас</a>' : ''}<a href="#cifry">Цифры</a>${nImg ? '<a href="#kartinki">Картинки</a>' : ''}</nav>
+    <nav class="nav" aria-label="Разделы">${plan.sounds ? '<a href="#zvuki">Звуки недели</a>' : ''}${plan.questions ? '<a href="#voprosy">Вопросы зрителей</a>' : ''}${plan.notebook ? '<a href="#bloknot">Блокнот моментов</a>' : ''}${plan.weeks.map(w => `<a href="#week-${w.n}">Неделя ${w.n}</a>`).join('')}${plan.tools.length ? '<a href="#html">Что генерировать в HTML</a>' : ''}${plan.ideas ? '<a href="#idei">Идеи про запас</a>' : ''}<a href="#cifry">Цифры</a>${nImg ? '<a href="#kartinki">Картинки</a>' : ''}</nav>
   </header>
 
   ${plan.sounds ? soundsHtml(plan.sounds) : ''}
+  ${plan.questions ? askHtml(plan.questions) : ''}
   ${plan.notebook ? notebookHtml(plan.notebook) : ''}
 
   <section class="sec" id="ritm">

@@ -13,6 +13,10 @@ const ZV = path.join(SRC, '..', 'zvuki');
 const weekly = fs.existsSync(ZV) ? fs.readdirSync(ZV).filter(f => /^nedelya-\d{4}-\d{2}-\d{2}\.json$/.test(f)).sort() : [];
 const sounds = weekly.length ? JSON.parse(fs.readFileSync(path.join(ZV, weekly.at(-1)), 'utf8')) : null;
 const notebook = fs.existsSync(path.join(SRC, 'bloknot.json')) ? load('bloknot.json') : null;
+// Последний разбор вопросов зрителей: tiktok/voprosy/nedelya-ГГГГ-ММ-ДД.json
+const VQ = path.join(SRC, '..', 'voprosy');
+const asked = fs.existsSync(VQ) ? fs.readdirSync(VQ).filter(f => /^nedelya-\d{4}-\d{2}-\d{2}\.json$/.test(f)).sort() : [];
+const questions = asked.length ? JSON.parse(fs.readFileSync(path.join(VQ, asked.at(-1)), 'utf8')) : null;
 
 const rubrics = {};
 for (const [id, r] of Object.entries(school.rubrics)) rubrics['sh-' + id] = { ...r, chip: id, group: 'школа' };
@@ -38,7 +42,7 @@ const out = {
   period: school.period,
   lead: 'Школьный план и план вне школы в одном календаре. В день выходят два поста с разбегом: первый днём после школы, второй вечером. В свободных слотах понедельника и среды стоят пробы: темы, которые выстрелили у конкурентов на прошлой неделе.',
   ritm: 'Четырнадцать рубрик: шесть школьных, семь вне школы и проба недели. Между двумя постами дня не меньше четырёх часов, например 15:00 и 19:30.',
-  sounds, notebook,
+  sounds, questions, notebook,
   rubrics, weeks,
   toolStyle: school.toolStyle, tools: school.tools, queue: school.queue,
   ideasText: life.ideasText,
