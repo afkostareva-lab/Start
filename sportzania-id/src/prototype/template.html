@@ -256,11 +256,11 @@ const ICON = {
   flag:I('<path d="M5 21V4M5 4h12l-2.5 4L17 12H5"/>'),
   coin:I('<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v9M14.5 9.5h-3.2a1.8 1.8 0 0 0 0 3.6h1.4a1.8 1.8 0 0 1 0 3.6H9.5"/>')
 };
-const DEF = {v:3,role:"kid",tab:"passport",step:0,status:"guest",likes:[],goal:null,friends:{artem:1},sent:{},incoming:{diana:1},filter:null,coins:420,streak:7,freeze:1,done:false,mood:85,win:null,hide:{},link:false,share:true,consent:true,marks:[],film:false,team:false,season:"camp",courseOn:false,course:0,lbTab:"me",reveal:null,tour:{}};
+const DEF = {v:4,role:"kid",tab:"passport",step:0,status:"guest",likes:[],goal:null,friends:{artem:1},sent:{},incoming:{diana:1},filter:null,coins:420,streak:7,freeze:1,done:false,mood:85,win:null,hide:{},link:false,share:true,consent:true,marks:[],film:false,team:false,season:"camp",courseOn:false,course:0,lbTab:"me",reveal:null,tour:{}};
 let S = JSON.parse(JSON.stringify(DEF));
-try { const s = JSON.parse(localStorage.getItem("szid3")); if (s && s.v === 3) S = Object.assign(S, s); } catch (e) {}
+try { const s = JSON.parse(localStorage.getItem("szid4")); if (s && s.v === 4) S = Object.assign(S, s); } catch (e) {}
 let sheet = null, toast = null, over = null, tt = 0;
-const save = () => { try { localStorage.setItem("szid3", JSON.stringify(S)); } catch (e) {} };
+const save = () => { try { localStorage.setItem("szid4", JSON.stringify(S)); } catch (e) {} };
 const $ = (id) => document.getElementById(id);
 const who = (id) => PEOPLE.find((p) => p.id === id);
 const ava = (p, cls = "") => IMG[p.id] ? `<img class="ava ${cls}" src="${IMG[p.id]}" alt="">` : `<span class="ava ${cls}">${p.name[0]}</span>`;
@@ -317,6 +317,7 @@ function feed() {
   if (S.film) f.push(["ВОЖАТЫЙ", "Подтвердил «Ледяной завет предков»", "+ Команда"]);
   if (S.done) f.push(["Я", "Вечерняя рефлексия", "+10 занников"]);
   if (S.goal) f.push(["Я", "Цель на смену: " + S.goal, "выбором"]);
+  if (S.status === "resident") f.push(["Я", "Ник для друзей: @fedya_tech", "под замком"]);
   f.push(["ПЕДАГОГ", "Английский: 12 ак. ч. с носителями", "сертификат"], ["Я", "Интересы: " + S.likes.slice(0, 3).join(", "), "выбором"], ["РОДИТЕЛЬ", "Путёвка: смена 2–9 января, отряд 2", "бронь"]);
   return f;
 }
@@ -383,10 +384,10 @@ function vPassport() {
   if (S.status === "guest") return vOnboard();
   const full = S.status === "resident" ? 100 : 60, bd = badges(), got = bd.filter((b) => b[2]).length, SK = skills();
   const course = S.season !== "after" ? "" : !S.courseOn ? `
-    <div class="card" style="background:var(--tint)"><div class="bar">Паспорт советует курс</div><div class="pad g">
+    <div class="card" style="background:var(--tint)"><div class="bar">ИИ советует курс</div><div class="pad g">
       <div class="h">General English · онлайн-школа SportZania</div>
       <div class="chips"><span class="chip flat">сертификат смены</span><span class="chip flat">Английский ${SK[3][1]}</span></div>
-      <p class="muted">Продолжение того, что начали на смене с носителями языка. <b style="color:var(--ink)">Скидка резидента.</b></p>
+      <p class="muted">ИИ подобрал курс по сертификату смены и навыкам: продолжение того, что начали с носителями языка. <b style="color:var(--ink)">Скидка резидента.</b></p>
       <button class="btn cobalt" data-a="course">Начать курс</button></div></div>` : `
     <div class="card"><div class="bar"><span>Онлайн-курс</span><span class="tag ${S.course >= 3 ? "green" : "cobalt"}">${S.course} из 3</span></div><div class="pad g">
       <div class="h s">General English · онлайн-школа SportZania</div><div class="prog gr"><i style="width:${S.course / 3 * 100}%"></i></div>
@@ -510,7 +511,7 @@ function vCounselor() {
   const today = S.done ? Math.max(20, Math.round(S.mood * .8)) : 66;
   return `
     <div class="card"><div class="bar">Отряд 2 · 12 жителей</div><div class="pad g">
-      <div class="cap">Подсказка паспорта</div><div class="h s">Федя и Кирилл любят робототехнику и загадки — поставь их в одну команду на сюжетном испытании</div>
+      <div class="cap">Подсказка ИИ</div><div class="h s">Федя и Кирилл любят робототехнику и загадки — поставь их в одну команду на сюжетном испытании</div>
       ${S.team ? `<div class="quote"><b>Команда собрана:</b> Федя и Кирилл вместе идут к Северному хребту.</div>` : `<button class="btn cobalt" data-a="team">Собрать команду</button>`}</div></div>
     <div class="card"><div class="bar"><span>Настроение отряда · рефлексия</span><span class="tag cobalt">анонимно</span></div><div class="pad g"><div class="bars" style="margin-bottom:18px">
       ${[[78, 3], [84, 4], [41, 5], [30, 6], [today, 7]].map(([v, d]) => `<i class="${v < 45 ? "low" : ""}" style="height:${v}%"><span>${d}.01</span></i>`).join("")}</div>
@@ -526,7 +527,7 @@ function vTeacher() {
   return `
     <div class="card"><div class="bar">Онлайн-школа · новый ученик</div><div class="pad g">
       <div class="row"><img class="ava" src="${IMG.portrait}" alt=""><div><div class="h s">Фёдор, 11 лет</div><div class="muted">Смена «${SHIFT}», 2–9 января</div></div><span class="tag cobalt" style="margin-left:auto">сертификат</span></div>
-      <div class="cap">Подсказка паспорта</div><div class="h s">На смене прошёл 12 ак. ч. английского с носителями. Любит Python и робототехнику — начните разговорную практику с технологий</div></div></div>
+      <div class="cap">Подсказка ИИ</div><div class="h s">На смене прошёл 12 ак. ч. английского с носителями. Любит Python и робототехнику — начните разговорную практику с технологий</div></div></div>
     <div class="card"><div class="bar"><span>Что я вижу</span><span class="tag green">из паспорта</span></div><div class="pad g">
       ${radar(300)}
       <div><div class="only">${ICON.cert}<span>Английский с носителями языка<small>12 ак. ч. · сертификат · отметка педагога смены</small></span></div>
@@ -551,7 +552,7 @@ function vParent() {
       <p class="muted" style="margin-top:8px">Из-за диагноза могут дразнить, а номер комнаты — вопрос безопасности. В паспорте эти данные не видит никто, кроме вас.</p></div></div>
     <div class="card"><div class="bar">Кто наполняет паспорт</div><div class="pad">
       <div class="only">${ICON.id}<span>Вы — при бронировании путёвки<small>имя, возраст, отряд, здоровье и согласия</small></span></div>
-      <div class="only">${ICON.star}<span>Ребёнок — выбором, без текста<small>интересы, цель на смену, друзья, вечерняя рефлексия, фото к проектам</small></span></div>
+      <div class="only">${ICON.star}<span>Ребёнок — выбором, без текста<small>интересы, цель на смену, свой ник, друзья, вечерняя рефлексия, фото к проектам</small></span></div>
       <div class="only">${ICON.flag}<span>Вожатый — в отчёте смены<small>проекты и отметки гибких навыков</small></span></div>
       <div class="only">${ICON.cert}<span>Педагоги<small>сертификат английского на смене, уроки онлайн-школы</small></span></div></div></div>
     <div class="card"><div class="bar">Кто что видит</div><div class="pad"><div class="mini">
@@ -563,7 +564,7 @@ function vParent() {
       <button class="tog" data-a="tog" data-v="consent" role="switch" aria-checked="${S.consent}"><span>Обмен контактами с друзьями (Friend-Lock)</span><i class="sw ${S.consent ? "on" : ""}"></i></button>
       <button class="tog" data-a="tog" data-v="link" role="switch" aria-checked="${S.link}"><span>Публичная ссылка на навыки и проекты</span><i class="sw ${S.link ? "on" : ""}"></i></button>
       <button class="btn ghost" data-a="del" style="margin-top:10px;border-color:var(--red);color:var(--red)">Удалить паспорт</button></div></div>
-    <div class="card"><div class="bar">Рекомендация после смены</div><div class="pad g"><div class="h s">General English · онлайн-школа SportZania</div>
+    <div class="card"><div class="bar">ИИ-рекомендация после смены</div><div class="pad g"><div class="h s">General English · онлайн-школа SportZania</div>
       <p class="muted">Подобрано по сертификату смены и навыку «Английский» ${SK[3][1]}: продолжение того, что начали с носителями языка.</p>
       ${S.courseOn ? `<span class="tag green" style="justify-self:start">ребёнок учится: ${S.course} из 3 уроков</span>` : `<button class="btn cobalt" data-a="course">Записать на курс со скидкой резидента</button>`}</div></div>`;
 }

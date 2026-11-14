@@ -10,7 +10,7 @@ const { chromium } = require('playwright');
     const page = await ctx.newPage();
     page.on('console', (m) => { if (m.type() === 'error' && !/fonts\.g|ERR_/.test(m.text())) errs.push(m.text()); });
     page.on('pageerror', (e) => errs.push('pageerror: ' + e.message));
-    if (state) await page.addInitScript((s) => localStorage.setItem('szid3', JSON.stringify(s)), state);
+    if (state) await page.addInitScript((s) => localStorage.setItem('szid4', JSON.stringify(s)), state);
     await page.goto(url, { waitUntil: 'domcontentloaded' });
     await page.waitForTimeout(450);
     return { ctx, page };
@@ -105,7 +105,7 @@ const { chromium } = require('playwright');
   }
   // ---------- 2. Итоги смены до подтверждения вожатого ----------
   {
-    const { ctx, page } = await mk({ v: 3, role: 'kid', tab: 'passport', step: 1, status: 'resident', likes: ['Python', 'Робототехника', 'Баскетбол'], goal: 'Найти друзей', friends: { artem: 1 }, sent: {}, incoming: {}, season: 'after', tour: {} }, 1);
+    const { ctx, page } = await mk({ v: 4, role: 'kid', tab: 'passport', step: 1, status: 'resident', likes: ['Python', 'Робототехника', 'Баскетбол'], goal: 'Найти друзей', friends: { artem: 1 }, sent: {}, incoming: {}, season: 'after', tour: {} }, 1);
     ok('итоги: сюжет ждёт подтверждения вожатого', await page.locator('.win.wait').count() === 1);
     await page.click('.win.wait [data-a=confirmFilm]');
     ok('итоги: подтверждение из демо-кнопки', await page.locator('.win.wait').count() === 0 && /Ледяной завет предков/.test(await page.innerText('#view')));
@@ -113,7 +113,7 @@ const { chromium } = require('playwright');
     await ctx.close();
   }
   // ---------- 3. Скриншоты для презентации ----------
-  const base = { v: 3, role: 'kid', tab: 'passport', step: 1, status: 'resident', likes: ['Python', 'Робототехника', 'Баскетбол'], goal: 'Заговорить на английском', friends: { artem: 1, masha: 1 }, sent: {}, incoming: {}, filter: null, coins: 420, streak: 7, freeze: 1, done: false, mood: 85, win: null, hide: {}, link: false, share: true, consent: true, marks: [], film: false, team: false, season: 'camp', courseOn: false, course: 0, lbTab: 'me', reveal: null, tour: {} };
+  const base = { v: 4, role: 'kid', tab: 'passport', step: 1, status: 'resident', likes: ['Python', 'Робототехника', 'Баскетбол'], goal: 'Заговорить на английском', friends: { artem: 1, masha: 1 }, sent: {}, incoming: {}, filter: null, coins: 420, streak: 7, freeze: 1, done: false, mood: 85, win: null, hide: {}, link: false, share: true, consent: true, marks: [], film: false, team: false, season: 'camp', courseOn: false, course: 0, lbTab: 'me', reveal: null, tour: {} };
   const shots = [
     ['passport', { ...base }], ['city', { ...base, tab: 'city', filter: 'Python' }], ['project', { ...base, tab: 'projects' }], ['evening', { ...base, tab: 'evening' }],
     ['counselor', { ...base, role: 'counselor' }], ['parent', { ...base, role: 'parent', reveal: 'room' }], ['teacher', { ...base, role: 'teacher', season: 'after', courseOn: true, course: 1 }],
