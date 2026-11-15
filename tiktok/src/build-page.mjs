@@ -378,6 +378,22 @@ const FONTS = `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?fa
 fs.writeFileSync(path.join(ROOT, OUT_FILE),
   `<!doctype html>\n<html lang="ru">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">\n<title>${esc(TITLE)}</title>\n${FONTS}\n<style>${STYLE}</style>\n</head>\n<body>${BODY}<script>${SCRIPT}</script>\n</body>\n</html>\n`);
 
+// Файл для телефона: картинки и шрифты внутри, работает без интернета.
+// Включается переменной PHONE_OUT=<имя файла в tiktok/>.
+if (process.env.PHONE_OUT) {
+  const asData = (rel, type) => `data:${type};base64,${fs.readFileSync(path.join(ROOT, rel)).toString('base64')}`;
+  const fontCss = fs.readFileSync(path.join(SRC, 'fonts.css'), 'utf8').split('\n')
+    .filter(l => !l.includes("'Caveat'"))
+    .map(l => l.replace(/url\('fonts\/([^']+)'\)/, (_, f) => `url(${asData('src/fonts/' + f, 'font/woff2')})`)).join('\n');
+  const body = BODY.replace(/(src|data-full)="(img\/[^"]+\.(png|jpg))"/g,
+    (_, attr, rel, ext) => `${attr}="${asData(rel, ext === 'png' ? 'image/png' : 'image/jpeg')}"`)
+    .replace(' · чтобы сохранить, удерживайте картинку', '');
+  const script = SCRIPT.replace("t.dataset.full+' · чтобы сохранить, удерживайте картинку'", "'чтобы сохранить, удерживайте картинку'");
+  fs.writeFileSync(path.join(ROOT, process.env.PHONE_OUT),
+    `<!doctype html>\n<html lang="ru">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">\n<meta name="color-scheme" content="light dark">\n<title>${esc(TITLE)}</title>\n<style>${fontCss}\n${STYLE}</style>\n</head>\n<body>${body}<script>${script}</script>\n</body>\n</html>\n`);
+  console.log('файл для телефона:', process.env.PHONE_OUT, Math.round(fs.statSync(path.join(ROOT, process.env.PHONE_OUT)).size / 1024), 'КБ');
+}
+
 // Вариант без обёртки, если нужен
 if (process.env.ARTIFACT_OUT) {
   fs.writeFileSync(process.env.ARTIFACT_OUT,
