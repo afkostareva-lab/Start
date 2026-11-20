@@ -305,8 +305,12 @@ details.how[open] summary svg{transform:rotate(180deg)}
 .cond li{display:grid;grid-template-columns:20px 1fr;gap:10px;font-size:14px;color:var(--ink-2);align-items:start}
 .cond li svg{margin-top:2px;color:var(--brand)}
 .cond li b{color:var(--ink);font-weight:600}
-.a-terms h3{margin:20px 0 12px}
-.a-terms .cond li{font-size:13.5px}
+/* условия ставки — в синей панели, сразу после расчёта */
+.hero .cond{gap:9px}
+.hero .cond li{font-size:13.5px;line-height:1.45;color:rgba(255,255,255,.86);grid-template-columns:18px 1fr;gap:9px}
+.hero .cond li svg{color:var(--hero-accent)}
+.hero .cond li b{color:#fff}
+@container (min-width:700px){.hero .cond{grid-template-columns:1fr 1fr;column-gap:28px}}
 .a-terms .facts{margin-top:10px}
 .a-terms .fact{font-size:13px;padding:8px 0}
 
@@ -607,6 +611,10 @@ document.addEventListener("DOMContentLoaded", function(){ window.__LCL_PRISTINE 
         </details>
       </div>
       <div class="psec">
+        <h4>Условия ставки</h4>
+        <ul class="cond" id="cond"></ul>
+      </div>
+      <div class="psec">
         <h4>Возможные дополнительные расходы <small>не входят в итог, оплачиваются по факту</small></h4>
         <div class="pgrid2" id="extras"></div>
       </div>
@@ -617,13 +625,11 @@ document.addEventListener("DOMContentLoaded", function(){ window.__LCL_PRISTINE 
       <p class="excl">Предварительный расчёт по ставкам на <span id="ratesDate3"></span>.</p>
     </section>
 
-    <!-- Тариф и условия ставки -->
+    <!-- Тариф ж/д фрахта -->
     <section class="card a-terms" aria-labelledby="h-terms">
-      <div class="card-h"><h2 id="h-terms">Тариф и условия ставки</h2><span class="aside" id="tariffRoute"></span></div>
+      <div class="card-h"><h2 id="h-terms">Тариф ж/д фрахта</h2><span class="aside" id="tariffRoute"></span></div>
       <div class="tiers num" id="tiers"></div>
       <div class="facts num" id="facts"></div>
-      <h3>Условия ставки</h3>
-      <ul class="cond" id="cond"></ul>
     </section>
   </main>
 
