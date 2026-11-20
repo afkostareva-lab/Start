@@ -53,7 +53,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 "Montserrat",
 button,input{font:inherit;color:inherit}
 button{cursor:pointer}
 .num{font-variant-numeric:tabular-nums}
-.wrap{max-width:1180px;margin:0 auto;padding:0 16px calc(96px + env(safe-area-inset-bottom))}
+.wrap{max-width:1280px;margin:0 auto;padding:0 16px calc(96px + env(safe-area-inset-bottom))}
 @media (min-width:960px){.wrap{padding:0 32px 64px}}
 
 /* Header */
@@ -71,8 +71,14 @@ h1 span{color:var(--muted);font-weight:500}
 .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--brand)}
 
 /* Layout */
-.grid{display:grid;gap:16px}
-@media (min-width:960px){.grid{grid-template-columns:minmax(0,1fr) 420px;gap:24px;align-items:start}.side{position:sticky;top:20px}}
+.layout{display:grid;gap:16px;grid-template-areas:"cargo" "pick" "dest" "panel" "terms"}
+.a-cargo{grid-area:cargo}.a-pick{grid-area:pick}.a-dest{grid-area:dest}.a-panel{grid-area:panel}.a-terms{grid-area:terms}
+@media (min-width:960px){
+  .layout{grid-template-columns:380px minmax(0,1fr);grid-template-rows:auto auto auto 1fr;column-gap:26px;row-gap:16px;align-items:start;
+    grid-template-areas:"cargo panel" "pick panel" "dest panel" "terms panel"}
+  .top{padding:22px 0 18px;gap:10px}
+  h1{font-size:30px;max-width:none}
+}
 .col{display:grid;gap:16px;min-width:0}
 
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);min-width:0}
@@ -138,24 +144,45 @@ h3{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--brand
 .places-total{margin-top:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:14px;padding:12px 14px;border-radius:8px;background:var(--surface-3)}
 .places-total b{font-weight:650}
 
-/* Routes */
-.dest-group+.dest-group{margin-top:16px}
-.dest-h{display:flex;align-items:baseline;gap:8px;margin:0 0 8px;font-size:13px;color:var(--muted)}
-.dest-h b{color:var(--ink);font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
-.routes{display:grid;gap:8px}
-@media (min-width:600px){.routes{grid-template-columns:1fr 1fr}}
-.route{position:relative;text-align:left;border:1.5px solid var(--line);background:var(--surface);border-radius:8px;padding:13px 14px 12px;display:grid;grid-template-columns:auto 1fr auto;gap:3px 10px;align-items:center;transition:border-color .15s, background .15s, transform .1s}
-.route:hover{border-color:var(--line-2)}
-.route:active{transform:scale(.995)}
-.route[aria-checked="true"]{border-color:var(--brand);background:var(--brand-soft);box-shadow:inset 4px 0 0 var(--brand)}
-.route .rn{font-weight:650;font-size:15px;letter-spacing:-.005em;min-width:0}
-.route .rs{grid-column:2 / span 2;font-size:12.5px;color:var(--muted)}
-.route .rs .na{color:var(--warn-ink)}
-.route .rp{font-weight:700;font-size:17px;text-align:right;letter-spacing:-.01em;white-space:nowrap}
-.route .tag{position:absolute;top:-9px;right:12px}
+/* Станции прибытия */
+.dlist{display:grid;gap:8px}
+.dit{position:relative;text-align:left;border:1.5px solid var(--line);border-radius:8px;padding:12px 14px;display:grid;grid-template-columns:auto 1fr auto;gap:2px 10px;align-items:center;background:var(--surface);transition:border-color .15s, background .15s}
+.dit:hover{border-color:var(--line-2)}
+.dit .radio{grid-row:1 / span 2}
+.dit .dn{font-size:15px;font-weight:700}
+.dit .st{font-size:12px;color:var(--muted);grid-column:2}
+.dit .pr{font-size:17px;font-weight:700;text-align:right;white-space:nowrap;grid-row:1 / span 2;grid-column:3}
+.dit .pr small{display:block;font-size:11px;color:var(--muted);font-weight:500}
+.dit .pr small.na{color:var(--warn-ink)}
+.dit .chev{position:absolute;right:-13px;top:50%;width:24px;height:24px;margin-top:-12px;border-radius:50%;background:var(--brand-btn);color:#fff;display:none;place-items:center;box-shadow:0 0 0 3px var(--surface)}
+.dit .chev svg{transform:rotate(-90deg)}
+.dit[aria-checked="true"]{border-color:var(--brand);background:var(--brand-soft);box-shadow:inset 4px 0 0 var(--brand)}
+.dit .short{display:none}
+@media (min-width:960px){.dit[aria-checked="true"] .chev{display:grid}}
+@media (max-width:959px){
+  .dlist{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+  .dit{display:flex;flex-direction:column;align-items:center;text-align:center;gap:1px;padding:10px 4px}
+  .dit .radio,.dit .chev,.dit .pr small{display:none}
+  .dit .full{display:none}.dit .short{display:inline}
+  .dit .dn{font-size:13.5px;order:1}.dit .st{font-size:11px;order:2}.dit .pr{font-size:15px;order:3;margin-top:3px;text-align:center}
+  .dit[aria-checked="true"]{box-shadow:inset 0 -3px 0 var(--brand)}
+}
+/* Отправка в Китае — внутри синей панели */
+.ohdr{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--hero-muted);font-weight:600;margin:0 0 6px}
+.oseg{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:rgba(0,0,0,.18);border:1px solid var(--hero-line);border-radius:8px;padding:4px;margin:0 0 20px}
+.oseg button{border:0;background:transparent;color:var(--hero-ink);border-radius:6px;padding:8px 10px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:0 8px;text-align:left}
+.oseg button:not([aria-checked="true"]):not(:disabled):hover{background:rgba(255,255,255,.06)}
+.oseg b{font-size:13.5px;font-weight:700}
+.oseg .op{font-size:15px;font-weight:700;text-align:right;white-space:nowrap}
+.oseg small{grid-column:1 / span 2;font-size:11px;color:var(--hero-muted)}
+.oseg small.cheap{color:#7FD6A8}
+.oseg small.na{color:#EBC47C}
+.oseg button[aria-checked="true"]{background:var(--brand-btn)}
+.oseg button[aria-checked="true"] small{color:rgba(255,255,255,.88)}
+.oseg button:disabled{cursor:default;opacity:.55}
 .radio{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--line-2);display:inline-grid;place-items:center;flex:none}
-.route[aria-checked="true"] .radio{border-color:var(--brand-btn)}
-.route[aria-checked="true"] .radio::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--brand-btn)}
+.dit[aria-checked="true"] .radio{border-color:var(--brand-btn)}
+.dit[aria-checked="true"] .radio::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--brand-btn)}
 
 /* Pickup */
 .picker{width:100%;display:flex;align-items:center;gap:12px;height:58px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface-2);padding:0 16px;text-align:left;transition:border-color .15s}
@@ -224,6 +251,41 @@ details.how[open] summary svg{transform:rotate(180deg)}
 .how li b{color:var(--ink);font-weight:600}
 .how code{font-family:inherit;background:var(--surface-3);padding:1px 6px;border-radius:4px;font-size:12.5px;color:var(--ink);white-space:nowrap}
 
+/* Синяя панель: сетка и разделы */
+.a-panel{container-type:inline-size}
+.pmain{display:grid;grid-template-areas:"tot" "lines" "rub" "act" "how"}
+.p-tot{grid-area:tot}.p-lines{grid-area:lines}.p-rub{grid-area:rub}.p-act{grid-area:act}.p-how{grid-area:how}
+@container (min-width:600px){
+  .pmain{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);column-gap:34px;grid-template-rows:auto auto 1fr auto;grid-template-areas:"tot lines" "rub lines" "act lines" "how how"}
+  .p-lines{margin-top:0}
+  .p-act{align-self:end}
+}
+.hero .psec{border-top:1px solid var(--hero-line);margin-top:22px;padding-top:18px}
+.hero h4{margin:0 0 12px;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--hero-accent);font-weight:700;display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 10px;align-items:baseline}
+.hero h4 small{font-size:11px;letter-spacing:0;text-transform:none;color:var(--hero-muted);font-weight:500}
+.pgrid2{display:grid;gap:20px}
+@container (min-width:560px){.pgrid2{grid-template-columns:1fr 1fr;gap:28px}}
+.psub{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--hero-muted);font-weight:600;margin:0 0 2px}
+.pxl{margin:0;padding:0;list-style:none}
+.pxl li{display:grid;grid-template-columns:1fr auto 58px;gap:0 10px;padding:7px 0;border-bottom:1px solid var(--hero-line);font-size:12.5px;line-height:1.35;color:rgba(255,255,255,.84);align-items:baseline}
+.pxl li:last-child{border-bottom:0}
+.pxl .v{color:#fff;font-weight:700;text-align:right;white-space:nowrap}
+.pxl .u{color:var(--hero-muted);font-size:11px;white-space:nowrap}
+.pad{border-radius:6px;background:rgba(255,255,255,.05);border:1px solid var(--hero-line);padding:12px 13px;display:grid;gap:4px;align-content:start}
+.pad .k{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--hero-muted);font-weight:600}
+.pad b{font-size:13.5px;font-weight:700}
+.pad p{margin:0;font-size:12.5px;color:rgba(255,255,255,.8);line-height:1.45;word-break:break-word}
+.pcopy{justify-self:start;margin-top:4px;border:1px solid var(--hero-line);background:rgba(255,255,255,.06);color:var(--hero-accent);border-radius:6px;height:30px;padding:0 10px;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:6px}
+.pcopy:hover{background:rgba(255,255,255,.12)}
+.hero details.how{margin-top:12px;background:rgba(255,255,255,.04);border:1px solid var(--hero-line);border-radius:6px}
+.hero details.how summary{padding:11px 13px;font-size:13.5px;color:var(--hero-ink)}
+.hero details.how summary svg{color:var(--hero-muted)}
+.hero .how ol{padding:2px 13px 14px}
+.hero .how li{color:rgba(255,255,255,.84);font-size:13px}
+.hero .how li::before{background:rgba(156,203,240,.16);color:var(--hero-accent)}
+.hero .how li b{color:#fff}
+.hero .how code{background:rgba(255,255,255,.09);color:#fff}
+
 /* Tariff table */
 .tiers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
 .tier{border-radius:8px;background:var(--surface-2);border:1px solid var(--line);padding:11px 4px;text-align:center;min-width:0}
@@ -243,21 +305,10 @@ details.how[open] summary svg{transform:rotate(180deg)}
 .cond li{display:grid;grid-template-columns:20px 1fr;gap:10px;font-size:14px;color:var(--ink-2);align-items:start}
 .cond li svg{margin-top:2px;color:var(--brand)}
 .cond li b{color:var(--ink);font-weight:600}
-.two{display:grid;gap:20px}
-@media (min-width:700px){.two{grid-template-columns:1fr 1fr;gap:28px}}
-.xl{margin:0;padding:0;list-style:none}
-.xl li{display:grid;grid-template-columns:1fr auto;gap:2px 14px;padding:11px 0;border-bottom:1px solid var(--line);font-size:13.5px;color:var(--ink-2)}
-.xl li:last-child{border-bottom:0}
-.xl .xv{font-weight:650;color:var(--ink);text-align:right;white-space:nowrap}
-.xl .xu{grid-column:2;text-align:right;font-size:11.5px;color:var(--muted);white-space:nowrap}
-.addr{display:grid;gap:12px}
-@media (min-width:700px){.addr{grid-template-columns:1fr 1fr}}
-.ad{border-radius:8px;background:var(--surface-2);border:1px solid var(--line);border-top:3px solid var(--brand);padding:14px 16px;display:grid;gap:6px;align-content:start}
-.ad .ak{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
-.ad b{font-size:15.5px;font-weight:650}
-.ad p{margin:0;font-size:13.5px;color:var(--ink-2);word-break:break-word}
-.copy{justify-self:start;margin-top:4px;border:1px solid var(--brand-line);background:var(--surface);border-radius:6px;height:32px;padding:0 11px;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:6px;color:var(--ink-2)}
-.copy:hover{color:var(--brand-ink);border-color:var(--brand)}
+.a-terms h3{margin:20px 0 12px}
+.a-terms .cond li{font-size:13.5px}
+.a-terms .facts{margin-top:10px}
+.a-terms .fact{font-size:13px;padding:8px 0}
 
 footer{margin-top:28px;padding:20px 0 8px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between}
 
@@ -334,121 +385,113 @@ footer{margin-top:28px;padding:20px 0 8px;border-top:1px solid var(--line);font-
     </div>
   </header>
 
-  <main class="grid">
-    <div class="col">
-      <!-- 1. Cargo -->
-      <section class="card" aria-labelledby="h-cargo">
-        <div class="card-h"><h2 id="h-cargo"><span class="step">1</span>Груз</h2><span class="aside" id="densityAside"></span></div>
-        <div class="seg" role="group" aria-label="Способ ввода груза">
-          <button type="button" data-mode="total" aria-pressed="true">Вес и объём</button>
-          <button type="button" data-mode="places" aria-pressed="false">По местам</button>
+  <main class="layout">
+    <!-- 1. Груз -->
+    <section class="card a-cargo" aria-labelledby="h-cargo">
+      <div class="card-h"><h2 id="h-cargo"><span class="step">1</span>Груз</h2><span class="aside" id="densityAside"></span></div>
+      <div class="seg" role="group" aria-label="Способ ввода груза">
+        <button type="button" data-mode="total" aria-pressed="true">Вес и объём</button>
+        <button type="button" data-mode="places" aria-pressed="false">По местам</button>
+      </div>
+      <div id="modeTotal">
+        <div class="fields">
+          <label class="field"><span class="lbl">Вес брутто</span>
+            <span class="inp"><input id="w" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="next" placeholder="0" aria-describedby="cvBox"><span class="unit">кг</span></span>
+          </label>
+          <label class="field"><span class="lbl">Объём</span>
+            <span class="inp"><input id="v" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="cvBox"><span class="unit">м³</span></span>
+          </label>
         </div>
+      </div>
+      <div id="modePlaces" hidden>
+        <div class="places" id="places"></div>
+        <button type="button" class="addbtn" id="addPlace"><svg width="18" height="18"><use href="#i-plus"/></svg>Добавить тип мест</button>
+        <div class="places-total num" id="placesTotal"></div>
+      </div>
+      <div class="cv" id="cvBox" aria-live="polite">
+        <div><div class="k">Расчётный объём</div><div class="why" id="cvWhy">Введите вес и объём груза</div></div>
+        <div class="v num" id="cvVal">—</div>
+      </div>
+      <div id="cargoAlerts"></div>
+      <div class="note" id="nsNote"><svg width="16" height="16"><use href="#i-info"/></svg><span>Груз нештабелируемый? <button type="button" class="linkbtn" id="toPlaces">Посчитайте по местам</button> — для таких мест в расчёт берётся высота 2,5&nbsp;м.</span></div>
+    </section>
 
-        <div id="modeTotal">
-          <div class="fields">
-            <label class="field"><span class="lbl">Вес брутто</span>
-              <span class="inp"><input id="w" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="next" placeholder="0" aria-describedby="cvBox"><span class="unit">кг</span></span>
-            </label>
-            <label class="field"><span class="lbl">Объём</span>
-              <span class="inp"><input id="v" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="cvBox"><span class="unit">м³</span></span>
-            </label>
-          </div>
-        </div>
+    <!-- 2. Забор груза -->
+    <section class="card a-pick" aria-labelledby="h-pick">
+      <div class="card-h"><h2 id="h-pick"><span class="step">2</span>Забор груза в Китае</h2></div>
+      <div class="seg" role="group" aria-label="Автодоставка до станции">
+        <button type="button" data-pick="1" aria-pressed="true">Забрать груз</button>
+        <button type="button" data-pick="0" aria-pressed="false">Привезу сам</button>
+      </div>
+      <div id="pickOn">
+        <span class="lbl" style="display:block;font-size:13px;color:var(--muted);margin:0 0 6px;font-weight:500">Город поставщика</span>
+        <button type="button" class="picker" id="cityBtn" aria-haspopup="dialog">
+          <svg width="20" height="20"><use href="#i-pin"/></svg>
+          <span class="pv" id="cityVal"><span class="ph">Выберите город</span></span>
+          <svg width="18" height="18"><use href="#i-chev"/></svg>
+        </button>
+        <div id="pickAlert"></div>
+      </div>
+      <div class="station" id="stationInfo"></div>
+    </section>
 
-        <div id="modePlaces" hidden>
-          <div class="places" id="places"></div>
-          <button type="button" class="addbtn" id="addPlace"><svg width="18" height="18"><use href="#i-plus"/></svg>Добавить тип мест</button>
-          <div class="places-total num" id="placesTotal"></div>
-        </div>
+    <!-- 3. Станция прибытия -->
+    <section class="card a-dest" aria-labelledby="h-dest">
+      <div class="card-h"><h2 id="h-dest"><span class="step">3</span>Станция прибытия</h2></div>
+      <div class="dlist num" id="dests" role="radiogroup" aria-labelledby="h-dest"></div>
+    </section>
 
-        <div class="cv" id="cvBox" aria-live="polite">
-          <div><div class="k">Расчётный объём</div><div class="why" id="cvWhy">Введите вес и объём груза</div></div>
-          <div class="v num" id="cvVal">—</div>
+    <!-- Расчёт по выбранному направлению -->
+    <section class="hero a-panel" id="result" aria-labelledby="h-res">
+      <h2 id="h-res" class="sr">Расчёт по выбранному направлению</h2>
+      <div class="rail">
+        <div class="stop"><b id="rFrom"></b><small id="rFromS"></small></div>
+        <div class="track" aria-hidden="true"><span class="st"></span><span class="ln2"></span><span class="tr"><svg width="20" height="20"><use href="#i-train"/></svg></span><span class="ln2"></span><span class="en"></span></div>
+        <div class="stop end"><b id="rTo"></b><small id="rToS"></small></div>
+      </div>
+      <div class="ohdr" id="oHdr">Отправка в Китае</div>
+      <div class="oseg num" id="origins" role="radiogroup" aria-labelledby="oHdr"></div>
+      <div class="pmain">
+        <div class="p-tot">
+          <div class="tot-k"><span>Итого к оплате</span><span id="totFlag"></span></div>
+          <div class="tot num" id="tot" aria-live="polite"></div>
+          <div class="tot-sub num" id="totSub"></div>
         </div>
-        <div id="cargoAlerts"></div>
-        <div class="note" id="nsNote"><svg width="16" height="16"><use href="#i-info"/></svg><span>Груз нештабелируемый? <button type="button" class="linkbtn" id="toPlaces">Посчитайте по местам</button> — для таких мест в расчёт берётся высота 2,5&nbsp;м.</span></div>
-      </section>
-
-      <!-- 2. Route -->
-      <section class="card" aria-labelledby="h-route">
-        <div class="card-h"><h2 id="h-route"><span class="step">2</span>Маршрут</h2><span class="aside">ж/д, сборная отправка</span></div>
-        <div id="routes" role="radiogroup" aria-labelledby="h-route"></div>
-      </section>
-
-      <!-- 3. Pickup -->
-      <section class="card" aria-labelledby="h-pick">
-        <div class="card-h"><h2 id="h-pick"><span class="step">3</span>Забор груза в Китае</h2></div>
-        <div class="seg" role="group" aria-label="Автодоставка до станции">
-          <button type="button" data-pick="1" aria-pressed="true">Забрать груз</button>
-          <button type="button" data-pick="0" aria-pressed="false">Привезу сам</button>
-        </div>
-        <div id="pickOn">
-          <span class="lbl" style="display:block;font-size:13px;color:var(--muted);margin:0 0 6px;font-weight:500">Город поставщика</span>
-          <button type="button" class="picker" id="cityBtn" aria-haspopup="dialog">
-            <svg width="20" height="20"><use href="#i-pin"/></svg>
-            <span class="pv" id="cityVal"><span class="ph">Выберите город</span></span>
-            <svg width="18" height="18"><use href="#i-chev"/></svg>
-          </button>
-          <div id="pickAlert"></div>
-        </div>
-        <div class="station" id="stationInfo"></div>
-      </section>
-    </div>
-
-    <!-- Result -->
-    <aside class="col side">
-      <section class="hero" id="result" aria-labelledby="h-res">
-        <h2 id="h-res" class="sr">Результат расчёта</h2>
-        <div class="rail">
-          <div class="stop"><b id="rFrom"></b><small id="rFromS"></small></div>
-          <div class="track" aria-hidden="true"><span class="st"></span><span class="ln2"></span><span class="tr"><svg width="20" height="20"><use href="#i-train"/></svg></span><span class="ln2"></span><span class="en"></span></div>
-          <div class="stop end"><b id="rTo"></b><small id="rToS"></small></div>
-        </div>
-        <div class="tot-k"><span>Итого к оплате</span><span id="totFlag"></span></div>
-        <div class="tot num" id="tot" aria-live="polite"></div>
-        <div class="tot-sub num" id="totSub"></div>
-        <ul class="lines num" id="lines"></ul>
-        <div class="rub num">
+        <ul class="lines num p-lines" id="lines"></ul>
+        <div class="rub num p-rub">
           <label for="fx">В рублях по курсу</label>
           <input id="fx" type="text" inputmode="decimal" autocomplete="off" placeholder="₽ за $">
           <output id="rubOut" for="fx"></output>
         </div>
-        <div class="actions">
+        <div class="actions p-act">
           <button type="button" class="btn primary" id="shareBtn"><svg width="18" height="18"><use href="#i-share"/></svg>Поделиться</button>
           <button type="button" class="btn ghost" id="copyBtn"><svg width="18" height="18"><use href="#i-copy"/></svg>Скопировать</button>
         </div>
-        <p class="excl">Предварительный расчёт. В итог не входят возможные дополнительные расходы — они перечислены ниже и оплачиваются по факту.</p>
-      </section>
+        <details class="how p-how" id="how">
+          <summary>Как посчитано — по шагам <svg width="18" height="18"><use href="#i-chev"/></svg></summary>
+          <ol id="howList"></ol>
+        </details>
+      </div>
+      <div class="psec">
+        <h4>Возможные дополнительные расходы <small>не входят в итог, оплачиваются по факту</small></h4>
+        <div class="pgrid2" id="extras"></div>
+      </div>
+      <div class="psec">
+        <h4>Адреса складов</h4>
+        <div class="pgrid2" id="addr"></div>
+      </div>
+      <p class="excl">Предварительный расчёт по ставкам на <span id="ratesDate3"></span>.</p>
+    </section>
 
-      <details class="how" id="how">
-        <summary>Как посчитано <svg width="18" height="18"><use href="#i-chev"/></svg></summary>
-        <ol id="howList"></ol>
-      </details>
-    </aside>
-  </main>
-
-  <div class="col" style="margin-top:16px">
-    <section class="card" aria-labelledby="h-tariff">
-      <div class="card-h"><h2 id="h-tariff">Тариф ж/д фрахта</h2><span class="aside" id="tariffRoute"></span></div>
+    <!-- Тариф и условия ставки -->
+    <section class="card a-terms" aria-labelledby="h-terms">
+      <div class="card-h"><h2 id="h-terms">Тариф и условия ставки</h2><span class="aside" id="tariffRoute"></span></div>
       <div class="tiers num" id="tiers"></div>
       <div class="facts num" id="facts"></div>
-    </section>
-
-    <section class="card" aria-labelledby="h-cond">
-      <div class="card-h"><h2 id="h-cond">Условия ставки</h2></div>
+      <h3>Условия ставки</h3>
       <ul class="cond" id="cond"></ul>
     </section>
-
-    <section class="card" aria-labelledby="h-extra">
-      <div class="card-h"><h2 id="h-extra">Возможные дополнительные расходы</h2><span class="aside">не входят в итог</span></div>
-      <div class="two" id="extras"></div>
-    </section>
-
-    <section class="card" aria-labelledby="h-addr">
-      <div class="card-h"><h2 id="h-addr">Адреса складов</h2></div>
-      <div class="addr" id="addr"></div>
-    </section>
-  </div>
+  </main>
 
   <footer>
     <span><b>RTSB-RUS</b> · калькулятор сборных ж/д отправок. Ставки актуальны на <b id="ratesDate2"></b>, расчёт предварительный, в долларах США.</span>
@@ -662,6 +705,18 @@ const byName = (a, b) => {
 };
 const cityLabel = id => DATA.cities[id] ? DATA.cities[id].ru : "";
 
+/* ---------- Подписи направлений ---------- */
+const DEST_ORDER = ["vor", "shu", "kol"];
+const DEST_UI = {
+  vor:{ short:"Москва", st:"ст. Ворсино · Калужская обл.", stShort:"Ворсино" },
+  shu:{ short:"СПб", st:"ст. Шушары", stShort:"Шушары" },
+  kol:{ short:"Минск", st:"ст. Колядичи · Беларусь", stShort:"Колядичи" }
+};
+const ORIGIN_ORDER = ["sz", "xi"];
+const ORIGIN_FROM = { sz:"из Сучжоу", xi:"из Сианя" };
+const routeFor = (from, to) => ROUTES.find(r => r.from === from && r.to === to);
+const routeWord = n => n === 1 ? "маршрут" : "маршрута";
+
 /* ---------- State ---------- */
 const STORE_KEY = "lcl-calc-v1";
 const state = {
@@ -789,41 +844,45 @@ function render(){
   $("#cargoAlerts").innerHTML = al.map(([k, t]) => `<div class="alert ${k}">${icon("alert")}<span>${t}</span></div>`).join("");
   $("#nsNote").hidden = state.mode === "places";
 
-  // route cards
-  const groups = ["vor", "shu", "kol"];
-  const best = {};
-  groups.forEach(g => {
-    const rs = results.filter(x => x.route.to === g && x.complete && !x.empty);
-    if (rs.length > 1){
-      const min = Math.min(...rs.map(x => x.total));
-      const winners = rs.filter(x => x.total === min);
-      if (winners.length === 1) best[winners[0].route.id] = true;
-    }
-  });
-  $("#routes").innerHTML = groups.map(g => {
-    const d = DESTS[g];
+  // станции прибытия (слева)
+  $("#dests").innerHTML = DEST_ORDER.map(g => {
+    const d = DESTS[g], u = DEST_UI[g];
     const rs = results.filter(x => x.route.to === g);
-    return `<div class="dest-group"><div class="dest-h"><b>${esc(d.group)}</b><span>ст. ${esc(d.name)}</span></div><div class="routes">${
-      rs.map(x => {
-        const o = ORIGINS[x.route.from];
-        const on = x.route.id === state.route;
-        let price = "—", sub = `от $${Math.min(...x.route.tiers)} до $${Math.max(...x.route.tiers)} за м³`;
-        if (!x.empty){
-          price = usd(x.total);
-          sub = `фрахт ${usd(x.freight)} · $${x.rate}/м³`;
-          if (x.pickupStatus === "ok") sub += ` · авто ${usd(x.pickup)}`;
-          else if (x.pickupStatus === "na") sub += ` · <span class="na">авто по запросу</span>`;
-          else if (x.pickupStatus === "nocity") sub += " · без авто";
-        }
-        return `<button type="button" class="route" role="radio" aria-checked="${on}" data-route="${x.route.id}">
-          ${best[x.route.id] ? `<span class="tag badge ok">${icon("check", 12)}Выгоднее</span>` : ""}
-          <span class="radio"></span>
-          <span class="rn">${esc(o.name)} → ${esc(d.name)}</span>
-          <span class="rp num">${price}</span>
-          <span class="rs num">${sub}</span>
-        </button>`;
-      }).join("")
-    }</div></div>`;
+    const on = route.to === g;
+    let price, note = `${rs.length} ${routeWord(rs.length)}`, na = false;
+    if (rs[0].empty){
+      price = `от $${Math.min(...rs.flatMap(x => x.route.tiers))}/м³`;
+    } else {
+      const done = rs.filter(x => x.complete);
+      const pool = done.length ? done : rs;
+      price = (pool.length > 1 ? "от " : "") + usd(Math.min(...pool.map(x => x.total)));
+      if (!done.length && state.pickupOn && state.city){ note = "авто по запросу"; na = true; }
+    }
+    return `<button type="button" class="dit" role="radio" aria-checked="${on}" tabindex="${on ? 0 : -1}" data-dest="${g}">
+      <span class="radio"></span>
+      <b class="dn"><span class="full">${esc(d.city)}</span><span class="short">${esc(u.short)}</span></b>
+      <span class="pr">${price}<small class="${na ? "na" : ""}">${note}</small></span>
+      <span class="st"><span class="full">${esc(u.st)}</span><span class="short">${esc(u.stShort)}</span></span>
+      <span class="chev">${icon("chev", 14)}</span>
+    </button>`;
+  }).join("");
+
+  // отправка в Китае (вверху синей панели)
+  const sameDest = results.filter(x => x.route.to === route.to);
+  $("#origins").innerHTML = ORIGIN_ORDER.map(o => {
+    const r = routeFor(o, route.to);
+    if (!r) return `<button type="button" role="radio" aria-checked="false" disabled><b>${ORIGIN_FROM[o]}</b><span class="op">—</span><small>нет маршрута</small></button>`;
+    const x = results.find(y => y.route.id === r.id);
+    const on = r.id === route.id;
+    const other = sameDest.find(y => y.route.id !== r.id);
+    let note = on ? "выбрано" : "", cls = "";
+    if (!x.empty){
+      if (x.pickupStatus === "na"){ note = "авто по запросу"; cls = "na"; }
+      else if (!on && other && other.complete && x.complete && x.total < other.total){ note = `дешевле на ${usd(other.total - x.total)}`; cls = "cheap"; }
+      else if (!on && other && other.complete && x.complete && x.total > other.total) note = `дороже на ${usd(x.total - other.total)}`;
+      else if (!on && other && x.complete && other.complete && x.total === other.total) note = "та же цена";
+    } else if (!on) note = `от $${Math.min(...r.tiers)}/м³`;
+    return `<button type="button" role="radio" aria-checked="${on}" tabindex="${on ? 0 : -1}" data-route="${r.id}"><b>${ORIGIN_FROM[o]}</b><span class="op">${x.empty ? "—" : usd(x.total)}</span><small class="${cls}">${note || "&nbsp;"}</small></button>`;
   }).join("");
 
   // pickup block
@@ -924,13 +983,16 @@ function renderInfo(cur){
   ];
   $("#cond").innerHTML = cond.map(t => `<li>${icon("check", 18)}<span>${t}</span></li>`).join("");
 
-  const list = items => `<ul class="xl">${items.map(([n, v, u]) => `<li><span>${esc(n)}</span><span class="xv num">${esc(v)}</span>${u ? `<span class="xu">${esc(u)}</span>` : ""}</li>`).join("")}</ul>`;
-  $("#extras").innerHTML = `<div><h3>В Китае</h3>${list(EXTRAS_CHINA)}</div><div><h3>На ст. ${esc(to.name)}</h3>${list(EXTRAS_DEST[r.to])}</div>`;
+  const UNITS = { "за м³ в сутки":"м³/сут", "за м² в сутки":"м²/сут", "за тонну в сутки":"т/сут", "за паллету":"паллета",
+    "за комплект":"компл.", "за место":"место", "за м³":"м³", "за тонну":"тонна", "в сутки":"сутки" };
+  const unit = u => UNITS[u] ?? u;
+  const list = items => `<ul class="pxl num">${items.map(([n, v, u]) => `<li><span>${esc(n)}</span><span class="v">${esc(v)}</span><span class="u">${esc(unit(u))}</span></li>`).join("")}</ul>`;
+  $("#extras").innerHTML = `<div><div class="psub">В Китае</div>${list(EXTRAS_CHINA)}</div><div><div class="psub">На ст. ${esc(to.name)}</div>${list(EXTRAS_DEST[r.to])}</div>`;
 
   $("#addr").innerHTML = [
     ["Станция отправления", from.station, r.originAddress],
     ["Станция назначения", `${to.name} · ${to.city}`, to.address]
-  ].map(([k, n, a]) => `<div class="ad"><span class="ak">${k}</span><b>${esc(n)}</b><p>${esc(a)}</p><button type="button" class="copy" data-copy="${esc(a)}">${icon("copy", 14)}Скопировать адрес</button></div>`).join("");
+  ].map(([k, n, a]) => `<div class="pad"><span class="k">${k}</span><b>${esc(n)}</b><p>${esc(a)}</p><button type="button" class="pcopy" data-copy="${esc(a)}">${icon("copy", 14)}Скопировать адрес</button></div>`).join("");
 }
 
 /* ---------- City sheet ---------- */
@@ -1053,17 +1115,26 @@ function bind(){
   });
 
   document.addEventListener("click", e => {
+    const db = e.target.closest("[data-dest]");
+    if (db){ selectDest(db.dataset.dest); const n = document.querySelector(`[data-dest="${db.dataset.dest}"]`); if (n) n.focus({ preventScroll: true }); }
     const rb = e.target.closest("[data-route]");
-    if (rb){ state.route = rb.dataset.route; render(); if (rb.classList.contains("route")) { const n = document.querySelector(`.route[data-route="${state.route}"]`); if (n) n.focus({ preventScroll: true }); } }
+    if (rb && !rb.disabled){ state.route = rb.dataset.route; render(); if (rb.closest("#origins")){ const n = document.querySelector(`#origins [data-route="${state.route}"]`); if (n) n.focus({ preventScroll: true }); } }
     const cp = e.target.closest("[data-copy]");
     if (cp) copyText(cp.dataset.copy).then(ok => toast(ok ? "Адрес скопирован" : "Не удалось скопировать"));
   });
-  $("#routes").addEventListener("keydown", e => {
-    if (!["ArrowDown","ArrowUp","ArrowLeft","ArrowRight"].includes(e.key)) return;
-    e.preventDefault();
-    const ids = ROUTES.map(r => r.id); let i = ids.indexOf(state.route);
-    i = (i + (e.key === "ArrowDown" || e.key === "ArrowRight" ? 1 : -1) + ids.length) % ids.length;
-    state.route = ids[i]; render(); document.querySelector(`.route[data-route="${state.route}"]`).focus();
+  const step = e => (e.key === "ArrowDown" || e.key === "ArrowRight") ? 1 : (e.key === "ArrowUp" || e.key === "ArrowLeft") ? -1 : 0;
+  $("#dests").addEventListener("keydown", e => {
+    const d = step(e); if (!d) return; e.preventDefault();
+    let i = DEST_ORDER.indexOf(ROUTE_BY_ID[state.route].to);
+    i = (i + d + DEST_ORDER.length) % DEST_ORDER.length;
+    selectDest(DEST_ORDER[i]); document.querySelector(`[data-dest="${DEST_ORDER[i]}"]`).focus();
+  });
+  $("#origins").addEventListener("keydown", e => {
+    const d = step(e); if (!d) return; e.preventDefault();
+    const to = ROUTE_BY_ID[state.route].to;
+    const ids = ORIGIN_ORDER.map(o => routeFor(o, to)).filter(Boolean).map(r => r.id);
+    let i = ids.indexOf(state.route); i = (i + d + ids.length) % ids.length;
+    state.route = ids[i]; render(); document.querySelector(`#origins [data-route="${state.route}"]`).focus();
   });
 
   $$("[data-pick]").forEach(b => b.addEventListener("click", () => { state.pickupOn = b.dataset.pick === "1"; render(); }));
@@ -1112,6 +1183,12 @@ function bind(){
     io.observe($("#result"));
   }
 }
+/* Выбор станции прибытия: отправку сохраняем, если такой маршрут есть, иначе берём доступный */
+function selectDest(g){
+  const cur = ROUTE_BY_ID[state.route];
+  const r = routeFor(cur.from, g) || ORIGIN_ORDER.map(o => routeFor(o, g)).find(Boolean);
+  if (r){ state.route = r.id; render(); }
+}
 function setMode(m){
   state.mode = m;
   $$("[data-mode]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.mode === m)));
@@ -1122,7 +1199,7 @@ function setMode(m){
 
 /* ---------- Init ---------- */
 load();
-$("#ratesDate").textContent = RATES_DATE; $("#ratesDate2").textContent = RATES_DATE;
+$("#ratesDate").textContent = RATES_DATE; $("#ratesDate2").textContent = RATES_DATE; $("#ratesDate3").textContent = RATES_DATE;
 $("#w").value = state.w; $("#v").value = state.v; $("#fx").value = state.fx;
 bind();
 setMode(state.mode);
