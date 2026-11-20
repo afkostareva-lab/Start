@@ -354,7 +354,141 @@ footer{margin-top:28px;padding:20px 0 8px;border-top:1px solid var(--line);font-
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 :focus-visible{outline:2px solid var(--brand);outline-offset:2px}
 .inp input:focus-visible,.search input:focus-visible{outline:none}
+/* ADMIN-CSS-START */
+/* ================= Режим управления ставками ================= */
+.adm{position:fixed;inset:0;z-index:90;background:var(--bg);overflow:auto;overscroll-behavior:contain}
+.adm[hidden]{display:none}
+.adm-top{position:sticky;top:0;z-index:3;background:var(--hero);color:var(--hero-ink);border-bottom:4px solid var(--brand)}
+.adm-top-in{max-width:1200px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+@media (min-width:960px){.adm-top-in{padding:16px 32px}}
+.adm-top .brandmark{color:#fff}
+.adm-tt{flex:1;min-width:220px}
+.adm-tt h2{margin:2px 0 0;font-size:20px;font-weight:700;letter-spacing:-.01em}
+.adm-tt p{margin:2px 0 0;font-size:12.5px;color:var(--hero-muted)}
+.adm-x{border:1px solid var(--hero-line);background:rgba(255,255,255,.07);color:#fff;border-radius:6px;height:40px;padding:0 14px;font-weight:600;font-size:13.5px}
+.adm-x:hover{background:rgba(255,255,255,.13)}
+.adm-in{max-width:1200px;margin:0 auto;padding:18px 16px 120px;display:grid;gap:16px}
+@media (min-width:960px){.adm-in{padding:22px 32px 120px}}
+.adm-tabs{max-width:520px;margin:0}
+.adm .card{box-shadow:var(--shadow)}
+.adm .card-h h2{font-size:16px}
+.adm-sub{margin:-8px 0 14px;font-size:13px;color:var(--muted)}
+.adm-grid{display:grid;gap:16px}
+@media (min-width:960px){.adm-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}}
+.adm-note{border-radius:8px;padding:12px 14px;font-size:13.5px;display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;background:var(--brand-soft);color:var(--ink-2);border:1px solid var(--brand-line)}
+.adm-note.warn{background:var(--warn-soft);color:var(--warn-ink);border-color:transparent}
+.adm-note.ok{background:var(--ok-soft);color:var(--ok);border-color:transparent}
+.adm-note.bad{background:var(--bad-soft);color:var(--bad);border-color:transparent}
+.adm-note b{font-weight:700}
+.adm-note .grow{flex:1;min-width:200px}
+.abtn{height:40px;border-radius:6px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:600;font-size:13.5px;padding:0 14px;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.abtn:hover{border-color:var(--brand);color:var(--brand-ink)}
+.abtn.primary{background:var(--brand-btn);border-color:var(--brand-btn);color:#fff}
+.abtn.primary:hover{background:var(--brand-btn-h);color:#fff}
+.abtn.sm{height:32px;padding:0 10px;font-size:12.5px}
+.abtn:disabled{opacity:.5;cursor:not-allowed}
+.adm-bar{position:fixed;left:0;right:0;bottom:0;z-index:4;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+.adm-bar-in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+@media (min-width:960px){.adm-bar{padding:12px 32px}}
+.adm-cnt{flex:1;min-width:180px;font-size:13.5px;color:var(--muted)}
+.adm-cnt b{color:var(--ink)}
+.adm-cnt .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--warn-ink);margin-right:6px;vertical-align:middle}
+/* поля */
+.af{display:grid;gap:5px}
+.af span{font-size:12.5px;color:var(--muted);font-weight:500}
+.af input,.at input,.ax input,.aadd input,.aadd select,.asearch{height:40px;border-radius:6px;border:1.5px solid var(--line);background:var(--surface-2);padding:0 10px;font:inherit;font-size:14.5px;font-weight:600;color:var(--ink);width:100%;min-width:0;outline:none}
+.af input:focus,.at input:focus,.ax input:focus,.aadd input:focus,.aadd select:focus,.asearch:focus{border-color:var(--brand);background:var(--surface)}
+.adm input.chg{border-color:var(--warn-ink);background:var(--warn-soft)}
+.adm input[aria-invalid="true"]{border-color:var(--bad);background:var(--bad-soft)}
+.af4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.af3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+@media (max-width:520px){.af4{grid-template-columns:repeat(2,minmax(0,1fr))}.af3{grid-template-columns:1fr}}
+.ablock+.ablock{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.ablock h3{margin:0 0 10px}
+.ahint{margin:8px 0 0;font-size:12.5px;color:var(--muted);line-height:1.45}
+.ahint code{font-family:inherit;background:var(--surface-3);padding:1px 6px;border-radius:4px;color:var(--ink);white-space:nowrap}
+/* выбор маршрута */
+.rchips{display:flex;flex-wrap:wrap;gap:6px}
+.rchip{height:38px;border-radius:6px;border:1.5px solid var(--line);background:var(--surface);padding:0 12px;font-weight:600;font-size:13.5px;color:var(--ink-2);display:inline-flex;align-items:center;gap:7px}
+.rchip:hover{border-color:var(--brand)}
+.rchip[aria-pressed="true"]{background:var(--brand-btn);border-color:var(--brand-btn);color:#fff}
+.rchip i{width:7px;height:7px;border-radius:50%;background:var(--warn-ink);display:none}
+.rchip.has i{display:inline-block}
+.rchip[aria-pressed="true"] i{background:#fff}
+/* доп. расходы */
+.ax{display:grid;grid-template-columns:minmax(0,1fr) 110px 120px 32px;gap:6px;align-items:center;margin-bottom:6px}
+.ax input{font-weight:500;font-size:13.5px}
+@media (max-width:620px){.ax{grid-template-columns:minmax(0,1fr) 90px 32px}.ax input:nth-child(3){grid-column:1 / span 2}}
+.axh{display:grid;grid-template-columns:minmax(0,1fr) 110px 120px 32px;gap:6px;font-size:11.5px;color:var(--muted);margin-bottom:4px}
+@media (max-width:620px){.axh{display:none}}
+/* таблица городов */
+.atools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+.atools .asearch{flex:1;min-width:200px;font-weight:500}
+.atable{border:1px solid var(--line);border-radius:8px;overflow:auto;max-height:560px}
+.at{display:grid;grid-template-columns:minmax(150px,1.4fr) repeat(4,minmax(86px,1fr)) 40px;gap:6px;align-items:center;padding:6px 10px;border-bottom:1px solid var(--line);min-width:640px}
+.at:last-child{border-bottom:0}
+.at.h{position:sticky;top:0;z-index:1;background:var(--surface-3);font-size:11.5px;color:var(--muted);font-weight:600;padding:8px 10px}
+.at .cn b{display:block;font-size:13.5px}
+.at .cn small{display:block;font-size:11.5px;color:var(--muted)}
+.at input{height:34px;font-size:13.5px;text-align:right}
+.adel{width:32px;height:32px;border-radius:6px;border:0;background:transparent;color:var(--muted);display:grid;place-items:center}
+.adel:hover{background:var(--bad-soft);color:var(--bad)}
+.aadd{border:1.5px dashed var(--brand-line);border-radius:8px;padding:12px;margin-bottom:12px;background:var(--brand-soft)}
+.aadd-g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:8px}
+.aadd-n{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:10px}
+@media (max-width:620px){.aadd-g,.aadd-n{grid-template-columns:1fr 1fr}}
+.aadd label{display:grid;gap:4px;font-size:12px;color:var(--muted)}
+/* загрузка Excel */
+.drop{display:grid;place-items:center;gap:6px;text-align:center;border:2px dashed var(--brand-line);border-radius:10px;padding:34px 16px;background:var(--brand-soft);cursor:pointer;color:var(--ink-2);transition:background .15s,border-color .15s}
+.drop:hover,.drop.over{border-color:var(--brand);background:color-mix(in srgb,var(--brand-soft) 60%,var(--surface))}
+.drop svg{color:var(--brand)}
+.drop b{font-size:16px;color:var(--ink)}
+.drop span{font-size:13px;color:var(--muted)}
+.alist{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:8px}
+.alist li{display:grid;grid-template-columns:18px 1fr;gap:9px;font-size:13.5px;color:var(--ink-2)}
+.alist li svg{color:var(--brand);margin-top:2px}
+.isum{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.isum span{background:var(--surface-3);border-radius:6px;padding:6px 10px;font-size:13px;color:var(--ink-2)}
+.isum b{color:var(--ink)}
+/* список изменений */
+.dl{display:grid;gap:14px}
+.dl h4{margin:0 0 6px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--brand-ink);font-weight:700}
+.dr{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) 18px minmax(0,1fr);gap:8px;align-items:baseline;padding:7px 0;border-bottom:1px solid var(--line);font-size:13px}
+.dr .k{color:var(--ink-2)}
+.dr .f{color:var(--muted);text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--muted) 50%,transparent)}
+.dr .t{color:var(--ink);font-weight:600}
+.dr .t.add{color:var(--ok)}
+.dr .t.del{color:var(--bad)}
+.dr .ar{color:var(--muted)}
+@media (max-width:620px){.dr{grid-template-columns:1fr 1fr}.dr .k{grid-column:1 / span 2}.dr .ar{display:none}}
+.dmore{font-size:13px;color:var(--muted);margin-top:6px}
+.asaved{display:grid;gap:10px}
+.asaved ol{margin:0;padding-left:20px;display:grid;gap:6px;font-size:14px;color:var(--ink-2)}
+/* полоса предпросмотра на калькуляторе */
+.pv{position:sticky;top:0;z-index:50;background:var(--warn-soft);color:var(--warn-ink);border-bottom:1px solid color-mix(in srgb,var(--warn-ink) 25%,transparent);font-size:13.5px}
+.pv-in{max-width:1280px;margin:0 auto;padding:9px 16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.pv b{font-weight:700}
+.pv .grow{flex:1;min-width:200px}
+@media (max-width:620px){
+  .adm-top{position:static}
+  .adm-top-in{padding:12px 16px;gap:10px}
+  .adm-tt h2{font-size:18px}
+  .adm-x{height:34px;font-size:12.5px}
+  .adm-bar{padding:8px 12px calc(8px + env(safe-area-inset-bottom))}
+  .adm-bar-in{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .adm-cnt{grid-column:1 / -1;font-size:12.5px;min-width:0}
+  .adm-bar .abtn{height:36px;font-size:12.5px;padding:0 8px;justify-content:center}
+  .adm-in{padding-bottom:150px}
+}
+.adm-dr{display:grid;gap:14px;grid-template-columns:minmax(0,220px) minmax(0,1fr);align-items:end}
+@media (max-width:620px){.adm-dr{grid-template-columns:1fr}}
+.pv button{border:1px solid currentColor;background:transparent;color:inherit;border-radius:6px;height:32px;padding:0 12px;font-weight:600;font-size:13px}
+/* ADMIN-CSS-END */
 </style>
+<script>
+/* Чистая копия страницы до работы скриптов: из неё режим управления собирает новый файл */
+document.addEventListener("DOMContentLoaded", function(){ window.__LCL_PRISTINE = document.documentElement.cloneNode(true); });
+</script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -516,19 +650,69 @@ footer{margin-top:28px;padding:20px 0 8px;border-top:1px solid var(--line);font-
   </div>
 </div>
 <div class="toast" id="toast" role="status"></div>
+<!-- ADMIN-HTML-START -->
+<!-- ================= Режим управления ставками (открывается по адресу с #admin) ================= -->
+<div class="pv" id="pvBanner" hidden><div class="pv-in"><span class="grow"><b>Показаны новые ставки</b> — файл ещё не сохранён. Клиенты пока видят прежние.</span><button type="button" id="pvOpen">Управление ставками</button></div></div>
+
+<div class="adm" id="adm" hidden role="dialog" aria-modal="true" aria-labelledby="admTitle">
+  <header class="adm-top"><div class="adm-top-in">
+    <div class="adm-tt">
+      <span class="brandmark"><i></i>RTSB-RUS</span>
+      <h2 id="admTitle">Управление ставками</h2>
+      <p id="admFile"></p>
+    </div>
+    <button type="button" class="adm-x" id="admClose">← К калькулятору</button>
+  </div></header>
+
+  <div class="adm-in">
+    <div id="admDraft"></div>
+    <div class="seg adm-tabs" role="tablist" aria-label="Способ обновления ставок">
+      <button type="button" role="tab" data-atab="excel" aria-pressed="false">Загрузить из Excel</button>
+      <button type="button" role="tab" data-atab="manual" aria-pressed="true">Править вручную</button>
+    </div>
+
+    <div id="admExcel" hidden>
+      <section class="card">
+        <div class="card-h"><h2>Загрузить ставки из Excel</h2></div>
+        <label class="drop" id="drop">
+          <input type="file" id="xfile" accept=".xlsx,.xlsm,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden>
+          <svg width="34" height="34" aria-hidden="true"><use href="#i-share"/></svg>
+          <b>Выберите файл калькулятора</b>
+          <span>или перетащите его сюда · формат .xlsx</span>
+        </label>
+        <ul class="alist">
+          <li><svg width="16" height="16"><use href="#i-check"/></svg><span>Подойдёт обновлённый файл того же вида, что <b>LCL_RTSB-RUS_calculator</b>: с листами маршрутов и скрытым листом CALC. Строки можно добавлять и переставлять — ставки ищутся по названиям маршрутов и городов.</span></li>
+          <li><svg width="16" height="16"><use href="#i-check"/></svg><span>Из Excel берутся: <b>ставки фрахта по ступеням, локальные расходы, тарифы автодоставки по городам, надбавки и курс пересчёта в доллары, дата актуальности</b>.</span></li>
+          <li><svg width="16" height="16"><use href="#i-check"/></svg><span><b>Доп. расходы из Excel не берутся</b> — в таблице их значения стоят со сдвигом на строку. Их правьте во вкладке «Править вручную».</span></li>
+          <li><svg width="16" height="16"><use href="#i-check"/></svg><span>Перед применением покажу список «было → стало». Файл читается прямо в браузере и никуда не отправляется.</span></li>
+        </ul>
+      </section>
+      <section class="card" id="impRes" hidden></section>
+    </div>
+
+    <div id="admManual"></div>
+    <section class="card" id="admDone" hidden></section>
+  </div>
+
+  <div class="adm-bar"><div class="adm-bar-in">
+    <div class="adm-cnt" id="admCount"></div>
+    <button type="button" class="abtn" id="admReset">Отменить правки</button>
+    <button type="button" class="abtn" id="admChanges">Список изменений</button>
+    <button type="button" class="abtn" id="admPreview">Проверить в калькуляторе</button>
+    <button type="button" class="abtn primary" id="admSave">Сохранить файл</button>
+  </div></div>
+</div>
+<!-- ADMIN-HTML-END -->
 
 <!-- ============================================================
-     ДАННЫЕ И МЕХАНИКА РАСЧЁТА (без обращения к странице)
-     Чтобы обновить ставки — меняйте значения в ROUTES и RATES_DATE.
+     СТАВКИ хранятся в блоке rates-data ниже. Его переписывает режим управления
+     ставками: откройте калькулятор с #admin в конце адреса. Вручную здесь
+     ничего менять не нужно.
+     Тарифы автодоставки по городам: [юань за тонну, юань за м³, подача по весу, подача по объёму].
      ============================================================ -->
+<script type="application/json" id="rates-data">{"schema":1,"ratesDate":"01.09.2026","savedAt":null,"source":"LCL_RTSB-RUS_calculator_29.10.xlsx","routes":{"sz-vor":{"tiers":[200,195,190,185],"local":130,"pickup":{"addCny":186,"fx":7,"addUsd":0},"cities":{"shanghai":[150,50,300,300],"hangzhou":[160,60,300,300],"jiaxing":[160,60,300,300],"huzhou":[160,60,300,300],"shaoxing":[160,60,300,300],"ningbo":[200,80,300,300],"jinhua":[250,90,500,500],"taizhou-zhejiang":[250,90,500,500],"wenzhou":[250,90,500,500],"yiwu":[250,90,500,500],"quzhou":[250,90,500,500],"lishui":[250,90,500,500],"zhoushan":[250,90,500,500],"xiaoshan":[160,60,300,300],"zhuji":[160,60,300,300],"yuyao":[200,80,500,500],"suzhou":[150,50,300,300],"wuxi":[150,50,300,300],"changzhou":[150,50,300,300],"changshu":[150,50,300,300],"nantong":[150,50,300,300],"nanjing":[150,50,300,300],"yangzhou":[150,50,300,300],"yancheng":[180,70,500,500],"huian":[180,70,500,500],"taizhou-jiangsu":[150,50,300,300],"zhenjiang":[150,50,300,300],"yangzhong":[150,50,300,300],"jingjiang":[150,50,300,300],"suqian":[250,80,500,500],"xuzhou":[250,80,500,500],"tianjin":[400,120,500,500],"beijing":[400,120,500,500],"qingdao":[350,100,500,500],"yantai":[350,100,900,900],"jinan":[350,100,900,900],"binzhou":[350,100,900,900],"dezhou":[350,100,900,900],"dongying":[350,100,900,900],"heze":[350,100,900,900],"jining":[300,80,900,900],"laiwu":[350,100,900,900],"liaocheng":[350,100,500,500],"linyi":[300,80,500,500],"rizhao":[300,80,900,900],"taian":[350,100,900,900],"weifang":[350,100,900,900],"weihai":[350,120,900,900],"zaozhuang":[300,80,900,900],"zibo":[350,100,500,500],"others-in-shandong":[350,100,900,900],"fuzhou":[400,120,900,900],"xiamen":[450,120,900,900],"quanzhou":[450,120,900,900],"longyan":[450,120,900,900],"nanping":[500,120,900,900],"ningde":[500,120,900,900],"putian":[450,120,900,900],"sanming":[450,120,900,900],"zhangzhou":[500,120,900,900],"others-in-fujian":[500,120,900,900],"dalian":[550,140,900,900],"shenyang":[550,140,900,900],"changchun":[550,160,900,900],"hefei":[260,140,900,900],"anqing":[260,140,900,900],"bengbu":[260,140,900,900],"bozhou":[300,100,900,900],"xuancheng":[300,100,900,900],"chizhou":[300,100,900,900],"chuzhou":[300,100,900,900],"fuyang":[300,100,900,900],"huaibei":[300,100,900,900],"huainan":[300,100,900,900],"huangshan":[300,100,900,900],"luan":[300,100,900,900],"maanshan":[300,100,900,900],"tongling":[300,100,900,900],"wuhu":[220,80,900,900],"ningguo":[300,100,900,900],"others-in-anhui":[300,100,900,900],"chongqing":[700,160,900,900],"chengdu":[700,160,900,900],"zhengzhou":[350,120,900,900],"anyang":[380,120,900,900],"hebi":[380,120,900,900],"jiaozuo":[360,120,900,900],"kaifeng":[380,120,900,900],"luohe":[380,120,900,900],"luoyang":[350,120,900,900],"nanyang":[380,120,900,900],"pingdingshan":[380,120,900,900],"puyang":[380,120,900,900],"sanmenxia":[380,120,900,900],"shangqiu":[350,120,900,900],"xinxiang":[380,120,900,900],"xinyang":[380,120,900,900],"xuchang":[380,120,900,900],"zhoukou":[380,120,900,900],"zhumadian":[380,120,900,900],"jiyuan":[380,120,900,900],"others-in-henan":[380,120,900,900],"wuhan":[280,80,900,900],"ezhou":[480,110,900,900],"huanggang":[480,110,900,900],"huangshi":[480,110,900,900],"jingmen":[480,110,900,900],"jingzhou":[480,110,900,900],"shiyan":[480,110,900,900],"suizhou":[480,110,900,900],"xiangyang":[480,110,900,900],"xianning":[480,110,900,900],"xiaogan":[480,110,900,900],"yichang":[400,110,900,900],"others-in-hubei":[480,110,900,900],"baoding":[400,120,900,900],"cangzhou":[400,120,900,900],"langfang":[400,120,900,900],"changsha":[400,120,900,900],"zhuzhou":[550,140,900,900],"xiangtan":[550,140,900,900],"hengyang":[500,130,900,900],"yueyang":[500,130,900,900],"changde":[500,130,900,900],"chenzhou":[550,140,900,900],"huaihua":[550,140,900,900],"loudi":[550,140,900,900],"shaoyang":[550,140,900,900],"yiyang":[550,140,900,900],"yongzhou":[550,140,900,900],"zhangjiajie":[550,140,900,900],"others-in-hunan":[550,140,900,900],"guangzhou":[550,140,500,500],"shenzhen":[550,140,500,500],"dongguan":[550,140,500,500],"zhongshan":[650,150,500,500],"shantou":[550,140,500,500],"huizhou":[550,140,500,500],"xian":[550,140,500,500]}},"xi-vor":{"tiers":[175,175,170,170],"local":150,"pickup":{"addCny":150,"fx":6.2,"addUsd":0},"cities":{"hefei":[430,140,550,550],"wuhu":[560,170,550,550],"beijing":[460,140,550,550],"chongqing":[460,150,550,550],"xiamen":[600,175,550,550],"fuzhou":[620,180,550,550],"jinjiang":[800,230,550,550],"quanzhou":[700,200,550,550],"guangzhou":[600,170,550,550],"shunde":[600,170,550,550],"shenzhen":[600,170,550,550],"foshan":[600,170,550,550],"zhuhai":[600,170,550,550],"dongguan":[600,170,550,550],"zhongshan":[600,170,550,550],"shantou":[750,240,550,550],"huizhou":[700,210,550,550],"jiangmen":[700,190,550,550],"zhaoqing":[700,200,550,550],"shijiazhuang":[430,150,550,550],"baoding":[550,170,550,550],"qinhuangdao":[600,180,550,550],"langfang":[550,160,550,550],"hengshui":[550,160,550,550],"zhengzhou":[360,110,550,550],"luoyang":[360,110,550,550],"jiaozuo":[500,140,550,550],"wuhan":[420,130,550,550],"xiangyang":[420,130,550,550],"changsha":[600,160,550,550],"nanjing":[420,130,550,550],"suzhou":[420,130,550,550],"kunshan":[500,150,550,550],"wuxi":[420,130,550,550],"taicang":[500,150,550,550],"changzhou":[420,130,550,550],"yangzhou":[550,160,550,550],"taizhou-jiangsu":[550,160,550,550],"nantong":[500,150,550,550],"nanchang":[500,150,550,550],"dalian":[630,180,550,550],"shenyang":[630,180,550,550],"qingdao":[420,130,550,550],"jinan":[400,120,550,550],"yantai":[450,140,550,550],"weihai":[450,140,550,550],"linyi":[450,140,550,550],"jining":[550,150,550,550],"weifang":[600,160,550,550],"zibo":[550,150,550,550],"dongying":[550,160,550,550],"shanghai":[450,130,550,550],"taiyuan":[400,120,550,550],"chengdu":[400,130,550,550],"tianjin":[420,130,550,550],"ningbo":[500,140,550,550],"cixi":[600,160,550,550],"taizhou-zhejiang":[650,200,550,550],"shaoxing":[500,160,550,550],"jinhua":[630,180,550,550],"wenzhou":[630,180,550,550],"yiwu":[630,180,550,550],"jiaxing":[630,180,550,550],"hangzhou":[450,140,550,550]}},"sz-shu":{"tiers":[200,195,190,185],"local":130,"pickup":{"addCny":186,"fx":7,"addUsd":0},"cities":{"shanghai":[150,50,300,300],"hangzhou":[160,60,300,300],"jiaxing":[160,60,300,300],"huzhou":[160,60,300,300],"shaoxing":[160,60,300,300],"ningbo":[200,80,300,300],"jinhua":[250,90,500,500],"taizhou-zhejiang":[250,90,500,500],"wenzhou":[250,90,500,500],"yiwu":[250,90,500,500],"quzhou":[250,90,500,500],"lishui":[250,90,500,500],"zhoushan":[250,90,500,500],"xiaoshan":[160,60,300,300],"zhuji":[160,60,300,300],"yuyao":[200,80,500,500],"suzhou":[150,50,300,300],"wuxi":[150,50,300,300],"changzhou":[150,50,300,300],"changshu":[150,50,300,300],"nantong":[150,50,300,300],"nanjing":[150,50,300,300],"yangzhou":[150,50,300,300],"yancheng":[180,70,500,500],"huian":[180,70,500,500],"taizhou-jiangsu":[150,50,300,300],"zhenjiang":[150,50,300,300],"yangzhong":[150,50,300,300],"jingjiang":[150,50,300,300],"suqian":[250,80,500,500],"xuzhou":[250,80,500,500],"tianjin":[400,120,500,500],"beijing":[400,120,500,500],"qingdao":[350,100,500,500],"yantai":[350,100,900,900],"jinan":[350,100,900,900],"binzhou":[350,100,900,900],"dezhou":[350,100,900,900],"dongying":[350,100,900,900],"heze":[350,100,900,900],"jining":[350,80,900,900],"laiwu":[350,100,900,900],"liaocheng":[350,100,900,500],"linyi":[350,80,900,500],"rizhao":[350,80,900,500],"taian":[350,100,900,900],"weifang":[350,100,900,900],"weihai":[350,120,900,900],"zaozhuang":[350,80,900,900],"zibo":[350,100,900,500],"others-in-shandong":[350,100,900,500],"fuzhou":[400,120,900,900],"xiamen":[450,120,900,900],"quanzhou":[450,120,900,900],"longyan":[450,120,900,900],"nanping":[500,120,900,900],"ningde":[500,120,900,900],"putian":[450,120,900,900],"sanming":[450,120,900,900],"zhangzhou":[500,120,900,900],"others-in-fujian":[500,120,900,900],"dalian":[550,140,900,900],"shenyang":[550,140,900,900],"changchun":[550,160,900,900],"hefei":[260,140,900,900],"anqing":[260,140,900,900],"bengbu":[260,140,900,900],"bozhou":[300,100,900,900],"xuancheng":[300,100,900,900],"chizhou":[300,100,900,900],"chuzhou":[300,100,900,900],"fuyang":[300,100,900,900],"huaibei":[300,100,900,900],"huainan":[300,100,900,900],"huangshan":[300,100,900,900],"luan":[300,100,900,900],"maanshan":[300,100,900,900],"tongling":[300,100,900,900],"wuhu":[220,80,900,900],"ningguo":[300,100,900,900],"others-in-anhui":[300,100,900,900],"chongqing":[700,160,900,900],"chengdu":[700,160,900,900],"zhengzhou":[350,120,900,900],"anyang":[380,120,900,900],"hebi":[380,120,900,900],"jiaozuo":[380,120,900,900],"kaifeng":[380,120,900,900],"luohe":[380,120,900,900],"luoyang":[380,120,900,900],"nanyang":[380,120,900,900],"pingdingshan":[380,120,900,900],"puyang":[380,120,900,900],"sanmenxia":[380,120,900,900],"shangqiu":[350,120,900,900],"xinxiang":[380,120,900,900],"xinyang":[380,120,900,900],"xuchang":[380,120,900,900],"zhoukou":[380,120,900,900],"zhumadian":[380,120,900,900],"jiyuan":[380,120,900,900],"others-in-henan":[380,120,900,900],"wuhan":[280,80,900,900],"ezhou":[480,110,900,900],"huanggang":[480,110,900,900],"huangshi":[480,110,900,900],"jingmen":[480,110,900,900],"jingzhou":[480,110,900,900],"shiyan":[480,110,900,900],"suizhou":[480,110,900,900],"xiangyang":[480,110,900,900],"xianning":[480,110,900,900],"xiaogan":[480,110,900,900],"yichang":[400,110,900,900],"others-in-hubei":[480,110,900,900],"baoding":[400,120,900,900],"cangzhou":[400,120,900,900],"langfang":[400,120,900,900],"changsha":[400,120,900,900],"zhuzhou":[550,140,900,900],"xiangtan":[550,140,900,900],"hengyang":[500,130,900,900],"yueyang":[500,130,900,900],"changde":[500,130,900,900],"chenzhou":[550,140,900,900],"huaihua":[550,140,900,900],"loudi":[550,140,900,900],"shaoyang":[550,140,900,900],"yiyang":[550,140,900,900],"yongzhou":[550,140,900,900],"zhangjiajie":[550,140,900,900],"others-in-hunan":[550,140,900,900],"guangzhou":[550,140,500,500],"shenzhen":[550,140,500,500]}},"xi-shu":{"tiers":[165,165,160,160],"local":150,"pickup":{"addCny":150,"fx":6.9,"addUsd":30},"cities":{"hefei":[430,140,550,550],"wuhu":[560,170,550,550],"beijing":[460,140,550,550],"chongqing":[460,150,550,550],"xiamen":[600,175,550,550],"fuzhou":[620,180,550,550],"jinjiang":[800,230,550,550],"quanzhou":[700,200,550,550],"guangzhou":[600,170,550,550],"shunde":[600,170,550,550],"shenzhen":[600,170,550,550],"foshan":[600,170,550,550],"zhuhai":[600,170,550,550],"dongguan":[600,170,550,550],"zhongshan":[600,170,550,550],"shantou":[750,240,550,550],"huizhou":[700,210,550,550],"jiangmen":[700,190,550,550],"zhaoqing":[700,200,550,550],"shijiazhuang":[430,150,550,550],"baoding":[550,170,550,550],"qinhuangdao":[600,180,550,550],"langfang":[550,160,550,550],"hengshui":[550,160,550,550],"zhengzhou":[360,110,550,550],"luoyang":[360,110,550,550],"jiaozuo":[500,140,550,550],"wuhan":[420,130,550,550],"xiangyang":[420,130,550,550],"changsha":[600,160,550,550],"nanjing":[420,130,550,550],"suzhou":[420,130,550,550],"kunshan":[500,150,550,550],"wuxi":[420,130,550,550],"taicang":[500,150,550,550],"changzhou":[420,130,550,550],"yangzhou":[550,160,550,550],"taizhou-jiangsu":[550,160,550,550],"nantong":[500,150,550,550],"nanchang":[500,150,550,550],"dalian":[630,180,550,550],"shenyang":[630,180,550,550],"qingdao":[420,130,550,550],"jinan":[400,120,550,550],"yantai":[450,140,550,550],"weihai":[450,140,550,550],"linyi":[450,140,550,550],"jining":[550,150,550,550],"weifang":[600,160,550,550],"zibo":[550,150,550,550],"dongying":[550,160,550,550],"shanghai":[450,130,550,550],"taiyuan":[400,120,550,550],"chengdu":[400,130,550,550],"tianjin":[420,130,550,550],"ningbo":[500,140,550,550],"cixi":[600,160,550,550],"taizhou-zhejiang":[650,200,550,550],"shaoxing":[500,160,550,550],"jinhua":[630,180,550,550],"wenzhou":[630,180,550,550],"yiwu":[630,180,550,550],"jiaxing":[630,180,550,550],"hangzhou":[450,140,550,550]}},"xi-kol":{"tiers":[165,165,160,160],"local":150,"pickup":{"addCny":150,"fx":6.9,"addUsd":30},"cities":{"hefei":[430,140,550,550],"wuhu":[560,170,550,550],"beijing":[460,140,550,550],"chongqing":[460,150,550,550],"xiamen":[600,175,550,550],"fuzhou":[620,180,550,550],"jinjiang":[800,230,550,550],"quanzhou":[700,200,550,550],"guangzhou":[600,170,550,550],"shunde":[600,170,550,550],"shenzhen":[600,170,550,550],"foshan":[600,170,550,550],"zhuhai":[600,170,550,550],"dongguan":[600,170,550,550],"zhongshan":[600,170,550,550],"shantou":[750,240,550,550],"huizhou":[700,210,550,550],"jiangmen":[700,190,550,550],"zhaoqing":[700,200,550,550],"shijiazhuang":[430,150,550,550],"baoding":[550,170,550,550],"qinhuangdao":[600,180,550,550],"langfang":[550,160,550,550],"hengshui":[550,160,550,550],"zhengzhou":[360,110,550,550],"luoyang":[360,110,550,550],"jiaozuo":[500,140,550,550],"wuhan":[420,130,550,550],"xiangyang":[420,130,550,550],"changsha":[600,160,550,550],"nanjing":[420,130,550,550],"suzhou":[420,130,550,550],"kunshan":[500,150,550,550],"wuxi":[420,130,550,550],"taicang":[500,150,550,550],"changzhou":[420,130,550,550],"yangzhou":[550,160,550,550],"taizhou-jiangsu":[550,160,550,550],"nantong":[500,150,550,550],"nanchang":[500,150,550,550],"dalian":[630,180,550,550],"shenyang":[630,180,550,550],"qingdao":[420,130,550,550],"jinan":[400,120,550,550],"yantai":[450,140,550,550],"weihai":[450,140,550,550],"linyi":[450,140,550,550],"jining":[550,150,550,550],"weifang":[600,160,550,550],"zibo":[550,150,550,550],"dongying":[550,160,550,550],"shanghai":[450,130,550,550],"taiyuan":[400,120,550,550],"chengdu":[400,130,550,550],"tianjin":[420,130,550,550],"ningbo":[500,140,550,550],"cixi":[600,160,550,550],"taizhou-zhejiang":[650,200,550,550],"shaoxing":[500,160,550,550],"jinhua":[630,180,550,550],"wenzhou":[630,180,550,550],"yiwu":[630,180,550,550],"jiaxing":[630,180,550,550],"hangzhou":[450,140,550,550]}}},"cities":{"shanghai":{"ru":"Шанхай","en":"Shanghai","p":"mun"},"hangzhou":{"ru":"Ханчжоу","en":"Hangzhou","p":"zhejiang"},"jiaxing":{"ru":"Цзясин","en":"Jiaxing","p":"zhejiang"},"huzhou":{"ru":"Хучжоу","en":"Huzhou","p":"zhejiang"},"shaoxing":{"ru":"Шаосин","en":"Shaoxing","p":"zhejiang"},"ningbo":{"ru":"Нинбо","en":"Ningbo","p":"zhejiang"},"jinhua":{"ru":"Цзиньхуа","en":"Jinhua","p":"zhejiang"},"taizhou-zhejiang":{"ru":"Тайчжоу","en":"Taizhou, Zhejiang","p":"zhejiang"},"wenzhou":{"ru":"Вэньчжоу","en":"Wenzhou","p":"zhejiang"},"yiwu":{"ru":"Иу","en":"Yiwu","p":"zhejiang"},"quzhou":{"ru":"Цюйчжоу","en":"Quzhou","p":"zhejiang"},"lishui":{"ru":"Лишуй","en":"Lishui","p":"zhejiang"},"zhoushan":{"ru":"Чжоушань","en":"Zhoushan","p":"zhejiang"},"xiaoshan":{"ru":"Сяошань","en":"Xiaoshan","p":"zhejiang"},"zhuji":{"ru":"Чжуцзи","en":"Zhuji","p":"zhejiang"},"yuyao":{"ru":"Юйяо","en":"Yuyao","p":"zhejiang"},"suzhou":{"ru":"Сучжоу","en":"Suzhou","p":"jiangsu"},"wuxi":{"ru":"Уси","en":"Wuxi","p":"jiangsu"},"changzhou":{"ru":"Чанчжоу","en":"Changzhou","p":"jiangsu"},"changshu":{"ru":"Чаншу","en":"Changshu","p":"jiangsu"},"nantong":{"ru":"Наньтун","en":"Nantong","p":"jiangsu"},"nanjing":{"ru":"Нанкин","en":"Nanjing","p":"jiangsu"},"yangzhou":{"ru":"Янчжоу","en":"Yangzhou","p":"jiangsu"},"yancheng":{"ru":"Яньчэн","en":"Yancheng","p":"jiangsu"},"huian":{"ru":"Хуайань","en":"Huai'an","p":"jiangsu"},"taizhou-jiangsu":{"ru":"Тайчжоу","en":"Taizhou, Jiangsu","p":"jiangsu"},"zhenjiang":{"ru":"Чжэньцзян","en":"Zhenjiang","p":"jiangsu"},"yangzhong":{"ru":"Янчжун","en":"Yangzhong","p":"jiangsu"},"jingjiang":{"ru":"Цзинцзян","en":"Jingjiang","p":"jiangsu"},"suqian":{"ru":"Суцянь","en":"Suqian","p":"jiangsu"},"xuzhou":{"ru":"Сюйчжоу","en":"Xuzhou","p":"jiangsu"},"tianjin":{"ru":"Тяньцзинь","en":"Tianjin","p":"mun"},"beijing":{"ru":"Пекин","en":"Beijing","p":"mun"},"qingdao":{"ru":"Циндао","en":"Qingdao","p":"shandong"},"yantai":{"ru":"Яньтай","en":"Yantai","p":"shandong"},"jinan":{"ru":"Цзинань","en":"Jinan","p":"shandong"},"binzhou":{"ru":"Биньчжоу","en":"Binzhou","p":"shandong"},"dezhou":{"ru":"Дэчжоу","en":"Dezhou","p":"shandong"},"dongying":{"ru":"Дунъин","en":"Dongying","p":"shandong"},"heze":{"ru":"Хэцзэ","en":"Heze","p":"shandong"},"jining":{"ru":"Цзинин","en":"Jining","p":"shandong"},"laiwu":{"ru":"Лайу","en":"Laiwu","p":"shandong"},"liaocheng":{"ru":"Ляочэн","en":"Liaocheng","p":"shandong"},"linyi":{"ru":"Линьи","en":"Linyi","p":"shandong"},"rizhao":{"ru":"Жичжао","en":"Rizhao","p":"shandong"},"taian":{"ru":"Тайань","en":"Tai'an","p":"shandong"},"weifang":{"ru":"Вэйфан","en":"Weifang","p":"shandong"},"weihai":{"ru":"Вэйхай","en":"Weihai","p":"shandong"},"zaozhuang":{"ru":"Цзаочжуан","en":"Zaozhuang","p":"shandong"},"zibo":{"ru":"Цзыбо","en":"Zibo","p":"shandong"},"others-in-shandong":{"ru":"Другие в провинции Шаньдун","en":"другие города","p":"shandong"},"fuzhou":{"ru":"Фучжоу","en":"Fuzhou","p":"fujian"},"xiamen":{"ru":"Сямынь","en":"Xiamen","p":"fujian"},"quanzhou":{"ru":"Цюаньчжоу","en":"Quanzhou","p":"fujian"},"longyan":{"ru":"Лунъянь","en":"Longyan","p":"fujian"},"nanping":{"ru":"Наньпин","en":"Nanping","p":"fujian"},"ningde":{"ru":"Ниндэ","en":"Ningde","p":"fujian"},"putian":{"ru":"Путянь","en":"Putian","p":"fujian"},"sanming":{"ru":"Саньмин","en":"Sanming","p":"fujian"},"zhangzhou":{"ru":"Чжанчжоу","en":"Zhangzhou","p":"fujian"},"others-in-fujian":{"ru":"Другие в провинции Фуцзянь","en":"другие города","p":"fujian"},"dalian":{"ru":"Далянь","en":"Dalian","p":"liaoning"},"shenyang":{"ru":"Шэньян","en":"Shenyang","p":"liaoning"},"changchun":{"ru":"Чанчунь","en":"Changchun","p":"jilin"},"hefei":{"ru":"Хэфэй","en":"Hefei","p":"anhui"},"anqing":{"ru":"Аньцин","en":"Anqing","p":"anhui"},"bengbu":{"ru":"Бэнбу","en":"Bengbu","p":"anhui"},"bozhou":{"ru":"Бочжоу","en":"Bozhou","p":"anhui"},"xuancheng":{"ru":"Сюаньчэн","en":"Xuancheng","p":"anhui"},"chizhou":{"ru":"Чичжоу","en":"Chizhou","p":"anhui"},"chuzhou":{"ru":"Чучжоу","en":"Chuzhou","p":"anhui"},"fuyang":{"ru":"Фуян","en":"Fuyang","p":"anhui"},"huaibei":{"ru":"Хуайбэй","en":"Huaibei","p":"anhui"},"huainan":{"ru":"Хуайнань","en":"Huainan","p":"anhui"},"huangshan":{"ru":"Хуаншань","en":"Huangshan","p":"anhui"},"luan":{"ru":"Луань","en":"Lu'an","p":"anhui"},"maanshan":{"ru":"Мааньшань","en":"Ma'anshan","p":"anhui"},"tongling":{"ru":"Тунлин","en":"Tongling","p":"anhui"},"wuhu":{"ru":"Уху","en":"Wuhu","p":"anhui"},"ningguo":{"ru":"Нингуо","en":"Ningguo","p":"anhui"},"others-in-anhui":{"ru":"Другие в провинции Аньхой","en":"другие города","p":"anhui"},"chongqing":{"ru":"Чунцин","en":"Chongqing","p":"mun"},"chengdu":{"ru":"Чэнду","en":"Chengdu","p":"sichuan"},"zhengzhou":{"ru":"Чжэнчжоу","en":"Zhengzhou","p":"henan"},"anyang":{"ru":"Аньян","en":"Anyang","p":"henan"},"hebi":{"ru":"Хэби","en":"Hebi","p":"henan"},"jiaozuo":{"ru":"Цзяоцзо","en":"Jiaozuo","p":"henan"},"kaifeng":{"ru":"Кайфэн","en":"Kaifeng","p":"henan"},"luohe":{"ru":"Лохэ","en":"Luohe","p":"henan"},"luoyang":{"ru":"Лоян","en":"Luoyang","p":"henan"},"nanyang":{"ru":"Наньян","en":"Nanyang","p":"henan"},"pingdingshan":{"ru":"Пиндиншань","en":"Pingdingshan","p":"henan"},"puyang":{"ru":"Пуян","en":"Puyang","p":"henan"},"sanmenxia":{"ru":"Саньмэнься","en":"Sanmenxia","p":"henan"},"shangqiu":{"ru":"Шанцю","en":"Shangqiu","p":"henan"},"xinxiang":{"ru":"Синьсян","en":"Xinxiang","p":"henan"},"xinyang":{"ru":"Синьян","en":"Xinyang","p":"henan"},"xuchang":{"ru":"Сюйчан","en":"Xuchang","p":"henan"},"zhoukou":{"ru":"Чжоукоу","en":"Zhoukou","p":"henan"},"zhumadian":{"ru":"Чжумадянь","en":"Zhumadian","p":"henan"},"jiyuan":{"ru":"Цзиюань","en":"Jiyuan","p":"henan"},"others-in-henan":{"ru":"Другие в провинции Хэнань","en":"другие города","p":"henan"},"wuhan":{"ru":"Ухань","en":"Wuhan","p":"hubei"},"ezhou":{"ru":"Эчжоу","en":"Ezhou","p":"hubei"},"huanggang":{"ru":"Хуанган","en":"Huanggang","p":"hubei"},"huangshi":{"ru":"Хуанши","en":"Huangshi","p":"hubei"},"jingmen":{"ru":"Цзинмэнь","en":"Jingmen","p":"hubei"},"jingzhou":{"ru":"Цзинчжоу","en":"Jingzhou","p":"hubei"},"shiyan":{"ru":"Шиянь","en":"Shiyan","p":"hubei"},"suizhou":{"ru":"Суйчжоу","en":"Suizhou","p":"hubei"},"xiangyang":{"ru":"Сянъян","en":"Xiangyang","p":"hubei"},"xianning":{"ru":"Сяньнин","en":"Xianning","p":"hubei"},"xiaogan":{"ru":"Сяогань","en":"Xiaogan","p":"hubei"},"yichang":{"ru":"Ичан","en":"Yichang","p":"hubei"},"others-in-hubei":{"ru":"Другие в провинции Хубэй","en":"другие города","p":"hubei"},"baoding":{"ru":"Баодин","en":"Baoding","p":"hebei"},"cangzhou":{"ru":"Цанчжоу","en":"Cangzhou","p":"hebei"},"langfang":{"ru":"Ланфан","en":"Langfang","p":"hebei"},"changsha":{"ru":"Чанша","en":"Changsha","p":"hunan"},"zhuzhou":{"ru":"Чжучжоу","en":"Zhuzhou","p":"hunan"},"xiangtan":{"ru":"Сянтань","en":"Xiangtan","p":"hunan"},"hengyang":{"ru":"Хэнъян","en":"Hengyang","p":"hunan"},"yueyang":{"ru":"Юэян","en":"Yueyang","p":"hunan"},"changde":{"ru":"Чандэ","en":"Changde","p":"hunan"},"chenzhou":{"ru":"Чэньчжоу","en":"Chenzhou","p":"hunan"},"huaihua":{"ru":"Хуайхуа","en":"Huaihua","p":"hunan"},"loudi":{"ru":"Лоуди","en":"Loudi","p":"hunan"},"shaoyang":{"ru":"Шаоян","en":"Shaoyang","p":"hunan"},"yiyang":{"ru":"Иян","en":"Yiyang","p":"hunan"},"yongzhou":{"ru":"Юнчжоу","en":"Yongzhou","p":"hunan"},"zhangjiajie":{"ru":"Чжанцзяцзе","en":"Zhangjiajie","p":"hunan"},"others-in-hunan":{"ru":"Другие в провинции Хунань","en":"другие города","p":"hunan"},"guangzhou":{"ru":"Гуанчжоу","en":"Guangzhou","p":"guangdong"},"shenzhen":{"ru":"Шэньчжэнь","en":"Shenzhen","p":"guangdong"},"dongguan":{"ru":"Дунгуань","en":"Dongguan","p":"guangdong"},"zhongshan":{"ru":"Чжуншань","en":"Zhongshan","p":"guangdong"},"shantou":{"ru":"Шаньтоу","en":"Shantou","p":"guangdong"},"huizhou":{"ru":"Хойчжоу","en":"Huizhou","p":"guangdong"},"xian":{"ru":"Сиань","en":"Xi'an","p":"shaanxi"},"jinjiang":{"ru":"Цзиньцзян","en":"Jinjiang","p":"fujian"},"shunde":{"ru":"Шуньдэ","en":"Shunde","p":"guangdong"},"foshan":{"ru":"Фошань","en":"Foshan","p":"guangdong"},"zhuhai":{"ru":"Чжухай","en":"Zhuhai","p":"guangdong"},"jiangmen":{"ru":"Цзянмынь","en":"Jiangmen","p":"guangdong"},"zhaoqing":{"ru":"Чжаоцин","en":"Zhaoqing","p":"guangdong"},"shijiazhuang":{"ru":"Шицзячжуан","en":"Shijiazhuang","p":"hebei"},"qinhuangdao":{"ru":"Циньхуандао","en":"Qinhuangdao","p":"hebei"},"hengshui":{"ru":"Хэншуй","en":"Hengshui","p":"hebei"},"kunshan":{"ru":"Куньшань","en":"Kunshan","p":"jiangsu"},"taicang":{"ru":"Тайцан","en":"Taicang","p":"jiangsu"},"nanchang":{"ru":"Наньчан","en":"Nanchang","p":"jiangxi"},"taiyuan":{"ru":"Тайюань","en":"Taiyuan","p":"shanxi"},"cixi":{"ru":"Цыси","en":"Cixi","p":"zhejiang"}},"extras":{"china":[["Сверхнормативное хранение на СВХ свыше 6 дней","$10","за м³ в сутки"],["Паллетирование","$50","за паллету"],["Оформление дополнительных сертификатов для ряда товаров (сталь, мебель и др.)","от $500","за комплект"],["ПРР места длиной более 4 м","$200","за место"],["Паллетирование / распаллечивание","$60","за паллету"],["Упаковка / обрешётка","$70","за м³"],["Ремонт грузовой упаковки","от $30","за место"],["При отмене заказа — ПРР","$10","за м³ в сутки"],["При отмене заказа — хранение","$5","за м³ в сутки"]],"dest":{"vor":[["Сверхнормативное хранение на СВХ свыше 3 дней","$10","за м³ в сутки"],["Хранение со дня, следующего за выпуском ДТ, до выдачи с СВХ","$15","за м³ в сутки"],["Представление интересов при таможенном досмотре","13 000 ₽","в сутки"],["Перемещение груза в досмотровую зону","2 000 ₽","за тонну"]],"shu":[["Обработка дополнительной инвойс-спецификации","$80","за комплект"],["Сверхнормативное хранение на СВХ с 3-х суток","$5","за м² в сутки"],["Хранение со дня, следующего за выпуском ДТ, до выдачи с СВХ","$10","за м² в сутки"],["ПРР грузовых мест весом 3–4 т","по согласованию",""],["ПРР грузовых мест габаритами более 2 м","по согласованию",""]],"kol":[["Сверхнормативное хранение на СВХ с 6-х суток","$5","за тонну в сутки"]]}}}</script>
 <script id="engine">
 "use strict";
-/* Тарифы автодоставки по городам Китая (из листа CALC исходной таблицы).
-   Для каждого города: [юань за тонну, юань за м³, подача по весу, подача по объёму].
-   Стоимость = большее из (вес, т × ставка за т + подача) и (объём × ставка за м³ + подача), в юанях. */
-const DATA = {"cities":{"shanghai":{"ru":"Шанхай","en":"Shanghai","p":"mun"},"hangzhou":{"ru":"Ханчжоу","en":"Hangzhou","p":"zhejiang"},"jiaxing":{"ru":"Цзясин","en":"Jiaxing","p":"zhejiang"},"huzhou":{"ru":"Хучжоу","en":"Huzhou","p":"zhejiang"},"shaoxing":{"ru":"Шаосин","en":"Shaoxing","p":"zhejiang"},"ningbo":{"ru":"Нинбо","en":"Ningbo","p":"zhejiang"},"jinhua":{"ru":"Цзиньхуа","en":"Jinhua","p":"zhejiang"},"taizhou-zhejiang":{"ru":"Тайчжоу","en":"Taizhou, Zhejiang","p":"zhejiang"},"wenzhou":{"ru":"Вэньчжоу","en":"Wenzhou","p":"zhejiang"},"yiwu":{"ru":"Иу","en":"Yiwu","p":"zhejiang"},"quzhou":{"ru":"Цюйчжоу","en":"Quzhou","p":"zhejiang"},"lishui":{"ru":"Лишуй","en":"Lishui","p":"zhejiang"},"zhoushan":{"ru":"Чжоушань","en":"Zhoushan","p":"zhejiang"},"xiaoshan":{"ru":"Сяошань","en":"Xiaoshan","p":"zhejiang"},"zhuji":{"ru":"Чжуцзи","en":"Zhuji","p":"zhejiang"},"yuyao":{"ru":"Юйяо","en":"Yuyao","p":"zhejiang"},"suzhou":{"ru":"Сучжоу","en":"Suzhou","p":"jiangsu"},"wuxi":{"ru":"Уси","en":"Wuxi","p":"jiangsu"},"changzhou":{"ru":"Чанчжоу","en":"Changzhou","p":"jiangsu"},"changshu":{"ru":"Чаншу","en":"Changshu","p":"jiangsu"},"nantong":{"ru":"Наньтун","en":"Nantong","p":"jiangsu"},"nanjing":{"ru":"Нанкин","en":"Nanjing","p":"jiangsu"},"yangzhou":{"ru":"Янчжоу","en":"Yangzhou","p":"jiangsu"},"yancheng":{"ru":"Яньчэн","en":"Yancheng","p":"jiangsu"},"huian":{"ru":"Хуайань","en":"Huai'an","p":"jiangsu"},"taizhou-jiangsu":{"ru":"Тайчжоу","en":"Taizhou, Jiangsu","p":"jiangsu"},"zhenjiang":{"ru":"Чжэньцзян","en":"Zhenjiang","p":"jiangsu"},"yangzhong":{"ru":"Янчжун","en":"Yangzhong","p":"jiangsu"},"jingjiang":{"ru":"Цзинцзян","en":"Jingjiang","p":"jiangsu"},"suqian":{"ru":"Суцянь","en":"Suqian","p":"jiangsu"},"xuzhou":{"ru":"Сюйчжоу","en":"Xuzhou","p":"jiangsu"},"tianjin":{"ru":"Тяньцзинь","en":"Tianjin","p":"mun"},"beijing":{"ru":"Пекин","en":"Beijing","p":"mun"},"qingdao":{"ru":"Циндао","en":"Qingdao","p":"shandong"},"yantai":{"ru":"Яньтай","en":"Yantai","p":"shandong"},"jinan":{"ru":"Цзинань","en":"Jinan","p":"shandong"},"binzhou":{"ru":"Биньчжоу","en":"Binzhou","p":"shandong"},"dezhou":{"ru":"Дэчжоу","en":"Dezhou","p":"shandong"},"dongying":{"ru":"Дунъин","en":"Dongying","p":"shandong"},"heze":{"ru":"Хэцзэ","en":"Heze","p":"shandong"},"jining":{"ru":"Цзинин","en":"Jining","p":"shandong"},"laiwu":{"ru":"Лайу","en":"Laiwu","p":"shandong"},"liaocheng":{"ru":"Ляочэн","en":"Liaocheng","p":"shandong"},"linyi":{"ru":"Линьи","en":"Linyi","p":"shandong"},"rizhao":{"ru":"Жичжао","en":"Rizhao","p":"shandong"},"taian":{"ru":"Тайань","en":"Tai'an","p":"shandong"},"weifang":{"ru":"Вэйфан","en":"Weifang","p":"shandong"},"weihai":{"ru":"Вэйхай","en":"Weihai","p":"shandong"},"zaozhuang":{"ru":"Цзаочжуан","en":"Zaozhuang","p":"shandong"},"zibo":{"ru":"Цзыбо","en":"Zibo","p":"shandong"},"others-in-shandong":{"ru":"Другие в провинции Шаньдун","en":"другие города","p":"shandong"},"fuzhou":{"ru":"Фучжоу","en":"Fuzhou","p":"fujian"},"xiamen":{"ru":"Сямынь","en":"Xiamen","p":"fujian"},"quanzhou":{"ru":"Цюаньчжоу","en":"Quanzhou","p":"fujian"},"longyan":{"ru":"Лунъянь","en":"Longyan","p":"fujian"},"nanping":{"ru":"Наньпин","en":"Nanping","p":"fujian"},"ningde":{"ru":"Ниндэ","en":"Ningde","p":"fujian"},"putian":{"ru":"Путянь","en":"Putian","p":"fujian"},"sanming":{"ru":"Саньмин","en":"Sanming","p":"fujian"},"zhangzhou":{"ru":"Чжанчжоу","en":"Zhangzhou","p":"fujian"},"others-in-fujian":{"ru":"Другие в провинции Фуцзянь","en":"другие города","p":"fujian"},"dalian":{"ru":"Далянь","en":"Dalian","p":"liaoning"},"shenyang":{"ru":"Шэньян","en":"Shenyang","p":"liaoning"},"changchun":{"ru":"Чанчунь","en":"Changchun","p":"jilin"},"hefei":{"ru":"Хэфэй","en":"Hefei","p":"anhui"},"anqing":{"ru":"Аньцин","en":"Anqing","p":"anhui"},"bengbu":{"ru":"Бэнбу","en":"Bengbu","p":"anhui"},"bozhou":{"ru":"Бочжоу","en":"Bozhou","p":"anhui"},"xuancheng":{"ru":"Сюаньчэн","en":"Xuancheng","p":"anhui"},"chizhou":{"ru":"Чичжоу","en":"Chizhou","p":"anhui"},"chuzhou":{"ru":"Чучжоу","en":"Chuzhou","p":"anhui"},"fuyang":{"ru":"Фуян","en":"Fuyang","p":"anhui"},"huaibei":{"ru":"Хуайбэй","en":"Huaibei","p":"anhui"},"huainan":{"ru":"Хуайнань","en":"Huainan","p":"anhui"},"huangshan":{"ru":"Хуаншань","en":"Huangshan","p":"anhui"},"luan":{"ru":"Луань","en":"Lu'an","p":"anhui"},"maanshan":{"ru":"Мааньшань","en":"Ma'anshan","p":"anhui"},"tongling":{"ru":"Тунлин","en":"Tongling","p":"anhui"},"wuhu":{"ru":"Уху","en":"Wuhu","p":"anhui"},"ningguo":{"ru":"Нингуо","en":"Ningguo","p":"anhui"},"others-in-anhui":{"ru":"Другие в провинции Аньхой","en":"другие города","p":"anhui"},"chongqing":{"ru":"Чунцин","en":"Chongqing","p":"mun"},"chengdu":{"ru":"Чэнду","en":"Chengdu","p":"sichuan"},"zhengzhou":{"ru":"Чжэнчжоу","en":"Zhengzhou","p":"henan"},"anyang":{"ru":"Аньян","en":"Anyang","p":"henan"},"hebi":{"ru":"Хэби","en":"Hebi","p":"henan"},"jiaozuo":{"ru":"Цзяоцзо","en":"Jiaozuo","p":"henan"},"kaifeng":{"ru":"Кайфэн","en":"Kaifeng","p":"henan"},"luohe":{"ru":"Лохэ","en":"Luohe","p":"henan"},"luoyang":{"ru":"Лоян","en":"Luoyang","p":"henan"},"nanyang":{"ru":"Наньян","en":"Nanyang","p":"henan"},"pingdingshan":{"ru":"Пиндиншань","en":"Pingdingshan","p":"henan"},"puyang":{"ru":"Пуян","en":"Puyang","p":"henan"},"sanmenxia":{"ru":"Саньмэнься","en":"Sanmenxia","p":"henan"},"shangqiu":{"ru":"Шанцю","en":"Shangqiu","p":"henan"},"xinxiang":{"ru":"Синьсян","en":"Xinxiang","p":"henan"},"xinyang":{"ru":"Синьян","en":"Xinyang","p":"henan"},"xuchang":{"ru":"Сюйчан","en":"Xuchang","p":"henan"},"zhoukou":{"ru":"Чжоукоу","en":"Zhoukou","p":"henan"},"zhumadian":{"ru":"Чжумадянь","en":"Zhumadian","p":"henan"},"jiyuan":{"ru":"Цзиюань","en":"Jiyuan","p":"henan"},"others-in-henan":{"ru":"Другие в провинции Хэнань","en":"другие города","p":"henan"},"wuhan":{"ru":"Ухань","en":"Wuhan","p":"hubei"},"ezhou":{"ru":"Эчжоу","en":"Ezhou","p":"hubei"},"huanggang":{"ru":"Хуанган","en":"Huanggang","p":"hubei"},"huangshi":{"ru":"Хуанши","en":"Huangshi","p":"hubei"},"jingmen":{"ru":"Цзинмэнь","en":"Jingmen","p":"hubei"},"jingzhou":{"ru":"Цзинчжоу","en":"Jingzhou","p":"hubei"},"shiyan":{"ru":"Шиянь","en":"Shiyan","p":"hubei"},"suizhou":{"ru":"Суйчжоу","en":"Suizhou","p":"hubei"},"xiangyang":{"ru":"Сянъян","en":"Xiangyang","p":"hubei"},"xianning":{"ru":"Сяньнин","en":"Xianning","p":"hubei"},"xiaogan":{"ru":"Сяогань","en":"Xiaogan","p":"hubei"},"yichang":{"ru":"Ичан","en":"Yichang","p":"hubei"},"others-in-hubei":{"ru":"Другие в провинции Хубэй","en":"другие города","p":"hubei"},"baoding":{"ru":"Баодин","en":"Baoding","p":"hebei"},"cangzhou":{"ru":"Цанчжоу","en":"Cangzhou","p":"hebei"},"langfang":{"ru":"Ланфан","en":"Langfang","p":"hebei"},"changsha":{"ru":"Чанша","en":"Changsha","p":"hunan"},"zhuzhou":{"ru":"Чжучжоу","en":"Zhuzhou","p":"hunan"},"xiangtan":{"ru":"Сянтань","en":"Xiangtan","p":"hunan"},"hengyang":{"ru":"Хэнъян","en":"Hengyang","p":"hunan"},"yueyang":{"ru":"Юэян","en":"Yueyang","p":"hunan"},"changde":{"ru":"Чандэ","en":"Changde","p":"hunan"},"chenzhou":{"ru":"Чэньчжоу","en":"Chenzhou","p":"hunan"},"huaihua":{"ru":"Хуайхуа","en":"Huaihua","p":"hunan"},"loudi":{"ru":"Лоуди","en":"Loudi","p":"hunan"},"shaoyang":{"ru":"Шаоян","en":"Shaoyang","p":"hunan"},"yiyang":{"ru":"Иян","en":"Yiyang","p":"hunan"},"yongzhou":{"ru":"Юнчжоу","en":"Yongzhou","p":"hunan"},"zhangjiajie":{"ru":"Чжанцзяцзе","en":"Zhangjiajie","p":"hunan"},"others-in-hunan":{"ru":"Другие в провинции Хунань","en":"другие города","p":"hunan"},"guangzhou":{"ru":"Гуанчжоу","en":"Guangzhou","p":"guangdong"},"shenzhen":{"ru":"Шэньчжэнь","en":"Shenzhen","p":"guangdong"},"dongguan":{"ru":"Дунгуань","en":"Dongguan","p":"guangdong"},"zhongshan":{"ru":"Чжуншань","en":"Zhongshan","p":"guangdong"},"shantou":{"ru":"Шаньтоу","en":"Shantou","p":"guangdong"},"huizhou":{"ru":"Хойчжоу","en":"Huizhou","p":"guangdong"},"xian":{"ru":"Сиань","en":"Xi'an","p":"shaanxi"},"jinjiang":{"ru":"Цзиньцзян","en":"Jinjiang","p":"fujian"},"shunde":{"ru":"Шуньдэ","en":"Shunde","p":"guangdong"},"foshan":{"ru":"Фошань","en":"Foshan","p":"guangdong"},"zhuhai":{"ru":"Чжухай","en":"Zhuhai","p":"guangdong"},"jiangmen":{"ru":"Цзянмынь","en":"Jiangmen","p":"guangdong"},"zhaoqing":{"ru":"Чжаоцин","en":"Zhaoqing","p":"guangdong"},"shijiazhuang":{"ru":"Шицзячжуан","en":"Shijiazhuang","p":"hebei"},"qinhuangdao":{"ru":"Циньхуандао","en":"Qinhuangdao","p":"hebei"},"hengshui":{"ru":"Хэншуй","en":"Hengshui","p":"hebei"},"kunshan":{"ru":"Куньшань","en":"Kunshan","p":"jiangsu"},"taicang":{"ru":"Тайцан","en":"Taicang","p":"jiangsu"},"nanchang":{"ru":"Наньчан","en":"Nanchang","p":"jiangxi"},"taiyuan":{"ru":"Тайюань","en":"Taiyuan","p":"shanxi"},"cixi":{"ru":"Цыси","en":"Cixi","p":"zhejiang"}},"tables":{"SZ_VOR":{"shanghai":[150,50,300,300],"hangzhou":[160,60,300,300],"jiaxing":[160,60,300,300],"huzhou":[160,60,300,300],"shaoxing":[160,60,300,300],"ningbo":[200,80,300,300],"jinhua":[250,90,500,500],"taizhou-zhejiang":[250,90,500,500],"wenzhou":[250,90,500,500],"yiwu":[250,90,500,500],"quzhou":[250,90,500,500],"lishui":[250,90,500,500],"zhoushan":[250,90,500,500],"xiaoshan":[160,60,300,300],"zhuji":[160,60,300,300],"yuyao":[200,80,500,500],"suzhou":[150,50,300,300],"wuxi":[150,50,300,300],"changzhou":[150,50,300,300],"changshu":[150,50,300,300],"nantong":[150,50,300,300],"nanjing":[150,50,300,300],"yangzhou":[150,50,300,300],"yancheng":[180,70,500,500],"huian":[180,70,500,500],"taizhou-jiangsu":[150,50,300,300],"zhenjiang":[150,50,300,300],"yangzhong":[150,50,300,300],"jingjiang":[150,50,300,300],"suqian":[250,80,500,500],"xuzhou":[250,80,500,500],"tianjin":[400,120,500,500],"beijing":[400,120,500,500],"qingdao":[350,100,500,500],"yantai":[350,100,900,900],"jinan":[350,100,900,900],"binzhou":[350,100,900,900],"dezhou":[350,100,900,900],"dongying":[350,100,900,900],"heze":[350,100,900,900],"jining":[300,80,900,900],"laiwu":[350,100,900,900],"liaocheng":[350,100,500,500],"linyi":[300,80,500,500],"rizhao":[300,80,900,900],"taian":[350,100,900,900],"weifang":[350,100,900,900],"weihai":[350,120,900,900],"zaozhuang":[300,80,900,900],"zibo":[350,100,500,500],"others-in-shandong":[350,100,900,900],"fuzhou":[400,120,900,900],"xiamen":[450,120,900,900],"quanzhou":[450,120,900,900],"longyan":[450,120,900,900],"nanping":[500,120,900,900],"ningde":[500,120,900,900],"putian":[450,120,900,900],"sanming":[450,120,900,900],"zhangzhou":[500,120,900,900],"others-in-fujian":[500,120,900,900],"dalian":[550,140,900,900],"shenyang":[550,140,900,900],"changchun":[550,160,900,900],"hefei":[260,140,900,900],"anqing":[260,140,900,900],"bengbu":[260,140,900,900],"bozhou":[300,100,900,900],"xuancheng":[300,100,900,900],"chizhou":[300,100,900,900],"chuzhou":[300,100,900,900],"fuyang":[300,100,900,900],"huaibei":[300,100,900,900],"huainan":[300,100,900,900],"huangshan":[300,100,900,900],"luan":[300,100,900,900],"maanshan":[300,100,900,900],"tongling":[300,100,900,900],"wuhu":[220,80,900,900],"ningguo":[300,100,900,900],"others-in-anhui":[300,100,900,900],"chongqing":[700,160,900,900],"chengdu":[700,160,900,900],"zhengzhou":[350,120,900,900],"anyang":[380,120,900,900],"hebi":[380,120,900,900],"jiaozuo":[360,120,900,900],"kaifeng":[380,120,900,900],"luohe":[380,120,900,900],"luoyang":[350,120,900,900],"nanyang":[380,120,900,900],"pingdingshan":[380,120,900,900],"puyang":[380,120,900,900],"sanmenxia":[380,120,900,900],"shangqiu":[350,120,900,900],"xinxiang":[380,120,900,900],"xinyang":[380,120,900,900],"xuchang":[380,120,900,900],"zhoukou":[380,120,900,900],"zhumadian":[380,120,900,900],"jiyuan":[380,120,900,900],"others-in-henan":[380,120,900,900],"wuhan":[280,80,900,900],"ezhou":[480,110,900,900],"huanggang":[480,110,900,900],"huangshi":[480,110,900,900],"jingmen":[480,110,900,900],"jingzhou":[480,110,900,900],"shiyan":[480,110,900,900],"suizhou":[480,110,900,900],"xiangyang":[480,110,900,900],"xianning":[480,110,900,900],"xiaogan":[480,110,900,900],"yichang":[400,110,900,900],"others-in-hubei":[480,110,900,900],"baoding":[400,120,900,900],"cangzhou":[400,120,900,900],"langfang":[400,120,900,900],"changsha":[400,120,900,900],"zhuzhou":[550,140,900,900],"xiangtan":[550,140,900,900],"hengyang":[500,130,900,900],"yueyang":[500,130,900,900],"changde":[500,130,900,900],"chenzhou":[550,140,900,900],"huaihua":[550,140,900,900],"loudi":[550,140,900,900],"shaoyang":[550,140,900,900],"yiyang":[550,140,900,900],"yongzhou":[550,140,900,900],"zhangjiajie":[550,140,900,900],"others-in-hunan":[550,140,900,900],"guangzhou":[550,140,500,500],"shenzhen":[550,140,500,500],"dongguan":[550,140,500,500],"zhongshan":[650,150,500,500],"shantou":[550,140,500,500],"huizhou":[550,140,500,500],"xian":[550,140,500,500]},"SZ_SHU":{"shanghai":[150,50,300,300],"hangzhou":[160,60,300,300],"jiaxing":[160,60,300,300],"huzhou":[160,60,300,300],"shaoxing":[160,60,300,300],"ningbo":[200,80,300,300],"jinhua":[250,90,500,500],"taizhou-zhejiang":[250,90,500,500],"wenzhou":[250,90,500,500],"yiwu":[250,90,500,500],"quzhou":[250,90,500,500],"lishui":[250,90,500,500],"zhoushan":[250,90,500,500],"xiaoshan":[160,60,300,300],"zhuji":[160,60,300,300],"yuyao":[200,80,500,500],"suzhou":[150,50,300,300],"wuxi":[150,50,300,300],"changzhou":[150,50,300,300],"changshu":[150,50,300,300],"nantong":[150,50,300,300],"nanjing":[150,50,300,300],"yangzhou":[150,50,300,300],"yancheng":[180,70,500,500],"huian":[180,70,500,500],"taizhou-jiangsu":[150,50,300,300],"zhenjiang":[150,50,300,300],"yangzhong":[150,50,300,300],"jingjiang":[150,50,300,300],"suqian":[250,80,500,500],"xuzhou":[250,80,500,500],"tianjin":[400,120,500,500],"beijing":[400,120,500,500],"qingdao":[350,100,500,500],"yantai":[350,100,900,900],"jinan":[350,100,900,900],"binzhou":[350,100,900,900],"dezhou":[350,100,900,900],"dongying":[350,100,900,900],"heze":[350,100,900,900],"jining":[350,80,900,900],"laiwu":[350,100,900,900],"liaocheng":[350,100,900,500],"linyi":[350,80,900,500],"rizhao":[350,80,900,500],"taian":[350,100,900,900],"weifang":[350,100,900,900],"weihai":[350,120,900,900],"zaozhuang":[350,80,900,900],"zibo":[350,100,900,500],"others-in-shandong":[350,100,900,500],"fuzhou":[400,120,900,900],"xiamen":[450,120,900,900],"quanzhou":[450,120,900,900],"longyan":[450,120,900,900],"nanping":[500,120,900,900],"ningde":[500,120,900,900],"putian":[450,120,900,900],"sanming":[450,120,900,900],"zhangzhou":[500,120,900,900],"others-in-fujian":[500,120,900,900],"dalian":[550,140,900,900],"shenyang":[550,140,900,900],"changchun":[550,160,900,900],"hefei":[260,140,900,900],"anqing":[260,140,900,900],"bengbu":[260,140,900,900],"bozhou":[300,100,900,900],"xuancheng":[300,100,900,900],"chizhou":[300,100,900,900],"chuzhou":[300,100,900,900],"fuyang":[300,100,900,900],"huaibei":[300,100,900,900],"huainan":[300,100,900,900],"huangshan":[300,100,900,900],"luan":[300,100,900,900],"maanshan":[300,100,900,900],"tongling":[300,100,900,900],"wuhu":[220,80,900,900],"ningguo":[300,100,900,900],"others-in-anhui":[300,100,900,900],"chongqing":[700,160,900,900],"chengdu":[700,160,900,900],"zhengzhou":[350,120,900,900],"anyang":[380,120,900,900],"hebi":[380,120,900,900],"jiaozuo":[380,120,900,900],"kaifeng":[380,120,900,900],"luohe":[380,120,900,900],"luoyang":[380,120,900,900],"nanyang":[380,120,900,900],"pingdingshan":[380,120,900,900],"puyang":[380,120,900,900],"sanmenxia":[380,120,900,900],"shangqiu":[350,120,900,900],"xinxiang":[380,120,900,900],"xinyang":[380,120,900,900],"xuchang":[380,120,900,900],"zhoukou":[380,120,900,900],"zhumadian":[380,120,900,900],"jiyuan":[380,120,900,900],"others-in-henan":[380,120,900,900],"wuhan":[280,80,900,900],"ezhou":[480,110,900,900],"huanggang":[480,110,900,900],"huangshi":[480,110,900,900],"jingmen":[480,110,900,900],"jingzhou":[480,110,900,900],"shiyan":[480,110,900,900],"suizhou":[480,110,900,900],"xiangyang":[480,110,900,900],"xianning":[480,110,900,900],"xiaogan":[480,110,900,900],"yichang":[400,110,900,900],"others-in-hubei":[480,110,900,900],"baoding":[400,120,900,900],"cangzhou":[400,120,900,900],"langfang":[400,120,900,900],"changsha":[400,120,900,900],"zhuzhou":[550,140,900,900],"xiangtan":[550,140,900,900],"hengyang":[500,130,900,900],"yueyang":[500,130,900,900],"changde":[500,130,900,900],"chenzhou":[550,140,900,900],"huaihua":[550,140,900,900],"loudi":[550,140,900,900],"shaoyang":[550,140,900,900],"yiyang":[550,140,900,900],"yongzhou":[550,140,900,900],"zhangjiajie":[550,140,900,900],"others-in-hunan":[550,140,900,900],"guangzhou":[550,140,500,500],"shenzhen":[550,140,500,500]},"XI":{"hefei":[430,140,550,550],"wuhu":[560,170,550,550],"beijing":[460,140,550,550],"chongqing":[460,150,550,550],"xiamen":[600,175,550,550],"fuzhou":[620,180,550,550],"jinjiang":[800,230,550,550],"quanzhou":[700,200,550,550],"guangzhou":[600,170,550,550],"shunde":[600,170,550,550],"shenzhen":[600,170,550,550],"foshan":[600,170,550,550],"zhuhai":[600,170,550,550],"dongguan":[600,170,550,550],"zhongshan":[600,170,550,550],"shantou":[750,240,550,550],"huizhou":[700,210,550,550],"jiangmen":[700,190,550,550],"zhaoqing":[700,200,550,550],"shijiazhuang":[430,150,550,550],"baoding":[550,170,550,550],"qinhuangdao":[600,180,550,550],"langfang":[550,160,550,550],"hengshui":[550,160,550,550],"zhengzhou":[360,110,550,550],"luoyang":[360,110,550,550],"jiaozuo":[500,140,550,550],"wuhan":[420,130,550,550],"xiangyang":[420,130,550,550],"changsha":[600,160,550,550],"nanjing":[420,130,550,550],"suzhou":[420,130,550,550],"kunshan":[500,150,550,550],"wuxi":[420,130,550,550],"taicang":[500,150,550,550],"changzhou":[420,130,550,550],"yangzhou":[550,160,550,550],"taizhou-jiangsu":[550,160,550,550],"nantong":[500,150,550,550],"nanchang":[500,150,550,550],"dalian":[630,180,550,550],"shenyang":[630,180,550,550],"qingdao":[420,130,550,550],"jinan":[400,120,550,550],"yantai":[450,140,550,550],"weihai":[450,140,550,550],"linyi":[450,140,550,550],"jining":[550,150,550,550],"weifang":[600,160,550,550],"zibo":[550,150,550,550],"dongying":[550,160,550,550],"shanghai":[450,130,550,550],"taiyuan":[400,120,550,550],"chengdu":[400,130,550,550],"tianjin":[420,130,550,550],"ningbo":[500,140,550,550],"cixi":[600,160,550,550],"taizhou-zhejiang":[650,200,550,550],"shaoxing":[500,160,550,550],"jinhua":[630,180,550,550],"wenzhou":[630,180,550,550],"yiwu":[630,180,550,550],"jiaxing":[630,180,550,550],"hangzhou":[450,140,550,550]}}};
-
-const RATES_DATE = "01.09.2026";
 const KG_PER_CBM = 500;      // 1 м³ расчётного объёма = 500 кг
 const MIN_CBM = 1;           // минимум к оплате — 1 м³
 const TIER_EDGES = [5, 10, 15]; // ступени ставки по расчётному объёму, м³
@@ -539,7 +723,8 @@ const PROVINCES = {
   liaoning:"Провинция Ляонин", sichuan:"Провинция Сычуань", fujian:"Провинция Фуцзянь",
   hubei:"Провинция Хубэй", hunan:"Провинция Хунань", hebei:"Провинция Хэбэй", henan:"Провинция Хэнань",
   jilin:"Провинция Цзилинь", jiangxi:"Провинция Цзянси", jiangsu:"Провинция Цзянсу",
-  zhejiang:"Провинция Чжэцзян", shandong:"Провинция Шаньдун", shanxi:"Провинция Шаньси", shaanxi:"Провинция Шэньси"
+  zhejiang:"Провинция Чжэцзян", shandong:"Провинция Шаньдун", shanxi:"Провинция Шаньси", shaanxi:"Провинция Шэньси",
+  other:"Другие города"
 };
 
 const ORIGINS = {
@@ -562,56 +747,40 @@ const ADDR_XI_KOL = "西安市灞桥区港浦路，西安国际港站南门（�
 const LOCAL_PRR = "Погрузо-разгрузочные работы на станции и обработка 1 комплекта экспортных документов";
 const LOCAL_CUSTOMS = "Экспортное таможенное оформление 1 комплекта документов";
 
-const EXTRAS_CHINA = [
-  ["Сверхнормативное хранение на СВХ свыше 6 дней", "$10", "за м³ в сутки"],
-  ["Паллетирование", "$50", "за паллету"],
-  ["Оформление дополнительных сертификатов для ряда товаров (сталь, мебель и др.)", "от $500", "за комплект"],
-  ["ПРР места длиной более 4 м", "$200", "за место"],
-  ["Паллетирование / распаллечивание", "$60", "за паллету"],
-  ["Упаковка / обрешётка", "$70", "за м³"],
-  ["Ремонт грузовой упаковки", "от $30", "за место"],
-  ["При отмене заказа — ПРР", "$10", "за м³ в сутки"],
-  ["При отмене заказа — хранение", "$5", "за м³ в сутки"]
-];
-const EXTRAS_DEST = {
-  vor:[
-    ["Сверхнормативное хранение на СВХ свыше 3 дней", "$10", "за м³ в сутки"],
-    ["Хранение со дня, следующего за выпуском ДТ, до выдачи с СВХ", "$15", "за м³ в сутки"],
-    ["Представление интересов при таможенном досмотре", "13 000 ₽", "в сутки"],
-    ["Перемещение груза в досмотровую зону", "2 000 ₽", "за тонну"]
-  ],
-  shu:[
-    ["Обработка дополнительной инвойс-спецификации", "$80", "за комплект"],
-    ["Сверхнормативное хранение на СВХ с 3-х суток", "$5", "за м² в сутки"],
-    ["Хранение со дня, следующего за выпуском ДТ, до выдачи с СВХ", "$10", "за м² в сутки"],
-    ["ПРР грузовых мест весом 3–4 т", "по согласованию", ""],
-    ["ПРР грузовых мест габаритами более 2 м", "по согласованию", ""]
-  ],
-  kol:[
-    ["Сверхнормативное хранение на СВХ с 6-х суток", "$5", "за тонну в сутки"]
-  ]
-};
-
-/* Маршруты. tiers — ставка фрахта, $ за м³, по ступеням TIER_EDGES.
-   pickup — пересчёт тарифа автодоставки в доллары: (юани + addCny) ÷ fx + addUsd, вверх до $10. */
-const ROUTES = [
-  { id:"sz-vor", from:"sz", to:"vor", tiers:[200,195,190,185], local:130, localLabel:LOCAL_PRR,
-    pickup:{ table:"SZ_VOR", addCny:186, fx:7, addUsd:0 }, originAddress:ADDR_SZ,
+/* Постоянные свойства маршрутов — не ставки: станции, лимиты места, дни хранения.
+   sheet / calcLabel — где маршрут лежит в исходной таблице Excel (для загрузки ставок). */
+const ROUTE_META = [
+  { id:"sz-vor", from:"sz", to:"vor", sheet:"SUZHOU-VORSINO", calcLabel:"Suzhou-Vorsino", localLabel:LOCAL_PRR, originAddress:ADDR_SZ,
     freeDays:3, svhNote:"на СВХ", limits:{ placeKg:5000, lengthM:3, heightM:2.5 } },
-  { id:"xi-vor", from:"xi", to:"vor", tiers:[175,175,170,170], local:150, localLabel:LOCAL_CUSTOMS,
-    pickup:{ table:"XI", addCny:150, fx:6.2, addUsd:0 }, originAddress:ADDR_XI,
+  { id:"xi-vor", from:"xi", to:"vor", sheet:"XIAN-VORSINO", calcLabel:"Xian-Vorsino", localLabel:LOCAL_CUSTOMS, originAddress:ADDR_XI,
     freeDays:3, svhNote:"на СВХ", limits:{ placeKg:3000, placeKgMax:5000 } },
-  { id:"sz-shu", from:"sz", to:"shu", tiers:[200,195,190,185], local:130, localLabel:LOCAL_PRR,
-    pickup:{ table:"SZ_SHU", addCny:186, fx:7, addUsd:0 }, originAddress:ADDR_SZ,
+  { id:"sz-shu", from:"sz", to:"shu", sheet:"SUZHOU-SHUSHARY", calcLabel:"Suzhou-Shushary", localLabel:LOCAL_PRR, originAddress:ADDR_SZ,
     freeDays:3, svhNote:"", limits:{ placeKg:5000, lengthM:3, heightM:2.5 } },
-  { id:"xi-shu", from:"xi", to:"shu", tiers:[165,165,160,160], local:150, localLabel:LOCAL_PRR,
-    pickup:{ table:"XI", addCny:150, fx:6.9, addUsd:30 }, originAddress:ADDR_XI,
+  { id:"xi-shu", from:"xi", to:"shu", sheet:"XIAN-SHUSHARY", calcLabel:"Xian-Shushary", localLabel:LOCAL_PRR, originAddress:ADDR_XI,
     freeDays:3, svhNote:"на СВХ", limits:{ placeKg:3000, lengthM:3, heightM:2.5 } },
-  { id:"xi-kol", from:"xi", to:"kol", tiers:[165,165,160,160], local:150, localLabel:LOCAL_PRR,
-    pickup:{ table:"XI", addCny:150, fx:6.9, addUsd:30 }, originAddress:ADDR_XI_KOL,
+  { id:"xi-kol", from:"xi", to:"kol", sheet:"XIAN-KOLYADICHI", calcLabel:"Xian-Kolyadichi", localLabel:LOCAL_PRR, originAddress:ADDR_XI_KOL,
     freeDays:5, svhNote:"на СВХ", limits:{ placeKg:3000, lengthM:3, heightM:2.5 } }
 ];
-const ROUTE_BY_ID = Object.fromEntries(ROUTES.map(r => [r.id, r]));
+
+/* Ставки из блока rates-data. По каждому маршруту:
+   tiers — ставка фрахта, $ за м³, по ступеням TIER_EDGES; local — локальные расходы, $;
+   pickup — пересчёт автодоставки в доллары: (юани + addCny) ÷ fx + addUsd, вверх до $10;
+   cities — тарифы автодоставки по городам. */
+let RATES, DATA, ROUTES, ROUTE_BY_ID, RATES_DATE, EXTRAS_CHINA, EXTRAS_DEST;
+function applyRates(r){
+  RATES = r;
+  RATES_DATE = r.ratesDate;
+  DATA = { cities: r.cities, tables: Object.fromEntries(ROUTE_META.map(m => [m.id, r.routes[m.id].cities])) };
+  ROUTES = ROUTE_META.map(m => {
+    const x = r.routes[m.id];
+    return { ...m, tiers: x.tiers.slice(), local: x.local, pickup: { table: m.id, addCny: x.pickup.addCny, fx: x.pickup.fx, addUsd: x.pickup.addUsd } };
+  });
+  ROUTE_BY_ID = Object.fromEntries(ROUTES.map(x => [x.id, x]));
+  EXTRAS_CHINA = r.extras.china;
+  EXTRAS_DEST = r.extras.dest;
+}
+const FILE_RATES = JSON.parse(document.getElementById("rates-data").textContent);
+applyRates(FILE_RATES);
 
 /* Округление вверх до $10, как CEILING(x;10) / ОКРВВЕРХ в Excel.
    Сначала гасим «хвосты» двоичной арифметики (1170.0000000002 → 1170). */
@@ -675,7 +844,7 @@ function calcRoute(route, input){
 
 <script>
 "use strict";
-(function(){
+document.addEventListener("DOMContentLoaded", function(){
 const $ = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
 const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -696,8 +865,8 @@ function parseNum(str){
 }
 
 /* ---------- Cities ---------- */
-const CITY_IDS = Object.keys(DATA.cities);
-const PROV_ORDER = Object.keys(PROVINCES);
+const cityIdsInUse = () => Object.keys(DATA.cities).filter(id => ROUTES.some(r => DATA.tables[r.id][id]));
+const PROV_ORDER = Object.keys(PROVINCES); // «Другие города» — последними
 const byName = (a, b) => {
   const oa = a.startsWith("others-in-"), ob = b.startsWith("others-in-");
   if (oa !== ob) return oa ? 1 : -1;
@@ -890,7 +1059,7 @@ function render(){
   $("#pickOn").hidden = !state.pickupOn;
   if (state.city){
     const ci = DATA.cities[state.city];
-    $("#cityVal").innerHTML = `<b>${esc(ci.ru)}</b><small>${esc(ci.en)} · ${esc(PROVINCES[ci.p])}</small>`;
+    $("#cityVal").innerHTML = `<b>${esc(ci.ru)}</b><small>${esc(ci.en)} · ${esc(PROVINCES[ci.p] || PROVINCES.other)}</small>`;
   } else $("#cityVal").innerHTML = `<span class="ph">Выберите город</span>`;
   let pa = "";
   if (state.pickupOn && cur.pickupStatus === "na"){
@@ -1001,10 +1170,10 @@ function renderCityList(){
   const q = $("#q").value.trim().toLowerCase().replace(/ё/g, "е");
   const c = cargo();
   const route = ROUTE_BY_ID[state.route];
-  const ids = CITY_IDS.filter(id => {
+  const ids = cityIdsInUse().filter(id => {
     if (!q) return true;
     const ci = DATA.cities[id];
-    const hay = (ci.ru + " " + ci.en + " " + PROVINCES[ci.p]).toLowerCase().replace(/ё/g, "е");
+    const hay = (ci.ru + " " + ci.en + " " + (PROVINCES[ci.p] || "")).toLowerCase().replace(/ё/g, "е");
     return hay.includes(q);
   });
   if (!ids.length){ $("#cityList").innerHTML = `<div class="empty">Город не найден. Попробуйте написать по-английски — например, Yiwu.</div>`; kbIndex = -1; return; }
@@ -1203,7 +1372,657 @@ $("#ratesDate").textContent = RATES_DATE; $("#ratesDate2").textContent = RATES_D
 $("#w").value = state.w; $("#v").value = state.v; $("#fx").value = state.fx;
 bind();
 setMode(state.mode);
+
+/* Для режима управления ставками: перерисовать калькулятор после смены ставок */
+window.LCL_UI = {
+  refresh(){
+    if (state.city && !DATA.cities[state.city]) state.city = null;
+    $("#ratesDate").textContent = RATES_DATE; $("#ratesDate2").textContent = RATES_DATE; $("#ratesDate3").textContent = RATES_DATE;
+    render();
+  }
+};
+});
+</script>
+<script id="admin">
+"use strict";
+/* ================================================================
+   РЕЖИМ УПРАВЛЕНИЯ СТАВКАМИ
+   Открывается по адресу с #admin в конце. Ставки можно загрузить из
+   Excel или поправить вручную. «Сохранить файл» собирает новую версию
+   этого же калькулятора, где в блоке rates-data уже новые ставки.
+   ================================================================ */
+
+/* ---------- Чтение .xlsx без внешних библиотек ---------- */
+const XLSX_LITE = (() => {
+  async function unzip(buf){
+    const dv = new DataView(buf);
+    let eocd = -1;
+    for (let i = buf.byteLength - 22; i >= Math.max(0, buf.byteLength - 65557); i--){
+      if (dv.getUint32(i, true) === 0x06054b50){ eocd = i; break; }
+    }
+    if (eocd < 0) throw new Error("Это не файл .xlsx (не удалось открыть архив).");
+    const count = dv.getUint16(eocd + 10, true);
+    let p = dv.getUint32(eocd + 16, true);
+    const entries = new Map(), dec = new TextDecoder();
+    for (let i = 0; i < count; i++){
+      if (dv.getUint32(p, true) !== 0x02014b50) throw new Error("Файл повреждён.");
+      const method = dv.getUint16(p + 10, true), csize = dv.getUint32(p + 20, true);
+      const nlen = dv.getUint16(p + 28, true), elen = dv.getUint16(p + 30, true), clen = dv.getUint16(p + 32, true);
+      const lho = dv.getUint32(p + 42, true);
+      entries.set(dec.decode(new Uint8Array(buf, p + 46, nlen)), { method, csize, lho });
+      p += 46 + nlen + elen + clen;
+    }
+    async function read(name){
+      name = name.replace(/^\//, "");
+      const e = entries.get(name);
+      if (!e) return null;
+      const start = e.lho + 30 + dv.getUint16(e.lho + 26, true) + dv.getUint16(e.lho + 28, true);
+      const data = new Uint8Array(buf, start, e.csize);
+      if (e.method === 0) return dec.decode(data);
+      if (e.method !== 8) throw new Error("Неизвестный способ сжатия в файле.");
+      if (typeof DecompressionStream === "undefined") throw new Error("Браузер слишком старый для чтения Excel — обновите его или используйте Chrome.");
+      const stream = new Blob([data]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
+      return new TextDecoder().decode(await new Response(stream).arrayBuffer());
+    }
+    return { read };
+  }
+  const xml = s => new DOMParser().parseFromString(s, "application/xml");
+  const all = (n, tag) => Array.from(n.getElementsByTagNameNS("*", tag));
+  const colNum = c => c.split("").reduce((a, ch) => a * 26 + ch.charCodeAt(0) - 64, 0);
+  const colName = n => { let s = ""; while (n > 0){ const m = (n - 1) % 26; s = String.fromCharCode(65 + m) + s; n = Math.floor((n - 1) / 26); } return s; };
+  const splitAddr = a => { const m = /^([A-Z]+)(\d+)$/.exec(a); return { c: colNum(m[1]), r: +m[2] }; };
+  /* Сдвиг относительных ссылок общей формулы (Excel хранит её один раз на диапазон) */
+  function shift(f, dr, dc){
+    return f.split(/('[^']*'|"[^"]*")/).map((part, i) => i % 2 ? part :
+      part.replace(/(^|[^A-Za-z0-9_.])(\$?)([A-Z]{1,3})(\$?)(\d+)(?![A-Za-z0-9_(])/g, (m, pre, dC, col, dR, row) =>
+        pre + dC + (dC ? col : colName(colNum(col) + dc)) + dR + (dR ? row : String(+row + dr)))
+    ).join("");
+  }
+  async function read(buf){
+    const z = await unzip(buf);
+    const wbXml = await z.read("xl/workbook.xml");
+    if (!wbXml) throw new Error("В файле нет книги Excel (xl/workbook.xml).");
+    const rels = xml(await z.read("xl/_rels/workbook.xml.rels") || "<r/>");
+    const relMap = {};
+    all(rels, "Relationship").forEach(r => { relMap[r.getAttribute("Id")] = r.getAttribute("Target"); });
+    const ssXml = await z.read("xl/sharedStrings.xml");
+    const siText = si => all(si, "t").filter(t => { for (let n = t.parentNode; n && n !== si; n = n.parentNode) if (n.localName === "rPh") return false; return true; }).map(t => t.textContent).join("");
+    const strings = ssXml ? all(xml(ssXml), "si").map(siText) : [];
+    const sheets = new Map();
+    for (const sh of all(xml(wbXml), "sheet")){
+      const name = sh.getAttribute("name");
+      const rid = sh.getAttributeNS("http://schemas.openxmlformats.org/officeDocument/2006/relationships", "id") || sh.getAttribute("r:id");
+      let target = relMap[rid]; if (!target) continue;
+      target = target.startsWith("/") ? target.slice(1) : "xl/" + target.replace(/^\.\//, "");
+      const sx = await z.read(target); if (!sx) continue;
+      const cells = new Map(), masters = {}, pending = [];
+      for (const c of all(xml(sx), "c")){
+        const addr = c.getAttribute("r"), t = c.getAttribute("t");
+        const fEl = all(c, "f")[0], vEl = all(c, "v")[0];
+        let v = vEl ? vEl.textContent : null;
+        if (t === "s" && v !== null) v = strings[+v];
+        else if (t === "inlineStr") v = all(c, "t").map(x => x.textContent).join("");
+        else if (t === "b") v = v === "1";
+        else if ((t === null || t === "n") && v !== null) v = parseFloat(v);
+        const cell = { v };
+        if (fEl){
+          const si = fEl.getAttribute("si"), text = fEl.textContent;
+          if (fEl.getAttribute("t") === "shared" && si !== null){
+            if (text){ masters[si] = { text, ...splitAddr(addr) }; cell.f = text; }
+            else pending.push([addr, si]);
+          } else if (text) cell.f = text;
+        }
+        if (cell.v !== null || fEl) cells.set(addr, cell);
+      }
+      for (const [addr, si] of pending){
+        const m = masters[si]; if (!m) continue;
+        const a = splitAddr(addr);
+        const cell = cells.get(addr) || { v: null };
+        cell.f = shift(m.text, a.r - m.r, a.c - m.c);
+        cells.set(addr, cell);
+      }
+      sheets.set(name, cells);
+    }
+    return { sheets, colNum, colName };
+  }
+  return { read, colNum, colName };
 })();
+
+/* ---------- Вычисление формул (+ − × ÷, скобки, MAX, MIN, CEILING, ROUNDUP, ROUND, SUM) ---------- */
+const FORMULA = (() => {
+  function tokenize(f){
+    const t = []; let i = 0;
+    while (i < f.length){
+      const c = f[i], rest = f.slice(i); let m;
+      if (/\s/.test(c)){ i++; continue; }
+      if (c === '"'){ const j = f.indexOf('"', i + 1); t.push({ k: "str", v: f.slice(i + 1, j) }); i = j + 1; continue; }
+      if ((m = /^(?:'[^']+'|[A-Za-z0-9_.Ѐ-ӿ-]+)!\$?[A-Z]{1,3}\$?\d+/.exec(rest))){ t.push({ k: "xref", v: m[0] }); i += m[0].length; continue; }
+      if ((m = /^\$?([A-Z]{1,3})\$?(\d+)(?![A-Za-z0-9_(])/.exec(rest))){ t.push({ k: "ref", v: m[1] + m[2] }); i += m[0].length; continue; }
+      if ((m = /^\d+(?:\.\d+)?(?:[Ee][+-]?\d+)?/.exec(rest))){ t.push({ k: "num", v: parseFloat(m[0]) }); i += m[0].length; continue; }
+      if ((m = /^[A-Za-z_][A-Za-z0-9_.]*(?=\()/.exec(rest))){ t.push({ k: "fn", v: m[0].toUpperCase().replace(/^_XLFN\./, "") }); i += m[0].length; continue; }
+      if ("+-*/(),".includes(c)){ t.push({ k: "op", v: c }); i++; continue; }
+      throw new Error("unsupported");
+    }
+    return t;
+  }
+  function parse(f){
+    const t = tokenize(String(f).replace(/^=/, "")); let i = 0;
+    const peek = () => t[i], take = () => t[i++];
+    const isOp = v => peek() && peek().k === "op" && peek().v === v;
+    function expr(){ let l = term(); while (isOp("+") || isOp("-")){ const op = take().v; l = { t: "bin", op, l, r: term() }; } return l; }
+    function term(){ let l = factor(); while (isOp("*") || isOp("/")){ const op = take().v; l = { t: "bin", op, l, r: factor() }; } return l; }
+    function factor(){ if (isOp("-")){ take(); return { t: "neg", x: factor() }; } if (isOp("+")){ take(); return factor(); } return primary(); }
+    function primary(){
+      const x = take(); if (!x) throw new Error("unexpected end");
+      if (x.k === "num") return { t: "num", v: x.v };
+      if (x.k === "ref") return { t: "ref", a: x.v };
+      if (x.k === "op" && x.v === "("){ const e = expr(); if (!isOp(")")) throw new Error(")"); take(); return e; }
+      if (x.k === "fn"){
+        take(); const args = [];
+        if (!isOp(")")){ args.push(expr()); while (isOp(",")){ take(); args.push(expr()); } }
+        if (!isOp(")")) throw new Error(")"); take();
+        return { t: "call", fn: x.v, args };
+      }
+      throw new Error("unsupported token");
+    }
+    const ast = expr(); if (i !== t.length) throw new Error("trailing");
+    return ast;
+  }
+  function ev(n, env){
+    switch (n.t){
+      case "num": return n.v;
+      case "ref": return env(n.a);
+      case "neg": return -ev(n.x, env);
+      case "bin": { const a = ev(n.l, env), b = ev(n.r, env); return n.op === "+" ? a + b : n.op === "-" ? a - b : n.op === "*" ? a * b : a / b; }
+      case "call": {
+        const a = n.args.map(x => ev(x, env));
+        switch (n.fn){
+          case "MAX": return Math.max(...a);
+          case "MIN": return Math.min(...a);
+          case "SUM": return a.reduce((s, x) => s + x, 0);
+          case "CEILING": case "CEILING.MATH": { const s = a[1] ?? 1; return s ? Math.ceil(Math.round(a[0] / s * 1e9) / 1e9) * s : 0; }
+          case "ROUNDUP": { const k = Math.pow(10, a[1] || 0); return Math.sign(a[0]) * Math.ceil(Math.round(Math.abs(a[0]) * k * 1e9) / 1e9) / k; }
+          case "ROUND": { const k = Math.pow(10, a[1] || 0); return Math.round(a[0] * k) / k; }
+        }
+        throw new Error("fn " + n.fn);
+      }
+    }
+  }
+  return { parse, ev };
+})();
+
+/* ---------- Ставки из книги Excel ---------- */
+function ratesFromWorkbook(wb, current){
+  const warnings = [], found = { routes: 0, cities: {} };
+  const out = JSON.parse(JSON.stringify(current));
+  const calc = wb.sheets.get("CALC") || [...wb.sheets.entries()].find(([n]) => n.trim().toUpperCase() === "CALC")?.[1];
+  if (!calc) throw new Error("В файле нет листа CALC — похоже, это другой файл. Нужен калькулятор того же вида, что LCL_RTSB-RUS_calculator.");
+  const { colNum, colName } = XLSX_LITE;
+  const at = (c, r) => colName(c) + r;
+  const split = a => { const m = /^([A-Z]+)(\d+)$/.exec(a); return { c: colNum(m[1]), r: +m[2] }; };
+  const esc = s => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const text = cell => cell && typeof cell.v === "string" ? cell.v.trim() : "";
+  const r6 = x => Math.round(x * 1e6) / 1e6;
+  function valueOf(addr, vars, depth = 0){
+    if (vars && vars[addr] !== undefined) return vars[addr];
+    const cell = calc.get(addr);
+    if (!cell) return 0;
+    if (cell.f && depth < 20){
+      try { return FORMULA.ev(FORMULA.parse(cell.f), a => valueOf(a, vars, depth + 1)); } catch(e){ /* берём сохранённое значение */ }
+    }
+    return typeof cell.v === "number" ? cell.v : (typeof cell.v === "string" && cell.v.trim() !== "" && !isNaN(+cell.v) ? +cell.v : 0);
+  }
+  const findLabel = label => { for (const [a, cell] of calc) if (text(cell).toLowerCase() === label.toLowerCase()) return split(a); return null; };
+  const findFormula = re => { for (const [a, cell] of calc) if (cell.f && re.test(cell.f)) return { addr: a, f: cell.f, m: re.exec(cell.f) }; return null; };
+
+  // дата актуальности — из шапки листов маршрутов
+  const dates = [];
+  for (const m of ROUTE_META){
+    const sh = wb.sheets.get(m.sheet); if (!sh) continue;
+    for (const [, cell] of sh){ const d = typeof cell.v === "string" && /актуальн/i.test(cell.v) && /(\d{2}\.\d{2}\.\d{4})/.exec(cell.v); if (d){ dates.push(d[1]); break; } }
+  }
+  if (dates.length){
+    const key = d => d.split(".").reverse().join("");
+    const latest = dates.slice().sort((a, b) => key(b).localeCompare(key(a)))[0];
+    out.ratesDate = latest;
+    if (new Set(dates).size > 1) warnings.push(`На листах маршрутов разные даты актуальности (${[...new Set(dates)].join(", ")}). Взята самая поздняя — ${latest}.`);
+  } else warnings.push("Не нашла дату актуальности ставок — оставлена прежняя.");
+
+  for (const m of ROUTE_META){
+    const name = `${ORIGINS[m.from].name} → ${DESTS[m.to].name}`;
+    const R = out.routes[m.id];
+    const lab = findLabel(m.calcLabel);
+    if (!lab){ warnings.push(`${name}: на листе CALC нет блока «${m.calcLabel}» — ставки маршрута оставлены прежними.`); continue; }
+    found.routes++;
+    // ставки фрахта по ступеням
+    const tiers = [1, 2, 3, 4].map(k => valueOf(at(lab.c + 1, lab.r + k)));
+    const lbl = text(calc.get(at(lab.c, lab.r + 1)));
+    const ff = calc.get(at(lab.c + 1, lab.r));
+    if (lbl !== "<5") warnings.push(`${name}: под названием блока ожидалась ступень «<5», а стоит «${lbl || "пусто"}» — проверьте ставки фрахта.`);
+    if (ff && ff.f && !(/<\s*5\b/.test(ff.f) && /<\s*10\b/.test(ff.f) && /<\s*15\b/.test(ff.f))) warnings.push(`${name}: в формуле фрахта изменились границы ступеней (5/10/15 м³). Калькулятор считает по прежним границам.`);
+    if (tiers.every(x => x > 0)) R.tiers = tiers.map(r6);
+    else warnings.push(`${name}: ставки фрахта не прочитались — оставлены прежние.`);
+    // локальные расходы
+    let lr = null;
+    for (let r = lab.r + 1; r < lab.r + 80; r++){ if (/^local/i.test(text(calc.get(at(lab.c, r))))){ lr = r; break; } }
+    if (lr){
+      let mn = null, st = null;
+      for (let r = lr + 1; r <= lr + 4; r++){
+        const t = text(calc.get(at(lab.c, r))).toLowerCase();
+        if (t === "min") mn = valueOf(at(lab.c + 1, r));
+        if (t === "stand") st = valueOf(at(lab.c + 1, r));
+      }
+      if (st !== null) R.local = r6(mn !== null ? Math.max(mn, st) : st);
+      else warnings.push(`${name}: не нашла строку «stand» в локальных расходах — оставлены прежние.`);
+    } else warnings.push(`${name}: не нашла блок локальных расходов — оставлены прежние.`);
+    // автодоставка: где лежит вес и объём маршрута
+    const sheetRe = `'?${esc(m.sheet)}'?!`;
+    const vCell = findFormula(new RegExp(`^${sheetRe}\\$?D\\$?6$`, "i"));
+    const wCell = findFormula(new RegExp(`^${sheetRe}\\$?C\\$?6$`, "i"));
+    const lk = findFormula(new RegExp(`VLOOKUP\\(\\s*${sheetRe}\\$?D\\$?9\\s*,\\s*(?:'?CALC'?!)?\\$?([A-Z]+)\\$?(\\d+)\\s*:\\s*\\$?([A-Z]+)\\$?(\\d+)\\s*,\\s*(\\d+)\\s*,\\s*(?:0|FALSE)\\s*\\)\\s*(?:\\+\\s*([\\d.]+))?`, "i"));
+    if (!lk || !vCell || !wCell){ warnings.push(`${name}: не нашла таблицу автодоставки — тарифы по городам оставлены прежними.`); continue; }
+    const addCny = lk.m[6] ? +lk.m[6] : 0;   // группы: 1–4 диапазон таблицы, 5 номер столбца, 6 надбавка ¥
+    const lkPos = split(lk.addr);
+    const ru = findFormula(new RegExp(`ROUNDUP\\(\\s*\\$?${colName(lkPos.c)}\\$?${lkPos.r}\\s*/\\s*([\\d.]+)\\s*(?:\\+\\s*([\\d.]+))?\\s*,\\s*-1\\s*\\)`, "i"));
+    if (ru){ R.pickup = { addCny: r6(addCny), fx: r6(+ru.m[1]), addUsd: r6(ru.m[2] ? +ru.m[2] : 0) }; }
+    else warnings.push(`${name}: не нашла формулу пересчёта автодоставки в доллары — курс и надбавки оставлены прежними.`);
+    const c1 = colNum(lk.m[1]), r1 = +lk.m[2], r2 = +lk.m[4], col = +lk.m[5];
+    const W = wCell.addr, V = vCell.addr;
+    const cities = {}; let bad = 0;
+    for (let r = r1; r <= r2; r++){
+      const key = text(calc.get(at(c1, r))); if (!key) continue;
+      const res = calc.get(at(c1 + col - 1, r));
+      if (!res || !res.f) continue;
+      let ast; try { ast = FORMULA.parse(res.f); } catch(e){ bad++; continue; }
+      const parts = ast.t === "call" && ast.fn === "MAX" ? ast.args : [ast];
+      const g = (node, w, v) => FORMULA.ev(node, a => valueOf(a, { [W]: w, [V]: v }));
+      let wt = null, vc = null;
+      try {
+        for (const p of parts){
+          const b = g(p, 0, 0), dw = g(p, 1000, 0) - b, dv = g(p, 0, 1) - b;
+          const lin = Math.abs(g(p, 2000, 0) - b - 2 * dw) < 1e-6 && Math.abs(g(p, 0, 2) - b - 2 * dv) < 1e-6;
+          if (!lin) throw 0;
+          if (Math.abs(dw) > 1e-9 && Math.abs(dv) < 1e-9) wt = { k: r6(dw), b: r6(b) };
+          else if (Math.abs(dv) > 1e-9 && Math.abs(dw) < 1e-9) vc = { k: r6(dv), b: r6(b) };
+        }
+      } catch(e){ bad++; continue; }
+      if (!wt || !vc) continue;              // строка-заголовок провинции или пустой тариф
+      const lat = (/\(([^()]*)\)\s*$/.exec(key) || /([A-Za-z][A-Za-z' ]*)\)\s*$/.exec(key) || [])[1];
+      const id = lat ? lat.trim().toLowerCase().replace(/'/g, "").replace(/ province/, "").replace(/[^a-z]+/g, "-").replace(/^-|-$/g, "")
+                     : "c-" + Array.from(key).reduce((h, ch) => (h * 31 + ch.charCodeAt(0)) >>> 0, 7).toString(36);
+      if (!out.cities[id]) out.cities[id] = { ru: key.replace(/\s*\(?[A-Za-z][^()]*\)\s*$/, "").trim() || key, en: lat ? lat.trim() : "", p: "other" };
+      cities[id] = [wt.k, vc.k, wt.b, vc.b];
+    }
+    if (bad) warnings.push(`${name}: ${bad} строк таблицы автодоставки не удалось разобрать — они пропущены.`);
+    if (Object.keys(cities).length){ R.cities = cities; found.cities[m.id] = Object.keys(cities).length; }
+    else warnings.push(`${name}: в таблице автодоставки не нашлось ни одного тарифа (возможно, файл сохранён без формул) — тарифы оставлены прежними.`);
+  }
+  if (!found.routes) throw new Error("В листе CALC не нашлось ни одного маршрута. Проверьте, что это калькулятор того же вида.");
+  return { rates: out, warnings, found };
+}
+
+/* ---------- Экран управления ---------- */
+document.addEventListener("DOMContentLoaded", function(){
+  const $ = s => document.querySelector(s);
+  const $$ = s => Array.from(document.querySelectorAll(s));
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+  const nf = new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 4 });
+  const clone = o => JSON.parse(JSON.stringify(o));
+  const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+  const icon = (id, s = 16) => `<svg width="${s}" height="${s}" aria-hidden="true"><use href="#i-${id}"/></svg>`;
+  const DRAFT_KEY = "lcl-rates-draft-v1";
+  const routeName = id => { const m = ROUTE_META.find(x => x.id === id); return `${ORIGINS[m.from].name} → ${DESTS[m.to].name}`; };
+  const fmtDT = iso => { try { return new Date(iso).toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" }); } catch(e){ return iso; } };
+
+  let base = clone(FILE_RATES);   // ставки, которые сейчас в файле
+  let draft = clone(FILE_RATES);  // правки
+  let tab = "manual", route = ROUTE_META[0].id, q = "", imp = null, adding = false;
+  const invalid = new Set();
+
+  /* --- число из поля: запятая или точка, пробелы допустимы --- */
+  function num(str){
+    const s = String(str ?? "").replace(/[\s  ]/g, "").replace(",", ".");
+    return /^(\d+(\.\d*)?|\.\d+)$/.test(s) ? parseFloat(s) : NaN;
+  }
+  const getP = (o, p) => p.reduce((x, k) => x == null ? x : x[k], o);
+  function setP(o, p, v){ let x = o; for (let i = 0; i < p.length - 1; i++) x = x[p[i]]; x[p[p.length - 1]] = v; }
+
+  /* --- что изменилось --- */
+  const money = v => "$" + nf.format(v), cny = v => "¥" + nf.format(v);
+  const cityLine = r => `${cny(r[0])}/т · ${cny(r[1])}/м³ · подача ${cny(r[2])}${r[3] !== r[2] ? " / " + cny(r[3]) : ""}`;
+  function diff(a, b){
+    const out = [];
+    if (a.ratesDate !== b.ratesDate) out.push({ g: "Общее", k: "Ставки актуальны на", f: a.ratesDate, t: b.ratesDate });
+    for (const m of ROUTE_META){
+      const x = a.routes[m.id], y = b.routes[m.id], g = routeName(m.id);
+      x.tiers.forEach((t, i) => { if (t !== y.tiers[i]) out.push({ g, r: m.id, k: `Фрахт ${TIER_LABELS[i]}`, f: money(t) + "/м³", t: money(y.tiers[i]) + "/м³" }); });
+      if (x.local !== y.local) out.push({ g, r: m.id, k: "Локальные расходы", f: money(x.local), t: money(y.local) });
+      [["addCny", "Автодоставка: надбавка, ¥"], ["fx", "Автодоставка: курс, ¥ за $1"], ["addUsd", "Автодоставка: надбавка, $"]].forEach(([k, l]) => {
+        if (x.pickup[k] !== y.pickup[k]) out.push({ g, r: m.id, k: l, f: nf.format(x.pickup[k]), t: nf.format(y.pickup[k]) });
+      });
+      const ids = [...new Set([...Object.keys(x.cities), ...Object.keys(y.cities)])];
+      ids.sort((p, q2) => ((b.cities[p] || a.cities[p]).ru).localeCompare((b.cities[q2] || a.cities[q2]).ru, "ru"));
+      for (const id of ids){
+        const p = x.cities[id], n = y.cities[id], nm = (b.cities[id] || a.cities[id] || { ru: id }).ru;
+        if (p && !n) out.push({ g, r: m.id, k: nm, f: cityLine(p), t: "город удалён", cls: "del" });
+        else if (!p && n) out.push({ g, r: m.id, k: nm, f: "—", t: cityLine(n), cls: "add" });
+        else if (!same(p, n)) out.push({ g, r: m.id, k: nm, f: cityLine(p), t: cityLine(n) });
+      }
+    }
+    const ex = (g, A, B) => { for (let i = 0; i < Math.max(A.length, B.length); i++){
+      const p = A[i], n = B[i];
+      if (!same(p, n)) out.push({ g, k: (n || p)[0] || "Новая строка", f: p ? [p[1], p[2]].filter(Boolean).join(" ") || "—" : "—", t: n ? [n[1], n[2]].filter(Boolean).join(" ") || "—" : "строка удалена", cls: !n ? "del" : !p ? "add" : "" });
+    } };
+    ex("Доп. расходы · в Китае", a.extras.china, b.extras.china);
+    for (const d of Object.keys(DESTS)) ex(`Доп. расходы · ст. ${DESTS[d].name}`, a.extras.dest[d] || [], b.extras.dest[d] || []);
+    return out;
+  }
+  function diffHtml(list, limit = 400){
+    if (!list.length) return `<div class="adm-note ok">${icon("check")}<span>Изменений нет — ставки совпадают с теми, что в файле.</span></div>`;
+    const groups = {}; list.slice(0, limit).forEach(d => (groups[d.g] = groups[d.g] || []).push(d));
+    return `<div class="dl">${Object.entries(groups).map(([g, rows]) => `<div><h4>${esc(g)} · ${rows.length}</h4>${rows.map(d =>
+      `<div class="dr num"><span class="k">${esc(d.k)}</span><span class="f">${esc(d.f)}</span><span class="ar">→</span><span class="t ${d.cls || ""}">${esc(d.t)}</span></div>`).join("")}</div>`).join("")}</div>${
+      list.length > limit ? `<div class="dmore">…и ещё ${list.length - limit}</div>` : ""}`;
+  }
+
+  /* --- черновик в браузере, чтобы правки не пропали до сохранения --- */
+  function persist(){
+    try {
+      if (!diff(base, draft).length) localStorage.removeItem(DRAFT_KEY);
+      else localStorage.setItem(DRAFT_KEY, JSON.stringify({ at: new Date().toISOString(), base: base.savedAt || "initial", rates: draft }));
+    } catch(e){}
+  }
+  function renderDraftNote(){
+    let saved = null; try { saved = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null"); } catch(e){}
+    const el = $("#admDraft");
+    if (saved && saved.rates && diff(base, saved.rates).length && !diff(base, draft).length){
+      const n = diff(base, saved.rates).length;
+      el.innerHTML = `<div class="adm-note warn"><span class="grow">Найдены несохранённые правки от <b>${esc(fmtDT(saved.at))}</b> — ${n} изм.${saved.base !== (base.savedAt || "initial") ? " Они сделаны для другой версии файла — проверьте их перед сохранением." : ""}</span>
+        <button type="button" class="abtn sm" data-act="restore">Восстановить</button><button type="button" class="abtn sm" data-act="dropdraft">Удалить</button></div>`;
+    } else el.innerHTML = "";
+  }
+
+  /* --- счётчик и кнопки внизу --- */
+  function updateBar(){
+    const all = diff(base, draft), n = all.length;
+    $("#admCount").innerHTML = invalid.size ? `<span class="dot"></span><b>Исправьте ${invalid.size} пол${invalid.size === 1 ? "е" : "я"}</b> с ошибкой`
+      : n ? `<span class="dot"></span>Несохранённых изменений: <b>${n}</b>` : "Изменений нет · в файле актуальные ставки";
+    $("#admSave").disabled = !n || invalid.size > 0;
+    $("#admReset").disabled = !n;
+    $("#admChanges").disabled = !n;
+    $("#admPreview").disabled = !n || invalid.size > 0;
+    $$(".rchip").forEach(b => b.classList.toggle("has", all.some(d => d.r === b.dataset.r)));
+  }
+
+  /* --- вкладка «Править вручную» --- */
+  const field = (label, path, val, opts = {}) => {
+    const baseVal = getP(base, path), chg = baseVal !== undefined && baseVal !== val;
+    return `<label class="af"><span>${label}</span><input inputmode="${opts.text ? "text" : "decimal"}" autocomplete="off" data-p='${esc(JSON.stringify(path))}' ${opts.text ? 'data-text="1"' : ""} ${opts.pos ? 'data-pos="1"' : ""} value="${esc(opts.text ? val : nf.format(val).replace(/ /g, " "))}" class="${chg ? "chg" : ""}"></label>`;
+  };
+  function cityRows(){
+    const R = draft.routes[route].cities, B = (base.routes[route] || {}).cities || {};
+    const ql = q.trim().toLowerCase().replace(/ё/g, "е");
+    const ids = Object.keys(R).filter(id => {
+      if (!ql) return true; const c = draft.cities[id] || {}; return ((c.ru || "") + " " + (c.en || "")).toLowerCase().replace(/ё/g, "е").includes(ql);
+    }).sort((a, b) => (draft.cities[a]?.ru || a).localeCompare(draft.cities[b]?.ru || b, "ru"));
+    if (!ids.length) return `<div class="at"><span class="cn" style="grid-column:1/-1;color:var(--muted)">${ql ? "Ничего не найдено" : "Городов нет — добавьте первый"}</span></div>`;
+    return ids.map(id => { const c = draft.cities[id] || { ru: id, en: "" }, row = R[id], br = B[id];
+      return `<div class="at"><span class="cn"><b>${esc(c.ru)}</b><small>${esc(c.en || PROVINCES[c.p] || "")}${br ? "" : " · новый"}</small></span>${
+        row.map((v, i) => `<input inputmode="decimal" autocomplete="off" aria-label="${esc(c.ru)}: ${["¥ за тонну", "¥ за м³", "подача по весу", "подача по объёму"][i]}" data-p='${esc(JSON.stringify(["routes", route, "cities", id, i]))}' value="${esc(nf.format(v).replace(/ /g, " "))}" class="${br && br[i] !== v ? "chg" : ""}">`).join("")
+      }<button type="button" class="adel" data-act="delcity" data-id="${esc(id)}" aria-label="Удалить ${esc(c.ru)}">${icon("trash", 16)}</button></div>`; }).join("");
+  }
+  function extrasBlock(title, path, rows){
+    return `<div class="ablock"><h3>${esc(title)}</h3><div class="axh"><span>Услуга</span><span>Цена</span><span>Единица</span><span></span></div>${
+      rows.map((r, i) => `<div class="ax">${[0, 1, 2].map(j => {
+        const p = [...path, i, j], bv = getP(base, p);
+        return `<input autocomplete="off" data-text="1" data-p='${esc(JSON.stringify(p))}' value="${esc(r[j])}" placeholder="${["Название", "$10", "за м³"][j]}" class="${bv !== r[j] ? "chg" : ""}">`; }).join("")
+      }<button type="button" class="adel" data-act="delx" data-p='${esc(JSON.stringify([...path, i]))}' aria-label="Удалить строку">${icon("trash", 16)}</button></div>`).join("")
+    }<button type="button" class="abtn sm" data-act="addx" data-p='${esc(JSON.stringify(path))}'>${icon("plus", 14)}Добавить строку</button></div>`;
+  }
+  function renderManual(){
+    const R = draft.routes[route], m = ROUTE_META.find(x => x.id === route);
+    const sameOrigin = ROUTE_META.filter(x => x.from === m.from && x.id !== route);
+    const provOpts = Object.entries(PROVINCES).map(([k, v]) => `<option value="${k}"${k === "other" ? " selected" : ""}>${esc(v)}</option>`).join("");
+    $("#admManual").innerHTML = `
+    <div class="adm-grid">
+      <section class="card" style="grid-column:1/-1">
+        <div class="card-h"><h2>Дата и маршрут</h2></div>
+        <div class="adm-dr">
+          ${field("Ставки актуальны на", ["ratesDate"], draft.ratesDate, { text: true })}
+          <div class="af"><span>Маршрут, который правим</span><div class="rchips">${ROUTE_META.map(x =>
+            `<button type="button" class="rchip" data-r="${x.id}" aria-pressed="${x.id === route}"><i></i>${esc(routeName(x.id))}</button>`).join("")}</div></div>
+        </div>
+      </section>
+      <section class="card">
+        <div class="card-h"><h2>Ставки · ${esc(routeName(route))}</h2></div>
+        <div class="ablock"><h3>Ж/д фрахт, $ за м³</h3>
+          <div class="af4">${R.tiers.map((t, i) => field(TIER_LABELS[i], ["routes", route, "tiers", i], t, { pos: true })).join("")}</div>
+        </div>
+        <div class="ablock"><h3>Локальные расходы</h3>
+          <div class="af4">${field("$ за отправку", ["routes", route, "local"], R.local)}</div>
+          <p class="ahint">${esc(m.localLabel)}.</p>
+        </div>
+        <div class="ablock"><h3>Пересчёт автодоставки в доллары</h3>
+          <div class="af3">${field("Надбавка к тарифу, ¥", ["routes", route, "pickup", "addCny"], R.pickup.addCny)}${field("Курс, ¥ за $1", ["routes", route, "pickup", "fx"], R.pickup.fx, { pos: true })}${field("Надбавка после пересчёта, $", ["routes", route, "pickup", "addUsd"], R.pickup.addUsd)}</div>
+          <p class="ahint">Автодоставка = <code>(тариф города + надбавка ¥) ÷ курс + надбавка $</code>, округление вверх до $10. Тариф города — большее из «вес × ставка за тонну + подача» и «объём × ставка за м³ + подача».</p>
+        </div>
+      </section>
+      <section class="card">
+        <div class="card-h"><h2>Возможные доп. расходы</h2></div>
+        <p class="adm-sub">Показываются в синей панели калькулятора. В итог не входят.</p>
+        ${extrasBlock("В Китае — для всех маршрутов", ["extras", "china"], draft.extras.china)}
+        ${extrasBlock(`На ст. ${DESTS[m.to].name}`, ["extras", "dest", m.to], draft.extras.dest[m.to])}
+      </section>
+      <section class="card" style="grid-column:1/-1">
+        <div class="card-h"><h2>Автодоставка по городам · ${esc(routeName(route))}</h2><span class="aside">${Object.keys(R.cities).length} городов · тарифы в юанях</span></div>
+        <div class="atools">
+          <input class="asearch" id="admQ" type="search" placeholder="Найти город: Иу, Yiwu…" value="${esc(q)}" autocomplete="off">
+          <button type="button" class="abtn sm" data-act="addcity">${icon("plus", 14)}Добавить город</button>
+          ${sameOrigin.map(x => `<button type="button" class="abtn sm" data-act="copyto" data-r="${x.id}">Скопировать таблицу в «${esc(routeName(x.id))}»</button>`).join("")}
+        </div>
+        <div class="aadd" id="admAdd" ${adding ? "" : "hidden"}>
+          <div class="aadd-g">
+            <label>Название по-русски<input id="naRu" autocomplete="off" placeholder="Иу"></label>
+            <label>Латиницей<input id="naEn" autocomplete="off" placeholder="Yiwu"></label>
+            <label>Провинция<select id="naP">${provOpts}</select></label>
+          </div>
+          <div class="aadd-n">
+            <label>¥ за тонну<input id="na0" inputmode="decimal" autocomplete="off"></label>
+            <label>¥ за м³<input id="na1" inputmode="decimal" autocomplete="off"></label>
+            <label>Подача по весу, ¥<input id="na2" inputmode="decimal" autocomplete="off"></label>
+            <label>Подача по объёму, ¥<input id="na3" inputmode="decimal" autocomplete="off"></label>
+          </div>
+          <button type="button" class="abtn primary sm" data-act="savecity">Добавить в таблицу</button>
+          <button type="button" class="abtn sm" data-act="cancelcity">Отмена</button>
+          <span id="naErr" style="margin-left:8px;font-size:13px;color:var(--bad)"></span>
+        </div>
+        <div class="atable"><div class="at h"><span>Город</span><span>¥ за тонну</span><span>¥ за м³</span><span>Подача по весу, ¥</span><span>Подача по объёму, ¥</span><span></span></div><div id="admRows">${cityRows()}</div></div>
+      </section>
+    </div>`;
+    updateBar();
+  }
+
+  /* --- вкладки --- */
+  function setTab(t){
+    tab = t;
+    $$("[data-atab]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.atab === t)));
+    $("#admExcel").hidden = t !== "excel";
+    $("#admManual").hidden = t !== "manual";
+    $("#admDone").hidden = true;
+    if (t === "manual") renderManual();
+  }
+
+  /* --- открыть / закрыть --- */
+  function fileInfo(){
+    $("#admFile").textContent = `В файле: ставки на ${base.ratesDate}${base.savedAt ? ` · сохранено ${fmtDT(base.savedAt)}` : " · исходные ставки из Excel 29.10"}`;
+  }
+  function openAdmin(){
+    fileInfo(); renderDraftNote(); setTab(tab); updateBar();
+    $("#adm").hidden = false; document.documentElement.style.overflow = "hidden";
+    $("#admClose").focus();
+  }
+  function closeAdmin(){
+    $("#adm").hidden = true; document.documentElement.style.overflow = "";
+    if (/admin/.test(location.hash)) try { history.replaceState(null, "", location.pathname + location.search); } catch(e){}
+    applyToCalculator();
+  }
+  function applyToCalculator(){
+    const preview = diff(base, draft).length > 0 && !invalid.size;
+    applyRates(clone(preview ? draft : base));
+    $("#pvBanner").hidden = !preview;
+    if (window.LCL_UI) window.LCL_UI.refresh();
+  }
+  const checkHash = () => { if (/(^#|&)admin\b/.test(location.hash)) openAdmin(); };
+  window.addEventListener("hashchange", checkHash);
+
+  /* --- ввод в полях --- */
+  $("#adm").addEventListener("input", e => {
+    const el = e.target;
+    if (el.id === "admQ"){ q = el.value; $("#admRows").innerHTML = cityRows(); return; }
+    if (!el.dataset.p) return;
+    const path = JSON.parse(el.dataset.p);
+    let v;
+    if (el.dataset.text){
+      v = el.value;
+      if (path[0] === "ratesDate"){ const ok = /^\d{2}\.\d{2}\.\d{4}$/.test(v.trim()); el.setAttribute("aria-invalid", String(!ok)); if (!ok){ invalid.add(el.dataset.p); updateBar(); return; } v = v.trim(); }
+    } else {
+      v = num(el.value);
+      const ok = Number.isFinite(v) && (!el.dataset.pos || v > 0);
+      el.setAttribute("aria-invalid", String(!ok));
+      if (!ok){ invalid.add(el.dataset.p); updateBar(); return; }
+    }
+    invalid.delete(el.dataset.p);
+    setP(draft, path, v);
+    el.classList.toggle("chg", getP(base, path) !== v);
+    persist(); updateBar();
+  });
+
+  /* --- кнопки --- */
+  $("#adm").addEventListener("click", async e => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.dataset.atab){ setTab(b.dataset.atab); return; }
+    if (b.classList.contains("rchip")){ route = b.dataset.r; q = ""; adding = false; renderManual(); return; }
+    const act = b.dataset.act;
+    if (act === "delcity"){ delete draft.routes[route].cities[b.dataset.id]; persist(); $("#admRows").innerHTML = cityRows(); updateBar(); }
+    else if (act === "addcity"){ adding = true; $("#admAdd").hidden = false; $("#naRu").focus(); }
+    else if (act === "cancelcity"){ adding = false; $("#admAdd").hidden = true; }
+    else if (act === "savecity"){
+      const ru = $("#naRu").value.trim(), en = $("#naEn").value.trim(), p = $("#naP").value;
+      const vals = [0, 1, 2, 3].map(i => num($("#na" + i).value));
+      if (!ru || !en){ $("#naErr").textContent = "Укажите название по-русски и латиницей."; return; }
+      if (!/^[A-Za-z][A-Za-z' ,.-]*$/.test(en)){ $("#naErr").textContent = "Латинское название — только английскими буквами."; return; }
+      if (vals.some(v => !Number.isFinite(v))){ $("#naErr").textContent = "Заполните все четыре тарифа числами."; return; }
+      const id = en.toLowerCase().replace(/'/g, "").replace(/[^a-z]+/g, "-").replace(/^-|-$/g, "");
+      if (draft.routes[route].cities[id]){ $("#naErr").textContent = "Этот город уже есть в таблице маршрута."; return; }
+      if (!draft.cities[id]) draft.cities[id] = { ru, en, p };
+      draft.routes[route].cities[id] = vals;
+      adding = false; persist(); renderManual();
+    }
+    else if (act === "copyto"){
+      const t = b.dataset.r;
+      if (confirm(`Заменить таблицу автодоставки маршрута «${routeName(t)}» на таблицу «${routeName(route)}»?`)){
+        draft.routes[t].cities = clone(draft.routes[route].cities); persist(); updateBar();
+        b.textContent = "Скопировано ✓";
+      }
+    }
+    else if (act === "addx"){ const p = JSON.parse(b.dataset.p); getP(draft, p).push(["", "", ""]); persist(); renderManual(); }
+    else if (act === "delx"){ const p = JSON.parse(b.dataset.p); getP(draft, p.slice(0, -1)).splice(p[p.length - 1], 1); persist(); renderManual(); }
+    else if (act === "restore"){ try { draft = JSON.parse(localStorage.getItem(DRAFT_KEY)).rates; } catch(e){} renderDraftNote(); setTab("manual"); }
+    else if (act === "dropdraft"){ try { localStorage.removeItem(DRAFT_KEY); } catch(e){} renderDraftNote(); }
+    else if (act === "applyimp" && imp){
+      draft = clone(imp.rates); invalid.clear(); persist();
+      $("#impRes").innerHTML = `<div class="adm-note ok">${icon("check")}<span class="grow">Ставки из файла «${esc(imp.file)}» применены. Проверьте их в калькуляторе и нажмите <b>«Сохранить файл»</b>.</span></div>`;
+      imp = null; updateBar();
+    }
+    else if (act === "dropimp"){ imp = null; $("#impRes").hidden = true; }
+  });
+  $("#admClose").addEventListener("click", closeAdmin);
+  $("#pvOpen").addEventListener("click", () => { location.hash = "admin"; });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("#adm").hidden && !e.target.closest("input")) closeAdmin(); });
+  $("#admReset").addEventListener("click", () => {
+    if (!confirm("Отменить все несохранённые правки и вернуть ставки из файла?")) return;
+    draft = clone(base); invalid.clear(); persist(); renderDraftNote(); setTab(tab === "excel" ? "excel" : "manual"); updateBar();
+  });
+  $("#admChanges").addEventListener("click", () => {
+    const el = $("#admDone");
+    el.innerHTML = `<div class="card-h"><h2>Список изменений</h2><span class="aside">по сравнению с файлом</span></div>${diffHtml(diff(base, draft))}`;
+    el.hidden = false; el.scrollIntoView({ block: "start", behavior: "smooth" });
+  });
+  $("#admPreview").addEventListener("click", closeAdmin);
+
+  /* --- загрузка Excel --- */
+  async function importFile(file){
+    const res = $("#impRes"); res.hidden = false;
+    res.innerHTML = `<div class="adm-note">Читаю «${esc(file.name)}»…</div>`;
+    try {
+      if (!/\.(xlsx|xlsm)$/i.test(file.name)) throw new Error("Нужен файл в формате .xlsx. Старый формат .xls сохраните в Excel как «Книга Excel (.xlsx)».");
+      const wb = await XLSX_LITE.read(await file.arrayBuffer());
+      const r = ratesFromWorkbook(wb, draft);
+      const list = diff(draft, r.rates);
+      imp = { rates: r.rates, file: file.name };
+      const cityCount = Object.values(r.found.cities).reduce((s, x) => s + x, 0);
+      res.innerHTML = `<div class="card-h"><h2>Что изменится</h2><span class="aside">${esc(file.name)}</span></div>
+        <div class="isum"><span>Ставки на <b>${esc(r.rates.ratesDate)}</b></span><span>Маршрутов найдено: <b>${r.found.routes} из ${ROUTE_META.length}</b></span><span>Тарифов автодоставки: <b>${cityCount}</b></span><span>Изменений: <b>${list.length}</b></span></div>
+        ${r.warnings.map(w => `<div class="adm-note warn" style="margin-bottom:8px">${icon("alert")}<span>${esc(w)}</span></div>`).join("")}
+        ${diffHtml(list)}
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">${list.length ? `<button type="button" class="abtn primary" data-act="applyimp">Применить эти ставки</button>` : ""}<button type="button" class="abtn" data-act="dropimp">${list.length ? "Не применять" : "Закрыть"}</button></div>`;
+    } catch(err){
+      imp = null;
+      res.innerHTML = `<div class="adm-note bad">${icon("alert")}<span><b>Не получилось прочитать файл.</b> ${esc(err.message || err)}</span></div>`;
+    }
+  }
+  $("#xfile").addEventListener("change", e => { const f = e.target.files[0]; if (f) importFile(f); e.target.value = ""; });
+  const drop = $("#drop");
+  ["dragenter", "dragover"].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.add("over"); }));
+  ["dragleave", "drop"].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.remove("over"); }));
+  drop.addEventListener("drop", e => { const f = e.dataTransfer.files[0]; if (f) importFile(f); });
+
+  /* --- сохранение: новая версия этого же файла с обновлённым блоком ставок --- */
+  function buildFile(r){
+    const root = (window.__LCL_PRISTINE || document.documentElement).cloneNode(true);
+    root.querySelector("#rates-data").textContent = JSON.stringify(r).replace(/</g, "\\u003c");
+    return "<!doctype html>\n" + root.outerHTML + "\n";
+  }
+  function finalRates(){
+    const r = clone(draft);
+    r.savedAt = new Date().toISOString();
+    const used = new Set(ROUTE_META.flatMap(m => Object.keys(r.routes[m.id].cities)));
+    Object.keys(r.cities).forEach(id => { if (!used.has(id)) delete r.cities[id]; });
+    r.extras.china = r.extras.china.filter(x => x.some(v => String(v).trim()));
+    Object.keys(r.extras.dest).forEach(d => { r.extras.dest[d] = r.extras.dest[d].filter(x => x.some(v => String(v).trim())); });
+    return r;
+  }
+  $("#admSave").addEventListener("click", async () => {
+    if (invalid.size) return;
+    const r = finalRates(), html = buildFile(r), name = "lcl-calculator.html";
+    let how = "download";
+    if (window.showSaveFilePicker){
+      try {
+        const h = await window.showSaveFilePicker({ suggestedName: name, types: [{ description: "Калькулятор (HTML)", accept: { "text/html": [".html"] } }] });
+        const w = await h.createWritable(); await w.write(html); await w.close(); how = "picker";
+      } catch(e){ if (e && e.name === "AbortError") return; how = "download"; }
+    }
+    if (how === "download"){
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([html], { type: "text/html;charset=utf-8" }));
+      a.download = name; document.body.appendChild(a); a.click();
+      setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+    }
+    const n = diff(base, draft).length;
+    base = clone(r); draft = clone(r); invalid.clear();
+    try { localStorage.removeItem(DRAFT_KEY); } catch(e){}
+    fileInfo(); renderDraftNote(); updateBar();
+    applyRates(clone(base)); $("#pvBanner").hidden = true; if (window.LCL_UI) window.LCL_UI.refresh();
+    const done = $("#admDone");
+    done.innerHTML = `<div class="asaved"><div class="adm-note ok">${icon("check")}<span class="grow"><b>Файл сохранён</b> — ${n} изм., ставки на ${esc(r.ratesDate)}.</span></div>
+      <ol>${how === "picker" ? "<li>Если вы сохранили поверх старого файла — всё готово, откройте его заново.</li>" : "<li>Новый файл <b>lcl-calculator.html</b> — в папке «Загрузки». Замените им старый калькулятор.</li>"}
+      <li>Если калькулятор открывают по ссылке на сайте — загрузите туда новый файл вместо старого.</li>
+      <li>Коллегам и клиентам отправляйте уже новый файл: в нём ставки на ${esc(r.ratesDate)}.</li></ol></div>`;
+    done.hidden = false; done.scrollIntoView({ block: "start", behavior: "smooth" });
+  });
+
+  checkHash();
+});
 </script>
 </body>
 </html>
