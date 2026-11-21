@@ -1,0 +1,175 @@
+<title>Словарь ЖД-логиста</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="40 слов, которые звучат на планёрке, но их никто не объясняет. ЖД-перевозки контейнеров Китай → Россия.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: «транспортная накладная» — шапка-штамп, фильтры по графам, карточки-строки с раскрытием примера */
+:root{
+  --bg:#eef1ef; --paper:#ffffff; --ink:#17201c; --muted:#58645e; --line:#d5dbd7;
+  --accent:#1a6a50; --accent-ink:#ffffff; --accent-soft:#e0eee8; --stamp:#b5451b;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#121815; --paper:#1a221e; --ink:#e6ece8; --muted:#97a39c; --line:#2c3732;
+  --accent:#5cc49b; --accent-ink:#0d1a14; --accent-soft:#1d362b; --stamp:#f08a5d; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121815; --paper:#1a221e; --ink:#e6ece8; --muted:#97a39c; --line:#2c3732;
+  --accent:#5cc49b; --accent-ink:#0d1a14; --accent-soft:#1d362b; --stamp:#f08a5d; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 var(--sans);margin:0}
+.wrap{max-width:780px;margin:0 auto;padding-block:28px 56px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;gap:22px}
+.head{display:flex;flex-direction:column;gap:12px}
+.route{font-family:var(--mono);font-size:.8rem;letter-spacing:.06em;color:var(--muted);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.route .gauge{border:1px solid var(--line);border-radius:4px;padding:1px 6px}
+h1{margin:0;font-size:clamp(1.8rem,5.5vw,2.6rem);line-height:1.1;font-weight:700;letter-spacing:-.01em;text-wrap:balance}
+.lead{margin:0;color:var(--muted);max-width:60ch;font-size:1.02rem}
+.stamp{align-self:flex-start;font-family:var(--mono);font-weight:600;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--stamp);border:2px solid var(--stamp);border-radius:4px;padding:3px 8px;transform:rotate(-2deg)}
+.tools{display:flex;flex-direction:column;gap:10px;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding-block:8px;z-index:5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.search{width:100%;font:inherit;padding:11px 14px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font:inherit;font-size:.85rem;padding:5px 11px;border-radius:999px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.group{display:flex;flex-direction:column;gap:0;background:var(--paper);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.group h2{margin:0;padding:12px 16px;font-size:.76rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);
+  border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:8px}
+.group h2 span{font-family:var(--mono);letter-spacing:0}
+details{border-top:1px solid var(--line)}
+details:first-of-type{border-top:0}
+summary{list-style:none;cursor:pointer;padding:13px 16px;display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:start}
+summary::-webkit-details-marker{display:none}
+.t{font-weight:600;font-size:1.02rem}
+.t code{font-family:var(--mono);font-weight:600;font-size:.95em}
+.d{grid-column:1/2;color:var(--muted);font-size:.95rem;min-width:0}
+.plus{grid-row:1/3;grid-column:2;font-family:var(--mono);color:var(--accent);font-size:1.2rem;line-height:1;transition:transform .2s}
+details[open] .plus{transform:rotate(45deg)}
+details[open] summary{background:var(--accent-soft)}
+.ex{margin:0;padding:10px 16px 14px;display:flex;flex-direction:column;gap:4px;background:var(--accent-soft)}
+.ex .lbl{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.ex q{font-style:italic}
+.empty{padding:24px 16px;text-align:center;color:var(--muted)}
+.cta{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:8px}
+.cta h3{margin:0;font-size:1.15rem;text-wrap:balance}
+.cta p{margin:0;color:var(--muted)}
+.cta a{align-self:flex-start;background:var(--accent);color:var(--accent-ink);text-decoration:none;font-weight:600;padding:9px 16px;border-radius:8px}
+.foot{font-size:.82rem;color:var(--muted);margin:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.plus{transition:none}}
+@media print{
+  .tools,.cta a,.noprint{display:none!important}
+  body{background:#fff;color:#111;font-size:11pt}
+  .wrap{padding:0;gap:14px;max-width:none}
+  .group{break-inside:auto;border-color:#ccc}
+  details{break-inside:avoid}
+  summary{padding:7px 12px}
+  .ex{padding:0 12px 8px;background:#fff}
+  details[open] summary{background:#fff}
+  .plus{display:none}
+}
+</style>
+
+<div class="wrap">
+  <header class="head">
+    <div class="route"><span>КИТАЙ</span><span class="gauge">1435</span><span>→</span><span class="gauge">1520</span><span>РОССИЯ</span></div>
+    <h1>Словарь ЖД-логиста</h1>
+    <p class="lead">40 слов, которые звучат на планёрке, но их никто не объясняет. Собрано из практики ЖД-перевозок контейнеров из Китая. <span class="noprint">Нажмите на термин, чтобы увидеть, как его говорят в работе.</span></p>
+    <span class="stamp">Для новичков</span>
+  </header>
+
+  <div class="tools">
+    <input class="search" id="q" type="search" placeholder="Найти слово: демередж, СМГС, подсыл…" aria-label="Поиск по словарю">
+    <div class="chips" id="chips" role="group" aria-label="Разделы"></div>
+  </div>
+
+  <main id="list" style="display:flex;flex-direction:column;gap:18px"></main>
+
+  <aside class="cta">
+    <h3>Слова знаете. А что делать с контейнером по шагам?</h3>
+    <p>В гайде «ЖД-логистика Китай → Россия: матчасть для новичка» — как устроена перевозка, документы, из чего складывается ставка и как говорить с клиентом, когда КЖД сдвинула поезд. С чек-листами в каждом разделе.</p>
+    <a id="cta-link" href="#">Узнать о гайде</a>
+  </aside>
+  <p class="foot">Словарь можно сохранить и переслать коллеге-новичку.</p>
+</div>
+
+<script>
+const G=[
+["Контейнеры",[
+["SOC","Контейнер не перевозчика, а отправителя или экспедитора. На направлении Китай → Россия встречается очень часто.","Едем в SOC, сдавать не надо."],
+["COC","Контейнер перевозчика. После выгрузки его нужно вернуть, иначе начисляется детеншн.","Контейнер COC, сдать порожний до пятницы."],
+["Сток (депо)","Площадка, где хранятся порожние контейнеры.","Порожний сдаём на сток."],
+["Подсыл","Подача пустого контейнера на склад отправителя под загрузку.","Подсыл на завод в среду."],
+["Порожний / гружёный","Пустой / загруженный контейнер.","Гружёный уже на станции, порожний сдали."],
+["ЗПУ (пломба)","Запорно-пломбировочное устройство на дверях контейнера. Номер пломбы вписывается в документы.","Номер ЗПУ не совпадает с накладной."],
+["Фитинговая платформа","Вагон-платформа, на которую ставят контейнеры.","Не хватает фитинговых платформ, отправка сдвигается."]]],
+["Дорога и маршрут",[
+["КЖД","Китайские железные дороги.","КЖД опять сдвинула отправку."],
+["Колея 1435 / 1520","Ширина пути: 1435 мм в Китае, 1520 мм в России. Из-за этой разницы на границе контейнеры перегружают.","На границе перегруз — колея разная."],
+["Погранпереход","Станция на границе, где груз переходит с одной дороги на другую: Забайкальск, Гродеково, Наушки и другие.","Идём через Забайкальск."],
+["Перегруз","Перестановка контейнера с китайской платформы на российскую на погранпереходе.","Очередь на перегруз, ждём."],
+["Блок-поезд","Поезд целиком из контейнеров одного маршрута. Идёт быстрее сборной отправки.","Ставим в блок-поезд."],
+["Сборная / повагонная отправка","Контейнер едет не целым поездом. Сроки дольше и менее предсказуемы.","Сборной отправкой выйдет дешевле, но дольше."],
+["Букинг (слот)","Заказ места в поезде под отправку.","Букинг подтвердили на 15-е."],
+["План / согласование","Разрешение дороги на отправку. Без согласования поезд не уйдёт.","Ждём согласование от КЖД."]]],
+["Участники и документы",[
+["Шиппер","Отправитель груза в Китае. «Контакты шиппера» — контакт человека на стороне отправителя.","Дай контакты шиппера, уточним готовность груза."],
+["СМГС (накладная)","Главный перевозочный документ международной ЖД-перевозки, «паспорт» отправки.","Пришлите проект СМГС на проверку."],
+["Инвойс","Счёт продавца: что продано, сколько и по какой цене.","В инвойсе другая сумма, переделываем."],
+["Пакинг-лист","Упаковочный лист: сколько мест, вес, объём.","В пакинге одно, в инвойсе другое."],
+["Драфт","Черновик документа на согласование до финальной версии.","Согласуй драфт накладной."],
+["ВТТ","Внутренний таможенный транзит: груз пересекает границу, а оформляется в России на станции назначения.","Едет под ВТТ до Москвы."],
+["Выпуск","Таможня разрешила груз — его можно забирать.","Выпуск получен!"],
+["Досмотр / ИДК","Проверка груза таможней: вскрытие контейнера или просвет на рентгене.","Контейнер выбрали на досмотр."],
+["СВХ","Склад временного хранения, где груз ждёт таможенного оформления.","Хранение на СВХ платное с третьего дня."],
+["Код ТН ВЭД","Код товара по классификатору. От него зависят пошлины, НДС и нужные разрешения.","Поменяли код — пошлина выросла."],
+["Разрешительные документы","Сертификаты и декларации соответствия, фито- и ветконтроль, если товар этого требует.","Без декларации ЕАЭС не выпустят."]]],
+["Деньги и ставка",[
+["Ставка «станция — станция» / «до двери»","Что входит в цену: только ЖД-плечо или весь путь до склада клиента.","Ставка до станции, автовывоз отдельно."],
+["Фрахт","Плата за саму перевозку.","Фрахт вырос с нового месяца."],
+["Валидность ставки","Срок, в течение которого ставка действует.","Ставка валидна до конца месяца."],
+["THC / терминальные","Расходы на обработку контейнера на терминале.","Терминальные в Китае включены?"],
+["Free time","Бесплатные дни пользования контейнером или хранения.","У нас 14 дней free time."],
+["Демередж","Плата за простой контейнера на терминале сверх бесплатного времени.","Клиент долго растамаживал — набежал демередж."],
+["Детеншн","Плата за задержку контейнера у клиента сверх нормы.","Порожний не сдали вовремя — детеншн."],
+["Автовывоз","«Последняя миля»: доставка контейнера со станции на склад клиента.","Автовывоз посчитаем отдельно."],
+["Доп. расходы / перевыставление","Расходы, которые не вошли в ставку и выставляются отдельно. Главный источник конфликтов с клиентом.","Хранение перевыставим по факту."]]],
+["Фразы с планёрки",[
+["«Сдвинули поезд»","КЖД перенесла отправку на другую дату. Повлиять на это нельзя.","Поезд сдвинули на неделю, предупреди клиента."],
+["«Стоит на погранпереходе»","Контейнер ждёт перегруза или оформления на границе.","Третий день стоит на погранпереходе."],
+["«Ушёл со станции»","Отправка фактически началась.","Ушёл со станции вчера вечером."],
+["«Контейнер на досмотре»","Таможня проверяет груз: сроки и расходы могут вырасти.","Контейнер на досмотре, выпуск позже."],
+["«Сдать порожний»","Вернуть пустой контейнер на сток в срок.","Не забудь сдать порожний до пятницы."]]]
+];
+const list=document.getElementById("list"),q=document.getElementById("q"),chips=document.getElementById("chips");
+let active=-1;
+function el(t,c,txt){const e=document.createElement(t);if(c)e.className=c;if(txt!=null)e.textContent=txt;return e;}
+function draw(){
+  const s=q.value.trim().toLowerCase();list.textContent="";let shown=0;
+  G.forEach(([name,items],gi)=>{
+    if(active>=0&&active!==gi)return;
+    const m=items.filter(([t,d,x])=>!s||(t+" "+d+" "+x).toLowerCase().includes(s));
+    if(!m.length)return;shown+=m.length;
+    const g=el("section","group");const h=el("h2",null,name);h.append(el("span",null,String(m.length)));g.append(h);
+    m.forEach(([t,d,x])=>{
+      const det=el("details");if(s||document.body.dataset.print)det.open=true;
+      const sum=el("summary");sum.append(el("div","t",t),el("span","plus","+"),el("div","d",d));
+      const ex=el("div","ex");ex.append(el("span","lbl","Как говорят в работе"));const qq=el("q",null,x);ex.append(qq);
+      det.append(sum,ex);g.append(det);
+    });
+    list.append(g);
+  });
+  if(!shown){list.append(el("p","empty","Такого слова пока нет в словаре."));}
+}
+const all=el("button","chip","Все");all.type="button";all.setAttribute("aria-pressed","true");chips.append(all);
+const btns=[all];
+G.forEach(([name],gi)=>{const b=el("button","chip",name);b.type="button";b.setAttribute("aria-pressed","false");chips.append(b);btns.push(b);
+  b.addEventListener("click",()=>{active=gi;btns.forEach(x=>x.setAttribute("aria-pressed",String(x===b)));draw();});});
+all.addEventListener("click",()=>{active=-1;btns.forEach(x=>x.setAttribute("aria-pressed",String(x===all)));draw();});
+q.addEventListener("input",draw);
+window.addEventListener("beforeprint",()=>{document.querySelectorAll("details").forEach(d=>d.open=true);});
+draw();
+</script>
