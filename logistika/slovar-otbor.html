@@ -1,0 +1,207 @@
+<title>Отбор терминов для Словаря</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: одна колонка-накладная; разделы как графы, строки-термины с крупной галочкой слева */
+:root{
+  --bg:#f3f4f2; --paper:#ffffff; --ink:#1d2421; --muted:#5d6762; --line:#d9ddd9;
+  --accent:#1f6b52; --accent-soft:#e2efe9; --warn:#9a5b00; --warn-soft:#fbf0dd;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141917; --paper:#1c2320; --ink:#e7ece9; --muted:#9aa59f; --line:#2f3934;
+  --accent:#5fc59d; --accent-soft:#1f3a2f; --warn:#e6b25a; --warn-soft:#3a2f1a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141917; --paper:#1c2320; --ink:#e7ece9; --muted:#9aa59f; --line:#2f3934;
+  --accent:#5fc59d; --accent-soft:#1f3a2f; --warn:#e6b25a; --warn-soft:#3a2f1a; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--sans)}
+.wrap{max-width:760px;margin:0 auto;padding-block:24px 120px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;gap:20px}
+h1{font-size:1.6rem;line-height:1.2;margin:0;font-weight:600;text-wrap:balance}
+.lead{margin:0;color:var(--muted);max-width:62ch}
+.how{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:.88rem;color:var(--muted)}
+.how b{color:var(--ink);font-weight:500}
+.sec{background:var(--paper);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.sec h2{margin:0;padding:12px 16px;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;
+  font-weight:600;color:var(--muted);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:8px}
+.sec h2 span{font-family:var(--mono);letter-spacing:0;text-transform:none;font-variant-numeric:tabular-nums}
+.row{display:grid;grid-template-columns:28px 1fr;gap:12px;padding:12px 16px;border-top:1px solid var(--line);cursor:pointer}
+.row:first-of-type{border-top:0}
+.row.on{background:var(--accent-soft)}
+.row input[type=checkbox]{width:22px;height:22px;margin:1px 0 0;accent-color:var(--accent);cursor:pointer}
+.body{min-width:0;display:flex;flex-direction:column;gap:2px}
+.term{font-weight:600}
+.term .flag{margin-left:6px;font-size:.72rem;font-weight:500;color:var(--warn);background:var(--warn-soft);
+  padding:1px 6px;border-radius:4px;white-space:nowrap}
+.def{color:var(--muted);font-size:.92rem}
+.note-link{align-self:flex-start;background:none;border:0;padding:2px 0;color:var(--accent);font:inherit;font-size:.82rem;cursor:pointer}
+.note{width:100%;box-sizing:border-box;font:inherit;font-size:.9rem;padding:8px 10px;border:1px solid var(--line);
+  border-radius:6px;background:var(--bg);color:var(--ink);resize:vertical;min-height:44px}
+textarea#extra{min-height:110px}
+.extra{padding:16px;display:flex;flex-direction:column;gap:8px}
+.extra label{font-size:.9rem;color:var(--muted)}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--paper);border-top:1px solid var(--line);
+  padding-block:10px calc(10px + env(safe-area-inset-bottom,0px));
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.bar-in{max-width:760px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.count{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:.95rem}
+.status{font-size:.82rem;color:var(--muted);margin-left:auto}
+.btn{font:inherit;font-size:.85rem;padding:6px 12px;border-radius:6px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <h1>Словарь ЖД-логиста: что оставляем</h1>
+    <p class="lead">Поставьте галочку у терминов, которые нужны новичку. Без галочки термин уйдёт из словаря. Отметки сохраняются сами, и я их увижу.</p>
+    <div class="how"><span><b>Галочка</b> — оставить</span><span><b>Пусто</b> — убрать</span><span><b>«Поправить»</b> — если хочется уточнить (не обязательно)</span><span><b>⚠</b> — проверить формулировку</span></div>
+  </header>
+  <main id="list" style="display:flex;flex-direction:column;gap:20px"></main>
+  <section class="sec">
+    <h2>Чего не хватает</h2>
+    <div class="extra">
+      <label for="extra">Слова и фразы из вашей работы, которых нет в списке. Можно просто через запятую.</label>
+      <textarea id="extra" class="note" placeholder="Например: «бронь под отправку», «перецепка»…"></textarea>
+    </div>
+  </section>
+</div>
+
+<div class="bar"><div class="bar-in">
+  <span class="count" id="count">0 из 0</span>
+  <button class="btn" id="all" type="button">Отметить все</button>
+  <button class="btn" id="none" type="button">Снять все</button>
+  <span class="status" id="status">Загрузка…</span>
+</div></div>
+
+<script>
+const SECTIONS=[
+["Контейнеры и оборудование",[
+["20DC / 40HC (40HQ)","Типы контейнеров: 20-футовый стандартный и 40-футовый высокий"],
+["TEU / FEU","Единица счёта: TEU — один 20-футовый, FEU — один 40-футовый"],
+["SOC","Контейнер отправителя или экспедитора, не перевозчика. Сдавать после выгрузки не нужно"],
+["COC","Контейнер перевозчика. После выгрузки вернуть, иначе детеншн"],
+["Сток (депо)","Площадка хранения порожних контейнеров"],
+["Подсыл","Подача пустого контейнера на склад отправителя под загрузку"],
+["Порожний / гружёный","Пустой / загруженный контейнер"],
+["ЗПУ (пломба)","Запорно-пломбировочное устройство, номер вписывается в документы"],
+["Фитинговая платформа","Вагон-платформа для контейнеров"],
+["Перетарка","Перекладка груза из одного контейнера или вагона в другой"]]],
+["Железная дорога и маршрут",[
+["КЖД","Китайские железные дороги"],
+["Колея 1435 / 1520","Ширина пути в Китае и в России, из-за неё перегруз на границе"],
+["Погранпереход («погранка»)","Забайкальск, Гродеково, Наушки, транзит через Казахстан и др."],
+["Перегруз","Перестановка контейнера с китайской платформы на российскую"],
+["Блок-поезд","Поезд целиком из контейнеров одного маршрута, идёт быстрее"],
+["Сборная / повагонная отправка","Контейнер едет не целым поездом, сроки дольше"],
+["Слот / букинг","Забронированное место в поезде"],
+["План / согласование","Разрешение дороги на отправку",1],
+["ГУ-12","Заявка на перевозку по российским железным дорогам",1],
+["Дислокация","Где сейчас вагон или контейнер"],
+["Станция назначения / код станции","Станция в России и её код ЕСР в документах"],
+["Запрет погрузки / закрытие станции","Станция временно не принимает грузы"],
+["Переадресовка","Смена станции назначения в пути"],
+["Отстой","Простой вагонов или поезда в ожидании"],
+["Подход","Поезда, которые едут к станции или переходу и ждут обработки"],
+["Коды (оплата тарифа)","Экспедитор по территории оплачивает ж/д тариф и выдаёт коды",1]]],
+["Документы и таможня",[
+["СМГС (накладная)","Главный перевозочный документ международной ЖД-перевозки"],
+["Инвойс","Счёт продавца: что, сколько, по какой цене"],
+["Пакинг-лист","Список мест: коробки, вес, объём"],
+["Драфт","Черновик документа на согласование"],
+["Коносамент","Морской документ, в ЖД не используется. Новички путают"],
+["ДТ","Декларация на товары для таможни"],
+["ВТТ / транзитная декларация","Груз пересекает границу, оформление в России на станции назначения"],
+["Выпуск","Таможня разрешила груз — можно забирать"],
+["Досмотр / ИДК","Проверка груза: вскрытие или рентген"],
+["СВХ","Склад временного хранения до оформления"],
+["Код ТН ВЭД","Код товара: от него зависят пошлины, НДС, разрешения"],
+["Брокер","Таможенный представитель, подаёт ДТ"],
+["Разрешительные документы","Сертификаты, декларации соответствия, фито/ветконтроль"]]],
+["Деньги и ставка",[
+["Ставка «станция — станция» / «до двери»","Что входит в цену: только ЖД или весь путь до склада"],
+["Фрахт","Плата за саму перевозку"],
+["Валидность ставки","Срок, в который ставка действует"],
+["THC / терминальные","Обработка контейнера на терминале"],
+["Станционные расходы","Сборы на станции назначения",1],
+["Free time","Бесплатные дни пользования контейнером или хранения"],
+["Демередж","Простой контейнера на терминале сверх бесплатного времени"],
+["Детеншн","Задержка контейнера у клиента сверх нормы"],
+["Автовывоз («последняя миля»)","Доставка со станции на склад клиента"],
+["Доп. расходы / перевыставление","Что не вошло в ставку и выставляется отдельно"],
+["Incoterms (FCA, EXW, DAP…)","Где кончается ответственность продавца и начинается покупателя"]]],
+["Фразы с планёрки",[
+["«Сдвинули поезд»","КЖД перенесла отправку, повлиять нельзя"],
+["«Стоит на погранке»","Ждёт перегруза или оформления на переходе"],
+["«Ушёл со станции»","Отправка фактически началась"],
+["«Контейнер на досмотре»","Таможня проверяет, сроки и расходы могут вырасти"],
+["«Пустой сдать»","Вернуть порожний на сток в срок"],
+["«Скинь дислокацию»","Пришли, где сейчас контейнер"]]]
+];
+const TERMS=[];SECTIONS.forEach(([s,items],si)=>items.forEach(([t,d,f],i)=>TERMS.push({id:"s"+si+"t"+i,sec:si,t,d,f:!!f})));
+const state={keep:{},notes:{},extra:""};
+const $=id=>document.getElementById(id);
+function render(){
+  const main=$("list");main.textContent="";
+  SECTIONS.forEach(([name],si)=>{
+    const sec=document.createElement("section");sec.className="sec";
+    const h=document.createElement("h2");h.textContent=name;const c=document.createElement("span");c.dataset.sec=si;h.append(c);sec.append(h);
+    TERMS.filter(x=>x.sec===si).forEach(x=>{
+      const row=document.createElement("label");row.className="row";row.htmlFor="cb_"+x.id;
+      const cb=document.createElement("input");cb.type="checkbox";cb.id="cb_"+x.id;cb.checked=!!state.keep[x.id];
+      cb.addEventListener("change",()=>{state.keep[x.id]=cb.checked;row.classList.toggle("on",cb.checked);counts();save();});
+      row.classList.toggle("on",cb.checked);
+      const b=document.createElement("div");b.className="body";
+      const t=document.createElement("div");t.className="term";t.textContent=x.t;
+      if(x.f){const fl=document.createElement("span");fl.className="flag";fl.textContent="⚠ проверить";t.append(fl);}
+      const d=document.createElement("div");d.className="def";d.textContent=x.d;
+      const nl=document.createElement("button");nl.type="button";nl.className="note-link";nl.textContent=state.notes[x.id]?"Ваша правка:":"Поправить";
+      const ta=document.createElement("textarea");ta.className="note";ta.id="n_"+x.id;ta.placeholder="Как правильно / как говорят у вас";ta.value=state.notes[x.id]||"";ta.hidden=!state.notes[x.id];
+      nl.addEventListener("click",e=>{e.preventDefault();ta.hidden=false;ta.focus();});
+      ta.addEventListener("click",e=>e.preventDefault());
+      ta.addEventListener("input",()=>{state.notes[x.id]=ta.value;save();});
+      b.append(t,d,nl,ta);row.append(cb,b);sec.append(row);
+    });
+    main.append(sec);
+  });
+  $("extra").value=state.extra||"";counts();
+}
+function counts(){
+  const n=TERMS.filter(x=>state.keep[x.id]).length;$("count").textContent="Оставлено: "+n+" из "+TERMS.length;
+  document.querySelectorAll("h2 span[data-sec]").forEach(s=>{const si=+s.dataset.sec;const all=TERMS.filter(x=>x.sec===si);s.textContent=all.filter(x=>state.keep[x.id]).length+"/"+all.length;});
+}
+let ref=null,timer=null,writing=false,again=false;
+function payload(){
+  return{keep:TERMS.filter(x=>state.keep[x.id]).map(x=>x.t),drop:TERMS.filter(x=>!state.keep[x.id]).map(x=>x.t),
+    notes:Object.fromEntries(TERMS.filter(x=>(state.notes[x.id]||"").trim()).map(x=>[x.t,state.notes[x.id].trim()])),
+    extra:state.extra||"",state:{keep:state.keep,notes:state.notes},updatedAt:new Date().toISOString()};
+}
+function save(){
+  try{localStorage.setItem("slovar-otbor",JSON.stringify(state));}catch(e){}
+  if(!ref){$("status").textContent="Сохранено в этом браузере";return;}
+  $("status").textContent="Сохраняю…";clearTimeout(timer);timer=setTimeout(flush,700);
+}
+async function flush(){
+  if(writing){again=true;return;}writing=true;
+  try{await ref.set(payload());$("status").textContent="Сохранено ✓";}
+  catch(e){$("status").textContent="Не удалось сохранить, отметки остались в браузере";}
+  writing=false;if(again){again=false;flush();}
+}
+$("extra").addEventListener("input",e=>{state.extra=e.target.value;save();});
+$("all").addEventListener("click",()=>{TERMS.forEach(x=>state.keep[x.id]=true);render();save();});
+$("none").addEventListener("click",()=>{TERMS.forEach(x=>state.keep[x.id]=false);render();save();});
+try{const s=JSON.parse(localStorage.getItem("slovar-otbor")||"null");if(s){Object.assign(state,s);}}catch(e){}
+render();$("status").textContent="Отметки сохраняются в браузере";
+(async()=>{
+  try{
+    const db=window.claude&&await window.claude.use("db");
+    if(!db){return;}
+    ref=db.doc("review/slovar");
+    const snap=await ref.get();
+    if(snap.exists){const d=snap.data();if(d&&d.state){state.keep={...d.state.keep};state.notes={...d.state.notes};state.extra=d.extra||"";render();}}
+    $("status").textContent="Отметки сохраняются автоматически";
+  }catch(e){ref=null;}
+})();
+</script>
