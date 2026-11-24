@@ -1,7 +1,7 @@
-/* Spotlight 8 · Module 3 — работа без интернета.
+/* Spotlight 7 · Module 3 — работа без интернета.
    После первого открытия страницы модуля сохраняются в кэш телефона и открываются офлайн.
    Остальные страницы сайта этот файл не трогает. */
-const CACHE = "module3-v2";
+const CACHE = "module3-v3";
 const FILES = ["module3.html", "module3-words.html", "writings.html", "m3-icon.png", "m3.webmanifest"];
 
 self.addEventListener("install", e => {
