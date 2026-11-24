@@ -1,0 +1,10 @@
+{
+  "name": "Spotlight 8 · Module 3",
+  "short_name": "Module 3",
+  "start_url": "module3.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#EFE6DA",
+  "theme_color": "#4D0E12",
+  "icons": [{ "src": "m3-icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }]
+}
