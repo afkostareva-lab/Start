@@ -163,6 +163,23 @@ select{appearance:none;-webkit-appearance:none;font-size:13px;padding:7px 30px 7
 .opt,.w,.total .knob{color:#1E3A5F}
 /* ошибки остаются бордовыми (Sceptre Red) — так их сразу видно */
 .choice.wrong{background:#4D0E12;border-color:#4D0E12;color:#F5EFC6}
+
+/* ---------- Module 4: бордовые акценты (Sceptre Red) на сине-голубой основе — как голубые акценты в модуле 3 ---------- */
+:root{--accent:#6E141B;--accent-bg:#4D0E12}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--accent:#E0959A;--accent-bg:#6B161C}}
+:root[data-theme="dark"]{--accent:#E0959A;--accent-bg:#6B161C}
+.poster.cream h2 em{color:var(--accent)}
+.poster.red h2 em{color:#4D0E12}
+.poster .circled::after{border-color:var(--accent)}
+.poster.dark .circled::after,.poster.soil .circled::after{border-color:#E0959A}
+.hero h1 .script{color:var(--accent)}
+h3::before,.grp::before{background:var(--accent)}
+.rule{border-top-color:var(--accent-bg)}
+.bw.open{background:var(--accent-bg);color:#F5EFC6}
+.total .knob{color:#4D0E12}
+.item::before{color:var(--accent);opacity:.7}
+details summary::after{color:var(--accent)}
+.plan div::before{background:var(--accent-bg)}
 </style>
 </head>
 <body>
