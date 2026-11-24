@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Module 4 Words</title>
-<meta name="description" content="Слова и словосочетания Spotlight 8, Module 4: список, карточки, тест и тренажёр написания.">
+<meta name="description" content="Слова и словосочетания Spotlight 7, Module 4: список, карточки, тест и тренажёр написания.">
 <meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#4D0E12">
+<meta name="theme-color" content="#1E3A5F">
 <link rel="manifest" href="m4.webmanifest">
 <link rel="apple-touch-icon" href="m4-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -131,12 +131,44 @@ select{appearance:none;-webkit-appearance:none;font-size:13px;padding:7px 30px 7
 .fb{min-height:24px;margin-top:10px;font-weight:600;text-align:center}
 .card.center .big{font-size:64px;color:var(--head)}
 @media print{.tabs,.row,.theme,.know,.speak,.bar{display:none}body{background:#fff}header.hero{min-height:0;box-shadow:none}.hide-ru .item .ru,.hide-en .item .en{color:inherit;background:none}}
+
+/* ---------- Module 4: та же палитра, но с упором на синий и голубой (Cerulean Blue + глубокий синий) ---------- */
+:root{
+  --bg:#E3EAF2; --paper:#F7F4EC; --ink:#18222F; --muted:#526379; --line:#C8D4E2;
+  --wine:#1E3A5F; --wine-ink:#F5EFC6; --java:#14202E; --java-ink:#F5EFC6; --soil:#2F4E70;
+  --sky:#A5BCD6; --sky-soft:#D3DFEC; --cream:#F5EFC6;
+  --ok:#1E3A5F; --ok-bg:#C9D8E9; --bad:#8A1C22; --bad-bg:#EFD3D0;
+  --head:#1E3A5F; --chip:#D5DFEA; --shadow:0 10px 30px rgba(20,32,46,.13);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1620; --paper:#18222F; --ink:#F5EFC6; --muted:#A9B8C9; --line:#2A3747;
+    --wine:#24456E; --wine-ink:#F5EFC6; --java:#0A1018; --java-ink:#F5EFC6; --soil:#2F4E70;
+    --sky:#A5BCD6; --sky-soft:#22344A; --cream:#F5EFC6;
+    --ok:#C9D8E9; --ok-bg:#2A3B50; --bad:#F0B2B5; --bad-bg:#4D0E12;
+    --head:#F5EFC6; --chip:#223042; --shadow:0 10px 30px rgba(0,0,0,.45);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1620; --paper:#18222F; --ink:#F5EFC6; --muted:#A9B8C9; --line:#2A3747;
+  --wine:#24456E; --wine-ink:#F5EFC6; --java:#0A1018; --java-ink:#F5EFC6; --soil:#2F4E70;
+  --sky:#A5BCD6; --sky-soft:#22344A; --cream:#F5EFC6;
+  --ok:#C9D8E9; --ok-bg:#2A3B50; --bad:#F0B2B5; --bad-bg:#4D0E12;
+  --head:#F5EFC6; --chip:#223042; --shadow:0 10px 30px rgba(0,0,0,.45);
+}
+/* светлый голубой постер вместо бордового */
+.poster.red{background:var(--sky);color:#14202E}
+.poster.red h2 em{color:#1E3A5F}
+/* текст на кремовых «пилюлях» — синий */
+.opt,.w,.total .knob{color:#1E3A5F}
+/* ошибки остаются бордовыми (Sceptre Red) — так их сразу видно */
+.choice.wrong{background:#4D0E12;border-color:#4D0E12;color:#F5EFC6}
 </style>
 </head>
 <body>
 <div class="wrap">
 <header class="hero">
-  <div class="corner"><span class="label">Spotlight 8<br>Module 04</span><span class="label">Vocabulary</span></div>
+  <div class="corner"><span class="label">Spotlight 7<br>Module 04</span><span class="label">Vocabulary</span></div>
   <h1>words, <em>words,</em> words.</h1>
   <div class="script">learn them all!</div>
   <p>Слова и выражения модуля «In the News» по разделам учебника. Учи списком, закрепляй карточками, тестом и написанием. Отметки «знаю» сохраняются на этом устройстве.</p>
