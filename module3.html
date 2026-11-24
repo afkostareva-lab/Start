@@ -47,7 +47,7 @@
   --head:#F5EFC6; --chip:#33241F; --shadow:0 10px 30px rgba(0,0,0,.4);
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:60px}
+html{scroll-behavior:smooth;scroll-padding-top:120px}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Inter Tight",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 .wrap{max-width:860px;margin:0 auto;padding:16px}
 a{color:inherit;text-decoration-thickness:1px;text-underline-offset:3px}
@@ -71,9 +71,11 @@ p{margin:8px 0}
 
 /* ---------- Оглавление ---------- */
 nav.toc{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 16px;margin:14px -16px 0;border-bottom:1px solid var(--line)}
-.toc-in{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
-.toc-in::-webkit-scrollbar{display:none}
-.toc a{flex:0 0 auto;text-decoration:none;color:var(--head);border:1px solid var(--head);border-radius:99px;padding:6px 13px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.toc-in{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+@media (min-width:760px){.toc-in{grid-template-columns:repeat(8,1fr)}}
+.toc a{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:40px;text-decoration:none;color:var(--head);border:1px solid var(--head);border-radius:14px;padding:4px 2px;line-height:1.15;text-align:center;-webkit-tap-highlight-color:transparent}
+.toc a b{font-size:13px;font-weight:800;letter-spacing:-.01em}
+.toc a small{font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 .toc a.on{background:var(--wine);color:var(--wine-ink);border-color:var(--wine)}
 
 /* ---------- Постер раздела ---------- */
@@ -213,7 +215,7 @@ footer .script{display:block;font-size:40px;color:var(--head);line-height:1.1}
 </head>
 <body>
 <div class="wrap">
-<header class="hero">
+<header class="hero" id="top">
   <div class="giant" aria-hidden="true">3</div>
   <div class="corner"><span class="label">Spotlight 8<br>Module 03</span></div>
   <h1>profiles.<span class="script">learn anything!</span></h1>
@@ -223,13 +225,14 @@ footer .script{display:block;font-size:40px;color:var(--head);line-height:1.1}
 </header>
 
 <nav class="toc"><div class="toc-in">
-  <a href="#a">3a Lead the way</a>
-  <a href="#b">3b Who's who</a>
-  <a href="#c">3c Against all odds</a>
-  <a href="#d">3d Beefeaters</a>
-  <a href="#use">English in Use</a>
-  <a href="#hist">Victorian children</a>
-  <a href="#check">Progress Check</a>
+  <a href="#a"><b>3a</b><small>Lead the way</small></a>
+  <a href="#b"><b>3b</b><small>Who's who</small></a>
+  <a href="#c"><b>3c</b><small>Against odds</small></a>
+  <a href="#d"><b>3d</b><small>Beefeaters</small></a>
+  <a href="#use"><b>Use</b><small>English in Use</small></a>
+  <a href="#hist"><b>History</b><small>Victorian</small></a>
+  <a href="#check"><b>Check</b><small>Progress</small></a>
+  <a href="#top"><b>↑</b><small>Наверх</small></a>
 </div></nav>
 
 <!-- ============ 3a ============ -->
@@ -738,8 +741,11 @@ $("#resetCheck").onclick=()=>{$$("#check .ex").forEach(renderEx);updTotal()};
 
 /* ---------- подсветка оглавления ---------- */
 const links=$$(".toc a");
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+e.target.id));
-  const on=$(".toc a.on");if(on)on.scrollIntoView({block:"nearest",inline:"center"})}}),{rootMargin:"-40% 0px -55% 0px"});
+let jumping=0;
+const markToc=id=>links.forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+id));
+links.forEach(a=>a.addEventListener("click",()=>{markToc(a.getAttribute("href").slice(1));jumping=Date.now()}));
+const io=new IntersectionObserver(es=>{if(Date.now()-jumping<1200)return;
+  es.forEach(e=>{if(e.isIntersecting)markToc(e.target.id)})},{rootMargin:"-40% 0px -55% 0px"});
 $$("section.unit").forEach(s=>io.observe(s));
 
 /* ---------- Now I can ---------- */
