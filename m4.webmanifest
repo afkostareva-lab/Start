@@ -1,10 +1,10 @@
 {
-  "name": "Spotlight 8 · Module 4",
+  "name": "Spotlight 7 · Module 4",
   "short_name": "Module 4",
   "start_url": "module4.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#EFE6DA",
-  "theme_color": "#4D0E12",
+  "background_color": "#E3EAF2",
+  "theme_color": "#1E3A5F",
   "icons": [{ "src": "m4-icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }]
 }
