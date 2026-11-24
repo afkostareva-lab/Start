@@ -12,7 +12,7 @@ html,body{margin:0}body{width:512px;height:512px;background:#4D0E12;position:rel
 .n{position:absolute;right:30px;top:-70px;font:400 560px/1 "Bodoni Moda";color:#F5EFC6}
 .t{position:absolute;left:40px;right:30px;bottom:46px;color:#F5EFC6;font-weight:900;font-size:84px;letter-spacing:-.05em;line-height:.85}
 .s{position:absolute;left:44px;top:44px;color:#A5BCD6;font-weight:600;font-size:22px;letter-spacing:.14em;text-transform:uppercase}
-</style><div class=n>${num}</div><div class=s>Spotlight 8</div><div class=t>${title}</div>`;
+</style><div class=n>${num}</div><div class=s>Spotlight 7</div><div class=t>${title}</div>`;
 (async () => {
   const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 512, height: 512 } });
   await p.setContent(html); await p.evaluate(() => document.fonts.ready); await p.waitForTimeout(300);

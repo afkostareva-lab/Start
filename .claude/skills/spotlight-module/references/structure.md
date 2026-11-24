@@ -17,7 +17,7 @@
 ### `<body>` — содержание
 | Блок | Что менять |
 |---|---|
-| `header.hero#top` | `.giant` — цифра модуля; `.corner` — «Spotlight 8 / Module 0N»; `h1` — тема модуля строчными с точкой + `.script`; `.lead` — о чём модуль по-русски |
+| `header.hero#top` | `.giant` — цифра модуля; `.corner` — «Spotlight 7 / Module 0N»; `h1` — тема модуля строчными с точкой + `.script`; `.lead` — о чём модуль по-русски |
 | `nav.toc` | `<a href="#id"><b>4a</b><small>Короткое имя</small></a>` на каждую часть, затем Use, History, Check, ↑ Наверх |
 | `section.unit#a…` | постер (`.poster TONE` → `.corner` два `.label`, `h2`, `.foot` с `.desc` и `.arrow`), потом `h3` + карточки |
 | `.card.rule` | правило грамматики: таблица/примеры, `.hl` — подсветка ключевого слова |
