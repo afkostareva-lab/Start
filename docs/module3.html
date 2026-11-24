@@ -119,6 +119,14 @@ details summary::after{content:"→";font-weight:300;font-size:22px;line-height:
 details[open] summary::after{transform:rotate(90deg)}
 details>*:not(summary){margin:0 20px 16px}
 
+/* ---------- Жирные слова в оригинальном тексте ---------- */
+.orig p{font-family:"Bodoni Moda","Playfair Display",Georgia,serif;font-size:16.5px;line-height:1.6}
+.bw{font:inherit;font-weight:700;color:var(--head);background:var(--sky-soft);border:0;border-radius:4px;padding:0 4px;cursor:pointer}
+.bw.open{background:var(--wine);color:var(--wine-ink)}
+.bw .tr{display:none;font-family:"Inter Tight",system-ui,sans-serif;font-style:normal;font-weight:500;font-size:13px}
+.bw.open .tr{display:inline}
+.bw.open .tr::before{content:" — "}
+
 /* ---------- Упражнения: бордовая панель с кремовыми «пилюлями» ---------- */
 .ex{background:var(--wine);color:var(--wine-ink);border-radius:20px;padding:18px 18px 16px;margin:16px 0;box-shadow:var(--shadow)}
 .ex-h{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap;border-bottom:1px solid rgba(245,239,198,.25);padding-bottom:10px;margin-bottom:4px}
@@ -320,6 +328,19 @@ footer .script{display:block;font-size:40px;color:var(--head);line-height:1.1}
     <p><b>Para 3.</b> Потом полностью потерял голос и мог общаться только моргая (<span class="en">blinking</span>). Компьютер на инвалидном кресле позволил ему говорить. Бестселлер — <i>A Brief History of Time</i>. Умер 14 марта 2018 года.</p>
     <p><b>Para 4.</b> Автор восхищается им, потому что он был умным и смелым и никогда не сдавался (<span class="en">never gave up on life</span>).</p>
   </div>
+
+  <h3>Words in bold · Слова из текста</h3>
+  <p class="small muted">Нажми на выделенное слово в тексте: оно прозвучит и покажет перевод.</p>
+  <div class="card text orig" id="hawkText">
+    <p>The person that I admire most is the scientist Stephen William Hawking. He was born on 8th January 1942, in Oxford, England. Stephen is famous for his work on the basic [[laws]] of the [[universe]]. He is also famous for the way he [[coped]] with having Motor Neuron Disease (MND).</p>
+    <p>Stephen studied Physics at University College, Oxford. He was [[diagnosed]] with MND while still at university. Stephen slowly lost control of his [[muscles]] and eventually he couldn't walk. Despite this, he finished his studies, got married and [[started a career]] at the university.</p>
+    <p>Some years later, he lost his voice completely. Unfortunately, he was in the middle of writing a book at the time and suddenly had no way to communicate other than [[blinking]]. A computer system on his [[wheelchair]] [[enabled]] him to speak. Of his many books, <i>A Brief History of Time</i> is Stephen's bestseller. Hawking died on 14th March 2018.</p>
+    <p>The reason I admire him is because he was very intelligent and brave, and he never [[gave up on]] life. When I think of him, I know that anything is possible as long as you really want it and work hard to [[achieve]] it.</p>
+  </div>
+  <div class="tblwrap"><table>
+    <tr><th>Слово</th><th>Перевод</th><th>Пример из текста</th></tr>
+    <tbody id="hawkTbl"></tbody>
+  </table></div>
 
   <h3>Prepositions · Предлоги после слов</h3>
   <div class="tblwrap"><table>
@@ -556,6 +577,22 @@ $("#appTbl").innerHTML=`<tr><th>Что</th><th>Слова</th></tr>`+APP.map(([e
 $("#pron").innerHTML=`<tr><th>Слово</th><th>Звук</th><th></th><th>Слово</th><th>Звук</th></tr>`+
   [0,2,4,6].map(i=>`<tr><td><b>${PRON[i][0]}</b> ${sp(PRON[i][0])}</td><td>${PRON[i][1]}</td><td></td><td><b>${PRON[i+1][0]}</b> ${sp(PRON[i+1][0])}</td><td>${PRON[i+1][1]}</td></tr>`).join("");
 $("#dlg").innerHTML=DLG.map(([n,t])=>`<p><b>${n}:</b> ${t}</p>`).join("");
+
+/* ---------- Хокинг: слова, выделенные жирным ---------- */
+const HAWK={"laws":["laws","законы","the basic laws of the universe"],
+ "universe":["universe","вселенная","the laws of the universe"],
+ "coped":["cope with (coped)","справляться с","He coped with having MND."],
+ "diagnosed":["be diagnosed with","получить диагноз","He was diagnosed with MND."],
+ "muscles":["muscles","мышцы","He slowly lost control of his muscles."],
+ "started a career":["start a career","начать карьеру","He started a career at the university."],
+ "blinking":["blink (blinking)","моргать","No way to communicate other than blinking."],
+ "wheelchair":["wheelchair","инвалидное кресло","A computer system on his wheelchair."],
+ "enabled":["enable (enabled)","давать возможность, позволять","It enabled him to speak."],
+ "gave up on":["give up on","сдаваться, опускать руки","He never gave up on life."],
+ "achieve":["achieve","достигать","Work hard to achieve it."]};
+$("#hawkText").innerHTML=$("#hawkText").innerHTML.replace(/\[\[(.+?)\]\]/g,(m,w)=>`<button class="bw" data-w="${w}">${w}<span class="tr">${HAWK[w][1]}</span></button>`);
+$("#hawkText").onclick=e=>{const b=e.target.closest(".bw");if(!b)return;b.classList.toggle("open");say(b.dataset.w)};
+$("#hawkTbl").innerHTML=Object.values(HAWK).map(([e,r,x])=>`<tr><td><b>${e}</b> ${sp(e.replace(/ \(.*\)/,""))}</td><td>${r}</td><td class="en">${x}</td></tr>`).join("");
 
 /* ---------- движок упражнений ---------- */
 const state={};
