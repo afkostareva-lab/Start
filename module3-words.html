@@ -7,28 +7,34 @@
 <meta name="description" content="Слова и словосочетания Spotlight 8, Module 3: список, карточки, тест и тренажёр написания.">
 <meta name="color-scheme" content="light dark">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ctext y=%2226%22 font-size=%2226%22%3E%F0%9F%93%9D%3C/text%3E%3C/svg%3E">
 <style>
 :root{
-  --bg:#ECF2D8; --card:#fffdf8; --ink:#4a2a38; --muted:#8a6a78; --line:#EFCFE3;
-  --accent:#E27396; --accent-ink:#fff; --ok:#2f8f99; --ok-bg:#d6eef0; --bad:#c94f77; --bad-bg:#f6dbe6; --chip:#f6e6ef;
+  --bg:#F3ECDF; --card:#FBF7EF; --ink:#231815; --muted:#6E554C; --line:#E3D7C4;
+  --accent:#4D0E12; --accent-ink:#F5EFC6; --ok:#3D5D80; --ok-bg:#DCE6F1; --bad:#8A1C22; --bad-bg:#F2DCD9;
+  --chip:#EDE3D2; --blue:#C9D8E9; --note:#F5EFC6; --note-line:#E0D59E;
+  --g1:#A5BCD6; --g2:#F5EFC6; --g3:#4D0E12; --head:#4D0E12;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#251a21; --card:#33242e; --ink:#f7e9f0; --muted:#c9a9b8; --line:#4a3542;
-    --accent:#EB9AB2; --accent-ink:#2a1820; --ok:#9fd6dc; --ok-bg:#1f3d41; --bad:#EB9AB2; --bad-bg:#4d2333; --chip:#3e2c38;
+    --bg:#231815; --card:#33231E; --ink:#F5EFC6; --muted:#C7B5A3; --line:#4A2E27;
+    --accent:#A5BCD6; --accent-ink:#231815; --ok:#A5BCD6; --ok-bg:#2A3646; --bad:#E3A0A3; --bad-bg:#4D0E12;
+    --chip:#4A2E27; --blue:#3A4A5E; --note:#3A2A1E; --note-line:#6B5338;
+    --g1:#A5BCD6; --g2:#F5EFC6; --g3:#B8474D; --head:#F5EFC6;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#251a21; --card:#33242e; --ink:#f7e9f0; --muted:#c9a9b8; --line:#4a3542;
-  --accent:#EB9AB2; --accent-ink:#2a1820; --ok:#9fd6dc; --ok-bg:#1f3d41; --bad:#EB9AB2; --bad-bg:#4d2333; --chip:#3e2c38;
+  --bg:#231815; --card:#33231E; --ink:#F5EFC6; --muted:#C7B5A3; --line:#4A2E27;
+  --accent:#A5BCD6; --accent-ink:#231815; --ok:#A5BCD6; --ok-bg:#2A3646; --bad:#E3A0A3; --bad-bg:#4D0E12;
+  --chip:#4A2E27; --blue:#3A4A5E; --note:#3A2A1E; --note-line:#6B5338;
+  --g1:#A5BCD6; --g2:#F5EFC6; --g3:#B8474D; --head:#F5EFC6;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 .wrap{max-width:760px;margin:0 auto;padding:16px}
-h1,.big{font-family:"Abril Fatface",Georgia,serif;font-weight:400;letter-spacing:.01em}
-h1{font-size:32px;margin:6px 0 6px;color:var(--accent)}
+h1,.big{font-family:"Playfair Display",Georgia,serif;font-weight:500;letter-spacing:.01em}
+h1{font-size:32px;margin:6px 0 6px;color:var(--head)}
 header{position:relative}
 .theme{position:absolute;top:4px;right:0;border:1px solid var(--line);background:var(--card);border-radius:99px;padding:6px 10px;font-size:14px;color:var(--ink)}
 button{font:inherit;cursor:pointer;color:inherit}
@@ -42,7 +48,7 @@ select,input{font:inherit;padding:8px 10px;border-radius:10px;border:1px solid v
 .stats{display:flex;gap:8px;flex-wrap:wrap}
 .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:5px 12px;font-size:14px}
 .bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:8px 0 12px}
-.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,#B3DEE2,#EB9AB2,#E27396);transition:width .4s}
+.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--g1),var(--g2),var(--g3));transition:width .4s}
 .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:12px}
 .btn{border:0;border-radius:12px;padding:11px 16px;background:var(--accent);color:var(--accent-ink);font-weight:600}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
