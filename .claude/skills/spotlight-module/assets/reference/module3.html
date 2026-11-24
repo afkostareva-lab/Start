@@ -1,0 +1,762 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 3 · Profiles</title>
+<meta name="description" content="Spotlight 8, Module 3 «Profiles»: теория, тексты, интерактивные упражнения и Progress Check с самопроверкой.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#4D0E12">
+<link rel="manifest" href="m3.webmanifest">
+<link rel="apple-touch-icon" href="m3-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Module 3">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<script>/* офлайн-режим: работает, когда страница открыта с сайта (https) */
+if("serviceWorker" in navigator&&location.protocol.startsWith("http"))addEventListener("load",()=>navigator.serviceWorker.register("m3-sw.js").catch(()=>{}));</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Pinyon+Script&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ctext y=%2226%22 font-size=%2226%22%3E%F0%9F%93%98%3C/text%3E%3C/svg%3E">
+<style>
+/* Палитра: Sceptre Red #4D0E12 · Java Brown #231815 · Potting Soil #4A2E27 · Cerulean Blue #A5BCD6 · Transparent Yellow #F5EFC6 · Buttercream
+   Дизайн: редакционные постеры — жирный гротеск, курсив Bodoni, рукописный акцент, угловые подписи, стрелки */
+:root{
+  --bg:#EFE6DA; --paper:#F7F1E8; --ink:#231815; --muted:#6E554C; --line:#DCCDBB;
+  --wine:#4D0E12; --wine-ink:#F5EFC6; --java:#231815; --java-ink:#F5EFC6; --soil:#4A2E27;
+  --sky:#A5BCD6; --sky-soft:#DCE6F1; --cream:#F5EFC6;
+  --ok:#2F4E70; --ok-bg:#C9D8E9; --bad:#8A1C22; --bad-bg:#EFD3D0;
+  --head:#4D0E12; --chip:#E8DCCB; --shadow:0 10px 30px rgba(35,24,21,.12);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1A1210; --paper:#271B17; --ink:#F5EFC6; --muted:#C2AF9C; --line:#3E2B25;
+    --wine:#6B161C; --wine-ink:#F5EFC6; --java:#0F0A09; --java-ink:#F5EFC6; --soil:#4A2E27;
+    --sky:#A5BCD6; --sky-soft:#26323F; --cream:#F5EFC6;
+    --ok:#C9D8E9; --ok-bg:#2A3B50; --bad:#F0B2B5; --bad-bg:#4D0E12;
+    --head:#F5EFC6; --chip:#33241F; --shadow:0 10px 30px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1A1210; --paper:#271B17; --ink:#F5EFC6; --muted:#C2AF9C; --line:#3E2B25;
+  --wine:#6B161C; --wine-ink:#F5EFC6; --java:#0F0A09; --java-ink:#F5EFC6; --soil:#4A2E27;
+  --sky:#A5BCD6; --sky-soft:#26323F; --cream:#F5EFC6;
+  --ok:#C9D8E9; --ok-bg:#2A3B50; --bad:#F0B2B5; --bad-bg:#4D0E12;
+  --head:#F5EFC6; --chip:#33241F; --shadow:0 10px 30px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:120px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Inter Tight",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:16px}
+a{color:inherit;text-decoration-thickness:1px;text-underline-offset:3px}
+button{font:inherit;cursor:pointer;color:inherit}
+p{margin:8px 0}
+.muted{color:var(--muted)} .small{font-size:13px}
+.serif{font-family:"Bodoni Moda","Playfair Display",Georgia,serif}
+.script{font-family:"Pinyon Script",cursive;font-weight:400}
+.label{font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;line-height:1.35}
+
+/* ---------- HERO: «Q&A»-постер ---------- */
+.hero{position:relative;background:var(--paper);border-radius:4px;box-shadow:var(--shadow);padding:22px 22px 26px;overflow:hidden;min-height:440px;display:flex;flex-direction:column}
+.hero .corner{display:flex;justify-content:space-between;color:var(--head)}
+.hero .giant{position:absolute;right:-18px;top:-10px;font-family:"Bodoni Moda",Georgia,serif;font-weight:400;font-size:400px;line-height:1;color:var(--wine);opacity:.95;pointer-events:none}
+.hero h1{position:relative;margin:auto 0 0;font-weight:900;font-size:68px;line-height:.86;letter-spacing:-.05em;color:var(--head);text-transform:lowercase}
+.hero h1 .script{position:relative;z-index:1;display:block;font-size:44px;letter-spacing:0;margin:10px 0 0 4px;text-transform:none;color:var(--ink)}
+.hero .lead{position:relative;max-width:440px;margin-top:16px;font-size:15px;color:var(--muted)}
+.hero .foot{position:relative;display:flex;justify-content:space-between;align-items:flex-end;margin-top:14px;color:var(--head)}
+.arrow{font-size:28px;line-height:1;font-weight:300}
+.theme{position:absolute;z-index:2;bottom:20px;right:20px;border:1px solid currentColor;background:transparent;border-radius:99px;padding:5px 12px;font-size:13px;color:var(--head)}
+
+/* ---------- Оглавление ---------- */
+nav.toc{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 16px;margin:14px -16px 0;border-bottom:1px solid var(--line)}
+.toc-in{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+@media (min-width:760px){.toc-in{grid-template-columns:repeat(8,1fr)}}
+.toc a{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:40px;text-decoration:none;color:var(--head);border:1px solid var(--head);border-radius:14px;padding:4px 2px;line-height:1.15;text-align:center;-webkit-tap-highlight-color:transparent}
+.toc a b{font-size:13px;font-weight:800;letter-spacing:-.01em}
+.toc a small{font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.toc a.on{background:var(--wine);color:var(--wine-ink);border-color:var(--wine)}
+
+/* ---------- Постер раздела ---------- */
+section.unit{margin:26px 0 40px}
+.poster{position:relative;border-radius:4px;padding:18px 20px 20px;min-height:340px;display:flex;flex-direction:column;box-shadow:var(--shadow);overflow:hidden;margin-bottom:18px}
+.poster.cream{background:var(--paper);color:var(--head)}
+.poster.dark{background:var(--java);color:var(--java-ink)}
+.poster.red{background:var(--wine);color:var(--wine-ink)}
+.poster.soil{background:var(--soil);color:var(--cream)}
+.poster .corner{display:flex;justify-content:space-between;gap:10px}
+.poster .corner .label:last-child{text-align:right}
+.poster h2{margin:auto 0 0;padding-top:26px;font-weight:900;font-size:clamp(50px,13vw,96px);line-height:.86;letter-spacing:-.055em;text-transform:lowercase}
+.poster h2 em{font-family:"Bodoni Moda",Georgia,serif;font-style:italic;font-weight:500;letter-spacing:-.03em}
+.poster.cream h2 em{color:var(--wine)}
+.poster.dark h2 em{color:var(--sky)}
+.poster.red h2 em,.poster.soil h2 em{color:var(--cream)}
+.circled{position:relative;display:inline-block;padding:0 .12em}
+.circled::after{content:"";position:absolute;left:-.12em;right:-.18em;top:.06em;bottom:-.06em;border:3px solid currentColor;border-radius:50%;transform:rotate(-6deg)}
+.poster .foot{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-top:18px}
+.poster .foot .desc{max-width:360px;font-size:14px;line-height:1.45;opacity:.9;text-transform:none;letter-spacing:0;font-weight:400}
+
+/* ---------- Подзаголовки ---------- */
+h3{display:flex;align-items:baseline;gap:10px;font-weight:800;font-size:24px;line-height:1.1;letter-spacing:-.03em;margin:32px 0 12px;color:var(--head)}
+h3::before{content:"";flex:0 0 22px;height:2px;background:currentColor;transform:translateY(-6px)}
+
+/* ---------- Карточки ---------- */
+.card{background:var(--paper);border-radius:4px;padding:18px 20px;margin:12px 0;box-shadow:var(--shadow)}
+.card b{color:var(--head)}
+.rule{border-top:3px solid var(--wine)}
+.note{position:relative;background:var(--java);color:var(--java-ink);border-radius:4px;padding:16px 18px;margin:14px 0;font-size:15px}
+.note b{color:var(--cream)}
+.note::before{content:"study skills";display:block;font-family:"Pinyon Script",cursive;font-size:28px;line-height:1;color:var(--sky);margin-bottom:6px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.grid2>.card{margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.chip{border:1px solid var(--line);background:var(--paper);border-radius:99px;padding:5px 12px;font-size:14px}
+.chip b{font-weight:700;color:var(--head)}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:10.5px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.14em}
+.tblwrap{overflow-x:auto;background:var(--paper);border-radius:4px;padding:6px 14px;box-shadow:var(--shadow)}
+.card .tblwrap{box-shadow:none;padding:0;background:transparent}
+.en{font-family:"Bodoni Moda","Playfair Display",Georgia,serif;font-style:italic;font-size:1.03em}
+.hl{background:var(--sky-soft);border-radius:3px;padding:0 3px}
+.speak{border:1px solid var(--line);background:transparent;border-radius:99px;width:30px;height:30px;font-size:13px;line-height:1;vertical-align:middle;flex:0 0 auto}
+.text{font-size:15.5px}
+.text p{margin:7px 0}
+.text b{color:var(--head)}
+.grid2 .card.text>b:first-child{display:block;font-weight:900;font-size:26px;letter-spacing:-.04em;line-height:1;margin-bottom:6px}
+details.card{padding:0}
+details summary{cursor:pointer;list-style:none;padding:16px 20px;font-weight:700;color:var(--head);display:flex;justify-content:space-between;gap:12px}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:"→";font-weight:300;font-size:22px;line-height:1;transition:transform .2s}
+details[open] summary::after{transform:rotate(90deg)}
+details>*:not(summary){margin:0 20px 16px}
+
+/* ---------- Жирные слова в оригинальном тексте ---------- */
+.orig b.who{font-family:"Inter Tight",system-ui,sans-serif;font-style:normal;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.orig .gap{min-width:28px;font-size:13px}
+.orig p{font-family:"Bodoni Moda","Playfair Display",Georgia,serif;font-size:16.5px;line-height:1.6}
+.bw{font:inherit;font-weight:700;color:var(--head);background:var(--sky-soft);border:0;border-radius:4px;padding:0 4px;cursor:pointer}
+.bw.open{background:var(--wine);color:var(--wine-ink)}
+.bw .tr{display:none;font-family:"Inter Tight",system-ui,sans-serif;font-style:normal;font-weight:500;font-size:13px}
+.bw.open .tr{display:inline}
+.bw.open .tr::before{content:" — "}
+
+/* ---------- Упражнения: бордовая панель с кремовыми «пилюлями» ---------- */
+.ex{background:var(--wine);color:var(--wine-ink);border-radius:20px;padding:18px 18px 16px;margin:16px 0;box-shadow:var(--shadow)}
+.ex-h{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap;border-bottom:1px solid rgba(245,239,198,.25);padding-bottom:10px;margin-bottom:4px}
+.ex-h h4{margin:0;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.score{font-family:"Bodoni Moda",Georgia,serif;font-size:22px;line-height:1;white-space:nowrap}
+.q{padding:12px 0;border-bottom:1px solid rgba(245,239,198,.15)}
+.q:last-of-type{border-bottom:0}
+.q-text{margin-bottom:8px;font-size:16px}
+.opts{display:flex;flex-wrap:wrap;gap:7px}
+.opt{border:0;background:var(--cream);color:#4D0E12;border-radius:99px;padding:7px 16px;font-size:14.5px;font-weight:600}
+.opt:disabled{cursor:default;opacity:.55}
+.opt.right{opacity:1;background:var(--sky);color:#231815}
+.opt.right::before{content:"✓ "}
+.opt.wrong{opacity:1;background:transparent;color:var(--cream);box-shadow:inset 0 0 0 1.5px var(--cream);text-decoration:line-through}
+.why{font-size:13.5px;opacity:.8;margin-top:6px;font-style:italic}
+.gap{display:inline-block;min-width:52px;border-bottom:2px solid currentColor;text-align:center;font-weight:700;padding:0 4px}
+.gap.done{color:var(--sky);border-color:var(--sky)}
+.card .gap.done,.dialog .gap.done{color:var(--ok);border-color:var(--ok)}
+.ex-f{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.btn{border:0;border-radius:99px;padding:9px 18px;background:var(--wine);color:var(--wine-ink);font-weight:600;font-size:14px}
+.btn.ghost{background:transparent;color:inherit;box-shadow:inset 0 0 0 1px currentColor}
+.order-out{min-height:44px;border:1.5px dashed rgba(245,239,198,.5);border-radius:99px;padding:6px 8px;display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 8px}
+.order-out.right{border:1.5px solid var(--sky);background:rgba(165,188,214,.18)}
+.order-out.wrong{border:1.5px solid var(--cream);background:rgba(0,0,0,.18)}
+.w{border:0;background:var(--cream);color:#4D0E12;border-radius:99px;padding:6px 13px;font-size:14.5px;font-weight:600}
+.w.used{visibility:hidden}
+
+/* ---------- Дорожная карта (6 steps) ---------- */
+.plan{counter-reset:st;display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;margin:18px 0 8px}
+.plan::before{content:"";position:absolute;left:7px;right:7px;top:7px;height:2px;background:var(--wine)}
+.plan div{position:relative;padding:28px 10px 0 0;font-size:13.5px;line-height:1.4;color:var(--muted)}
+.plan div::before{counter-increment:st;content:"";position:absolute;top:0;left:0;width:16px;height:16px;border-radius:50%;background:var(--wine);box-shadow:0 0 0 4px var(--paper)}
+.plan div::after{content:"0" counter(st);position:absolute;top:-6px;right:12px;font-family:"Bodoni Moda",Georgia,serif;font-size:26px;line-height:1;color:var(--head);opacity:.35}
+.plan div b{display:block;color:var(--head);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:3px}
+@media (max-width:620px){
+  .plan{grid-template-columns:1fr;margin-left:4px}
+  .plan::before{left:7px;right:auto;top:8px;bottom:8px;width:2px;height:auto}
+  .plan div{padding:0 0 16px 32px}
+  .plan div::after{top:0;right:0}
+}
+
+/* ---------- Итог: «slide to answer» ---------- */
+.total{position:sticky;bottom:0;z-index:4;background:var(--wine);color:var(--wine-ink);border-radius:26px 26px 0 0;padding:20px 18px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;margin:18px -4px 0}
+.total::before{content:"";position:absolute;top:8px;left:50%;width:36px;height:3px;border-radius:3px;background:rgba(245,239,198,.5);transform:translateX(-50%)}
+.total .pill{flex:1;display:flex;align-items:center;justify-content:space-between;background:rgba(245,239,198,.14);border-radius:99px;padding:6px 6px 6px 18px}
+.total .pill b{font-family:"Bodoni Moda",Georgia,serif;font-size:26px;font-weight:500}
+.total .knob{width:42px;height:42px;border-radius:50%;background:var(--cream);color:#4D0E12;display:grid;place-items:center;font-weight:900}
+.total .btn{box-shadow:inset 0 0 0 1px var(--cream);background:transparent;color:var(--cream)}
+
+/* ---------- Now I can: чек-лист ---------- */
+.canlist{list-style:none;margin:0;padding:0}
+.canlist li{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);cursor:pointer;font-size:15px}
+.canlist li::before{content:"";flex:0 0 18px;height:18px;border-radius:50%;border:1.5px solid var(--wine)}
+.canlist li.on::before{content:"✓";color:var(--wine-ink);background:var(--wine);font-size:11px;display:grid;place-items:center;font-weight:900}
+.canlist li.on{color:var(--muted);text-decoration:line-through}
+
+.dialog p{margin:5px 0}
+.dialog b{display:inline-block;min-width:58px;color:var(--head);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+footer{margin:36px 0 10px;text-align:center;color:var(--muted)}
+footer .script{display:block;font-size:40px;color:var(--head);line-height:1.1}
+@media (max-width:480px){
+  .hero{min-height:470px;padding:18px}
+  .hero .giant{font-size:330px;right:-26px;top:-20px}
+  .hero h1{font-size:58px}
+  .poster{min-height:300px;padding:16px}
+  .card{padding:15px 16px}
+  .ex{padding:15px 14px}
+}
+@media print{nav.toc,.total,.theme,.ex-f,.speak{display:none}body{background:#fff}.poster{min-height:0;box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero" id="top">
+  <div class="giant" aria-hidden="true">3</div>
+  <div class="corner"><span class="label">Spotlight 8<br>Module 03</span></div>
+  <h1>profiles.<span class="script">learn anything!</span></h1>
+  <p class="lead">Хобби, внешность и характер, люди, которыми восхищаются, профессии, бифитеры и дети викторианской Англии. Теория, пересказ текстов и упражнения с мгновенной проверкой: нажми на вариант, верный ответ подсветится голубым.</p>
+  <div class="foot"><span class="label">🔊 озвучка слов<br><a href="module3-words.html">слова модуля →</a></span></div>
+  <button class="theme" id="themeBtn" aria-label="Сменить тему">◐ тема</button>
+</header>
+
+<nav class="toc"><div class="toc-in">
+  <a href="#a"><b>3a</b><small>Lead the way</small></a>
+  <a href="#b"><b>3b</b><small>Who's who</small></a>
+  <a href="#c"><b>3c</b><small>Against odds</small></a>
+  <a href="#d"><b>3d</b><small>Beefeaters</small></a>
+  <a href="#use"><b>Use</b><small>English in Use</small></a>
+  <a href="#hist"><b>History</b><small>Victorian</small></a>
+  <a href="#check"><b>Check</b><small>Progress</small></a>
+  <a href="#top"><b>↑</b><small>Наверх</small></a>
+</div></nav>
+
+<!-- ============ 3a ============ -->
+<section class="unit" id="a">
+  <div class="poster cream">
+    <div class="corner"><span class="label">3a · p. 26–27</span><span class="label">Hobbies<br>Character</span></div>
+    <h2>lead<br>the <em>way.</em></h2>
+    <div class="foot"><span class="desc">Хобби, черты характера, относительные местоимения и наречия.</span><span class="arrow">→</span></div>
+  </div>
+
+  <h3>Hobbies · Хобби</h3>
+  <div class="chips" id="hobbies"></div>
+
+  <h3>Character · Качества, которые нужны для хобби</h3>
+  <div class="tblwrap"><table>
+    <tr><th>Слово</th><th>Перевод</th><th>Пример</th></tr>
+    <tbody id="charTbl"></tbody>
+  </table></div>
+  <div class="note"><b>Study skills · Multiple meaning words.</b> У многих слов несколько значений, смысл зависит от контекста: <span class="en">Don't <b>break</b> his toy</span> (сломать) · <span class="en">Let's <b>break</b> for lunch</span> (сделать перерыв). Так же со словом <b>drive</b>: <span class="en">I admire her drive</span> (целеустремлённость) · <span class="en">Let's go for a drive</span> (поездка). В заголовке <i>Teens with drive</i> это <b>ambition</b>, целеустремлённость.</div>
+
+  <h3>Текст «Teens with drive!» коротко</h3>
+  <div class="grid2">
+    <div class="card text"><b>Shawn Mendes</b>, Канада<p>Прославился в 2013 году шестисекундными видео на YouTube. Продюсер заметил его (<span class="en">caught the attention</span>) и дал контракт. Альбом <i>Handwritten</i> (2015) возглавил чарты США и Канады. Две награды Teen Choice Awards. Он <b>determined</b>.</p></div>
+    <div class="card text"><b>Martin Odegaard</b>, Норвегия<p>Отец — футбольный тренер. Стал профессионалом в 15 лет, в 2015 году перешёл в Real Madrid за €4 млн. Вышел на замену (<span class="en">came on as a substitute</span>) вместо Криштиану Роналду и стал самым молодым игроком клуба: 16 лет и 157 дней. Он <b>patient</b>.</p></div>
+    <div class="card text"><b>Olivia Hallisey</b>, США<p>Узнав об Эболе в Африке (2014), придумала бумажный тест, который меняет цвет, когда обнаруживает вирус. Его не нужно хранить в холодильнике. Главная награда Google Science Fair 2015. Она <b>hard-working</b>.</p></div>
+  </div>
+  <h3>Teens with drive · Текст и слова</h3>
+  <p class="small muted">Нажми на выделенное слово в тексте: оно прозвучит и покажет перевод.</p>
+  <div class="card text orig" id="txt-teens">
+    <p><b class="who">Shawn Mendes</b> is a young Canadian musician who is taking the music world by storm! He first became famous for some short videos that he uploaded to YouTube in 2013. In these six-second videos he sang lines from popular songs and they got millions of views. Shawn's talent also [[caught the attention]] of a music producer who quickly gave him a [[contract]]. Then, in April 2015, Shawn released his first album <i>Handwritten</i> which topped the charts in the USA and Canada. Since then, Shawn has appeared on stage with Taylor Swift and has won two Teen Choice Awards. Shawn is [[determined]] to succeed and it looks like he's going the right way about it!</p>
+    <p>Many teenagers dream of playing for a huge football club but for <b class="who">Martin Odegaard</b> that dream has become a [[reality]]. Martin, whose father is a football coach, became a [[professional]] footballer in Norway at the age of 15. But it was a year later when his career really [[took off]]! In 2015, he joined Real Madrid for around €4 million! At the moment, Martin doesn't play for the club's main team, but he is a patient person who is happy to train and improve his skills. He did play one game in 2015, though. In a match in May, he came on as a [[substitute]] and became the youngest ever player for Real Madrid! He was just 16 years and 157 days old! The player who Martin [[replaced]] was Cristiano Ronaldo. In the future, Martin could become a superstar like his teammate!</p>
+    <p>When <b class="who">Olivia Hallisey</b> heard about the Ebola disaster in Africa in 2014, she decided to do something to help. So, in her science class at school, she started researching new ways to test for the [[disease]]. At the moment, health workers need to [[refrigerate]] the [[blood samples]] they get from people, but this is difficult in rural Africa where many areas don't have electricity. Olivia's invention, though, is a simple piece of paper whose colour changes when it [[detects]] the [[virus]]! Olivia won the main award at Google's Science Fair in September 2015 and now she hopes that a company can start producing her test. This young woman from the USA is very hard-working and that's why she has a great future ahead of her!</p>
+  </div>
+  <div class="tblwrap"><table>
+    <tr><th>Слово</th><th>Перевод</th><th>Пример из текста</th></tr>
+    <tbody id="tbl-teens"></tbody>
+  </table></div>
+
+  <div class="ex" data-ex="a4">
+    <div class="ex-h"><h4>Ex. 4 · Which teenager(s)…?</h4><span class="score"></span></div>
+  </div>
+
+  <h3>Grammar · Relative pronouns &amp; adverbs</h3>
+  <div class="card rule">
+    <p>Относительные слова начинают придаточное, которое уточняет, <i>о ком</i> или <i>о чём</i> речь.</p>
+    <div class="tblwrap"><table>
+      <tr><th>Слово</th><th>К чему относится</th><th>Пример</th></tr>
+      <tr><td><b>who / that</b></td><td>люди</td><td class="en">A vet is someone <span class="hl">who</span> helps sick animals.</td></tr>
+      <tr><td><b>which / that</b></td><td>вещи, животные</td><td class="en">This is the book <span class="hl">which</span> I like.</td></tr>
+      <tr><td><b>whose</b></td><td>принадлежность (чей)</td><td class="en">That's the girl <span class="hl">whose</span> mum works in a bank.</td></tr>
+      <tr><td><b>when</b></td><td>время</td><td class="en">2018 was the year <span class="hl">when</span> they visited the USA.</td></tr>
+      <tr><td><b>where</b></td><td>место</td><td class="en">This is the park <span class="hl">where</span> I skate.</td></tr>
+      <tr><td><b>why</b></td><td>причина</td><td class="en">That's the reason <span class="hl">why</span> he left.</td></tr>
+    </table></div>
+    <p class="small muted">Подсказка: если после пропуска идёт подлежащее и глагол (<i>I skate</i>), а место уже названо (<i>the park</i>), нужен <b>where</b>. Если сразу глагол (<i>…which is big</i>), нужен <b>which/who</b>.</p>
+  </div>
+  <div class="ex" data-ex="a5"><div class="ex-h"><h4>Ex. 5b · Choose the correct answer</h4><span class="score"></span></div></div>
+</section>
+
+<!-- ============ 3b ============ -->
+<section class="unit" id="b">
+  <div class="poster dark">
+    <div class="corner"><span class="label">3b · p. 28–29</span><span class="label">Appearance<br>Participles</span></div>
+    <h2>who's<br><em>who?</em></h2>
+    <div class="foot"><span class="desc">Внешность, составные прилагательные, причастия -ed/-ing, порядок прилагательных.</span><span class="arrow">→</span></div>
+  </div>
+
+  <h3>Appearance · Внешность</h3>
+  <div class="tblwrap"><table id="appTbl"></table></div>
+
+  <div class="card rule"><b>Word formation · Составные прилагательные</b>
+    <p>Прилагательное + существительное + <b>-ed</b>: <span class="en">gold-haired</span> (золотоволосый), <span class="en">blue-eyed</span> (голубоглазый), <span class="en">broad-shouldered</span> (широкоплечий), <span class="en">long-legged</span>, <span class="en">fair-haired</span>, <span class="en">well-built</span>.</p></div>
+
+  <h3>Диалог Clara и Fiona коротко</h3>
+  <div class="card text"><p>Clara была на школьном спектакле <i>Alice in Wonderland</i>, но не может понять, кто есть кто (<span class="en">can't tell who is who</span>). Fiona показывает: <b>Robert</b>, невысокий мальчик с колючими светлыми волосами и веснушками, играл Белого Кролика; <b>Julie</b>, высокая крепкая девочка с длинными тёмными волосами, играла Герцогиню; <b>Matt</b> с короткими каштановыми волосами играл Чеширского Кота. Matt понравился Кларе: <i>He's so cute!</i></p></div>
+  <h3>Диалог полностью · Слова</h3>
+  <p class="small muted">Нажми на выделенное слово в тексте: оно прозвучит и покажет перевод.</p>
+  <div class="card text orig" id="txt-clara">
+    <p><b class="who">Clara:</b> Your school play was [[exciting]], Fiona! Thanks for inviting me.</p>
+    <p><b class="who">Fiona:</b> I'm glad you enjoyed it, Clara. Everyone worked hard to [[stage]] <i>Alice in Wonderland</i>. Do you want to meet the actors?</p>
+    <p><b class="who">Clara:</b> Yes, I'd love to, but … I [[can't tell who is who]]! I only remember them in their costumes on stage!</p>
+    <p><b class="who">Fiona:</b> OK, let me help you. Can you see the short boy over there with spiky blond hair and freckles?</p>
+    <p><b class="who">Clara:</b> The one with spiky hair?</p>
+    <p><b class="who">Fiona:</b> Yes. That's Robert. He played the [[part]] of the White Rabbit!</p>
+    <p><b class="who">Clara:</b> Oh, really? He was very funny! What about the Duchess?</p>
+    <p><b class="who">Fiona:</b> Julie was the Duchess! She's the tall, well-built girl with long dark hair in the corner.</p>
+    <p><b class="who">Clara:</b> She looked huge in that big costume! And who played the Cheshire Cat?</p>
+    <p><b class="who">Fiona:</b> Oh, that was Matt, the boy next to the coffee table. The one with short brown hair.</p>
+    <p><b class="who">Clara:</b> He's so cute! Come on! I want you to [[introduce]] me to him first!</p>
+  </div>
+  <div class="tblwrap"><table>
+    <tr><th>Слово</th><th>Перевод</th><th>Пример из текста</th></tr>
+    <tbody id="tbl-clara"></tbody>
+  </table></div>
+
+  <div class="ex" data-ex="b3"><div class="ex-h"><h4>Ex. 3b · True or False</h4><span class="score"></span></div></div>
+
+  <h3>Grammar · -ed / -ing participles</h3>
+  <div class="card rule">
+    <div class="grid2">
+      <div><b>-ing</b> описывает, <i>какой</i> предмет или человек (причина чувства).<p class="en">It was a <span class="hl">boring</span> film. The trip was <span class="hl">tiring</span>.</p></div>
+      <div><b>-ed</b> описывает, <i>что чувствует</i> человек.<p class="en">We are <span class="hl">bored</span>. I'm <span class="hl">tired</span>.</p></div>
+    </div>
+    <p class="small muted">Пары: bored/boring · tired/tiring · interested/interesting · scared/scary (scaring) · disappointed/disappointing · excited/exciting · surprised/surprising · frightened/frightening</p>
+  </div>
+  <div class="ex" data-ex="b4"><div class="ex-h"><h4>Ex. 4 · Choose the correct answer</h4><span class="score"></span></div></div>
+
+  <h3>Grammar · Order of adjectives</h3>
+  <div class="card rule">
+    <p>Не больше трёх прилагательных перед существительным, порядок такой:</p>
+    <div class="plan">
+      <div><b>1 Opinion</b>мнение: kind, excellent, patient</div>
+      <div><b>2 Size / Height / Age</b>tall, short, young, elderly</div>
+      <div><b>3 Origin</b>American, French, British</div>
+      <div><b>4 Noun</b>athlete, teacher</div>
+    </div>
+    <p class="en" style="margin-top:10px">Bob is an <span class="hl">excellent young American</span> athlete.</p>
+    <p class="small muted">Артикль смотрит на первое прилагательное: <b>an</b> imaginative…, <b>a</b> kind…</p>
+  </div>
+  <div class="ex" data-ex="b5"><div class="ex-h"><h4>Ex. 5 · Собери предложение (нажимай слова по порядку)</h4><span class="score"></span></div></div>
+
+  <h3>Everyday English · Describing people</h3>
+  <div class="grid2">
+    <div class="card"><b>Внешность</b><p class="en">What does your mum look like?<br>— She's tall and slim.</p><p class="en">What is she wearing?<br>What does he usually wear?</p></div>
+    <div class="card"><b>Характер</b><p class="en">What is she like?<br>— She's friendly and kind.</p><p class="small muted">Не путай: <i>What does she look like?</i> — про внешность, <i>What is she like?</i> — про характер, <i>What does she like?</i> — что ей нравится.</p></div>
+  </div>
+</section>
+
+<!-- ============ 3c ============ -->
+<section class="unit" id="c">
+  <div class="poster red">
+    <div class="corner"><span class="label">3c · p. 30</span><span class="label">People<br>we admire</span></div>
+    <h2>against<br>all <em>odds.</em></h2>
+    <div class="foot"><span class="desc">Статья о Стивене Хокинге, предлоги, фразовый глагол give, план статьи.</span><span class="arrow">→</span></div>
+  </div>
+
+  <div class="card text">
+    <p><b>Para 1.</b> Stephen William Hawking, учёный, родился 8 января 1942 года в Оксфорде. Известен работами о законах вселенной и тем, как справлялся (<span class="en">coped with</span>) с болезнью двигательных нейронов (MND).</p>
+    <p><b>Para 2.</b> Учился физике в Оксфорде, там ему поставили диагноз (<span class="en">was diagnosed</span>). Постепенно потерял контроль над мышцами, но закончил учёбу, женился и начал карьеру.</p>
+    <p><b>Para 3.</b> Потом полностью потерял голос и мог общаться только моргая (<span class="en">blinking</span>). Компьютер на инвалидном кресле позволил ему говорить. Бестселлер — <i>A Brief History of Time</i>. Умер 14 марта 2018 года.</p>
+    <p><b>Para 4.</b> Автор восхищается им, потому что он был умным и смелым и никогда не сдавался (<span class="en">never gave up on life</span>).</p>
+  </div>
+
+  <h3>Words in bold · Слова из текста</h3>
+  <p class="small muted">Нажми на выделенное слово в тексте: оно прозвучит и покажет перевод.</p>
+  <div class="card text orig" id="txt-hawk">
+    <p>The person that I admire most is the scientist Stephen William Hawking. He was born on 8th January 1942, in Oxford, England. Stephen is famous for his work on the basic [[laws]] of the [[universe]]. He is also famous for the way he [[coped]] with having Motor Neuron Disease (MND).</p>
+    <p>Stephen studied Physics at University College, Oxford. He was [[diagnosed]] with MND while still at university. Stephen slowly lost control of his [[muscles]] and eventually he couldn't walk. Despite this, he finished his studies, got married and [[started a career]] at the university.</p>
+    <p>Some years later, he lost his voice completely. Unfortunately, he was in the middle of writing a book at the time and suddenly had no way to communicate other than [[blinking]]. A computer system on his [[wheelchair]] [[enabled]] him to speak. Of his many books, <i>A Brief History of Time</i> is Stephen's bestseller. Hawking died on 14th March 2018.</p>
+    <p>The reason I admire him is because he was very intelligent and brave, and he never [[gave up on]] life. When I think of him, I know that anything is possible as long as you really want it and work hard to [[achieve]] it.</p>
+  </div>
+  <div class="tblwrap"><table>
+    <tr><th>Слово</th><th>Перевод</th><th>Пример из текста</th></tr>
+    <tbody id="tbl-hawk"></tbody>
+  </table></div>
+
+  <h3>Prepositions · Предлоги после слов</h3>
+  <div class="tblwrap"><table>
+    <tr><th>Сочетание</th><th>Перевод</th><th>Пример</th></tr>
+    <tr><td><b>famous for</b></td><td>знаменит чем-то</td><td class="en">He is famous for his work.</td></tr>
+    <tr><td><b>work on</b></td><td>работать над</td><td class="en">his work on the laws of the universe</td></tr>
+    <tr><td><b>cope with</b></td><td>справляться с</td><td class="en">He coped with his illness.</td></tr>
+    <tr><td><b>lose control of</b></td><td>потерять контроль над</td><td class="en">He lost control of his muscles.</td></tr>
+    <tr><td><b>give up on</b></td><td>опустить руки, сдаться</td><td class="en">He never gave up on life.</td></tr>
+  </table></div>
+
+  <h3>Phrasal verbs · give</h3>
+  <div class="grid2">
+    <div class="card"><b>give back</b> — вернуть<p class="en">Give me back my book, please.</p></div>
+    <div class="card"><b>give away</b> — отдать бесплатно<p class="en">They gave away their old toys.</p></div>
+    <div class="card"><b>give up</b> — бросить, перестать<p class="en">He gave up smoking last year.</p></div>
+  </div>
+  <div class="ex" data-ex="c4"><div class="ex-h"><h4>Ex. 4 · Complete the sentences</h4><span class="score"></span></div></div>
+
+  <h3>Study skills · Как построить статью</h3>
+  <div class="plan">
+    <div><b>Para 1 · Introduction</b>name, date/place of birth, profession</div>
+    <div><b>Para 2 · Main body</b>early years</div>
+    <div><b>Para 3 · Main body</b>later years</div>
+    <div><b>Para 4 · Conclusion</b>the reasons I admire him/her</div>
+  </div>
+  <p class="small muted">Первый абзац коротко вводит тему, второй и третий раскрывают по одной идее, последний подводит итог другими словами.</p>
+</section>
+
+<!-- ============ 3d ============ -->
+<section class="unit" id="d">
+  <div class="poster cream">
+    <div class="corner"><span class="label">3d · p. 31</span><span class="label">Culture<br>Corner</span></div>
+    <h2>the yeoman <em>warders.</em></h2>
+    <div class="foot"><span class="desc">Бифитеры лондонского Тауэра: кто они, что делают и откуда название.</span><span class="arrow">→</span></div>
+  </div>
+  <div class="card text">
+    <p>Лондонский <b>Tower</b> построен в XI веке, его охраняют <b>Yeoman Warders</b>, или <b>Beefeaters</b>. Их ввёл король Генрих VII в 1485 году как личных телохранителей (<span class="en">bodyguards</span>). Раньше они стерегли узников и королевские драгоценности (Crown Jewels), сейчас работают экскурсоводами (<span class="en">guides</span>) и ухаживают за восемью воронами (<span class="en">ravens</span>).</p>
+    <p>Их 37, каждый прослужил в армии (<span class="en">armed forces</span>) не меньше 22 лет. Живут в Тауэре с семьями. В 2007 году первой женщиной-бифитером стала Moira Cameron.</p>
+    <p>Знаменитая красно-золотая форма надевается только по торжественным случаям (<span class="en">formal occasions</span>), обычно они носят тёмно-синюю с красной отделкой. Откуда название, точно неизвестно: может, им платили мясом (beef), а может, от французского <i>buffetier</i> — стражник, охранявший королевскую еду.</p>
+  </div>
+  <h3>The Yeoman Warders · Текст и слова</h3>
+  <p class="small muted">Нажми на выделенное слово: оно прозвучит и покажет перевод. Пропуски 1–5 заполняются в упражнении ниже.</p>
+  <div class="card text orig" id="txt-tower">
+    <p>A trip to London is never complete without a visit to the Tower of London. The site [[dates back]] to the 11th century and [[is guarded]] by the Yeoman warders, or 'Beefeaters'.</p>
+    <p>King Henry VII first introduced Beefeaters in 1485 <span class="gap">1</span> he used them as [[bodyguards]]. Their [[duties]] included looking after the [[prisoners]] in the Tower and guarding the Crown Jewels. These days though, their main role is to act as [[guides]] for the many tourists <span class="gap">2</span> visit the Tower every year. They also take care of the eight big black [[ravens]] <span class="gap">3</span> live in the tower.</p>
+    <p>There are 37 Yeoman Warders at the Tower, <span class="gap">4</span> were in the [[armed forces]] for 22 years or more. They live in the Tower with their families. On 1st July 2007 a service woman, Moira Cameron, became the first female Yeoman Warder in the history of the institution.</p>
+    <p>The Beefeaters are most famous for their [[striking]] red and gold [[uniform]], but they actually only wear this on [[formal occasions]]. Most of the time they wear a dark blue uniform with red trimmings.</p>
+    <p>No one is exactly sure <span class="gap">5</span> the name 'Beefeater' comes from. One theory says that the warders used to be paid with meat instead of money! Others say that the name comes from the French word <i>buffetier</i>. Buffetiers were guards in the palace of French Kings. They protected the King's food.</p>
+  </div>
+  <div class="tblwrap"><table>
+    <tr><th>Слово</th><th>Перевод</th><th>Пример из текста</th></tr>
+    <tbody id="tbl-tower"></tbody>
+  </table></div>
+
+  <div class="ex" data-ex="d2"><div class="ex-h"><h4>Ex. 2 · Choose the correct word</h4><span class="score"></span></div></div>
+  <div class="ex" data-ex="d3"><div class="ex-h"><h4>Ex. 3 · True / False / Not stated</h4><span class="score"></span></div></div>
+</section>
+
+<!-- ============ English in Use ============ -->
+<section class="unit" id="use">
+  <div class="poster dark">
+    <div class="corner"><span class="label">English in Use · p. 32</span><span class="label">Hobbies<br>& jobs</span></div>
+    <h2>what does your dad <em>do?</em></h2>
+    <div class="foot"><span class="desc">Разговор о профессиях и хобби, определения через who, звуки /e/ и /æ/.</span><span class="arrow">→</span></div>
+  </div>
+  <div class="card dialog" id="dlg"></div>
+  <div class="ex" data-ex="u3"><div class="ex-h"><h4>Ex. 3 · Put the phrases in the correct place</h4><span class="score"></span></div></div>
+
+  <h3>Полезные реплики</h3>
+  <div class="tblwrap"><table>
+    <tr><th>Задача</th><th>Фраза</th></tr>
+    <tr><td>спросить о работе</td><td class="en">What does your dad do? · What do your parents do?</td></tr>
+    <tr><td>назвать работу</td><td class="en">He's a lawyer. · She works as a doctor.</td></tr>
+    <tr><td>спросить о хобби</td><td class="en">What are your dad's hobbies? · Does he have any time for hobbies?</td></tr>
+    <tr><td>проявить интерес</td><td class="en">Wow! It must be very rewarding. · Goodness me!</td></tr>
+    <tr><td>согласиться / усомниться</td><td class="en">Yes, it certainly is. · If you say so. · No, he's not actually.</td></tr>
+  </table></div>
+
+  <h3>Pronunciation /e/ – /æ/</h3>
+  <div class="card">
+    <p><b>e</b> в закрытом слоге читается /e/ (как русское «э»): get. <b>a</b> в закрытом слоге — /æ/ (широкое «э», рот открыт больше): glad.</p>
+    <div class="tblwrap"><table id="pron"></table></div>
+  </div>
+</section>
+
+<!-- ============ Extensive reading ============ -->
+<section class="unit" id="hist">
+  <div class="poster soil">
+    <div class="corner"><span class="label">Extensive Reading · p. 33</span><span class="label">Across the<br>curriculum</span></div>
+    <h2>children <em>(in victorian times)</em></h2>
+    <div class="foot"><span class="desc">Как работали дети в Англии XIX века и кто это остановил.</span><span class="arrow">→</span></div>
+  </div>
+  <div class="card text">
+    <p>Королева Виктория правила с 1837 по 1901 год. Дети из бедных семей работали с пяти лет. Работа была тяжёлой и часто опасной.</p>
+    <p><b>Chimney sweeps</b> (трубочисты): брали маленьких и худых, часто сирот (<span class="en">orphans</span>), чтобы они пролезали в узкие трубы.</p>
+    <p><b>Cotton factories</b>: когда рвались нитки (<span class="en">cotton threads</span>), дети залезали в работающие машины их чинить.</p>
+    <p><b>Coal mines</b>: толкали тележки с углём (<span class="en">trucks of coal</span>) или открывали двери, чтобы воздух проходил по тоннелям.</p>
+    <p>Хозяева (<span class="en">masters</span>) были жестокими (<span class="en">cruel</span>): долгий рабочий день, низкая плата (<span class="en">low wages</span>), болезни и несчастные случаи. <b>Lord Shaftesbury</b> помог это остановить и открыл бесплатные школы для бедных детей. К концу эпохи все дети учились до 10 лет.</p>
+  </div>
+  <h3>Children in Victorian times · Текст и слова</h3>
+  <p class="small muted">Нажми на выделенное слово в тексте: оно прозвучит и покажет перевод.</p>
+  <div class="card text orig" id="txt-vict">
+    <p>Victoria was the Queen of England, from 1837 to 1901. During early Victorian times, children from poor families worked from the age of five to feed themselves and their families. These jobs weren't easy and were often dangerous.</p>
+    <p>Many children worked as [[chimney sweeps]] because they were small and thin. They climbed up narrow chimneys to clean them. Street children or [[orphans]] usually did this job.</p>
+    <p>A lot of children also worked in [[cotton factories]]. When the [[cotton threads]] broke, children went into the machines to fix them. This was very dangerous.</p>
+    <p>Other children worked in coal mines. They pushed [[trucks]] of [[coal]] or they opened and closed doors to let air through [[tunnels]].</p>
+    <p>The [[masters]] were often [[cruel]]. Children worked long hours for very low wages. A lot of children had health problems and accidents.</p>
+    <p>Lord Shaftesbury helped to stop [[adults]] from using young children at work. He started free schools for poor children. By the end of Victorian times all children went to school until the age of 10.</p>
+  </div>
+  <div class="tblwrap"><table>
+    <tr><th>Слово</th><th>Перевод</th><th>Пример из текста</th></tr>
+    <tbody id="tbl-vict"></tbody>
+  </table></div>
+
+  <div class="ex" data-ex="h3"><div class="ex-h"><h4>Ex. 3a · Complete the sentences</h4><span class="score"></span></div></div>
+  <div class="card rule"><b>Grammar · all</b>
+    <p><b>all + существительное</b> (мн. ч. или неисчисляемое): <span class="en">All my friends like adventure stories. All cheese has protein.</span></p>
+    <p><b>all + of + местоимение</b> (us / them / you): <span class="en">I want to invite all of them.</span></p>
+  </div>
+</section>
+
+<!-- ============ Progress Check ============ -->
+<section class="unit" id="check">
+  <div class="poster cream">
+    <div class="corner"><span class="label">Progress Check · p. 34</span><span class="label">My score<br>/100</span></div>
+    <h2>progress <span class="circled">check.</span></h2>
+    <div class="foot"><span class="desc">Те же задания, что в учебнике, с баллами. Итог считается внизу экрана.</span><span class="arrow">→</span></div>
+  </div>
+  <h3>Now I can…</h3>
+  <div class="card"><ul class="canlist" id="canlist">
+    <li>talk / write about hobbies</li>
+    <li>talk / write about physical appearance and character</li>
+    <li>talk about people's jobs &amp; hobbies</li>
+    <li>write a description of a person</li>
+    <li>write an email about a tourist attraction in Russia</li>
+    <li>write a short text about history</li>
+  </ul><p class="small muted">Отметь, что уже получается. Сохраняется на этом устройстве.</p></div>
+  <div class="ex" data-ex="p1" data-pts="2"><div class="ex-h"><h4>1 · fit, imaginative, sociable, determined, patient, creative</h4><span class="score"></span></div></div>
+  <div class="ex" data-ex="p2" data-pts="3"><div class="ex-h"><h4>2 · Choose the odd word out</h4><span class="score"></span></div></div>
+  <div class="ex" data-ex="p3" data-pts="2"><div class="ex-h"><h4>3 · back, away, up, for, with, of</h4><span class="score"></span></div></div>
+  <div class="ex" data-ex="p4" data-pts="3"><div class="ex-h"><h4>4 · Put the words in the correct order</h4><span class="score"></span></div></div>
+  <div class="ex" data-ex="p5" data-pts="3"><div class="ex-h"><h4>5 · Choose the correct word</h4><span class="score"></span></div></div>
+  <div class="ex" data-ex="p6" data-pts="5"><div class="ex-h"><h4>6 · Choose the correct word</h4><span class="score"></span></div></div>
+  <div class="ex" data-ex="p7" data-pts="5"><div class="ex-h"><h4>7 · Complete the exchanges</h4><span class="score"></span></div></div>
+  <div class="total"><div class="pill"><span class="label">my score</span><span><b id="total">0</b> / 100</span><span class="knob">→</span></div><button class="btn" id="resetCheck">Заново</button></div>
+</section>
+
+
+<footer><span class="script">good luck!</span><span class="label">Spotlight 8 · Module 3 · Profiles</span></footer>
+</div>
+
+<script>
+/* ---------- данные ---------- */
+const HOBBIES=[["sewing","шитьё"],["writing stories","писать рассказы"],["skateboarding","катание на скейтборде"],["ice-skating","катание на коньках"],["knitting","вязание"],["collecting stamps","коллекционирование марок"],["playing chess","игра в шахматы"],["boxing","бокс"],["fencing","фехтование"],["football","футбол"],["painting","рисование красками"],["songwriting","сочинение песен"]];
+const CHAR=[["artistic","творческий, с художественным талантом","You need to be artistic to paint."],["creative","творческий, изобретательный","Songwriters are creative."],["daring","смелый, отважный","Skateboarders are daring."],["fit","в хорошей форме","You need to be fit to box."],["patient","терпеливый","Knitting needs patient people."],["athletic","спортивный","Footballers are athletic."],["sociable","общительный","Sociable people like parties."],["curious","любознательный","Collectors are curious."],["determined","целеустремлённый","Chess players are determined to win."],["imaginative","с богатым воображением","Writers are imaginative."]];
+const APP=[["Build","телосложение","slim, thin, skinny, well-built, plump, fat, heavily built, broad-shouldered"],["Age","возраст","baby, child, young, teenager, in his/her twenties / thirties, middle-aged, old, elderly"],["Hair","волосы","short, spiky, straight, shoulder-length, long, blond(e), red, brown, fair, dark, grey, curly, wavy, bald, pigtails"],["Height","рост","short, of medium height, tall"],["Face","лицо","cute, pretty, ugly, round, thin"],["Special features","особые приметы","dark tan, scar, beard, moustache, freckles"]];
+const PRON=[["set","/e/"],["sat","/æ/"],["bed","/e/"],["bad","/æ/"],["kettle","/e/"],["cattle","/æ/"],["pet","/e/"],["pat","/æ/"]];
+const DLG=[["Harry","Hi, Peter! Where were you?"],["Peter","In my dad's office. I wanted to give him some papers."],["Harry","1) <span class='gap' data-g='1'>…</span>"],["Peter","He's a lawyer."],["Harry","Mine is a vet."],["Peter","Wow! It must be very rewarding."],["Harry","2) <span class='gap' data-g='2'>…</span> Dad loves looking after the animals. He sometimes brings them home for the night!"],["Peter","Goodness me! Does he have any time for hobbies?"],["Harry","3) <span class='gap' data-g='3'>…</span> He plays golf every weekend though if he has the chance. 4) <span class='gap' data-g='4'>…</span>"],["Peter","He likes playing board games."],["Harry","Board games! They're a bit boring, aren't they?"],["Peter","He doesn't seem to think so. He loves sitting by the fire playing chess."],["Harry","5) <span class='gap' data-g='5'>…</span> But I'm not sure if I agree!"]];
+const U3=["A What are your dad's hobbies?","B Not a lot really.","C No, he's not actually.","D If you say so.","E What does your dad do?","F Yes, it certainly is."];
+
+/* Упражнения: q — текст (___ пропуск), o — варианты, a — индекс верного, w — пояснение */
+const EX={
+ a4:[{q:"became well-known from the Internet?",o:["Shawn","Martin","Olivia"],a:0,w:"Шестисекундные видео на YouTube."},
+     {q:"won a prize?",o:["Shawn and Olivia","Martin only","Olivia only"],a:0,w:"Shawn — Teen Choice Awards, Olivia — Google Science Fair."},
+     {q:"holds the record for something?",o:["Shawn","Martin","Olivia"],a:1,w:"Самый молодой игрок Real Madrid."},
+     {q:"wanted to help people in need?",o:["Shawn","Martin","Olivia"],a:2,w:"Тест на вирус Эбола."}],
+ a5:[{q:"This is the skate park ___ I skate regularly.",o:["which","where"],a:1,w:"Место + I skate → where."},
+     {q:"That's the girl ___ mum works in a bank.",o:["who","whose"],a:1,w:"Чья мама → whose."},
+     {q:"Arthur Conan Doyle was the author ___ created Sherlock Holmes.",o:["which","who"],a:1,w:"Человек → who."},
+     {q:"2018 was the year ___ they visited the USA.",o:["when","which"],a:0,w:"Время → when."}],
+ b3:[{q:"Clara didn't like the school play.",o:["True","False"],a:1,w:"Your school play was exciting!"},
+     {q:"Clara doesn't know the names of the actors.",o:["True","False"],a:0,w:"I can't tell who is who!"},
+     {q:"Robert has got curly hair.",o:["True","False"],a:1,w:"У него spiky blond hair."},
+     {q:"Julie looked slim in her new costume.",o:["True","False"],a:1,w:"She looked huge."},
+     {q:"Clara is interested in Matt.",o:["True","False"],a:0,w:"He's so cute! I want you to introduce me to him first!"}],
+ b4:[{q:"Jack is ___ of spiders.",o:["scared","scaring"],a:0,w:"Чувство Джека → -ed."},
+     {q:"I find the maths lessons really ___.",o:["bored","boring"],a:1,w:"Какие уроки → -ing."},
+     {q:"Tonia is ___ in football.",o:["interested","interesting"],a:0,w:"interested in — интересоваться."},
+     {q:"The trip was ___.",o:["tired","tiring"],a:1,w:"Какая поездка → -ing."},
+     {q:"I'm ___ in you.",o:["disappointed","disappointing"],a:0,w:"Моё чувство → -ed."}],
+ b5:[{t:"order",pre:"Mr Brown is",words:["a","kind","elderly","French","teacher"]},
+     {t:"order",pre:"Sandy is",words:["a","patient","middle-aged","British","colleague"]},
+     {t:"order",pre:"Boris Schwartz is",words:["a","tall","young","German","tennis player"]}],
+ c4:[{q:"They ___ their old toys to the poor children last week.",o:["gave away","gave up","gave back"],a:0,w:"Отдали бесплатно."},
+     {q:"He ___ smoking last year.",o:["gave away","gave up","gave back"],a:1,w:"Бросил."},
+     {q:"___ me ___ my book, please.",o:["Give … away","Give … up","Give … back"],a:2,w:"Верни мне книгу."}],
+ d2:[{q:"King Henry VII first introduced Beefeaters in 1485 ___ he used them as bodyguards.",o:["who","when"],a:1,w:"Год → when."},
+     {q:"…to act as guides for the many tourists ___ visit the Tower every year.",o:["that","where"],a:0,w:"Люди (туристы) → that."},
+     {q:"They also take care of the eight big black ravens ___ live in the tower.",o:["that","who"],a:0,w:"Животные → that/which."},
+     {q:"There are 37 Yeoman Warders at the Tower, ___ were in the armed forces for 22 years or more.",o:["who","whose"],a:0,w:"Люди → who."},
+     {q:"No one is exactly sure ___ the name 'Beefeater' comes from.",o:["where","when"],a:0,w:"Откуда → where."}],
+ d3:[{q:"Beefeaters guard the Tower of London.",o:["T","F","NS"],a:0,w:"…is guarded by the Yeoman Warders."},
+     {q:"They have been around for over 500 years.",o:["T","F","NS"],a:0,w:"С 1485 года."},
+     {q:"They don't help tourists.",o:["T","F","NS"],a:1,w:"Их главная роль — guides for tourists."},
+     {q:"They have two uniforms.",o:["T","F","NS"],a:0,w:"Красно-золотая и тёмно-синяя."},
+     {q:"Beefeaters eat lots of meat.",o:["T","F","NS"],a:2,w:"Только теория, что им платили мясом."}],
+ u3:[1,2,3,4,5].map((n,i)=>({q:"Gap "+n,o:U3,a:[4,5,1,0,3][i],gap:n,w:i==4?"Лишняя фраза — C.":""})),
+ h3:[{q:"Children's work in cotton factories was ___.",o:["very dangerous","easy and safe","well paid"],a:0},
+     {q:"Chimney sweeps had to be ___.",o:["tall and strong","small and thin","orphans only"],a:1},
+     {q:"Children in mines pushed ___.",o:["machines","trucks of coal","doors"],a:1},
+     {q:"Masters made children work ___.",o:["short hours for good wages","long hours for very low wages","only at weekends"],a:1},
+     {q:"Lord Shaftesbury started ___.",o:["new factories","free schools for poor children","coal mines"],a:1}],
+ p1:[["John doesn't get upset easily. He's ___.","patient"],["Jill is very ___. She spends every afternoon at the gym.","fit"],["Robert enjoys parties. He is very ___.","sociable"],["She's a(n) ___ person; she designs and makes her own clothes.","creative"],["Warren won't give up easily. He is ___ to succeed.","determined"],["Mary's story was very ___.","imaginative"]]
+     .map(([q,a])=>{const o=["fit","imaginative","sociable","determined","patient","creative"];return{q,o,a:o.indexOf(a)}}),
+ p2:[{q:"",o:["bald","young","teenager","elderly"],a:0,w:"Остальное — возраст."},
+     {q:"",o:["slim","plump","freckles","well-built"],a:2,w:"Остальное — телосложение."},
+     {q:"",o:["spiky","wavy","curly","middle-aged"],a:3,w:"Остальное — волосы."},
+     {q:"",o:["pretty","ugly","tall","cute"],a:2,w:"Остальное — лицо, tall — рост."}],
+ p3:[["Don't give ___ even if you fail your test.","up"],["I gave Jim his toy ___.","back"],["He can't cope ___ his problems.","with"],["He was famous ___ his music.","for"],["You must not give ___ your school books.","away"],["He lost control ___ his muscles.","of"]]
+     .map(([q,a])=>{const o=["back","away","up","for","with","of"];return{q,o,a:o.indexOf(a)}}),
+ p4:[{t:"order",words:["a","kind","young","German","student"]},
+     {t:"order",words:["an","imaginative","elderly","Russian","woman"]},
+     {t:"order",words:["a","short","plump","British","teenager"]},
+     {t:"order",words:["a","tall","skinny","American","basketball player"]}],
+ p5:[{q:"That's the boy ___ lives next door.",o:["whose","who"],a:1},
+     {q:"The people ___ horse won the race come from Portugal.",o:["which","whose"],a:1},
+     {q:"2014 was the year ___ the Olympic Games were held in Sochi.",o:["when","where"],a:0},
+     {q:"This is the house ___ he was born.",o:["which","where"],a:1}],
+ p6:[{q:"The movie was really ___.",o:["scared","scaring"],a:1},
+     {q:"Kim was ___ after the game.",o:["tiring","tired"],a:1},
+     {q:"He was ___ with the news.",o:["disappointed","disappointing"],a:0},
+     {q:"The book was very ___.",o:["bored","boring"],a:1}],
+ p7:(()=>{const o=["What does Lucy look like?","What does your dad do?","I'm glad you enjoyed it.","Not a lot really."];
+     return[{q:"A: ___<br>B: He's a vet.",o,a:1},{q:"A: Does he have much time for hobbies?<br>B: ___",o,a:3},{q:"A: ___<br>B: She has blonde hair and blue eyes.",o,a:0},{q:"A: Thanks for inviting me.<br>B: ___",o,a:2}]})()
+};
+
+/* ---------- утилиты ---------- */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+function say(t){try{if(!window.speechSynthesis)return;const u=new SpeechSynthesisUtterance(t);u.lang='en-GB';u.rate=.85;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+const sp=t=>`<button class="speak" aria-label="Произнести" onclick="say('${t.replace(/'/g,"\\'")}')">🔊</button>`;
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+
+/* ---------- статичные блоки ---------- */
+$("#hobbies").innerHTML=HOBBIES.map(([e,r])=>`<span class="chip"><b>${e}</b> · ${r}</span>`).join("");
+$("#charTbl").innerHTML=CHAR.map(([e,r,x])=>`<tr><td><b>${e}</b> ${sp(e)}</td><td>${r}</td><td class="en">${x}</td></tr>`).join("");
+$("#appTbl").innerHTML=`<tr><th>Что</th><th>Слова</th></tr>`+APP.map(([e,r,w])=>`<tr><td><b>${e}</b><div class="small muted">${r}</div></td><td>${w}</td></tr>`).join("");
+$("#pron").innerHTML=`<tr><th>Слово</th><th>Звук</th><th></th><th>Слово</th><th>Звук</th></tr>`+
+  [0,2,4,6].map(i=>`<tr><td><b>${PRON[i][0]}</b> ${sp(PRON[i][0])}</td><td>${PRON[i][1]}</td><td></td><td><b>${PRON[i+1][0]}</b> ${sp(PRON[i+1][0])}</td><td>${PRON[i+1][1]}</td></tr>`).join("");
+$("#dlg").innerHTML=DLG.map(([n,t])=>`<p><b>${n}:</b> ${t}</p>`).join("");
+
+/* ---------- Слова, выделенные жирным в текстах учебника ---------- */
+const BOLD={
+ teens:{"caught the attention":["catch the attention of","привлечь внимание","His talent caught the attention of a music producer."],
+  "contract":["contract","контракт","The producer gave him a contract."],
+  "determined":["determined","целеустремлённый, полный решимости","Shawn is determined to succeed."],
+  "reality":["reality","реальность","That dream has become a reality."],
+  "professional":["professional","профессиональный","He became a professional footballer at 15."],
+  "took off":["take off (took off)","резко пойти в гору (о карьере)","His career really took off!"],
+  "substitute":["substitute","запасной игрок, замена","He came on as a substitute."],
+  "replaced":["replace (replaced)","заменять","The player who Martin replaced was Ronaldo."],
+  "disease":["disease","болезнь","New ways to test for the disease."],
+  "refrigerate":["refrigerate","охлаждать, хранить в холодильнике","Health workers need to refrigerate the samples."],
+  "blood samples":["blood samples","образцы крови","the blood samples they get from people"],
+  "detects":["detect (detects)","обнаруживать","The paper changes colour when it detects the virus."],
+  "virus":["virus","вирус","It detects the virus!"]},
+ clara:{"exciting":["exciting","захватывающий","Your school play was exciting!"],
+  "stage":["stage","ставить (спектакль)","Everyone worked hard to stage Alice in Wonderland."],
+  "can't tell who is who":["can't tell who is who","не могу понять, кто есть кто","I can't tell who is who!"],
+  "part":["part","роль","He played the part of the White Rabbit."],
+  "introduce":["introduce","знакомить, представлять","I want you to introduce me to him first!"]},
+ hawk:{"laws":["laws","законы","the basic laws of the universe"],
+  "universe":["universe","вселенная","the laws of the universe"],
+  "coped":["cope with (coped)","справляться с","He coped with having MND."],
+  "diagnosed":["be diagnosed with","получить диагноз","He was diagnosed with MND."],
+  "muscles":["muscles","мышцы","He slowly lost control of his muscles."],
+  "started a career":["start a career","начать карьеру","He started a career at the university."],
+  "blinking":["blink (blinking)","моргать","No way to communicate other than blinking."],
+  "wheelchair":["wheelchair","инвалидное кресло","A computer system on his wheelchair."],
+  "enabled":["enable (enabled)","давать возможность, позволять","It enabled him to speak."],
+  "gave up on":["give up on","сдаваться, опускать руки","He never gave up on life."],
+  "achieve":["achieve","достигать","Work hard to achieve it."]},
+ tower:{"dates back":["date back to","восходить к, датироваться","The site dates back to the 11th century."],
+  "is guarded":["be guarded","охраняться","It is guarded by the Yeoman warders."],
+  "bodyguards":["bodyguards","телохранители","He used them as bodyguards."],
+  "duties":["duties","обязанности","Their duties included looking after the prisoners."],
+  "prisoners":["prisoners","заключённые, узники","looking after the prisoners in the Tower"],
+  "guides":["guides","гиды, экскурсоводы","Their main role is to act as guides."],
+  "ravens":["ravens","вороны","the eight big black ravens"],
+  "armed forces":["armed forces","вооружённые силы","They were in the armed forces for 22 years."],
+  "striking":["striking","яркий, броский","their striking red and gold uniform"],
+  "uniform":["uniform","форма, униформа","a dark blue uniform with red trimmings"],
+  "formal occasions":["formal occasions","торжественные случаи","They only wear this on formal occasions."]},
+ vict:{"chimney sweeps":["chimney sweeps","трубочисты","Many children worked as chimney sweeps."],
+  "orphans":["orphans","сироты","Street children or orphans usually did this job."],
+  "cotton factories":["cotton factories","хлопкопрядильные фабрики","Children worked in cotton factories."],
+  "cotton threads":["cotton threads","хлопковые нити","When the cotton threads broke…"],
+  "trucks":["trucks","вагонетки, тележки","They pushed trucks of coal."],
+  "coal":["coal","уголь","trucks of coal"],
+  "tunnels":["tunnels","тоннели","to let air through tunnels"],
+  "masters":["masters","хозяева","The masters were often cruel."],
+  "cruel":["cruel","жестокий","The masters were often cruel."],
+  "adults":["adults","взрослые","He helped to stop adults from using young children at work."]}
+};
+for(const [k,dict] of Object.entries(BOLD)){
+  const box=$("#txt-"+k);
+  box.innerHTML=box.innerHTML.replace(/\[\[(.+?)\]\]/g,(m,w)=>`<button class="bw" data-w="${w}">${w}<span class="tr">${dict[w][1]}</span></button>`);
+  box.onclick=e=>{const b=e.target.closest(".bw");if(!b)return;b.classList.toggle("open");say(b.dataset.w)};
+  $("#tbl-"+k).innerHTML=Object.values(dict).map(([e,r,x])=>`<tr><td><b>${e}</b> ${sp(e.replace(/ \(.*\)/,""))}</td><td>${r}</td><td class="en">${x}</td></tr>`).join("");
+}
+
+/* ---------- движок упражнений ---------- */
+const state={};
+function renderEx(box){
+  const id=box.dataset.ex, items=EX[id];
+  state[id]={done:0,right:0,n:items.length};
+  $$(".q,.ex-f",box).forEach(n=>n.remove());
+  items.forEach((it,i)=>{
+    const q=document.createElement("div"); q.className="q";
+    if(it.t==="order"){
+      const target=it.words;
+      q.innerHTML=`<div class="q-text">${i+1}. ${it.pre?it.pre+" …":""}</div><div class="order-out"></div><div class="opts"></div><div class="why"></div>`;
+      const out=$(".order-out",q), pool=$(".opts",q); let picked=[];
+      shuffle(target).forEach(w=>{const b=document.createElement("button");b.className="w";b.textContent=w;
+        b.onclick=()=>{if(out.dataset.lock)return;b.classList.add("used");picked.push(w);
+          const c=document.createElement("button");c.className="w";c.textContent=w;
+          c.onclick=()=>{if(out.dataset.lock)return;picked.splice(picked.indexOf(w),1);c.remove();b.classList.remove("used")};
+          out.appendChild(c);
+          if(picked.length===target.length){out.dataset.lock=1;const ok=picked.join(" ")===target.join(" ");
+            out.classList.add(ok?"right":"wrong");
+            $(".why",q).innerHTML=ok?"Верно!":"Правильно: <b>"+(it.pre?it.pre+" ":"")+target.join(" ")+"</b>";
+            mark(id,ok)}};
+        pool.appendChild(b)});
+    } else {
+      const text=it.q.replace("___",`<span class="gap">…</span>`);
+      q.innerHTML=`<div class="q-text">${i+1}. ${text}</div><div class="opts"></div><div class="why"></div>`;
+      const opts=$(".opts",q);
+      it.o.forEach((o,k)=>{const b=document.createElement("button");b.className="opt";b.innerHTML=o;
+        b.onclick=()=>{const ok=k===it.a;
+          $$(".opt",opts).forEach((x,j)=>{x.disabled=true;if(j===it.a)x.classList.add("right")});
+          if(!ok)b.classList.add("wrong");
+          const g=$(".gap",q); if(g){g.textContent=it.o[it.a].replace(/^[A-F] /,"");g.classList.add("done")}
+          if(it.gap){const dg=$(`#dlg .gap[data-g="${it.gap}"]`);if(dg){dg.textContent=it.o[it.a].replace(/^[A-F] /,"");dg.classList.add("done")}}
+          if(it.w)$(".why",q).textContent=it.w;
+          mark(id,ok)};
+        opts.appendChild(b)});
+    }
+    box.appendChild(q);
+  });
+  const f=document.createElement("div");f.className="ex-f";
+  f.innerHTML=`<button class="btn ghost">↺ Ещё раз</button>`;
+  f.firstChild.onclick=()=>{if(id==="u3")$$("#dlg .gap").forEach(g=>{g.textContent="…";g.classList.remove("done")});renderEx(box);updScore(box)};
+  box.appendChild(f); updScore(box);
+}
+function mark(id,ok){const s=state[id];s.done++;if(ok)s.right++;updScore($(`[data-ex="${id}"]`))}
+function updScore(box){const s=state[box.dataset.ex];
+  $(".score",box).textContent=s.done?`${s.right} / ${s.n}`:`0 / ${s.n}`;updTotal()}
+function updTotal(){let t=0;$$("#check .ex").forEach(b=>{const s=state[b.dataset.ex];if(s)t+=s.right*(+b.dataset.pts)});$("#total").textContent=t}
+$$(".ex").forEach(renderEx);
+$("#resetCheck").onclick=()=>{$$("#check .ex").forEach(renderEx);updTotal()};
+
+/* ---------- подсветка оглавления ---------- */
+const links=$$(".toc a");
+let jumping=0;
+const markToc=id=>links.forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+id));
+links.forEach(a=>a.addEventListener("click",()=>{markToc(a.getAttribute("href").slice(1));jumping=Date.now()}));
+const io=new IntersectionObserver(es=>{if(Date.now()-jumping<1200)return;
+  es.forEach(e=>{if(e.isIntersecting)markToc(e.target.id)})},{rootMargin:"-40% 0px -55% 0px"});
+$$("section.unit").forEach(s=>io.observe(s));
+
+/* ---------- Now I can ---------- */
+(function(){const K="m3can";let on=[];try{on=JSON.parse(localStorage.getItem(K)||"[]")}catch(e){}
+  $$("#canlist li").forEach((li,i)=>{if(on.includes(i))li.classList.add("on");
+    li.onclick=()=>{li.classList.toggle("on");on=$$("#canlist li").map((x,j)=>x.classList.contains("on")?j:-1).filter(j=>j>=0);
+      try{localStorage.setItem(K,JSON.stringify(on))}catch(e){}}})})();
+
+/* ---------- тема ---------- */
+(function(){const r=document.documentElement;let t=null;try{t=localStorage.getItem("m3theme")}catch(e){}
+  if(t)r.dataset.theme=t;
+  $("#themeBtn").onclick=()=>{const dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;
+    r.dataset.theme=dark?"light":"dark";try{localStorage.setItem("m3theme",r.dataset.theme)}catch(e){}}})();
+</script>
+</body>
+</html>
