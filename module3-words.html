@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 3 Words</title>
+<meta name="description" content="Слова и словосочетания Spotlight 8, Module 3: список, карточки, тест и тренажёр написания.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ctext y=%2226%22 font-size=%2226%22%3E%F0%9F%93%9D%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#ECF2D8; --card:#fffdf8; --ink:#4a2a38; --muted:#8a6a78; --line:#EFCFE3;
+  --accent:#E27396; --accent-ink:#fff; --ok:#2f8f99; --ok-bg:#d6eef0; --bad:#c94f77; --bad-bg:#f6dbe6; --chip:#f6e6ef;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#251a21; --card:#33242e; --ink:#f7e9f0; --muted:#c9a9b8; --line:#4a3542;
+    --accent:#EB9AB2; --accent-ink:#2a1820; --ok:#9fd6dc; --ok-bg:#1f3d41; --bad:#EB9AB2; --bad-bg:#4d2333; --chip:#3e2c38;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#251a21; --card:#33242e; --ink:#f7e9f0; --muted:#c9a9b8; --line:#4a3542;
+  --accent:#EB9AB2; --accent-ink:#2a1820; --ok:#9fd6dc; --ok-bg:#1f3d41; --bad:#EB9AB2; --bad-bg:#4d2333; --chip:#3e2c38;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:16px}
+h1,.big{font-family:"Abril Fatface",Georgia,serif;font-weight:400;letter-spacing:.01em}
+h1{font-size:32px;margin:6px 0 6px;color:var(--accent)}
+header{position:relative}
+.theme{position:absolute;top:4px;right:0;border:1px solid var(--line);background:var(--card);border-radius:99px;padding:6px 10px;font-size:14px;color:var(--ink)}
+button{font:inherit;cursor:pointer;color:inherit}
+a{color:var(--accent)}
+.muted{color:var(--muted)} .small{font-size:13px}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:4px 0;margin:10px 0}
+.tab{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:8px 14px;white-space:nowrap}
+.tab.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+select,input{font:inherit;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);max-width:100%}
+.stats{display:flex;gap:8px;flex-wrap:wrap}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:5px 12px;font-size:14px}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:8px 0 12px}
+.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,#B3DEE2,#EB9AB2,#E27396);transition:width .4s}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:12px}
+.btn{border:0;border-radius:12px;padding:11px 16px;background:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.speak{border:1px solid var(--line);background:var(--card);border-radius:99px;width:34px;height:34px;font-size:15px;line-height:1;flex:0 0 auto}
+/* список */
+.grp{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);margin:18px 0 6px}
+.item{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
+.item .main{flex:1;min-width:0}
+.item .en{font-weight:700;font-size:17px}
+.item .ru{margin-top:1px}
+.item .ex{font-size:14px;color:var(--muted);font-style:italic;margin-top:2px}
+.item.known .en::after{content:" ✓";color:var(--ok)}
+.hide-ru .item .ru{color:transparent;background:var(--chip);border-radius:6px;cursor:pointer}
+.hide-ru .item .ru.shown{color:inherit;background:none}
+.hide-en .item .en{color:transparent;background:var(--chip);border-radius:6px;cursor:pointer}
+.hide-en .item .en.shown{color:inherit;background:none}
+.know{border:1px solid var(--line);background:transparent;border-radius:10px;padding:4px 8px;font-size:13px;white-space:nowrap}
+.item.known .know{background:var(--ok-bg);border-color:var(--ok)}
+/* карточки */
+.flip{perspective:1000px;margin:6px 0 12px}
+.flip-in{position:relative;min-height:230px;transition:transform .5s;transform-style:preserve-3d;cursor:pointer}
+.flip.turned .flip-in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--card);border:1px solid var(--line);border-radius:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center}
+.face.back{transform:rotateY(180deg)}
+.big{font-size:30px;line-height:1.15;word-break:break-word}
+.hint{position:absolute;bottom:10px;font-size:12px;color:var(--muted)}
+.ctrl{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+/* тест */
+.q-word{font-size:28px;text-align:center;margin:6px 0 2px}
+.choices{display:grid;gap:8px;margin-top:14px}
+.choice{text-align:left;border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:12px 14px;font-size:16px}
+.choice.right{background:var(--ok-bg);border-color:var(--ok);font-weight:600}
+.choice.wrong{background:var(--bad-bg);border-color:var(--bad)}
+.inp{width:100%;font-size:20px;padding:12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);margin-top:12px}
+.inp.good{border-color:var(--ok);background:var(--ok-bg)} .inp.badi{border-color:var(--bad);background:var(--bad-bg)}
+.fb{min-height:24px;margin-top:8px;font-weight:600;text-align:center}
+.center{text-align:center}
+@media print{.tabs,.row,.theme,.know,.speak,.stats,.bar{display:none}body{background:#fff}.hide-ru .item .ru,.hide-en .item .en{color:inherit;background:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <button class="theme" id="themeBtn" aria-label="Сменить тему">◐</button>
+  <h1>Module 3 · Words</h1>
+  <p class="muted">Слова и словосочетания модуля «Profiles» по разделам учебника. Учи списком, потом закрепляй карточками, тестом и написанием. Отмеченные «знаю» слова сохраняются на этом устройстве.</p>
+  <p class="small muted">Теория и упражнения модуля: <a href="module3.html">module3.html</a></p>
+</header>
+
+<div class="stats"><span class="stat">Всего: <b id="sAll">0</b></span><span class="stat">Знаю: <b id="sKnown">0</b></span><span class="stat">В выборке: <b id="sSel">0</b></span></div>
+<div class="bar"><i id="pbar"></i></div>
+
+<div class="tabs" id="modes">
+  <button class="tab on" data-m="list">📋 Список</button>
+  <button class="tab" data-m="cards">🃏 Карточки</button>
+  <button class="tab" data-m="quiz">✅ Тест</button>
+  <button class="tab" data-m="spell">✍️ Написание</button>
+</div>
+
+<div class="row">
+  <select id="sec" aria-label="Раздел"></select>
+  <select id="only" aria-label="Какие слова">
+    <option value="all">все слова</option>
+    <option value="new">только не выученные</option>
+  </select>
+  <select id="dir" aria-label="Направление">
+    <option value="en">английский → русский</option>
+    <option value="ru">русский → английский</option>
+  </select>
+</div>
+
+<div id="view"></div>
+</div>
+
+<script>
+/* [раздел, английский, русский, пример] */
+const RAW=`3a Hobbies|sewing|шитьё|My granny used to sew when she was my age.
+3a Hobbies|knitting|вязание|Knitting is relaxing.
+3a Hobbies|writing stories|сочинение рассказов|She loves writing stories.
+3a Hobbies|skateboarding|катание на скейтборде|Skateboarding is popular with teenagers.
+3a Hobbies|ice-skating|катание на коньках|We go ice-skating in winter.
+3a Hobbies|collecting stamps|коллекционирование марок|Collecting stamps isn't popular today.
+3a Hobbies|playing chess|игра в шахматы|He loves playing chess by the fire.
+3a Hobbies|boxing|бокс|You need to be fit to box.
+3a Hobbies|fencing|фехтование|Fencing needs quick reactions.
+3a Hobbies|painting|рисование (красками)|Painting is her favourite hobby.
+3a Hobbies|songwriting|сочинение песен|Songwriting needs talent.
+3a Character|artistic|творческий, с художественным вкусом|You need to be artistic to paint.
+3a Character|creative|творческий, созидательный|She is creative; she makes her own clothes.
+3a Character|daring|смелый, дерзкий|Skateboarders are daring.
+3a Character|fit|в хорошей физической форме|Jill is very fit.
+3a Character|patient|терпеливый|John doesn't get upset easily. He's patient.
+3a Character|athletic|спортивный, атлетичный|Footballers are athletic.
+3a Character|sociable|общительный|Robert enjoys parties. He is very sociable.
+3a Character|curious|любознательный|Curious people ask a lot of questions.
+3a Character|determined|целеустремлённый, решительный|Warren is determined to succeed.
+3a Character|imaginative|с богатым воображением|Mary's story was very imaginative.
+3a Character|hard-working|трудолюбивый|Olivia is very hard-working.
+3a Teens with drive|drive|целеустремлённость; поездка|I admire her drive and enthusiasm.
+3a Teens with drive|ambition|стремление, амбиция|Drive means ambition here.
+3a Teens with drive|take the world by storm|покорить мир|He is taking the music world by storm.
+3a Teens with drive|upload|загружать (в интернет)|He uploaded short videos to YouTube.
+3a Teens with drive|catch the attention of|привлечь внимание|His talent caught the attention of a producer.
+3a Teens with drive|contract|контракт|The producer gave him a contract.
+3a Teens with drive|top the charts|возглавить хит-парады|The album topped the charts.
+3a Teens with drive|reality|реальность|His dream has become a reality.
+3a Teens with drive|professional|профессиональный|He became a professional footballer at 15.
+3a Teens with drive|take off|резко пойти в гору (о карьере)|His career really took off.
+3a Teens with drive|substitute|запасной игрок, замена|He came on as a substitute.
+3a Teens with drive|replace|заменять|The player he replaced was Ronaldo.
+3a Teens with drive|disease|болезнь|They test people for the disease.
+3a Teens with drive|refrigerate|охлаждать, хранить в холодильнике|Workers need to refrigerate the samples.
+3a Teens with drive|blood sample|образец крови|They take blood samples from people.
+3a Teens with drive|detect|обнаруживать|The paper detects the virus.
+3a Teens with drive|in need|нуждающийся|She wanted to help people in need.
+3a Teens with drive|award|награда|She won the main award.
+3b Appearance|slim|стройный|She's tall and slim.
+3b Appearance|thin|худой|He is very thin.
+3b Appearance|skinny|тощий|A tall skinny basketball player.
+3b Appearance|well-built|крепкого телосложения|Julie is tall and well-built.
+3b Appearance|plump|полноватый, пухлый|A short plump teenager.
+3b Appearance|heavily built|крупный, грузный|He is a heavily built man.
+3b Appearance|broad-shouldered|широкоплечий|The guard is broad-shouldered.
+3b Appearance|in his/her twenties|ему/ей двадцать с чем-то|She's in her twenties.
+3b Appearance|middle-aged|средних лет|A patient middle-aged colleague.
+3b Appearance|elderly|пожилой|An elderly kind teacher.
+3b Appearance|spiky hair|торчащие волосы, «ёжик»|The boy with spiky blond hair.
+3b Appearance|straight hair|прямые волосы|She has long straight hair.
+3b Appearance|shoulder-length hair|волосы до плеч|Her hair is shoulder-length.
+3b Appearance|wavy hair|волнистые волосы|Lucy has wavy hair.
+3b Appearance|curly hair|кудрявые волосы|He has curly hair.
+3b Appearance|fair hair|светлые волосы|She has fair hair.
+3b Appearance|bald|лысый|Mr Geller is bald.
+3b Appearance|pigtails|косички, хвостики|Dorothy wears pigtails.
+3b Appearance|of medium height|среднего роста|He is of medium height.
+3b Appearance|cute|милый, симпатичный|He's so cute!
+3b Appearance|ugly|некрасивый, уродливый|The witch is ugly.
+3b Appearance|round face|круглое лицо|She has a round face.
+3b Appearance|dark tan|сильный загар|He has a dark tan.
+3b Appearance|scar|шрам|Captain Hook has a scar.
+3b Appearance|beard|борода|The old man has a long beard.
+3b Appearance|moustache|усы|Mr Geller has a moustache.
+3b Appearance|freckles|веснушки|He has spiky hair and freckles.
+3b Appearance|blue-eyed|голубоглазый|A blue-eyed girl.
+3b Appearance|gold-haired|золотоволосый|A gold-haired princess.
+3b Who's who|exciting|захватывающий|Your school play was exciting!
+3b Who's who|stage|ставить (спектакль); сцена|We worked hard to stage the play.
+3b Who's who|can't tell who is who|не могу понять, кто есть кто|I can't tell who is who!
+3b Who's who|costume|костюм (сценический)|I only remember them in their costumes.
+3b Who's who|play the part of|играть роль|He played the part of the White Rabbit.
+3b Who's who|huge|огромный|She looked huge in that costume.
+3b Who's who|introduce|знакомить, представлять|Introduce me to him first!
+3b Who's who|What does he look like?|Как он выглядит?|He's tall and slim.
+3b Who's who|What is she like?|Какая она (по характеру)?|She's friendly and kind.
+3b Participles|bored / boring|скучающий / скучный|I'm bored. The book was boring.
+3b Participles|tired / tiring|уставший / утомительный|Kim was tired. The trip was tiring.
+3b Participles|interested / interesting|заинтересованный / интересный|Tonia is interested in football.
+3b Participles|scared / scary|испуганный / страшный|Jack is scared of spiders.
+3b Participles|disappointed / disappointing|разочарованный / разочаровывающий|I'm disappointed in you.
+3c Against all odds|against all odds|вопреки всему|He succeeded against all odds.
+3c Against all odds|admire|восхищаться|The person I admire most is Hawking.
+3c Against all odds|scientist|учёный|Hawking was a famous scientist.
+3c Against all odds|law|закон|The basic laws of the universe.
+3c Against all odds|universe|вселенная|He studied the universe.
+3c Against all odds|be famous for|быть известным чем-то|He was famous for his work.
+3c Against all odds|work on|работать над|His work on black holes.
+3c Against all odds|cope with|справляться с|He coped with his illness.
+3c Against all odds|be diagnosed with|получить диагноз|He was diagnosed with MND.
+3c Against all odds|muscle|мышца|He lost control of his muscles.
+3c Against all odds|lose control of|потерять контроль над|He lost control of his muscles.
+3c Against all odds|eventually|в конце концов|Eventually he couldn't walk.
+3c Against all odds|despite this|несмотря на это|Despite this, he finished his studies.
+3c Against all odds|start a career|начать карьеру|He started a career at the university.
+3c Against all odds|blink|моргать|He could only communicate by blinking.
+3c Against all odds|wheelchair|инвалидное кресло|A computer on his wheelchair.
+3c Against all odds|enable|давать возможность|The computer enabled him to speak.
+3c Against all odds|bestseller|бестселлер|A Brief History of Time is his bestseller.
+3c Against all odds|give up (on)|сдаваться, бросать|He never gave up on life.
+3c Against all odds|achieve|достигать|Anything is possible if you work hard to achieve it.
+3c Phrasal verbs|give back|возвращать|Give me back my book, please.
+3c Phrasal verbs|give away|отдавать даром, раздавать|They gave away their old toys.
+3c Phrasal verbs|give up|бросать (привычку), прекращать|He gave up smoking last year.
+3d Beefeaters|Yeoman Warder|йомен-страж, бифитер|There are 37 Yeoman Warders.
+3d Beefeaters|date back to|восходить к, датироваться|The site dates back to the 11th century.
+3d Beefeaters|guard|охранять; страж|The Tower is guarded by Beefeaters.
+3d Beefeaters|bodyguard|телохранитель|The king used them as bodyguards.
+3d Beefeaters|duty|обязанность|Their duties included looking after prisoners.
+3d Beefeaters|prisoner|заключённый, узник|They looked after the prisoners.
+3d Beefeaters|the Crown Jewels|королевские регалии|They guarded the Crown Jewels.
+3d Beefeaters|guide|гид, экскурсовод|Their main role is to act as guides.
+3d Beefeaters|raven|ворон|Eight big black ravens live in the Tower.
+3d Beefeaters|armed forces|вооружённые силы|They were in the armed forces for 22 years.
+3d Beefeaters|striking|яркий, броский|Their striking red and gold uniform.
+3d Beefeaters|uniform|форма, униформа|They wear a dark blue uniform.
+3d Beefeaters|formal occasion|торжественный случай|They wear it only on formal occasions.
+3d Beefeaters|trimmings|отделка (одежды)|A uniform with red trimmings.
+English in Use|vet|ветеринар|A vet is someone who helps sick animals.
+English in Use|lawyer|юрист, адвокат|My dad is a lawyer.
+English in Use|What does your dad do?|Кем работает твой папа?|He's a vet.
+English in Use|rewarding|приносящий удовлетворение|It must be very rewarding.
+English in Use|look after|присматривать, ухаживать|Dad loves looking after the animals.
+English in Use|board games|настольные игры|He likes playing board games.
+English in Use|Not a lot really.|Да не особо.|Does he have any time for hobbies? Not a lot really.
+English in Use|If you say so.|Ну, раз ты так говоришь.|He loves chess. If you say so.
+English in Use|Goodness me!|Боже мой! Ничего себе!|Goodness me! He brings animals home?
+English in Use|I'm glad you enjoyed it.|Рад(а), что тебе понравилось.|Thanks for inviting me. I'm glad you enjoyed it.
+Victorian times|chimney sweep|трубочист|Many children worked as chimney sweeps.
+Victorian times|chimney|дымоход, труба|They climbed up narrow chimneys.
+Victorian times|orphan|сирота|Orphans usually did this job.
+Victorian times|cotton factory|хлопкопрядильная фабрика|A lot of children worked in cotton factories.
+Victorian times|thread|нить|When the threads broke, children fixed them.
+Victorian times|coal mine|угольная шахта|Other children worked in coal mines.
+Victorian times|truck|вагонетка, тележка|They pushed trucks of coal.
+Victorian times|tunnel|тоннель|They let air through tunnels.
+Victorian times|master|хозяин, мастер|The masters were often cruel.
+Victorian times|cruel|жестокий|The masters were cruel.
+Victorian times|wages|заработная плата|They worked for very low wages.
+Victorian times|accident|несчастный случай|Many children had accidents.
+Victorian times|adult|взрослый|He stopped adults from using children at work.`;
+const W=RAW.trim().split("\n").map((l,i)=>{const[s,en,ru,ex]=l.split("|");return{id:i,s,en,ru,ex}});
+const SECS=[...new Set(W.map(w=>w.s))];
+
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const KEY="m3words";
+let known=new Set();try{known=new Set(JSON.parse(localStorage.getItem(KEY)||"[]"))}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify([...known]))}catch(e){}};
+function say(t){try{if(!window.speechSynthesis)return;const u=new SpeechSynthesisUtterance(t.replace(/\//g,","));u.lang='en-GB';u.rate=.85;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+$("#sec").innerHTML=`<option value="">все разделы</option>`+SECS.map(s=>`<option>${s}</option>`).join("");
+let mode="list";
+function pool(){const s=$("#sec").value,o=$("#only").value;return W.filter(w=>(!s||w.s===s)&&(o==="all"||!known.has(w.id)))}
+function stats(){$("#sAll").textContent=W.length;$("#sKnown").textContent=known.size;$("#sSel").textContent=pool().length;$("#pbar").style.width=(known.size/W.length*100)+"%"}
+function toggleKnown(id){known.has(id)?known.delete(id):known.add(id);save();stats()}
+
+/* ---- список ---- */
+function list(){
+  const p=pool();let html=`<div class="row"><select id="hide"><option value="">показывать всё</option><option value="hide-ru">скрыть перевод</option><option value="hide-en">скрыть английский</option></select><button class="btn ghost" onclick="print()">🖨 Печать</button></div><div id="lst">`;
+  let cur="";p.forEach(w=>{if(w.s!==cur){cur=w.s;html+=`<div class="grp">${esc(cur)}</div>`}
+    html+=`<div class="item${known.has(w.id)?" known":""}" data-id="${w.id}"><button class="speak" data-say="${esc(w.en)}" aria-label="Произнести">🔊</button><div class="main"><div class="en">${esc(w.en)}</div><div class="ru">${esc(w.ru)}</div><div class="ex">${esc(w.ex)}</div></div><button class="know">знаю</button></div>`});
+  if(!p.length)html+=`<p class="muted center">В выборке пусто. Все слова выучены 🎉</p>`;
+  $("#view").innerHTML=html+"</div>";
+  const lst=$("#lst"),h=$("#hide");
+  h.onchange=()=>{lst.className=h.value;$$(".shown",lst).forEach(e=>e.classList.remove("shown"))};
+  lst.onclick=e=>{const t=e.target,it=t.closest(".item");if(!it)return;
+    if(t.dataset.say)say(t.dataset.say);
+    else if(t.classList.contains("know")){toggleKnown(+it.dataset.id);it.classList.toggle("known")}
+    else if(t.classList.contains("ru")||t.classList.contains("en"))t.classList.toggle("shown")};
+}
+
+/* ---- карточки ---- */
+let deck=[],di=0;
+function cards(reshuf=true){
+  if(reshuf){deck=shuffle(pool());di=0}
+  if(!deck.length){$("#view").innerHTML=`<p class="muted center">В выборке нет слов.</p>`;return}
+  const w=deck[di],ru=$("#dir").value==="ru";
+  const front=ru?w.ru:w.en,back=ru?w.en:w.ru;
+  $("#view").innerHTML=`<p class="center muted small">${di+1} из ${deck.length} · ${esc(w.s)}</p>
+   <div class="flip" id="flip"><div class="flip-in"><div class="face"><div class="big">${esc(front)}</div><span class="hint">нажми, чтобы перевернуть</span></div>
+   <div class="face back"><div class="big">${esc(back)}</div><p class="muted" style="font-style:italic">${esc(w.ex)}</p></div></div></div>
+   <div class="ctrl"><button class="btn ghost" id="prev">←</button><button class="speak" id="spk">🔊</button>
+   <button class="btn ghost" id="again">Ещё учу</button><button class="btn" id="know">Знаю ✓</button><button class="btn ghost" id="next">→</button></div>`;
+  $("#flip").onclick=()=>$("#flip").classList.toggle("turned");
+  $("#spk").onclick=()=>say(w.en);
+  const go=d=>{di=(di+d+deck.length)%deck.length;cards(false)};
+  $("#prev").onclick=()=>go(-1);$("#next").onclick=()=>go(1);$("#again").onclick=()=>{known.delete(w.id);save();stats();go(1)};
+  $("#know").onclick=()=>{known.add(w.id);save();stats();go(1)};
+  if(!ru)say(w.en);
+}
+
+/* ---- тест ---- */
+let qz={list:[],i:0,right:0};
+function quiz(start=true){
+  if(start){qz={list:shuffle(pool()).slice(0,15),i:0,right:0}}
+  const v=$("#view");
+  if(!qz.list.length){v.innerHTML=`<p class="muted center">В выборке нет слов.</p>`;return}
+  if(qz.i>=qz.list.length){v.innerHTML=`<div class="card center"><div class="big">${qz.right} / ${qz.list.length}</div><p>${qz.right===qz.list.length?"Отлично, без ошибок!":qz.right>=qz.list.length*.7?"Хорошо! Ошибки повтори в списке.":"Стоит повторить слова и пройти ещё раз."}</p><button class="btn" id="re">Новый тест</button></div>`;$("#re").onclick=()=>quiz();return}
+  const w=qz.list[qz.i],ru=$("#dir").value==="ru";
+  const others=shuffle(W.filter(x=>x.id!==w.id&&(x.s===w.s||Math.random()<.3))).slice(0,3);
+  const opts=shuffle([w,...others]);
+  v.innerHTML=`<div class="card"><p class="center muted small">Вопрос ${qz.i+1} из ${qz.list.length} · верно: ${qz.right}</p>
+   <div class="q-word big">${esc(ru?w.ru:w.en)}</div>${ru?"":`<div class="center"><button class="speak" id="spk">🔊</button></div>`}
+   <div class="choices">${opts.map(o=>`<button class="choice" data-id="${o.id}">${esc(ru?o.en:o.ru)}</button>`).join("")}</div>
+   <div class="fb" id="fb"></div></div>`;
+  if(!ru){$("#spk").onclick=()=>say(w.en);say(w.en)}
+  $$(".choice").forEach(b=>b.onclick=()=>{const ok=+b.dataset.id===w.id;
+    $$(".choice").forEach(x=>{x.disabled=true;if(+x.dataset.id===w.id)x.classList.add("right")});
+    if(!ok)b.classList.add("wrong");else{qz.right++;known.add(w.id);save();stats()}
+    $("#fb").innerHTML=`<span class="muted" style="font-weight:400;font-style:italic">${esc(w.ex)}</span>`;
+    if(ru)say(w.en);
+    setTimeout(()=>{qz.i++;quiz(false)},ok?1100:2200)});
+}
+
+/* ---- написание ---- */
+let sp={list:[],i:0,right:0};
+const norm=s=>s.toLowerCase().replace(/[’']/g,"'").replace(/[.?!,]/g,"").replace(/\s+/g," ").trim();
+function spell(start=true){
+  if(start){sp={list:shuffle(pool()).slice(0,15),i:0,right:0}}
+  const v=$("#view");
+  if(!sp.list.length){v.innerHTML=`<p class="muted center">В выборке нет слов.</p>`;return}
+  if(sp.i>=sp.list.length){v.innerHTML=`<div class="card center"><div class="big">${sp.right} / ${sp.list.length}</div><p>Слова написаны без ошибок: ${sp.right}.</p><button class="btn" id="re">Ещё раз</button></div>`;$("#re").onclick=()=>spell();return}
+  const w=sp.list[sp.i];
+  v.innerHTML=`<div class="card"><p class="center muted small">Слово ${sp.i+1} из ${sp.list.length} · напиши по-английски</p>
+   <div class="q-word big">${esc(w.ru)}</div>
+   <p class="center muted small">Первая буква: <b>${esc(w.en[0])}</b> · букв: ${w.en.replace(/[^a-zA-Z]/g,"").length}</p>
+   <input class="inp" id="inp" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="type here">
+   <div class="fb" id="fb"></div>
+   <div class="ctrl" style="margin-top:8px"><button class="btn" id="chk">Проверить</button><button class="btn ghost" id="skip">Не знаю</button></div></div>`;
+  const inp=$("#inp");inp.focus();
+  const accept=norm(w.en).split(" / ").concat(norm(w.en)).concat(norm(w.en.replace(/\s*\(.*?\)/g,"")));
+  let done=false;
+  const finish=ok=>{done=true;inp.disabled=true;inp.classList.add(ok?"good":"badi");
+    $("#fb").innerHTML=ok?"Верно!":`Правильно: <span style="color:var(--ok)">${esc(w.en)}</span>`;
+    if(ok){sp.right++;known.add(w.id);save();stats()}say(w.en);
+    $("#chk").textContent="Дальше →";$("#skip").style.display="none"};
+  const next=()=>{sp.i++;spell(false)};
+  $("#chk").onclick=()=>{if(done)return next();if(!inp.value.trim())return;finish(accept.includes(norm(inp.value)))};
+  inp.onkeydown=e=>{if(e.key==="Enter")$("#chk").click()};
+  $("#skip").onclick=()=>finish(false);
+}
+
+const R={list,cards,quiz,spell};
+function render(){stats();R[mode]()}
+$("#modes").onclick=e=>{const b=e.target.closest(".tab");if(!b)return;mode=b.dataset.m;$$(".tab").forEach(t=>t.classList.toggle("on",t===b));render()};
+["#sec","#only","#dir"].forEach(s=>$(s).onchange=render);
+(function(){const r=document.documentElement;let t=null;try{t=localStorage.getItem("m3theme")}catch(e){}
+  if(t)r.dataset.theme=t;
+  $("#themeBtn").onclick=()=>{const dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;
+    r.dataset.theme=dark?"light":"dark";try{localStorage.setItem("m3theme",r.dataset.theme)}catch(e){}}})();
+render();
+</script>
+</body>
+</html>
