@@ -343,6 +343,7 @@ async function build(){
   const add = (where, ch) => ch.forEach(c => rep.push({where, ...c}));
   let titleNum = false, titleDate = false, ourPre = false, annex = '';
   let sigOurs = 0, sigClient = 0, annexHeads = 0;
+  const ourSigParas = [];
 
   ps.forEach((p, idx) => {
     const t = paraText(p);
@@ -385,9 +386,54 @@ async function build(){
       if(val){
         const c = replaceInPara(p, /\/\s*_{3,}\s*\/?/, () => '/' + H(val) + '/');
         if(c.length){ side === 'ours' ? sigOurs++ : sigClient++;
+          if(side === 'ours') ourSigParas.push({p, annex});
           add((annex || 'Договор') + ' — подпись ' + (side === 'ours' ? 'РТСБ' : 'Клиента'), c); }
       }
     }
+  });
+
+  // --- a signature table where the client's cell has no signature line: add one opposite ours ---
+  const SIG = /_{5,}\s*\/[^\/]*\/?/;
+  if(clientSign) ourSigParas.forEach(({p, annex: an}) => {
+    let tc = p.parentNode;
+    while(tc && tc.localName !== 'tc') tc = tc.parentNode;
+    if(!tc) return;
+    const cells = Array.from(tc.parentNode.childNodes).filter(n => n.localName === 'tc');
+    const other = cells.find(c => c !== tc);
+    if(!other) return;
+    const hasSig = Array.from(other.getElementsByTagNameNS(W,'p')).some(q => SIG.test(paraText(q)));
+    if(hasSig) return;
+    const line = (paraText(p).match(/^(\s*_+\s*)\//) || [,'_______________'])[1];
+    const sig = p.cloneNode(true);
+    spliceText(sig, 0, paraText(sig).length, H(line + '/' + clientSign + '/'));
+    // new row under the table: our signature on the left, client's on the right — on one level
+    const tr = tc.parentNode, d = tr.ownerDocument;
+    const row = tr.cloneNode(false);
+    Array.from(tr.childNodes).forEach(n => {
+      if(n.localName === 'tc'){
+        const c = n.cloneNode(false);
+        const pr = Array.from(n.childNodes).find(x => x.localName === 'tcPr');
+        if(pr){ const prc = pr.cloneNode(true);
+          Array.from(prc.childNodes).filter(x => x.localName === 'vMerge').forEach(x => prc.removeChild(x));
+          c.appendChild(prc); }
+        if(n === tc){ const sp = p.cloneNode(true); Array.from(sp.childNodes).filter(x => x.localName !== 'pPr').forEach(x => sp.removeChild(x));
+          c.appendChild(sp); c.appendChild(p); }                       // move our line here
+        else if(n === other){ const sp = p.cloneNode(true); Array.from(sp.childNodes).filter(x => x.localName !== 'pPr').forEach(x => sp.removeChild(x));
+          c.appendChild(sp); c.appendChild(sig); }
+        else c.appendChild(d.createElementNS(W,'w:p'));
+        if(!Array.from(c.childNodes).some(x => x.localName === 'p')) c.appendChild(d.createElementNS(W,'w:p'));
+        row.appendChild(c);
+      } else row.appendChild(n.cloneNode(true));                     // trPr etc.
+    });
+    // trim empty paragraphs left at the end of our cell (keep at least one)
+    let ps2 = Array.from(tc.childNodes).filter(x => x.localName === 'p');
+    while(ps2.length > 1 && !paraText(ps2[ps2.length-1]).trim() && !ps2[ps2.length-1].getElementsByTagNameNS(W,'drawing').length){
+      tc.removeChild(ps2.pop()); }
+    // the cell we took our line from must still end with a paragraph
+    if(!Array.from(tc.childNodes).some(x => x.localName === 'p')) tc.appendChild(d.createElementNS(W,'w:p'));
+    tr.parentNode.insertBefore(row, tr.nextSibling);
+    sigClient++;
+    rep.push({where: (an || 'Договор') + ' — подпись Клиента (строка добавлена)', from: '(строки для подписи не было)', to: line + '/' + clientSign + '/'});
   });
 
   let out = new XMLSerializer().serializeToString(doc);
