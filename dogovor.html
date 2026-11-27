@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Заполнение договора РТСБ</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+:root{
+  --bg:#f4f5f7; --card:#fff; --text:#1d2330; --muted:#667085; --line:#e3e6ec;
+  --accent:#1f4fd1; --accent-ink:#fff; --ok:#137a3f; --ok-bg:#e8f6ee; --warn:#9a5b00; --warn-bg:#fff4e0;
+  --err:#b42318; --err-bg:#fdecea; --field:#fff;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14161b; --card:#1d2027; --text:#e8eaef; --muted:#9aa1ae; --line:#2e323c;
+    --accent:#6f95ff; --accent-ink:#0d1020; --ok:#5fd08f; --ok-bg:#16301f; --warn:#f2b45a; --warn-bg:#33270f;
+    --err:#ff8a80; --err-bg:#3a1a18; --field:#15171c;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14161b; --card:#1d2027; --text:#e8eaef; --muted:#9aa1ae; --line:#2e323c;
+  --accent:#6f95ff; --accent-ink:#0d1020; --ok:#5fd08f; --ok-bg:#16301f; --warn:#f2b45a; --warn-bg:#33270f;
+  --err:#ff8a80; --err-bg:#3a1a18; --field:#15171c;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:860px;margin:0 auto;padding:28px 16px 60px}
+h1{font-size:24px;margin:0 0 4px}
+.sub{color:var(--muted);margin:0 0 22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 18px 20px;margin-bottom:16px}
+.card h2{font-size:16px;margin:0 0 12px;display:flex;gap:10px;align-items:center}
+.num{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-size:13px;font-weight:700;flex:none}
+.drop{border:2px dashed var(--line);border-radius:10px;padding:26px 14px;text-align:center;cursor:pointer;transition:.15s}
+.drop:hover,.drop.over{border-color:var(--accent)}
+.drop b{color:var(--accent)}
+.drop input{display:none}
+.filename{margin-top:10px;font-weight:600;word-break:break-all}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}
+.full{grid-column:1/-1}
+label{display:block;font-size:13px;color:var(--muted);margin-bottom:4px}
+input[type=text],input[type=date]{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:var(--field);color:var(--text);font:inherit}
+input:focus{outline:2px solid var(--accent);outline-offset:-1px}
+input.check{background:var(--warn-bg);border-color:var(--warn)}
+.hint{font-size:12.5px;color:var(--muted);margin-top:4px}
+.raw{font-size:13.5px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;word-break:break-word}
+details summary{cursor:pointer;color:var(--accent);font-size:14px;margin-top:4px}
+details[open] summary{margin-bottom:12px}
+.cb{display:flex;gap:8px;align-items:flex-start;font-size:14px;color:var(--text);margin-top:10px}
+.cb input{margin-top:4px}
+button{appearance:none;border:0;border-radius:10px;background:var(--accent);color:var(--accent-ink);font:600 16px/1 inherit;padding:14px 22px;cursor:pointer;width:100%}
+button:disabled{opacity:.45;cursor:not-allowed}
+.msg{border-radius:8px;padding:9px 12px;font-size:14px;margin-top:10px}
+.msg.ok{background:var(--ok-bg);color:var(--ok)}
+.msg.warn{background:var(--warn-bg);color:var(--warn)}
+.msg.err{background:var(--err-bg);color:var(--err)}
+.report{list-style:none;margin:12px 0 0;padding:0}
+.report li{border-top:1px solid var(--line);padding:9px 0;font-size:13.5px}
+.report .where{font-weight:600}
+.report .from{color:var(--muted);text-decoration:line-through;word-break:break-word}
+.report .to{color:var(--ok);word-break:break-word}
+.report .miss{color:var(--warn)}
+@media (max-width:620px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main>
+  <h1>Заполнение типового договора</h1>
+  <p class="sub">Договор транспортной экспедиции ООО «РТСБ-РУС». Файл обрабатывается прямо в браузере и никуда не отправляется.</p>
+
+  <section class="card">
+    <h2><span class="num">1</span>Загрузите договор (.docx)</h2>
+    <label class="drop" id="drop">
+      <input type="file" id="file" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+      Перетащите файл сюда или <b>выберите на компьютере</b>
+      <div class="filename" id="fname"></div>
+    </label>
+    <div id="loadMsg"></div>
+  </section>
+
+  <section class="card">
+    <h2><span class="num">2</span>Номер и дата договора</h2>
+    <div class="grid">
+      <div><label for="cnum">Номер договора</label><input type="text" id="cnum" placeholder="например, 15/26"></div>
+      <div><label for="cdate">Дата договора</label><input type="date" id="cdate"></div>
+      <div class="full hint" id="datePreview"></div>
+    </div>
+    <label class="cb"><input type="checkbox" id="optOrders" checked>
+      <span>Также вписать номер и дату в строки «ПО ДОГОВОРУ от … No. …» в формах заказа (Приложения 1.2 и 1.3)</span></label>
+  </section>
+
+  <section class="card">
+    <h2><span class="num">3</span>Подписанты</h2>
+    <div class="grid">
+      <div class="full">
+        <label>Клиент — как указано в преамбуле («в лице …»)</label>
+        <div class="raw" id="clientRaw">— загрузите договор —</div>
+      </div>
+      <div class="full">
+        <label for="clientSign">Подпись Клиента внизу договора и приложений (Фамилия И.О.)</label>
+        <input type="text" id="clientSign" placeholder="Иванов И.И.">
+        <div class="hint" id="clientHint">Определяется автоматически из преамбулы — проверьте и при необходимости исправьте.</div>
+      </div>
+    </div>
+    <details>
+      <summary>Подписант со стороны РТСБ (Барков Е.О.)</summary>
+      <div class="grid">
+        <div class="full"><label for="ourGen">В преамбуле: «в лице …»</label><input type="text" id="ourGen" value="Баркова Евгения Олеговича"></div>
+        <div class="full"><label for="ourBasis">«действующего на основании …»</label><input type="text" id="ourBasis" value="Доверенности от 01.01.2024г."></div>
+        <div><label for="ourSign">Подпись внизу</label><input type="text" id="ourSign" value="Барков Е.О."></div>
+      </div>
+    </details>
+  </section>
+
+  <section class="card">
+    <h2><span class="num">4</span>Сформировать</h2>
+    <button id="go" disabled>Заполнить и скачать договор</button>
+    <div id="outMsg"></div>
+    <ul class="report" id="report"></ul>
+  </section>
+</main>
+
+<script>
+const W = 'http://schemas.openxmlformats.org/wordprocessingml/2006/main';
+const MONTHS = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+const $ = id => document.getElementById(id);
+let srcBuf = null, srcName = '';
+
+/* ---------- helpers ---------- */
+function fmtDate(iso){
+  if(!iso) return '';
+  const [y,m,d] = iso.split('-');
+  return `«${d}» ${MONTHS[+m-1]} ${y} г.`;
+}
+function msg(el, kind, text){ el.innerHTML = text ? `<div class="msg ${kind}">${text}</div>` : ''; }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+function paraTexts(p){ return Array.from(p.getElementsByTagNameNS(W,'t')); }
+function paraText(p){ return paraTexts(p).map(t => t.textContent).join(''); }
+
+/* Replace text [start,end) of a paragraph, keeping run formatting of the first touched run */
+function spliceText(p, start, end, repl){
+  const ts = paraTexts(p);
+  let pos = 0, first = true;
+  for(const t of ts){
+    const s = t.textContent, a = pos, b = pos + s.length;
+    pos = b;
+    if(b <= start || a >= end) continue;
+    const from = Math.max(start, a) - a, to = Math.min(end, b) - a;
+    if(first){ t.textContent = s.slice(0, from) + repl + s.slice(to); first = false; }
+    else { t.textContent = s.slice(0, from) + s.slice(to); }
+    t.setAttributeNS('http://www.w3.org/XML/1998/namespace','xml:space','preserve');
+  }
+}
+/* Regex replace inside a paragraph across runs. limit = only matches that start before this index */
+function replaceInPara(p, re, fn, limit){
+  const text = paraText(p);
+  const g = new RegExp(re.source, re.flags.includes('g') ? re.flags : re.flags + 'g');
+  const ms = [...text.matchAll(g)].filter(m => limit == null || m.index < limit);
+  const changes = [];
+  for(let i = ms.length - 1; i >= 0; i--){
+    const m = ms[i], out = fn(m);
+    if(out == null || out === m[0]) continue;
+    spliceText(p, m.index, m.index + m[0].length, out);
+    changes.unshift({from: m[0], to: out});
+  }
+  return changes;
+}
+
+/* ---------- client signatory -> "Фамилия И.О." ---------- */
+const PATR = /^[А-ЯЁ][а-яё]+(овича|евича|ича|овны|евны|ичны|иничны|ович|евич|ьич|ич|овна|евна|ична|инична)$/;
+function surnameNom(s, female){
+  if(female){
+    const r = [[/(ск|цк)ой$/,'$1ая'],[/(ов|ев|ёв|ин|ын)ой$/,'$1а'],[/ой$/,'ая']];
+    for(const [a,b] of r) if(a.test(s)) return s.replace(a,b);
+    return s;
+  }
+  const r = [[/(ск|цк)ого$/,'$1ий'],[/ого$/,'ой'],[/(ов|ев|ёв|ин|ын)а$/,'$1'],
+             [/([бвгджзклмнпрстфхцчшщ])а$/,'$1'],[/([аеиоуэюя])я$/,'$1й'],[/([бвгджзклмнпрстфхцчшщ])я$/,'$1ь']];
+  for(const [a,b] of r) if(a.test(s)) return s.replace(a,b);
+  return s;
+}
+function guessInitials(raw){
+  const clean = raw.replace(/[«»"()]/g,' ').replace(/\s+/g,' ').trim();
+  if(!clean || /^_+$/.test(clean.replace(/\s/g,''))) return {value:'', sure:false};
+  const tk = clean.split(' ').map(t => t.replace(/[,;]+$/,''));
+  // 1) full name with patronymic
+  let pi = -1;
+  tk.forEach((t,i) => { if(PATR.test(t)) pi = i; });
+  if(pi >= 1){
+    const p = tk[pi], gen = /(вича|ича|вны|ичны)$/.test(p), female = /(вны|ичны|вна|ична)$/.test(p);
+    let sur, name = tk[pi-1];
+    const cap = t => t && /^[А-ЯЁ][а-яё-]+$/.test(t);
+    if(cap(tk[pi+1]) && !cap(tk[pi-2])) sur = tk[pi+1];        // Иван Иванович Иванов
+    else if(cap(tk[pi-2])) sur = tk[pi-2];                       // Иванов Иван Иванович
+    if(sur && cap(name)){
+      const s = gen ? surnameNom(sur, female) : sur;
+      return {value:`${s} ${name[0]}.${p[0]}.`, sure:true};
+    }
+  }
+  // 2) already with initials: "Иванова И.И."
+  const mi = clean.match(/([А-ЯЁ][а-яё-]+)\s+([А-ЯЁ])\.\s?([А-ЯЁ])\.?/);
+  if(mi){
+    const female = /ой$/.test(mi[1]);
+    return {value:`${surnameNom(mi[1], female)} ${mi[2]}.${mi[3]}.`, sure:false};
+  }
+  // 3) foreign / latin names — keep the name, ask to check
+  const lat = tk.filter(t => /^[A-Z][A-Za-z'’\-.]*$/.test(t) && !/^(Mr|Mrs|Ms|Mister|Director|General|CEO)\.?$/i.test(t));
+  if(lat.length) return {value: lat.join(' '), sure:false};
+  // 4) last capitalised words
+  const caps = tk.filter(t => /^[А-ЯЁ][а-яё-]+$/.test(t));
+  return {value: caps.slice(-2).join(' '), sure:false};
+}
+
+/* ---------- analysis of loaded file ---------- */
+async function loadDoc(buf){
+  const zip = await JSZip.loadAsync(buf);
+  const f = zip.file('word/document.xml');
+  if(!f) throw new Error('Это не похоже на документ Word (.docx)');
+  const xml = await f.async('string');
+  const doc = new DOMParser().parseFromString(xml, 'application/xml');
+  if(doc.getElementsByTagName('parsererror').length) throw new Error('Не удалось прочитать документ');
+  return {zip, xml, doc};
+}
+function findClientPreamble(doc){
+  const ps = Array.from(doc.getElementsByTagNameNS(W,'p')).slice(0, 40);
+  for(const p of ps){
+    const t = paraText(p);
+    const k = t.indexOf('«Клиент»');
+    if(k < 0) continue;
+    const m = t.slice(k).match(/в\s+лице\s+(.+?)\s*,?\s*действующ/);
+    if(m) return m[1].trim();
+  }
+  return null;
+}
+
+async function onFile(file){
+  const lm = $('loadMsg');
+  msg(lm,'',''); $('report').innerHTML=''; msg($('outMsg'),'','');
+  $('fname').textContent = file.name;
+  if(!/\.docx$/i.test(file.name)){ msg(lm,'err','Нужен файл в формате .docx (если договор в .doc — откройте его в Word и сохраните как .docx).'); srcBuf=null; update(); return; }
+  try{
+    const buf = await file.arrayBuffer();
+    const {doc} = await loadDoc(buf);
+    srcBuf = buf; srcName = file.name;
+    const raw = findClientPreamble(doc);
+    const box = $('clientRaw'), inp = $('clientSign'), hint = $('clientHint');
+    if(raw && !/^_+$/.test(raw.replace(/\s/g,''))){
+      box.textContent = raw;
+      const g = guessInitials(raw);
+      inp.value = g.value;
+      inp.classList.toggle('check', !g.sure);
+      hint.textContent = g.sure ? 'Определено автоматически из преамбулы — проверьте.' :
+        'Не удалось уверенно определить фамилию и инициалы (например, иностранное имя) — впишите вручную, как должно стоять в подписи.';
+    }else{
+      box.textContent = 'Клиент ещё не заполнил «в лице …» в преамбуле';
+      inp.value=''; inp.classList.add('check');
+      hint.textContent = 'Впишите подписанта клиента вручную или оставьте пустым — тогда его подписи не будут заполнены.';
+    }
+    const title = paraText(doc.getElementsByTagNameNS(W,'p')[0] || doc.documentElement).trim();
+    msg(lm,'ok', `Файл загружен${title ? ': ' + esc(title) : ''}`);
+  }catch(e){ srcBuf=null; msg(lm,'err', esc(e.message)); }
+  update();
+}
+
+/* ---------- filling ---------- */
+function sideOf(p, doc){
+  // innermost table cell
+  let el = p.parentNode, tc = null;
+  while(el && el !== doc.documentElement){ if(el.localName === 'tc' && el.namespaceURI === W){ tc = el; break; } el = el.parentNode; }
+  const label = t => /Клиент/.test(t) ? 'client' : (/Экспедитор|РТСБ/.test(t) ? 'ours' : null);
+  if(tc){
+    const cellText = Array.from(tc.getElementsByTagNameNS(W,'p')).map(paraText).join(' ');
+    const l = label(cellText);
+    if(l) return l;
+    const cells = Array.from(tc.parentNode.childNodes).filter(n => n.localName === 'tc');
+    const i = cells.indexOf(tc);
+    return i === 0 ? 'ours' : 'client';
+  }
+  // outside tables: look at previous paragraphs
+  let prev = p.previousSibling, n = 0;
+  while(prev && n < 6){
+    if(prev.localName === 'p'){ const l = label(paraText(prev)); if(l) return l; n++; }
+    prev = prev.previousSibling;
+  }
+  return null;
+}
+
+async function build(){
+  const num = $('cnum').value.trim(), iso = $('cdate').value;
+  const dateStr = fmtDate(iso);
+  const ourGen = $('ourGen').value.trim(), ourBasis = $('ourBasis').value.trim(), ourSign = $('ourSign').value.trim();
+  const clientSign = $('clientSign').value.trim();
+  const optOrders = $('optOrders').checked;
+
+  const {zip, xml, doc} = await loadDoc(srcBuf);
+  const ps = Array.from(doc.getElementsByTagNameNS(W,'p'));
+  const rep = [];
+  const add = (where, ch) => ch.forEach(c => rep.push({where, ...c}));
+  let titleNum = false, titleDate = false, ourPre = false, annex = '';
+  let sigOurs = 0, sigClient = 0, annexHeads = 0;
+
+  ps.forEach((p, idx) => {
+    const t = paraText(p);
+    if(!t.trim()) return;
+    const ann = t.match(/Приложени[ея]\s*№\s*([\d.]+)/i);
+    if(ann && t.trim().length < 40) annex = 'Приложение № ' + ann[1];
+
+    // --- header: number & date (before preamble) ---
+    if(idx < 25 && !annex){
+      if(!titleNum && /№\s*_{3,}/.test(t)){
+        add('Шапка — номер', replaceInPara(p, /№\s*_{3,}/, () => '№ ' + num)); titleNum = true;
+      }
+      if(!titleDate && /«\s*_*\s*»\s*_{3,}/.test(t)){
+        add('Шапка — дата', replaceInPara(p, /«\s*_*\s*»\s*_{3,}\s*(?:20\d{2}|20_*|_*)\s*(?:года|г\.?)?/, () => dateStr)); titleDate = true;
+      }
+      // --- preamble: our side ---
+      if(!ourPre && /«Экспедитор»/.test(t) && /в\s+лице/.test(t)){
+        const lim = t.indexOf('«Клиент»') > 0 ? t.indexOf('«Клиент»') : null;
+        add('Преамбула — РТСБ', replaceInPara(p, /(в\s+лице)\s*_{3,}/, m => m[1] + ' ' + ourGen, lim));
+        add('Преамбула — РТСБ', replaceInPara(p, /(действующ\S*\s+на\s+основании)\s*_{3,}/, m => m[1] + ' ' + ourBasis, lim));
+        ourPre = true;
+      }
+    }
+
+    // --- annex headers "От «__»____2026 No. ____" ---
+    if(annex){
+      const c = replaceInPara(p, /^(\s*)([Оо]т)\s*«[\s_]*»\s*_+\s*(?:20\d{2}|20_*)?\s*(?:года|г\.?)?\s*(No\.?|№)\s*_+/,
+        m => `${m[1]}${m[2]} ${dateStr} ${m[3]} ${num}`);
+      if(c.length){ annexHeads++; add(annex + ' — шапка', c); }
+      if(optOrders){
+        add(annex + ' — «по договору»', replaceInPara(p, /(ПО\s+ДОГОВОРУ\s+от)\s*«[\s_]*»\s*_+\s*(?:20\d{2}|20_*)?\s*(?:года|г\.?)?\s*(No\.?|№)\s*_+/i,
+          m => `${m[1]} ${dateStr} ${m[2]} ${num}`));
+      }
+    }
+
+    // --- signature lines "_______/______/" ---
+    if(/_{5,}\s*\/\s*_{3,}\s*\/?/.test(t) && t.replace(/[_\s\/]/g,'').length < 25){
+      const side = sideOf(p, doc);
+      const val = side === 'ours' ? ourSign : side === 'client' ? clientSign : '';
+      if(val){
+        const c = replaceInPara(p, /\/\s*_{3,}\s*\/?/, () => '/' + val + '/');
+        if(c.length){ side === 'ours' ? sigOurs++ : sigClient++;
+          add((annex || 'Договор') + ' — подпись ' + (side === 'ours' ? 'РТСБ' : 'Клиента'), c); }
+      }
+    }
+  });
+
+  let out = new XMLSerializer().serializeToString(doc);
+  if(!/^<\?xml/.test(out)){ const decl = xml.match(/^<\?xml[^>]*\?>/); out = (decl ? decl[0] : '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>') + '\r\n' + out; }
+  zip.file('word/document.xml', out);
+  const blob = await zip.generateAsync({type:'blob', mimeType:'application/vnd.openxmlformats-officedocument.wordprocessingml.document', compression:'DEFLATE'});
+
+  const safeNum = num.replace(/[\\\/:*?"<>|]/g,'-');
+  const [y,m,d] = iso.split('-');
+  const name = `Договор № ${safeNum} от ${d}.${m}.${y}.docx`;
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+
+  // report
+  const warns = [];
+  if(!titleNum) warns.push('номер в шапке (возможно, уже заполнен)');
+  if(!titleDate) warns.push('дату в шапке (возможно, уже заполнена)');
+  if(!ourPre || !rep.some(r => r.where === 'Преамбула — РТСБ')) warns.push('подписанта РТСБ в преамбуле (возможно, уже заполнен)');
+  if(!clientSign) warns.push('подписи Клиента — не указан подписант');
+  const summary = `Готово: «${esc(name)}» скачан. Шапки приложений: ${annexHeads}, подписи РТСБ: ${sigOurs}, подписи Клиента: ${sigClient}.`;
+  msg($('outMsg'), warns.length ? 'warn' : 'ok', summary + (warns.length ? '<br>Не заполнено: ' + warns.map(esc).join('; ') + '.' : ''));
+  $('report').innerHTML = rep.map(r => `<li><div class="where">${esc(r.where)}</div><div class="from">${esc(r.from.trim())}</div><div class="to">${esc(r.to.trim())}</div></li>`).join('');
+}
+
+/* ---------- UI wiring ---------- */
+function update(){
+  const ok = srcBuf && $('cnum').value.trim() && $('cdate').value;
+  $('go').disabled = !ok;
+  $('datePreview').textContent = $('cdate').value ? 'В документе будет: ' + fmtDate($('cdate').value) + (($('cnum').value.trim()) ? '  № ' + $('cnum').value.trim() : '') : '';
+}
+(function init(){
+  const now = new Date();
+  $('cdate').value = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+  ['cnum','cdate'].forEach(id => $(id).addEventListener('input', update));
+  $('clientSign').addEventListener('input', e => e.target.classList.remove('check'));
+  $('file').addEventListener('change', e => e.target.files[0] && onFile(e.target.files[0]));
+  const drop = $('drop');
+  ['dragenter','dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
+  ['dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
+  drop.addEventListener('drop', e => { const f = e.dataTransfer.files[0]; if(f) onFile(f); });
+  $('go').addEventListener('click', async () => {
+    $('go').disabled = true;
+    try{ await build(); }catch(e){ msg($('outMsg'),'err','Ошибка: ' + esc(e.message)); }
+    update();
+  });
+  update();
+})();
+</script>
+</body>
+</html>
