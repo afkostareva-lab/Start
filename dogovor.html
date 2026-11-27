@@ -87,6 +87,8 @@ button:disabled{opacity:.45;cursor:not-allowed}
     </div>
     <label class="cb"><input type="checkbox" id="optOrders" checked>
       <span>Также вписать номер и дату в строки «ПО ДОГОВОРУ от … No. …» в формах заказа (Приложения 1.2 и 1.3)</span></label>
+    <label class="cb"><input type="checkbox" id="optHl" checked>
+      <span>Выделить все внесённые изменения жёлтой заливкой (снимите галочку для чистовика)</span></label>
   </section>
 
   <section class="card">
@@ -139,18 +141,59 @@ function paraTexts(p){ return Array.from(p.getElementsByTagNameNS(W,'t')); }
 function paraText(p){ return paraTexts(p).map(t => t.textContent).join(''); }
 
 /* Replace text [start,end) of a paragraph, keeping run formatting of the first touched run */
+/* New values are wrapped as H(value) → highlighted in the output when the option is on */
+const H = v => '\u0001' + v + '\u0002';
+const unmark = s => s.replace(/[\u0001\u0002]/g, '');
+const XMLNS = 'http://www.w3.org/XML/1998/namespace';
+let HIGHLIGHT = true;
+const RPR_AFTER_HL = new Set(['u','effect','bdr','shd','fitText','vertAlign','rtl','cs','em','lang','eastAsianLayout','specVanish','oMath','rPrChange']);
+function addHighlight(run){
+  const d = run.ownerDocument;
+  let rPr = Array.from(run.childNodes).find(c => c.localName === 'rPr');
+  if(!rPr){ rPr = d.createElementNS(W,'w:rPr'); run.insertBefore(rPr, run.firstChild); }
+  Array.from(rPr.childNodes).filter(c => c.localName === 'highlight').forEach(c => rPr.removeChild(c));
+  const hl = d.createElementNS(W,'w:highlight'); hl.setAttributeNS(W,'w:val','yellow');
+  const before = Array.from(rPr.childNodes).find(c => RPR_AFTER_HL.has(c.localName));
+  rPr.insertBefore(hl, before || null);
+}
+function makeRun(r, text, hl){
+  const d = r.ownerDocument, n = r.cloneNode(false);
+  const rPr = Array.from(r.childNodes).find(c => c.localName === 'rPr');
+  if(rPr) n.appendChild(rPr.cloneNode(true));
+  const t = d.createElementNS(W,'w:t'); t.setAttributeNS(XMLNS,'xml:space','preserve'); t.textContent = text;
+  n.appendChild(t);
+  if(hl) addHighlight(n);
+  return n;
+}
 function spliceText(p, start, end, repl){
   const ts = paraTexts(p);
-  let pos = 0, first = true;
+  let pos = 0; const hit = [];
   for(const t of ts){
     const s = t.textContent, a = pos, b = pos + s.length;
     pos = b;
     if(b <= start || a >= end) continue;
-    const from = Math.max(start, a) - a, to = Math.min(end, b) - a;
-    if(first){ t.textContent = s.slice(0, from) + repl + s.slice(to); first = false; }
-    else { t.textContent = s.slice(0, from) + s.slice(to); }
-    t.setAttributeNS('http://www.w3.org/XML/1998/namespace','xml:space','preserve');
+    hit.push({t, s, from: Math.max(start, a) - a, to: Math.min(end, b) - a});
   }
+  if(!hit.length) return;
+  // remove matched text from all but the first touched run
+  hit.slice(1).forEach(h => { h.t.textContent = h.s.slice(0, h.from) + h.s.slice(h.to);
+    h.t.setAttributeNS(XMLNS,'xml:space','preserve'); });
+  const {t, s, from, to} = hit[0];
+  t.setAttributeNS(XMLNS,'xml:space','preserve');
+  const r = t.parentNode;
+  if(!HIGHLIGHT || !/\u0001/.test(repl) || r.localName !== 'r'){
+    t.textContent = s.slice(0, from) + unmark(repl) + s.slice(to); return;
+  }
+  // split the run: [prefix + plain…] [highlighted value] [plain…] [suffix + rest of run]
+  const segs = repl.split(/(\u0001[^\u0002]*\u0002)/).filter(x => x !== '');
+  const tail = Array.from(r.childNodes).slice(Array.from(r.childNodes).indexOf(t) + 1);
+  t.textContent = s.slice(0, from);
+  let ref = r;
+  const insertAfter = n => { ref.parentNode.insertBefore(n, ref.nextSibling); ref = n; };
+  segs.forEach(sg => { const hl = sg[0] === '\u0001'; insertAfter(makeRun(r, unmark(sg), hl)); });
+  const post = makeRun(r, s.slice(to), false);
+  tail.forEach(c => post.appendChild(c));   // moves remaining run content after the inserted text
+  insertAfter(post);
 }
 /* Regex replace inside a paragraph across runs. limit = only matches that start before this index */
 function replaceInPara(p, re, fn, limit){
@@ -162,7 +205,7 @@ function replaceInPara(p, re, fn, limit){
     const m = ms[i], out = fn(m);
     if(out == null || out === m[0]) continue;
     spliceText(p, m.index, m.index + m[0].length, out);
-    changes.unshift({from: m[0], to: out});
+    changes.unshift({from: m[0], to: unmark(out)});
   }
   return changes;
 }
@@ -292,6 +335,7 @@ async function build(){
   const ourGen = $('ourGen').value.trim(), ourBasis = $('ourBasis').value.trim(), ourSign = $('ourSign').value.trim();
   const clientSign = $('clientSign').value.trim();
   const optOrders = $('optOrders').checked;
+  HIGHLIGHT = $('optHl').checked;
 
   const {zip, xml, doc} = await loadDoc(srcBuf);
   const ps = Array.from(doc.getElementsByTagNameNS(W,'p'));
@@ -309,16 +353,16 @@ async function build(){
     // --- header: number & date (before preamble) ---
     if(idx < 25 && !annex){
       if(!titleNum && /№\s*_{3,}/.test(t)){
-        add('Шапка — номер', replaceInPara(p, /№\s*_{3,}/, () => '№ ' + num)); titleNum = true;
+        add('Шапка — номер', replaceInPara(p, /№\s*_{3,}/, () => '№ ' + H(num))); titleNum = true;
       }
       if(!titleDate && /«\s*_*\s*»\s*_{3,}/.test(t)){
-        add('Шапка — дата', replaceInPara(p, /«\s*_*\s*»\s*_{3,}\s*(?:20\d{2}|20_*|_*)\s*(?:года|г\.?)?/, () => dateStr)); titleDate = true;
+        add('Шапка — дата', replaceInPara(p, /«\s*_*\s*»\s*_{3,}\s*(?:20\d{2}|20_*|_*)\s*(?:года|г\.?)?/, () => H(dateStr))); titleDate = true;
       }
       // --- preamble: our side ---
       if(!ourPre && /«Экспедитор»/.test(t) && /в\s+лице/.test(t)){
         const lim = t.indexOf('«Клиент»') > 0 ? t.indexOf('«Клиент»') : null;
-        add('Преамбула — РТСБ', replaceInPara(p, /(в\s+лице)\s*_{3,}/, m => m[1] + ' ' + ourGen, lim));
-        add('Преамбула — РТСБ', replaceInPara(p, /(действующ\S*\s+на\s+основании)\s*_{3,}/, m => m[1] + ' ' + ourBasis, lim));
+        add('Преамбула — РТСБ', replaceInPara(p, /(в\s+лице)\s*_{3,}/, m => m[1] + ' ' + H(ourGen), lim));
+        add('Преамбула — РТСБ', replaceInPara(p, /(действующ\S*\s+на\s+основании)\s*_{3,}/, m => m[1] + ' ' + H(ourBasis), lim));
         ourPre = true;
       }
     }
@@ -326,11 +370,11 @@ async function build(){
     // --- annex headers "От «__»____2026 No. ____" ---
     if(annex){
       const c = replaceInPara(p, /^(\s*)([Оо]т)\s*«[\s_]*»\s*_+\s*(?:20\d{2}|20_*)?\s*(?:года|г\.?)?\s*(No\.?|№)\s*_+/,
-        m => `${m[1]}${m[2]} ${dateStr} ${m[3]} ${num}`);
+        m => `${m[1]}${m[2]} ${H(dateStr)} ${m[3]} ${H(num)}`);
       if(c.length){ annexHeads++; add(annex + ' — шапка', c); }
       if(optOrders){
         add(annex + ' — «по договору»', replaceInPara(p, /(ПО\s+ДОГОВОРУ\s+от)\s*«[\s_]*»\s*_+\s*(?:20\d{2}|20_*)?\s*(?:года|г\.?)?\s*(No\.?|№)\s*_+/i,
-          m => `${m[1]} ${dateStr} ${m[2]} ${num}`));
+          m => `${m[1]} ${H(dateStr)} ${m[2]} ${H(num)}`));
       }
     }
 
@@ -339,7 +383,7 @@ async function build(){
       const side = sideOf(p, doc);
       const val = side === 'ours' ? ourSign : side === 'client' ? clientSign : '';
       if(val){
-        const c = replaceInPara(p, /\/\s*_{3,}\s*\/?/, () => '/' + val + '/');
+        const c = replaceInPara(p, /\/\s*_{3,}\s*\/?/, () => '/' + H(val) + '/');
         if(c.length){ side === 'ours' ? sigOurs++ : sigClient++;
           add((annex || 'Договор') + ' — подпись ' + (side === 'ours' ? 'РТСБ' : 'Клиента'), c); }
       }
